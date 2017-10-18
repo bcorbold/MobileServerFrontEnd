@@ -1,6 +1,20 @@
 # MobileServerFrontEnd
+Welcome to the repo for the **MobileServer** McMaster University Capstone project! This repo contains the wepage that will be used by client to place orders to the **MobileServer** robot!
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.1.
+
+## Git Structure
+We are using a slightly modified GitFlow structure for the repo since there is a small code base as well as minimal contributors. An outline of the branches can be found below:
+- `master`: This is reserved for production ready code. This should be updated with every major/minor change to the code. All changes to this branch should be made with a pull request originating from `development`
+- `development`: The development branch is the shared "work in progress" branch. When once a new feature is ready a pull request should be submitted to this branch. When enough changes have been made a pull request will be made into `master`
+- `dev-$name`: This is considered a personal development branch. It is completely your own, so feel free to make as many commits/changes to it as you like! When you've completed something substantial submit a pull request into development for review.
+
+All changes to `development` and `master` should have been reviewed before merging. Upon each update to the master branch the version number should be changed accordingly, as well as tagged.
+
+Tips: 
+- Before making a pull request make sure that you've pulled the latest changes from your branch, as well as the target branch you're merging into
+- Make sure that all tests have passed successfully
+- Make sure that there are no lint errors (can be checked by running the `lint` target, or `ng lint` in the terminal)
 
 ## Development server
 
@@ -22,7 +36,3 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
