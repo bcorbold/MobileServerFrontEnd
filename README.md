@@ -1,7 +1,7 @@
 # MobileServerFrontEnd
 Welcome to the repo for the **MobileServer** McMaster University Capstone project! This repo contains the wepage that will be used by client to place orders to the **MobileServer** robot!
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
 ## Git Structure
 We are using a slightly modified GitFlow structure for the repo since there is a small code base as well as minimal contributors. An outline of the branches can be found below:
@@ -35,4 +35,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
