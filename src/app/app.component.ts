@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+
+  currentLedState = false;
+
+  changeLedState(state: boolean) {
+    this.currentLedState = state;
+  }
+
 }
