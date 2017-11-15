@@ -8,14 +8,11 @@ export class MessageService implements OnDestroy {
   getPoller: Observable<any>; // todo(braden): Need to make this typed
 
   constructor(@Inject(AppConfig) private config: AppConfig) {
-    this.getPoller = Observable
-      .interval(5000)
-      .flatMap(() => {
-        return ['hi'];
-      });
+    this.getPoller = Observable.interval(5000);
 
-    this.getPoller.subscribe((message) => {
-      console.log(message.toString());
+    this.getPoller.subscribe(() => {
+      console.log('Sending GET request to backend');
+      // todo: make GET request
     });
   }
 
