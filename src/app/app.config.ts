@@ -2,5 +2,5 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AppConfig {
-  backednUrl = 'http://google.ca/';
+  backendUrl = 'http://google.ca/';
 }

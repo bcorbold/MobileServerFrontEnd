@@ -8,7 +8,7 @@ export class MessageService {
   constructor(@Inject(AppConfig) private config: AppConfig) { }
 
   sendMessage() {
-    console.log(`Our backend url: ${this.config.backednUrl}`);
+    console.log(`Our backend url: ${this.config.backendUrl}`);
   }
 
 }
