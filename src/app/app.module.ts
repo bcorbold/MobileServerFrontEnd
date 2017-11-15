@@ -3,7 +3,10 @@ import { MatButtonModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AppConfig } from './app.config';
+
 import { AppComponent } from './app.component';
+import { MessageService } from './services/message/message.service';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import { AppComponent } from './app.component';
     BrowserModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [
+    AppConfig,
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
