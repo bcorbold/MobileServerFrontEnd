@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,6 +16,7 @@ import { MessageService } from './services/message/message.service';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    HttpClientModule,
     MatButtonModule
   ],
   providers: [
