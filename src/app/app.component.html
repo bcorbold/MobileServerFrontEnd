@@ -1,6 +1,9 @@
-<button mat-raised-button color="primary" disabled="{{currentLedState}}" (click)="changeLedState(true)">On</button>
-<button mat-raised-button color="primary" disabled="{{!currentLedState}}" (click)="changeLedState(false)">Off</button>
+<div fxLayout="column">
+  <mat-slide-toggle color="primary" (change)="led1State = $event.checked">LED 1: {{led1State}}</mat-slide-toggle>
+  <mat-slide-toggle color="primary" (change)="led2State = $event.checked">LED 2: {{led2State}}</mat-slide-toggle>
 
-<p>LED State: {{currentLedState ? 'ON' : 'OFF'}}</p>
+  <button mat-raised-button color="warn" (click)="updateStatus()">Send</button>
+</div>
 
 
+<pre>{{formattedData}}</pre>

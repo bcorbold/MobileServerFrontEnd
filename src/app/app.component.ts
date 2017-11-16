@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { MessageService } from './services/message/message.service';
-import {Subscription} from 'rxjs/Subscription';
+import { PostBody } from './services/message/post-body';
 
 @Component({
   selector: 'app-root',
@@ -9,23 +9,40 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  httpGetObservable: Subscription;
+  data: any;
+  formattedData: string;
+  led1State = false;
+  led2State = false;
 
   constructor(private messageService: MessageService) {
     this.messageService.backendUpdates.subscribe(
-      data => {},
+      data => {
+        this.data = data;
+        this.formattedData = JSON.stringify(data, null, 2);
+        },
       err => { console.error(err); },
-      () => { console.log('fin'); }
+      () => { console.log('get fin'); }
     );
   }
 
-  currentLedState = false;
+  updateStatus() {
+    const postBody: PostBody = {
+      led1State: this.led1State,
+      led2State: this.led2State,
+      userInfo: {
+        id: '4c31bbb5-2a66-48ca-9b5c-8c7d04c8fcf5',
+        name: 'Bob'
+      }
+    };
 
-  changeLedState(state: boolean) {
-    this.currentLedState = state;
-    this.httpGetObservable.unsubscribe();
-    this.httpGetObservable = undefined;
+    this.messageService.sendMessage(postBody).subscribe(
+      data => {
+        this.data = data;
+        this.formattedData = JSON.stringify(data, null, 2);
+      },
+      err => { console.error(err); },
+      () => { console.log('post fin'); }
+    );
   }
 
 }

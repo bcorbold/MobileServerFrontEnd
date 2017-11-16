@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule, MatSlideToggleModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -16,8 +17,10 @@ import { MessageService } from './services/message/message.service';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    FlexLayoutModule,
     HttpClientModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSlideToggleModule
   ],
   providers: [
     AppConfig,
