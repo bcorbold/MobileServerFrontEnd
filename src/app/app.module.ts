@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule, MatSlideToggleModule } from '@angular/material';
@@ -7,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-import { MessageService } from './services/message/message.service';
+import { MessageModule, MessageService } from './services/message/message.module';
 
 
 @NgModule({
@@ -16,9 +15,9 @@ import { MessageService } from './services/message/message.service';
     BrowserAnimationsModule,
     BrowserModule,
     FlexLayoutModule,
-    HttpClientModule,
     MatButtonModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MessageModule
   ],
   providers: [
     AppConfig,
