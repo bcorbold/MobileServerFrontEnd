@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { MessageService } from './services/message/message.service';
 import { PostBody } from './services/message/post-body';
@@ -8,14 +9,17 @@ import { PostBody } from './services/message/post-body';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
+
+  private pollingSub: Subscription;
+
   data: any;
   formattedData: string;
-  led1State = false;
-  led2State = false;
+  led1State: boolean;
+  led2State: boolean;
 
   constructor(private messageService: MessageService) {
-    this.messageService.backendUpdates.subscribe(
+    this.pollingSub = this.messageService.backendUpdates.subscribe(
       data => {
         this.data = data;
         this.formattedData = JSON.stringify(data, null, 2);
@@ -25,7 +29,7 @@ export class AppComponent {
     );
   }
 
-  updateStatus() {
+  updateStatus(): void {
     const postBody: PostBody = {
       led1State: this.led1State,
       led2State: this.led2State,
@@ -43,6 +47,11 @@ export class AppComponent {
       err => { console.error(err); },
       () => { console.log('post fin'); }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.pollingSub.unsubscribe();
+    this.pollingSub = undefined;
   }
 
 }
