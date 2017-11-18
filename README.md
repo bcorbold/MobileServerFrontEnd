@@ -1,3 +1,6 @@
+### Status
+[![Build Status](https://travis-ci.com/bcorbold/MobileServerFrontEnd.png)](https://travis-ci.com/bcorbold/MobileServerFrontEnd)
+
 # MobileServerFrontEnd
 Welcome to the repo for the **MobileServer** McMaster University Capstone project! This repo contains the wepage that will be used by client to place orders to the **MobileServer** robot!
 
