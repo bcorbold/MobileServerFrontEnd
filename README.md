@@ -1,4 +1,4 @@
-### Status
+## Status
 [![Build Status](https://travis-ci.com/bcorbold/MobileServerFrontEnd.svg?token=rxARx6syFzxr3wZ4LhUX&branch=master)](https://travis-ci.com/bcorbold/MobileServerFrontEnd)
 
 # MobileServerFrontEnd
