@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
 import { MessageModule, MessageService } from './services/message/message.module';
-
+import { POCFormModule } from './forms/poc/poc-form.module';
+import {POCComponentModule} from './components/poc/poc.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,9 @@ import { MessageModule, MessageService } from './services/message/message.module
     FlexLayoutModule,
     MatButtonModule,
     MatSlideToggleModule,
-    MessageModule
+    MessageModule,
+    POCFormModule,
+    POCComponentModule
   ],
   providers: [
     AppConfig,
