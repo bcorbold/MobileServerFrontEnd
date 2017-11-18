@@ -6,7 +6,8 @@
     "ng": "ng",
     "serve-dev": "ng serve",
     "build": "ng build",
-    "test": "ng test --watch false",
+    "test": "ng test",
+    "test.travis": "ng lint && ng test --watch false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-prod": "ng build -prod"
