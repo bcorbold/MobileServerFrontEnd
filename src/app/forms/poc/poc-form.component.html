@@ -1,0 +1,5 @@
+<form (ngSubmit)="onSubmit()"  fxLayout="column">
+  <mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led1State" name="led1State">LED 1: {{pocPostJson.led1State}}</mat-slide-toggle>
+  <mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led2State" name="led2State">LED 2: {{pocPostJson.led2State}}</mat-slide-toggle>
+  <button type="submit">Send</button>
+</form>
