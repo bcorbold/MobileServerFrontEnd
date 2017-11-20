@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
 import { MessageModule, MessageService } from './services/message/message.module';
 import { POCFormModule } from './forms/poc/poc-form.module';
-import {POCComponentModule} from './components/poc/poc.module';
+import { POCComponentModule } from './components/poc/poc.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +18,6 @@ import {POCComponentModule} from './components/poc/poc.module';
     FlexLayoutModule,
     MatButtonModule,
     MatSlideToggleModule,
-    MessageModule,
     POCFormModule,
     POCComponentModule
   ],

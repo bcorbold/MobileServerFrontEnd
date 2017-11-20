@@ -1,6 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+
 import { MessageService } from '../../services/message/message.service';
+import { POCPostBody } from '../../core/json/poc-post-body';
 
 @Component({
   selector: 'poc-component',
@@ -29,7 +31,7 @@ export class POCComponent  implements OnDestroy {
     this.pollingSub = undefined;
   }
 
-  onSubmit(pocJson: any) {
+  onSubmit(pocJson: POCPostBody) {
     this.messageService.sendMessage(pocJson).subscribe(
       data => {
         this.data = data;

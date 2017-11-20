@@ -6,7 +6,7 @@ import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { PostBody } from './post-body';
+import { POCPostBody } from '../../core/json/poc-post-body';
 import { AppConfig } from '../../app.config';
 
 
@@ -25,7 +25,7 @@ export class MessageService implements OnDestroy {
     });
   }
 
-  sendMessage(body: PostBody): Observable<Object> {
+  sendMessage(body: POCPostBody): Observable<Object> {
     return this.http.post(this.config.postUrl, body);
   }
 

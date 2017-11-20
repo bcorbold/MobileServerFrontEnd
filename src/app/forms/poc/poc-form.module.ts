@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material';
+import { NgModule } from '@angular/core';
 
 import { POCFormComponent } from './poc-form.component';
 
@@ -18,7 +18,6 @@ export { POCFormComponent } from './poc-form.component';
   declarations: [
     POCFormComponent
   ],
-  providers: [],
   exports: [
     POCFormComponent
   ]
