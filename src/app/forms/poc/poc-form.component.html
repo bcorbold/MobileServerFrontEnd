@@ -1,11 +1,19 @@
 <form (ngSubmit)="onSubmit()"  fxLayout="column">
-  <mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led1State" name="led1State">LED 1: {{pocPostJson.led1State}}</mat-slide-toggle>
-  <mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led2State" name="led2State">LED 2: {{pocPostJson.led2State}}</mat-slide-toggle>
-  <div>
-    User ID: <input type="text" [(ngModel)]="pocPostJson.userInfo.id" name="userInfo.id">
-  </div>
-  <div>
-    User Name: <input type="text" [(ngModel)]="pocPostJson.userInfo.name" name="userInfo.name">
-  </div>
-  <button type="submit">Send</button>
+  <mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led1State" name="led1State">
+    LED 1: {{pocPostJson.led1State}}
+  </mat-slide-toggle>
+
+  <mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led2State" name="led2State">
+    LED 2: {{pocPostJson.led2State}}
+  </mat-slide-toggle>
+
+  <mat-input-container>
+    <input matInput placeholder="User ID" type="text" [(ngModel)]="pocPostJson.userInfo.id" name="userInfo.id">
+  </mat-input-container>
+
+  <mat-input-container>
+    <input matInput placeholder="User Name" type="text" [(ngModel)]="pocPostJson.userInfo.name" name="userInfo.name">
+  </mat-input-container>
+
+  <button mat-raised-button color="primary" type="submit">Send</button>
 </form>

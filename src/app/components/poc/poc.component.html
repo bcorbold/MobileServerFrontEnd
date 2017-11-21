@@ -1,3 +1,15 @@
 <ms-poc-form (submitted)="onSubmit($event)"></ms-poc-form>
 
-<pre>{{formattedData}}</pre>
+<div fxLayout="row">
+
+  <div style="width: 100%;" fxLayout="column">
+    <h2>GET Request Data</h2>
+    <pre>{{formattedGetData}}</pre>
+  </div>
+
+  <div style="width: 100%;" fxLayout="column">
+    <h2>POST Request Data</h2>
+    <pre>{{formattedPostData}}</pre>
+  </div>
+
+</div>

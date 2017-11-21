@@ -7,19 +7,19 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AppConfig } from '../../app.config';
+import { POCGetBody } from '../../core/json/poc-get-body';
 import { POCPostBody } from '../../core/json/poc-post-body';
-
 
 @Injectable()
 export class MessageService implements OnDestroy {
 
   private pollingSubscription: Subscription;
 
-  backendUpdates: EventEmitter<any> = new EventEmitter<any>();
+  backendUpdates: EventEmitter<POCGetBody> = new EventEmitter<POCGetBody>();
 
   constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {
     this.pollingSubscription = Observable.interval(5000).subscribe(() => {
-      this.http.get(this.config.getUrl).subscribe(data => {
+      this.http.get(this.config.getUrl).subscribe((data: POCGetBody) => {
       this.backendUpdates.next(data);
       });
     });
