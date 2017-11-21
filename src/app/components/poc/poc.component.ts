@@ -5,7 +5,7 @@ import { MessageService } from '../../services/message/message.service';
 import { POCPostBody } from '../../core/json/poc-post-body';
 
 @Component({
-  selector: 'poc-component',
+  selector: 'ms-poc-component',
   templateUrl: './poc.component.html'
 })
 export class POCComponent  implements OnDestroy {

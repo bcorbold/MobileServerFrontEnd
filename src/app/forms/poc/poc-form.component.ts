@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { POCPostBody } from '../../core/json/poc-post-body';
 
 @Component({
-  selector: 'poc-form',
+  selector: 'ms-poc-form',
   templateUrl: './poc-form.component.html'
 })
 export class POCFormComponent implements OnInit {
