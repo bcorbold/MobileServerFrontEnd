@@ -6,8 +6,8 @@ import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { POCPostBody } from '../../core/json/poc-post-body';
 import { AppConfig } from '../../app.config';
+import { POCPostBody } from '../../core/json/poc-post-body';
 
 
 @Injectable()
