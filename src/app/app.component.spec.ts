@@ -3,7 +3,7 @@ import { MatButtonModule, MatSlideToggleModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-import { MessageModule, MessageService } from './services/message/message.module';
+import { POCComponentModule } from './components/poc/poc.module';
 
 describe('AppComponent', () => {
 
@@ -15,11 +15,11 @@ describe('AppComponent', () => {
       imports: [
         MatButtonModule,
         MatSlideToggleModule,
-        MessageModule
+        POCComponentModule
       ],
       providers: [
         AppConfig,
-        MessageService
+        POCComponentModule
       ]
     }).compileComponents();
   }));
