@@ -1,0 +1,15 @@
+@import '~@angular/material/_theming.scss';
+@include mat-core();
+
+$ms-primary: mat-palette($mat-blue);
+$ms-accent: mat-palette($mat-blue-grey, 400, 200, 700);
+$ms-warn: mat-palette($mat-red, 700, 600, 900);
+
+$ms-theme: mat-dark-theme($ms-primary, $ms-accent, $ms-warn);
+
+@include angular-material-theme($ms-theme);
+
+
+h1, h2, h3, p, pre, input {
+  color: #FFFFFF !important;
+}
