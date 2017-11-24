@@ -41,6 +41,14 @@
         ]
       }
     ],
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "lowercase-last",
+        "named-imports-order": "case-insensitive"
+      }
+    ],
+    "no-duplicate-imports": true,
     "no-arg": true,
     "no-bitwise": true,
     "no-console": [
@@ -111,6 +119,7 @@
       true,
       "check-branch",
       "check-decl",
+      "check-module",
       "check-operator",
       "check-separator",
       "check-type"
