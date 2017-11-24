@@ -7,8 +7,9 @@
     "serve-dev": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "test-travis": "ng lint && ng test --watch false",
+    "test-travis": "ng lint && ng test --watch false --browser ChromeHeadless",
     "lint": "ng lint",
+    "lint-fix": "ng lint --fix",
     "e2e": "ng e2e",
     "build-prod": "ng build -prod"
   },
