@@ -1,0 +1,24 @@
+<!--<mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led1State" name="led1State">-->
+  <!--LED 1: {{.led1State}}-->
+<!--</mat-slide-toggle>-->
+
+<!--<mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led2State" name="led2State">-->
+  <!--LED 2: {{pocPostJson.led2State}}-->
+<!--</mat-slide-toggle>-->
+
+<!--<mat-input-container>-->
+  <!--<input matInput placeholder="User ID" type="text" [(ngModel)]="pocPostJson.userInfo.id" name="userInfo.id">-->
+<!--</mat-input-container>-->
+
+<!--<mat-input-container>-->
+  <!--<input matInput placeholder="User Name" type="text" [(ngModel)]="pocPostJson.userInfo.name" name="userInfo.name">-->
+<!--</mat-input-container>-->
+<div fxFill fxLayout="column" fxLayoutAlign="start center">
+
+
+  <!-- this div should be repeated for every batch -->
+  <div *ngFor="let batch of batches">
+    <p>Batches!</p>
+  </div>
+
+</div>
