@@ -12,6 +12,7 @@ import { POCFormModule } from './forms/poc/poc-form.module';
 import { MessageService } from './services/message/message.module';
 
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [AppComponent],
   imports: [
     BrowserAnimationsModule,
@@ -22,7 +23,6 @@ import { MessageService } from './services/message/message.module';
   providers: [
     AppConfig,
     MessageService
-  ],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule { }
