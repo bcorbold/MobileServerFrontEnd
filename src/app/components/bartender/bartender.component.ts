@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ms-bartender-component',
+  styleUrls: ['bartender.component.scss'],
   templateUrl: './bartender.component.html'
 })
 export class BartenderComponent {
@@ -17,7 +18,7 @@ export class BartenderComponent {
             addons: [
               {
                 addonId: 1,
-                addonName: 'addon 1',
+                addonName: 'milk',
                 quantity: 2
               }
             ],
