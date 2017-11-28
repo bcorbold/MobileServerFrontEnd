@@ -1,0 +1,10 @@
+@import 'components/place-order/place-order.theme';
+
+@mixin app-theme($theme) {
+
+  h1, h2, h3, p, pre, input {
+    color: $ms-light-text;
+  }
+
+  @include new-order-theme($theme);
+}

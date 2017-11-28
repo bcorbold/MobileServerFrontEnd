@@ -1,0 +1,7 @@
+@mixin new-order-theme($theme) {
+
+  .ms-blur-container {
+    background-color: $ms-dark-transparent;
+  }
+}
+
