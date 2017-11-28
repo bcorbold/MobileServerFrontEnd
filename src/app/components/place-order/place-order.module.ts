@@ -3,7 +3,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 
-import { NewOrderComponent } from './new-order.component';
+import { PlaceOrderComponent } from './place-order.component';
 
 @NgModule({
   imports: [
@@ -12,10 +12,10 @@ import { NewOrderComponent } from './new-order.component';
     MatInputModule
   ],
   declarations: [
-    NewOrderComponent
+    PlaceOrderComponent
   ],
   exports: [
-    NewOrderComponent
+    PlaceOrderComponent
   ]
 })
-export class NewOrderModule { }
+export class PlaceOrderModule { }

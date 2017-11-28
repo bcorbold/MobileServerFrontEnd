@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-import { NewOrderModule } from './components/new-order/new-order.module';
+import { PlaceOrderModule } from './components/place-order/place-order.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +16,7 @@ import { NewOrderModule } from './components/new-order/new-order.module';
     BrowserAnimationsModule,
     BrowserModule,
     FlexLayoutModule,
-    NewOrderModule
+    PlaceOrderModule
   ],
   providers: [
     AppConfig
