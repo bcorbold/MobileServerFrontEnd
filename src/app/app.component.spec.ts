@@ -4,8 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-import { POCComponentModule } from './components/poc/poc.module';
-import { POCFormModule } from './forms/poc/poc-form.module';
+import { PlaceOrderModule } from './components/place-order/place-order.module';
+
 
 describe('AppComponent', () => {
 
@@ -17,12 +17,10 @@ describe('AppComponent', () => {
       imports: [
         BrowserAnimationsModule,
         BrowserModule,
-        POCComponentModule,
-        POCFormModule
+        PlaceOrderModule
       ],
       providers: [
-        AppConfig,
-        POCComponentModule
+        AppConfig
       ]
     }).compileComponents();
   }));
