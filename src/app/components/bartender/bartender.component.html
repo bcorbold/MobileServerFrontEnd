@@ -1,46 +1,32 @@
-<!--<mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led1State" name="led1State">-->
-  <!--LED 1: {{.led1State}}-->
-<!--</mat-slide-toggle>-->
+<!--<div class="ms-blur-container mat-table">-->
+  <div class="ms-blur-container mat-table" fxLayout="column" fxLayoutAlign="start center">
 
-<!--<mat-slide-toggle color="primary" [(ngModel)]="pocPostJson.led2State" name="led2State">-->
-  <!--LED 2: {{pocPostJson.led2State}}-->
-<!--</mat-slide-toggle>-->
+    <!-- this div should be repeated for every batch -->
+    <div *ngFor="let batch of batches" fxFlex fxLayout="column" fxLayoutAlign="start center" class="batch">
 
-<!--<mat-input-container>-->
-  <!--<input matInput placeholder="User ID" type="text" [(ngModel)]="pocPostJson.userInfo.id" name="userInfo.id">-->
-<!--</mat-input-container>-->
-
-<!--<mat-input-container>-->
-  <!--<input matInput placeholder="User Name" type="text" [(ngModel)]="pocPostJson.userInfo.name" name="userInfo.name">-->
-<!--</mat-input-container>-->
-<div fxFill fxLayout="column" fxLayoutAlign="start center">
-
-
-  <!-- this div should be repeated for every batch -->
-  <div *ngFor="let batch of batches" fxFill fxLayout="column" fxLayoutAlign="start center" class="batch">
-
-    <!-- Batch id and complete buttons -->
-    <div fxLayout="row" fxFill fxLayoutAlign="space-between center">
-      <button mat-raised-button color="primary">Mark Batch Done</button>
-      <p>Batch: {{batch.batchId}}</p>
-      <button mat-raised-button color="primary">Send Robot Out</button>
-    </div>
-
-    <!-- the different drinks here -->
-    <div *ngFor="let order of batch.orders" class="order" fxLayout="row" fxFill fxLayoutAlign="space-between center">
-      <div fxLayout="column" fxLayoutAlign="start start">
-        <p>Order Info:</p>
-        <p class="orderInfo">Order ID: {{order.orderId}}</p>
-        <p class="orderInfo">Product Name: {{order.orderInfo.productName}}</p>
-        <p class="orderInfo">Product Id: {{order.orderInfo.productId}}</p>
+      <!-- Batch id and complete buttons -->
+      <div fxLayout="row" fxFill fxLayoutAlign="space-between center">
+        <button mat-raised-button color="primary">Mark Batch Done</button>
+        <p>Batch: {{batch.batchId}}</p>
+        <button mat-raised-button color="primary">Send Robot Out</button>
       </div>
-      <div fxLayout="column" fxLayoutAlign="start start">
-        <p>Addons:</p>
-        <p class="orderInfo" *ngFor="let addon of order.orderInfo.addons">{{addon.addonName}} X {{addon.quantity}}</p>
+
+      <!-- the different drinks here -->
+      <div *ngFor="let order of batch.orders" class="order" fxLayout="row" fxFill fxLayoutAlign="space-between center">
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <p>Order Info:</p>
+          <p class="orderInfo">Order ID: {{order.orderId}}</p>
+          <p class="orderInfo">Product Name: {{order.orderInfo.productName}}</p>
+          <p class="orderInfo">Product Id: {{order.orderInfo.productId}}</p>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <p>Addons:</p>
+          <p class="orderInfo" *ngFor="let addon of order.orderInfo.addons">{{addon.addonName}} X {{addon.quantity}}</p>
+        </div>
+        <button mat-raised-button color="accent">Mark Done</button>
       </div>
-      <button mat-raised-button color="accent">Mark Done</button>
+
     </div>
 
   </div>
-
-</div>
+<!--</div>-->

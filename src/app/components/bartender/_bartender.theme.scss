@@ -1,0 +1,7 @@
+@mixin bartender-theme($theme) {
+
+  .ms-blur-container {
+    background-color: $ms-dark-transparent;
+  }
+}
+
