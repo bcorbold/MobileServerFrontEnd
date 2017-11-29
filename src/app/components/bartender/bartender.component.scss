@@ -1,26 +1,23 @@
 .ms-blur-container {
-  width: 100%;
-  height: 100%;
   border-radius: 5px;
   padding: 10px;
+  overflow: auto;
+  max-height: 100%;
 }
 
 .batch {
   padding: 5px;
+  margin: 2px;
   border: solid red 5px;
 }
 
 .order {
   padding: 5px;
+  margin: 2px;
   border: dashed red 5px;
 }
 
 p.orderInfo {
   line-height: 90%;
   padding: 0;
-}
-
-.mat-table {
-  overflow: auto;
-  max-height: 100%;
 }
