@@ -15,7 +15,7 @@
 
       <!-- the different drinks here -->
       <div *ngFor="let order of batch.orders" fxFlex>
-        <div class="order" fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="{{order.markedDone ? 'ms-green-container' : 'ms-red-container'}}" fxLayout="row" fxLayoutAlign="space-between center">
           <div fxLayout="column" fxLayoutAlign="start start">
             <p>Order Info:</p>
             <p class="orderInfo">Order ID: {{order.orderId}}</p>
@@ -26,7 +26,7 @@
             <p>Addons:</p>
             <p class="orderInfo" *ngFor="let addon of order.orderInfo.addons">{{addon.addonName}} X {{addon.quantity}}</p>
           </div>
-          <button mat-raised-button color="accent">Mark Done</button>
+          <button mat-raised-button color="accent" (click)="order.markedDone = !order.markedDone">Mark Done</button>
         </div>
       </div>
 

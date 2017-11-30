@@ -3,5 +3,15 @@
   .ms-blur-container {
     background-color: $ms-dark-transparent;
   }
+
+  .ms-green-container {
+    background-color: $ms-green-transparent;
+    border: solid $ms-green-border 2px;
+  }
+
+  .ms-red-container {
+    background-color: $ms-red-transparent;
+    border: solid $ms-red-border 2px;
+  }
 }
 

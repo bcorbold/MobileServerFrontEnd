@@ -5,16 +5,23 @@
   max-height: 100%;
 }
 
+.ms-green-container {
+  border-radius: 5px;
+  padding: 5px;
+  margin: 1px;
+}
+
+.ms-red-container {
+  border-radius: 5px;
+  padding: 5px;
+  margin: 1px;
+}
+
 .batch {
+  border-radius: 5px;
   padding: 5px;
   margin: 2px;
   border: solid red 5px;
-}
-
-.order {
-  padding: 5px;
-  margin: 2px;
-  border: dashed red 5px;
 }
 
 p.orderInfo {

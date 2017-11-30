@@ -24,7 +24,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 2,
@@ -38,7 +39,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 3,
@@ -52,7 +54,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 4,
@@ -66,7 +69,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         }
       ]
     },
@@ -86,7 +90,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 6,
@@ -100,7 +105,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 7,
@@ -114,7 +120,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 8,
@@ -128,7 +135,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         }
       ]
     },
@@ -148,7 +156,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 6,
@@ -162,7 +171,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 7,
@@ -176,7 +186,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 8,
@@ -190,7 +201,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         }
       ]
     },
@@ -210,7 +222,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 6,
@@ -224,7 +237,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 7,
@@ -238,7 +252,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 8,
@@ -252,7 +267,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         }
       ]
     },
@@ -272,7 +288,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 6,
@@ -286,7 +303,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 7,
@@ -300,7 +318,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 8,
@@ -314,7 +333,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         }
       ]
     },
@@ -334,7 +354,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 6,
@@ -348,7 +369,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 7,
@@ -362,7 +384,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         },
         {
           orderId: 8,
@@ -376,7 +399,8 @@ export class BartenderComponent {
             ],
             productId: 1,
             productName: 'Product 1'
-          }
+          },
+          markedDone: false
         }
       ]
     }
