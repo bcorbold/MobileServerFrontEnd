@@ -1,8 +1,6 @@
 .ms-blur-container {
   border-radius: 5px;
   padding: 10px;
-  overflow: auto;
-  max-height: 100%;
 }
 
 .ms-green-container {
@@ -31,4 +29,9 @@
 p.orderInfo {
   line-height: 90%;
   padding: 0;
+}
+
+.batches-container {
+  overflow: auto;
+  max-height: 100%;
 }
