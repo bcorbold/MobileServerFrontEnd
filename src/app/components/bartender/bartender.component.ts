@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {TimeInterval} from "rxjs/Rx";
 
 @Component({
   selector: 'ms-bartender-component',
@@ -26,7 +25,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coke'
           },
           markedDone: false
         },
@@ -41,7 +40,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
@@ -56,7 +55,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Tea'
           },
           markedDone: false
         },
@@ -71,7 +70,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Water'
           },
           markedDone: false
         }
@@ -84,7 +83,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       markDone: false,
       orders: [
         {
-          orderId: 5,
+          orderId: 1,
           orderInfo: {
             addons: [
               {
@@ -94,12 +93,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 6,
+          orderId: 2,
           orderInfo: {
             addons: [
               {
@@ -109,12 +108,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 7,
+          orderId: 3,
           orderInfo: {
             addons: [
               {
@@ -124,12 +123,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Sprite'
           },
           markedDone: false
         },
         {
-          orderId: 8,
+          orderId: 4,
           orderInfo: {
             addons: [
               {
@@ -139,7 +138,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Tea'
           },
           markedDone: false
         }
@@ -152,7 +151,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       markDone: false,
       orders: [
         {
-          orderId: 5,
+          orderId: 1,
           orderInfo: {
             addons: [
               {
@@ -162,12 +161,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 6,
+          orderId: 2,
           orderInfo: {
             addons: [
               {
@@ -177,12 +176,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 7,
+          orderId: 3,
           orderInfo: {
             addons: [
               {
@@ -192,12 +191,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Sprite'
           },
           markedDone: false
         },
         {
-          orderId: 8,
+          orderId: 4,
           orderInfo: {
             addons: [
               {
@@ -207,7 +206,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Tea'
           },
           markedDone: false
         }
@@ -220,7 +219,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       markDone: false,
       orders: [
         {
-          orderId: 5,
+          orderId: 1,
           orderInfo: {
             addons: [
               {
@@ -230,12 +229,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 6,
+          orderId: 2,
           orderInfo: {
             addons: [
               {
@@ -245,12 +244,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 7,
+          orderId: 3,
           orderInfo: {
             addons: [
               {
@@ -260,12 +259,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Sprite'
           },
           markedDone: false
         },
         {
-          orderId: 8,
+          orderId: 4,
           orderInfo: {
             addons: [
               {
@@ -275,7 +274,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Tea'
           },
           markedDone: false
         }
@@ -288,7 +287,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       markDone: false,
       orders: [
         {
-          orderId: 5,
+          orderId: 1,
           orderInfo: {
             addons: [
               {
@@ -298,12 +297,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 6,
+          orderId: 2,
           orderInfo: {
             addons: [
               {
@@ -313,12 +312,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 7,
+          orderId: 3,
           orderInfo: {
             addons: [
               {
@@ -328,12 +327,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Sprite'
           },
           markedDone: false
         },
         {
-          orderId: 8,
+          orderId: 4,
           orderInfo: {
             addons: [
               {
@@ -343,7 +342,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Tea'
           },
           markedDone: false
         }
@@ -356,7 +355,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       markDone: false,
       orders: [
         {
-          orderId: 5,
+          orderId: 1,
           orderInfo: {
             addons: [
               {
@@ -366,12 +365,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 6,
+          orderId: 2,
           orderInfo: {
             addons: [
               {
@@ -381,12 +380,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Coffee'
           },
           markedDone: false
         },
         {
-          orderId: 7,
+          orderId: 3,
           orderInfo: {
             addons: [
               {
@@ -396,12 +395,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Sprite'
           },
           markedDone: false
         },
         {
-          orderId: 8,
+          orderId: 4,
           orderInfo: {
             addons: [
               {
@@ -411,7 +410,75 @@ export class BartenderComponent implements OnInit, OnDestroy {
               }
             ],
             productId: 1,
-            productName: 'Product 1'
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 7,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
           },
           markedDone: false
         }
@@ -477,6 +544,18 @@ export class BartenderComponent implements OnInit, OnDestroy {
       });
     });
     return divs;
+  }
+
+  checkBatchStatus() {
+    this.batches.forEach(batch => {
+      let batchDoneStatus = true;
+      batch.orders.forEach(order => {
+        if (!order.markedDone) {
+          batchDoneStatus = false;
+        }
+      });
+      batch.markDone = batchDoneStatus;
+    });
   }
 
   // need a function to set the batch data
