@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {TimeInterval} from "rxjs/Rx";
 
 @Component({
   selector: 'ms-bartender-component',
   styleUrls: ['bartender.component.scss'],
   templateUrl: './bartender.component.html'
 })
-export class BartenderComponent {
+export class BartenderComponent implements OnInit, OnDestroy {
 
   batches = [
     {
       batchId: 1,
-      deadline: 60,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
       markDone: false,
       orders: [
         {
@@ -77,7 +79,8 @@ export class BartenderComponent {
     },
     {
       batchId: 2,
-      deadline: 60,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
       markDone: false,
       orders: [
         {
@@ -144,7 +147,8 @@ export class BartenderComponent {
     },
     {
       batchId: 3,
-      deadline: 60,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
       markDone: false,
       orders: [
         {
@@ -211,7 +215,8 @@ export class BartenderComponent {
     },
     {
       batchId: 4,
-      deadline: 60,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
       markDone: false,
       orders: [
         {
@@ -278,7 +283,8 @@ export class BartenderComponent {
     },
     {
       batchId: 5,
-      deadline: 60,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
       markDone: false,
       orders: [
         {
@@ -345,7 +351,8 @@ export class BartenderComponent {
     },
     {
       batchId: 6,
-      deadline: 60,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
       markDone: false,
       orders: [
         {
@@ -412,6 +419,30 @@ export class BartenderComponent {
     }
   ];
 
+  deadlineInterval;
+
+  ngOnInit() {
+    this.deadlineInterval = setInterval(() => {
+      this.batches.forEach(batch => {
+        const currentDate = new Date();
+        const batchDeadline = new Date();
+        const displayTime = new Date();
+
+        batchDeadline.setTime(batch.deadline);
+
+        displayTime.setTime(batchDeadline.getTime() - currentDate.getTime());
+
+        batch.timeRemaining = ('00' + displayTime.getUTCHours()).slice(-2) + ':'
+          + ('00' + displayTime.getUTCMinutes()).slice(-2) + ':'
+          + ('00' + displayTime.getUTCSeconds()).slice(-2);
+      });
+    }, 100);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.deadlineInterval);
+  }
+
   onMyClick(batchId) {
     // document.getElementsByName('div').item(1).
     const DivElmnt = document.getElementById('someComponent');
@@ -447,4 +478,10 @@ export class BartenderComponent {
     });
     return divs;
   }
+
+  // need a function to set the batch data
+
+  // need a function to update the batch data?
+
+  // need to set intervals for the timing information of respective batches
 }
