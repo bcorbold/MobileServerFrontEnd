@@ -5,8 +5,6 @@ import { MatInputModule } from '@angular/material/input';
 
 import { PlaceOrderComponent } from './place-order.component';
 
-export { PlaceOrderComponent } from './place-order.component';
-
 @NgModule({
   imports: [
     FlexLayoutModule,
