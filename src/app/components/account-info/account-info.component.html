@@ -1,0 +1,26 @@
+<div class="ms-blur-container" fxLayout="column">
+  <h1>Account Info</h1>
+
+  <img fxFlexAlign="center" class="accountPicture" src="assets/account-pic.jpg">
+  <p>{{userInfo.firstName}} {{userInfo.lastName}} - {{userInfo.username}}</p>
+
+  <mat-input-container>
+    <input matInput [value]="userInfo.deskLocation" placeholder="Desk Location" type="text">
+  </mat-input-container>
+
+  <mat-input-container>
+    <input matInput [value]="userInfo.currentPermissions" [disabled]="true" placeholder="Current Profile" type="text">
+  </mat-input-container>
+
+  <mat-input-container>
+    <input matInput [value]="userInfo.defaultPermissions" [disabled]="true" placeholder="Default Profile" type="text">
+  </mat-input-container>
+
+  <mat-input-container>
+    <input matInput [value]="userInfo.locale" placeholder="Locale" type="text">
+  </mat-input-container>
+
+  <div fxFlex></div>
+  <button mat-raised-button color="primary" style="margin-bottom: 10px;">Save Info</button>
+  <button mat-raised-button color="warn">Discard Changes</button>
+</div>
