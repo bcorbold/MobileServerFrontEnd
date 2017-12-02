@@ -1,0 +1,3 @@
+<div fxFlex="initial" fxLayout="row">
+  <button *ngFor="let batch of batches" mat-raised-button color="primary" (click)="onMyClick(batch.batchId)">{{batch.batchId}}</button>
+</div>

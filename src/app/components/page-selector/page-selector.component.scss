@@ -1,0 +1,41 @@
+.ms-blur-container {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.ms-green-container {
+  border-radius: 5px;
+  padding: 5px;
+  margin: 1px;
+  height: 50px;
+  width: 100%;
+}
+
+.ms-red-container {
+  border-radius: 5px;
+  padding: 5px;
+  margin: 1px;
+  height: 50px;
+  width: 100%;
+}
+
+.batch {
+  border-radius: 5px;
+  padding: 5px;
+  margin: 2px;
+  //border: solid red 5px;
+}
+
+.batch-header {
+  margin-bottom: 2px;
+}
+
+p.orderInfo {
+  line-height: 90%;
+  padding: 0;
+}
+
+.batches-container {
+  overflow: auto;
+  max-height: 100%;
+}

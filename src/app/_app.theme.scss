@@ -1,5 +1,6 @@
 @import 'components/place-order/place-order.theme';
 @import 'components/bartender/bartender.theme';
+@import 'components/page-selector/page-selector.theme';
 
 @mixin app-theme($theme) {
 
@@ -9,4 +10,5 @@
 
   @include new-order-theme($theme);
   @include bartender-theme($theme);
+  @include page-selector-theme($theme);
 }
