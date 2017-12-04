@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'ms-page-selector',
@@ -9,6 +9,7 @@ export class PageSelectorComponent implements OnInit {
   @Input() numberOfPages = 10;
   @Input() currentPage = 1;
   @Input() numberOfPagesToShow = 5;
+  @Output() nextPage = new EventEmitter<number>();
 
   pages = {
     currentPage: 1,
@@ -23,5 +24,10 @@ export class PageSelectorComponent implements OnInit {
       }
     }
     this.pages.pagesShowing = newPages;
+  }
+
+  changePage(newPage: number) {
+    this.currentPage = newPage;
+    this.nextPage.emit(this.currentPage);
   }
 }
