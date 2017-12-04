@@ -6,9 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { POCFormModule } from '../../forms/poc/poc-form.module';
-import { MessageModule, MessageService } from '../../services/message/message.module';
 import { PageSelectorComponent } from './page-selector.component';
-
 
 export { PageSelectorComponent } from './page-selector.component';
 
@@ -23,15 +21,11 @@ export { PageSelectorComponent } from './page-selector.component';
     BrowserAnimationsModule,
     BrowserModule,
     FlexLayoutModule,
-    MessageModule,
     POCFormModule,
     FormsModule,
     MatButtonModule,
     MatInputModule,
     MatSlideToggleModule
-  ],
-  providers: [
-    MessageService
   ]
 })
-export class BartenderModule { }
+export class PageSelectorModule { }

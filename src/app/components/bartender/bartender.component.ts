@@ -12,6 +12,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       batchId: 1,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
+      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -80,6 +81,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       batchId: 2,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
+      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -148,6 +150,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       batchId: 3,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
+      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -216,6 +219,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       batchId: 4,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
+      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -284,6 +288,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       batchId: 5,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
+      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -352,6 +357,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       batchId: 6,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
+      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -420,6 +426,7 @@ export class BartenderComponent implements OnInit, OnDestroy {
       batchId: 7,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
+      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -497,7 +504,17 @@ export class BartenderComponent implements OnInit, OnDestroy {
 
         batchDeadline.setTime(batch.deadline);
 
-        displayTime.setTime(batchDeadline.getTime() - currentDate.getTime());
+        let timeRemaining = batchDeadline.getTime() - currentDate.getTime();
+
+        if (timeRemaining < 0) {
+          batch.textColour = 'red';
+        } else if (timeRemaining <= 5000) {
+          batch.textColour = 'green';
+        }
+
+        timeRemaining = Math.abs(timeRemaining);
+
+        displayTime.setTime(timeRemaining);
 
         batch.timeRemaining = ('00' + displayTime.getUTCHours()).slice(-2) + ':'
           + ('00' + displayTime.getUTCMinutes()).slice(-2) + ':'

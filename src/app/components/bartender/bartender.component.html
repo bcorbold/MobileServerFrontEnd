@@ -11,7 +11,7 @@
           <div fxLayout="row" fxLayoutAlign="space-between center">
             <!--<button mat-raised-button color="primary">Mark Batch Done</button>-->
             <h2>Batch: {{batch.batchId}}</h2>
-            <h2>{{batch.timeRemaining}}</h2>
+            <h2 style="color: {{batch.textColour}};">{{batch.timeRemaining}}</h2>
             <!--<button mat-raised-button color="primary">Send Robot Out</button>-->
           </div>
         </div>
@@ -36,6 +36,10 @@
             <div fxFlex="initial" [hidden]="!batch.markDone">
               <button mat-raised-button style="height:100%; margin-left: 5px;" class="ms-green-container">Send</button>
             </div>
+
+            <div fxFlex="initial" [hidden]="batch.markDone">
+              <div style="height:100%; width: 5px; margin-left: 10px; background-color: red; border-radius: 5px"></div>
+            </div>
         </div>
 
 
@@ -46,8 +50,12 @@
     </div>
   </div>
 
-  <div fxFlex="initial" fxLayout="row">
-    <button *ngFor="let batch of batches" mat-raised-button color="primary" (click)="onMyClick(batch.batchId)">{{batch.batchId}}</button>
+  <!--<div fxFlex="initial" fxLayout="row">-->
+    <!--<button *ngFor="let batch of batches" mat-raised-button color="warn" (click)="onMyClick(batch.batchId)">{{batch.batchId}}</button>-->
+  <!--</div>-->
+
+  <div fxFlex="initial">
+    <ms-page-selector></ms-page-selector>
   </div>
 
 </div>
