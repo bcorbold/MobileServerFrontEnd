@@ -9,7 +9,7 @@ export class PageSelectorComponent implements OnInit {
   @Input() numberOfPages = 10;
   @Input() currentPage = 1;
   @Input() numberOfPagesToShow = 5;
-  @Output() nextPage = new EventEmitter<number>();
+  @Output() newPage = new EventEmitter<number>();
 
   pages = {
     currentPage: 1,
@@ -28,6 +28,6 @@ export class PageSelectorComponent implements OnInit {
 
   changePage(newPage: number) {
     this.currentPage = newPage;
-    this.nextPage.emit(this.currentPage);
+    this.newPage.emit(this.currentPage);
   }
 }
