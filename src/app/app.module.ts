@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-import { BartenderModule } from './components/bartender/bartender.module';
+import { IncomingBatchesModule } from './components/incoming-batches/incoming-batches.module';
 import { PlaceOrderModule } from './components/place-order/place-order.module';
 
 @NgModule({
@@ -18,8 +18,8 @@ import { PlaceOrderModule } from './components/place-order/place-order.module';
     BrowserAnimationsModule,
     BrowserModule,
     FlexLayoutModule,
-    PlaceOrderModule,
-    BartenderModule
+    IncomingBatchesModule,
+    PlaceOrderModule
   ],
   providers: [
     AppConfig

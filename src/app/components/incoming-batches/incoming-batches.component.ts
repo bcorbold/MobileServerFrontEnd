@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ms-bartender-component',
-  styleUrls: ['bartender.component.scss'],
-  templateUrl: './bartender.component.html'
+  selector: 'ms-incoming-batches',
+  styleUrls: ['incoming-batches.component.scss'],
+  templateUrl: './incoming-batches.component.html'
 })
-export class BartenderComponent implements OnInit, OnDestroy {
+export class IncomingBatchesComponent implements OnInit, OnDestroy {
 
   batches = [
     {
@@ -1481,10 +1481,4 @@ export class BartenderComponent implements OnInit, OnDestroy {
       }
     }, 100);
   }
-
-  // need a function to set the batch data
-
-  // need a function to update the batch data?
-
-  // need to set intervals for the timing information of respective batches
 }
