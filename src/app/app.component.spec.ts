@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
+import { AccountInfoModule } from './components/account-info/account-info.module';
 import { PlaceOrderModule } from './components/place-order/place-order.module';
 
 
@@ -15,6 +16,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
       imports: [
+        AccountInfoModule,
         BrowserAnimationsModule,
         BrowserModule,
         PlaceOrderModule
