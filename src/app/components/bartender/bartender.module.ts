@@ -7,8 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { POCFormModule } from '../../forms/poc/poc-form.module';
 import { MessageModule, MessageService } from '../../services/message/message.module';
-import { BartenderComponent } from './bartender.component';
 import { PageSelectorModule } from '../page-selector/page-selector.module';
+import { BartenderComponent } from './bartender.component';
 
 export { BartenderComponent } from './bartender.component';
 

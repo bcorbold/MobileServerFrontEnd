@@ -7,7 +7,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class PageSelectorComponent implements OnInit {
   @Input() numberOfPages = 10;
-  @Input() currentPage = 1;
+  _currentPage = 1;
+  @Input() set currentPage(newPage: number) {
+    this._currentPage = newPage;
+    this.updateShownPages();
+  }
   @Output() newPage = new EventEmitter<number>();
 
   pages = {
@@ -31,13 +35,13 @@ export class PageSelectorComponent implements OnInit {
     } else if (newPage > this.numberOfPages) {
       newPage = this.numberOfPages;
     }
-    this.currentPage = newPage;
-    this.newPage.emit(this.currentPage);
+    this._currentPage = newPage;
+    this.newPage.emit(this._currentPage);
     this.updateShownPages();
   }
 
   updateShownPages() {
-    if (this.currentPage <= 3) {
+    if (this._currentPage <= 3) {
       const newPages = [];
       for (let i = 1; i <= 5; i++) {
         if (i <= this.numberOfPages) {
@@ -45,7 +49,7 @@ export class PageSelectorComponent implements OnInit {
         }
       }
       this.pages.pagesShowing = newPages;
-    } else if (this.currentPage > this.numberOfPages - 3) {
+    } else if (this._currentPage > this.numberOfPages - 3) {
       const newPages = [];
       for (let i = this.numberOfPages; i > this.numberOfPages - 5; i--) {
         if (i <= this.numberOfPages) {
@@ -55,11 +59,11 @@ export class PageSelectorComponent implements OnInit {
       this.pages.pagesShowing = newPages.reverse();
     } else {
       const newPages = [];
-      newPages.push(this.currentPage - 2);
-      newPages.push(this.currentPage - 1);
-      newPages.push(this.currentPage);
-      newPages.push(this.currentPage + 1);
-      newPages.push(this.currentPage + 2);
+      newPages.push(this._currentPage - 2);
+      newPages.push(this._currentPage - 1);
+      newPages.push(this._currentPage);
+      newPages.push(this._currentPage + 1);
+      newPages.push(this._currentPage + 2);
       this.pages.pagesShowing = newPages;
     }
   }

@@ -1391,7 +1391,10 @@ export class BartenderComponent implements OnInit, OnDestroy {
   ];
   numberOfBatches = 20;
 
+  currentPage = 1;
+
   deadlineInterval;
+  scrollDebounce;
 
   ngOnInit() {
     this.deadlineInterval = setInterval(() => {
@@ -1426,8 +1429,8 @@ export class BartenderComponent implements OnInit, OnDestroy {
   }
 
   onMyClick(batchId) {
-    // document.getElementsByName('div').item(1).
-    const DivElmnt = document.getElementById('someComponent');
+    this.currentPage = batchId;
+    const DivElmnt = document.getElementsByClassName('batches-container')[0];
     const divs = this.getDivHeights();
     let value = 0;
     for (let i = 0; i < batchId - 1; i++) {
@@ -1438,13 +1441,15 @@ export class BartenderComponent implements OnInit, OnDestroy {
 
   getDivHeights(): any {
     const divs = [];
-    this.batches.forEach( batch => {
-      const DivElmnt = document.getElementById('someComponent' + batch.batchId);
+    // const DivElmnt = document.getElementById('someComponent');
+    const DivElmnt = document.getElementsByClassName('batches-container')[0];
+    for (let i = 0; i < DivElmnt.children.length; i++) {
+      const DivElmnt2 = (<HTMLElement>DivElmnt.children[0]);
       divs.push({
-        batchId: batch.batchId,
-        divHeight: DivElmnt.offsetHeight
+        batchId: i + 1,
+        divHeight: DivElmnt2.offsetHeight
       });
-    });
+    }
     return divs;
   }
 
@@ -1458,6 +1463,23 @@ export class BartenderComponent implements OnInit, OnDestroy {
       });
       batch.markDone = batchDoneStatus;
     });
+  }
+
+  onScroll() {
+    clearTimeout(this.scrollDebounce);
+    this.scrollDebounce = setTimeout(() => {
+      const DivElmnt2 = document.getElementsByClassName('batches-container')[0];
+      this.currentPage = 1;
+      const divs = this.getDivHeights();
+      let adder = 0;
+      for (let i = 0; i < divs.length; i++) {
+        if (adder >= DivElmnt2.scrollTop) {
+          this.currentPage = i + 1;
+          break;
+        }
+        adder = adder + divs[i].divHeight;
+      }
+    }, 100);
   }
 
   // need a function to set the batch data

@@ -1,9 +1,9 @@
 <div fxFill class="ms-blur-container" fxLayout="column">
 
-  <div fxFlex class="batches-container" fxLayout="column" id="someComponent">
+  <div fxFlex class="batches-container" fxLayout="column" (scroll)="onScroll()">
 
     <!-- this div should be repeated for every batch -->
-    <div *ngFor="let batch of batches" fxFlex id="someComponent{{batch.batchId}}">
+    <div *ngFor="let batch of batches" fxFlex>
       <div fxLayout="column" class="batch">
 
         <!-- Batch id and complete buttons -->
@@ -43,19 +43,14 @@
         </div>
 
 
-
         </div>
 
       </div>
     </div>
   </div>
 
-  <!--<div fxFlex="initial" fxLayout="row">-->
-    <!--<button *ngFor="let batch of batches" mat-raised-button color="warn" (click)="onMyClick(batch.batchId)">{{batch.batchId}}</button>-->
-  <!--</div>-->
-
   <div fxFlex="initial">
-    <ms-page-selector (newPage)="onMyClick($event)" [numberOfPages]="numberOfBatches"></ms-page-selector>
+    <ms-page-selector (newPage)="onMyClick($event)" [numberOfPages]="numberOfBatches" [currentPage]="currentPage"></ms-page-selector>
   </div>
 
 </div>
