@@ -29,5 +29,34 @@ export class PageSelectorComponent implements OnInit {
   changePage(newPage: number) {
     this.currentPage = newPage;
     this.newPage.emit(this.currentPage);
+    this.updateShownPages();
+  }
+
+  updateShownPages() {
+    if (this.currentPage <= 3) {
+      const newPages = [];
+      for (let i = 1; i <= this.numberOfPagesToShow; i++) {
+        if (i <= this.numberOfPages) {
+          newPages.push(i);
+        }
+      }
+      this.pages.pagesShowing = newPages;
+    } else if (this.currentPage > this.numberOfPages - 3) {
+      const newPages = [];
+      for (let i = this.numberOfPages; i > this.numberOfPages - this.numberOfPagesToShow; i--) {
+        if (i <= this.numberOfPages) {
+          newPages.push(i);
+        }
+      }
+      this.pages.pagesShowing = newPages.reverse();
+    } else {
+      const newPages = [];
+      newPages.push(this.currentPage - 2);
+      newPages.push(this.currentPage - 1);
+      newPages.push(this.currentPage);
+      newPages.push(this.currentPage + 1);
+      newPages.push(this.currentPage + 2);
+      this.pages.pagesShowing = newPages;
+    }
   }
 }

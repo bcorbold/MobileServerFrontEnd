@@ -490,8 +490,906 @@ export class BartenderComponent implements OnInit, OnDestroy {
           markedDone: false
         }
       ]
+    },
+    {
+      batchId: 8,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 9,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 10,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 11,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 12,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 13,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 14,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 15,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 16,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 17,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 18,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 19,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
+    },
+    {
+      batchId: 20,
+      deadline: (new Date().getTime() + 60 * 1000),
+      timeRemaining: '00:00:00',
+      textColour: 'white',
+      markDone: false,
+      orders: [
+        {
+          orderId: 1,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 2
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 2,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 1
+              }
+            ],
+            productId: 1,
+            productName: 'Coffee'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 3,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 3
+              }
+            ],
+            productId: 1,
+            productName: 'Sprite'
+          },
+          markedDone: false
+        },
+        {
+          orderId: 4,
+          orderInfo: {
+            addons: [
+              {
+                addonId: 1,
+                addonName: 'addon 1',
+                quantity: 5
+              }
+            ],
+            productId: 1,
+            productName: 'Tea'
+          },
+          markedDone: false
+        }
+      ]
     }
   ];
+  numberOfBatches = 20;
 
   deadlineInterval;
 
