@@ -14,10 +14,7 @@ export class PageSelectorComponent implements OnInit {
   }
   @Output() newPage = new EventEmitter<number>();
 
-  pages = {
-    currentPage: 1,
-    pagesShowing: [1, 2, 3, 4, 5]
-  };
+  pagesShowing = [1, 2, 3, 4, 5];
 
   ngOnInit() {
     const newPages = [];
@@ -26,7 +23,7 @@ export class PageSelectorComponent implements OnInit {
         newPages.push(i);
       }
     }
-    this.pages.pagesShowing = newPages;
+    this.pagesShowing = newPages;
   }
 
   changePage(newPage: number) {
@@ -48,7 +45,7 @@ export class PageSelectorComponent implements OnInit {
           newPages.push(i);
         }
       }
-      this.pages.pagesShowing = newPages;
+      this.pagesShowing = newPages;
     } else if (this._currentPage > this.numberOfPages - 3) {
       const newPages = [];
       for (let i = this.numberOfPages; i > this.numberOfPages - 5; i--) {
@@ -56,7 +53,7 @@ export class PageSelectorComponent implements OnInit {
           newPages.push(i);
         }
       }
-      this.pages.pagesShowing = newPages.reverse();
+      this.pagesShowing = newPages.reverse();
     } else {
       const newPages = [];
       newPages.push(this._currentPage - 2);
@@ -64,7 +61,7 @@ export class PageSelectorComponent implements OnInit {
       newPages.push(this._currentPage);
       newPages.push(this._currentPage + 1);
       newPages.push(this._currentPage + 2);
-      this.pages.pagesShowing = newPages;
+      this.pagesShowing = newPages;
     }
   }
 }
