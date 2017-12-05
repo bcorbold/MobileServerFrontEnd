@@ -8,7 +8,7 @@
     color: $ms-light-text;
   }
 
+  @include incoming-batches-theme($theme);
   @include new-order-theme($theme);
-  @include bartender-theme($theme);
   @include page-selector-theme($theme);
 }
