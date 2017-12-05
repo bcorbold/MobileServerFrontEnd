@@ -1,8 +1,7 @@
-<div fxLayout="row" fxLayoutAlign="center center" style="padding-top: 10px;">
-  <!--<button *ngFor="let page of pages.pagesShowing" mat-raised-button color="primary">{{page}}</button>-->
-  <p style="margin-left: 5px; margin-right: 5px;" (click)="changePage(1)"><<</p>
-  <p style="margin-left: 5px; margin-right: 5px;" (click)="changePage(currentPage - 5)">...</p>
-  <p *ngFor="let page of pages.pagesShowing" style="margin-left: 5px; margin-right: 5px;" (click)="changePage(page)">{{page}}</p>
-  <p style="margin-left: 5px; margin-right: 5px;" (click)="changePage(currentPage + 5)">...</p>
-  <p style="margin-left: 5px; margin-right: 5px;" (click)="changePage(numberOfPages)">>></p>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <p class="page-numbers" (click)="changePage(1)"><<</p>
+  <p class="page-numbers" (click)="changePage(_currentPage - 5)">...</p>
+  <p *ngFor="let page of pages.pagesShowing" class="page-numbers" (click)="changePage(page)">{{page}}</p>
+  <p class="page-numbers" (click)="changePage(_currentPage + 5)">...</p>
+  <p class="page-numbers" (click)="changePage(numberOfPages)">>></p>
 </div>
