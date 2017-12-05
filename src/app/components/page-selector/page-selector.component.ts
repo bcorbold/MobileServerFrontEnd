@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['page-selector.component.scss'],
   templateUrl: './page-selector.component.html'
 })
-export class PageSelectorComponent implements OnInit {
+export class PageSelectorComponent {
   @Input() numberOfPages = 10;
   _currentPage = 1;
   @Input() set currentPage(newPage: number) {
@@ -15,16 +15,6 @@ export class PageSelectorComponent implements OnInit {
   @Output() newPage = new EventEmitter<number>();
 
   pagesShowing = [1, 2, 3, 4, 5];
-
-  ngOnInit() {
-    const newPages = [];
-    for (let i = 1; i <= 5; i++) {
-      if (i <= this.numberOfPages) {
-        newPages.push(i);
-      }
-    }
-    this.pagesShowing = newPages;
-  }
 
   changePage(newPage: number) {
     if (newPage < 1) {
