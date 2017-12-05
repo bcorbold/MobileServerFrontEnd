@@ -8,7 +8,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class PageSelectorComponent implements OnInit {
   @Input() numberOfPages = 10;
   @Input() currentPage = 1;
-  @Input() numberOfPagesToShow = 5;
   @Output() newPage = new EventEmitter<number>();
 
   pages = {
@@ -18,7 +17,7 @@ export class PageSelectorComponent implements OnInit {
 
   ngOnInit() {
     const newPages = [];
-    for (let i = 1; i <= this.numberOfPagesToShow; i++) {
+    for (let i = 1; i <= 5; i++) {
       if (i <= this.numberOfPages) {
         newPages.push(i);
       }
@@ -27,6 +26,11 @@ export class PageSelectorComponent implements OnInit {
   }
 
   changePage(newPage: number) {
+    if (newPage < 1) {
+      newPage = 1;
+    } else if (newPage > this.numberOfPages) {
+      newPage = this.numberOfPages;
+    }
     this.currentPage = newPage;
     this.newPage.emit(this.currentPage);
     this.updateShownPages();
@@ -35,7 +39,7 @@ export class PageSelectorComponent implements OnInit {
   updateShownPages() {
     if (this.currentPage <= 3) {
       const newPages = [];
-      for (let i = 1; i <= this.numberOfPagesToShow; i++) {
+      for (let i = 1; i <= 5; i++) {
         if (i <= this.numberOfPages) {
           newPages.push(i);
         }
@@ -43,7 +47,7 @@ export class PageSelectorComponent implements OnInit {
       this.pages.pagesShowing = newPages;
     } else if (this.currentPage > this.numberOfPages - 3) {
       const newPages = [];
-      for (let i = this.numberOfPages; i > this.numberOfPages - this.numberOfPagesToShow; i--) {
+      for (let i = this.numberOfPages; i > this.numberOfPages - 5; i--) {
         if (i <= this.numberOfPages) {
           newPages.push(i);
         }

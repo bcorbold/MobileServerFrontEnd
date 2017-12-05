@@ -1428,25 +1428,12 @@ export class BartenderComponent implements OnInit, OnDestroy {
   onMyClick(batchId) {
     // document.getElementsByName('div').item(1).
     const DivElmnt = document.getElementById('someComponent');
-    console.log(DivElmnt.scrollHeight);
-    const DivElmnt2 = document.getElementById('someComponent4');
-    console.log(DivElmnt2.offsetHeight);
-    console.log(DivElmnt2.clientHeight);
-    console.log(DivElmnt2.scrollHeight);
     const divs = this.getDivHeights();
     let value = 0;
     for (let i = 0; i < batchId - 1; i++) {
       value = value + divs[i].divHeight;
     }
     DivElmnt.scrollTop = value;
-    // let num = 0;
-    // setInterval(() => {
-    //   // if (num < (DivElmnt.scrollHeight - DivElmnt2.offsetHeight)) {
-    //   if (num < (DivElmnt2.offsetHeight * 3)) {
-    //     DivElmnt.scrollTop = num;
-    //     num = num + 1;
-    //   }
-    // }, 1);
   }
 
   getDivHeights(): any {
