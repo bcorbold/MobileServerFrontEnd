@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
+import { IncomingBatchesModule } from './components/incoming-batches/incoming-batches.module';
 import { PlaceOrderModule } from './components/place-order/place-order.module';
 
 
@@ -17,6 +18,7 @@ describe('AppComponent', () => {
       imports: [
         BrowserAnimationsModule,
         BrowserModule,
+        IncomingBatchesModule,
         PlaceOrderModule
       ],
       providers: [
