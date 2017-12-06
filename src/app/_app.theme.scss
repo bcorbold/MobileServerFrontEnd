@@ -7,6 +7,10 @@
     color: $ms-light-text;
   }
 
+  .ms-blur-container {
+    background-color: $ms-dark-transparent;
+  }
+
   @include new-order-theme($theme);
   @include account-info-theme($theme);
 }
