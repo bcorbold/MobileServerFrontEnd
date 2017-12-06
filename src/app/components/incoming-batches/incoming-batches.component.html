@@ -6,39 +6,39 @@
     <div *ngFor="let batch of batches" fxFlex>
       <div fxLayout="column" class="batch">
 
-        <!-- Batch id and complete buttons -->
+        <!-- Top of the batch. BatchId and Deadline countdown -->
         <div fxFlex="initial" class="batch-header">
           <div fxLayout="row" fxLayoutAlign="space-between center">
-            <!--<button mat-raised-button color="primary">Mark Batch Done</button>-->
             <h2>Batch: {{batch.batchId}}</h2>
-            <h2 style="color: {{batch.textColour}};">{{batch.timeRemaining}}</h2>
-            <!--<button mat-raised-button color="primary">Send Robot Out</button>-->
+            <h2>{{batch.timeRemaining}}</h2>
           </div>
         </div>
 
         <div fxFlex fxFill>
           <div fxLayout="row">
+
+            <!-- The different drinks are here -->
             <div fxFlex fxLayout="column">
               <!-- the different drinks here -->
               <div *ngFor="let order of batch.orders" fxFlex>
                 <button mat-raised-button class="{{order.markedDone ? 'ms-green-container' : 'ms-red-container'}}" (click)="order.markedDone = !order.markedDone; checkBatchStatus()" [disableRipple]="true">
-                  <div fxFlex="initial" style="padding-left: 5px; padding-right: 5px; margin-right: 15px; border-right: 2px solid white;">
+                  <div fxFlex="initial" class="order-id">
                     <h2>{{order.orderId}}</h2>
                   </div>
-                  <div fxFlex="initial" style="padding-left: 5px; padding-right: 20px;">
+                  <div fxFlex="initial" class="product-name">
                     <h2>{{order.orderInfo.productName}}</h2>
                   </div>
                 </button>
               </div>
             </div>
 
-
+            <!-- Send button and its placeholder -->
             <div fxFlex="initial" [hidden]="!batch.markDone">
-              <button mat-raised-button style="height:100%; margin-left: 5px;" class="ms-green-container">Send</button>
+              <button mat-raised-button class="send-button">Send</button>
             </div>
 
             <div fxFlex="initial" [hidden]="batch.markDone">
-              <div style="height:100%; width: 5px; margin-left: 10px; background-color: red; border-radius: 5px"></div>
+              <div class="send-button-placeholder"></div>
             </div>
         </div>
 
@@ -50,7 +50,7 @@
   </div>
 
   <div fxFlex="initial" style="padding-top: 10px;">
-    <ms-page-selector (newPage)="onMyClick($event)" [numberOfPages]="numberOfBatches" [currentPage]="currentPage"></ms-page-selector>
+    <ms-page-selector (newPage)="onNewPageSelected($event)" [numberOfPages]="numberOfBatches" [currentPage]="currentPage"></ms-page-selector>
   </div>
 
 </div>

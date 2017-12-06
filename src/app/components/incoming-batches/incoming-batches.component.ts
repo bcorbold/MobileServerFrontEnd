@@ -12,7 +12,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 1,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -81,7 +80,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 2,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -150,7 +148,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 3,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -219,7 +216,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 4,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -288,7 +284,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 5,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -357,7 +352,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 6,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -426,7 +420,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 7,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -495,7 +488,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 8,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -564,7 +556,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 9,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -633,7 +624,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 10,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -702,7 +692,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 11,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -771,7 +760,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 12,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -840,7 +828,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 13,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -909,7 +896,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 14,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -978,7 +964,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 15,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -1047,7 +1032,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 16,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -1116,7 +1100,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 17,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -1185,7 +1168,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 18,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -1254,7 +1236,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 19,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -1323,7 +1304,6 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       batchId: 20,
       deadline: (new Date().getTime() + 60 * 1000),
       timeRemaining: '00:00:00',
-      textColour: 'white',
       markDone: false,
       orders: [
         {
@@ -1395,6 +1375,9 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
 
   deadlineInterval;
   scrollDebounce;
+  selectDebounce;
+
+  pageSelected = false;
 
   ngOnInit() {
     this.deadlineInterval = setInterval(() => {
@@ -1407,12 +1390,7 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
 
         let timeRemaining = batchDeadline.getTime() - currentDate.getTime();
 
-        if (timeRemaining < 0) {
-          batch.textColour = 'red';
-        } else if (timeRemaining <= 5000) {
-          batch.textColour = 'green';
-        }
-
+        // so that it starts counting up when it reaches 0
         timeRemaining = Math.abs(timeRemaining);
 
         displayTime.setTime(timeRemaining);
@@ -1428,27 +1406,36 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
     clearInterval(this.deadlineInterval);
   }
 
-  onMyClick(batchId) {
-    this.currentPage = batchId;
-    const DivElmnt = document.getElementsByClassName('batches-container')[0];
+  onNewPageSelected(newPage) {
+    /*
+     * Reason for setting the timeout. When moving the div to the bottom by using 'scrollTop' it technically scrolls
+     * so it sets off a scroll event which means my 'onScroll()' function is called. Issue is that when that method is
+     * called it will set the page number based on what div is showing. So it gets into a scenario where i select
+     * 20 for example. It scrolls as far as it can go down. But it cant get to where its completely at 20. It can only
+     * get to 18 as its reaches the end of the batches. This causes the 'onScroll()' to then change it back to 18
+     * cause its technically just scrolled to 18.
+     */
+
+    this.currentPage = newPage;
+    const batchContainer = document.getElementsByClassName('batches-container')[0];
     const divs = this.getDivHeights();
     let value = 0;
-    for (let i = 0; i < batchId - 1; i++) {
-      value = value + divs[i].divHeight;
+    for (let i = 0; i < newPage - 1; i++) {
+      value = value + divs[i];
     }
-    DivElmnt.scrollTop = value;
+    clearTimeout(this.selectDebounce);
+    this.pageSelected = true;
+    this.selectDebounce = setTimeout(() => {
+      this.pageSelected = false;
+    }, 100);
+    batchContainer.scrollTop = value;
   }
 
-  getDivHeights(): any {
+  getDivHeights(): number[] {
     const divs = [];
-    // const DivElmnt = document.getElementById('someComponent');
-    const DivElmnt = document.getElementsByClassName('batches-container')[0];
-    for (let i = 0; i < DivElmnt.children.length; i++) {
-      const DivElmnt2 = (<HTMLElement>DivElmnt.children[0]);
-      divs.push({
-        batchId: i + 1,
-        divHeight: DivElmnt2.offsetHeight
-      });
+    const batchContainer = document.getElementsByClassName('batches-container')[0];
+    for (let i = 0; i < batchContainer.children.length; i++) {
+      divs.push((<HTMLElement>batchContainer.children[0]).offsetHeight);
     }
     return divs;
   }
@@ -1467,18 +1454,20 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
 
   onScroll() {
     clearTimeout(this.scrollDebounce);
-    this.scrollDebounce = setTimeout(() => {
-      const DivElmnt2 = document.getElementsByClassName('batches-container')[0];
-      this.currentPage = 1;
-      const divs = this.getDivHeights();
-      let adder = 0;
-      for (let i = 0; i < divs.length; i++) {
-        if (adder >= DivElmnt2.scrollTop) {
-          this.currentPage = i + 1;
-          break;
+    if (!this.pageSelected) {
+      this.scrollDebounce = setTimeout(() => {
+        const batchContainer = document.getElementsByClassName('batches-container')[0];
+        this.currentPage = 1;
+        const divs = this.getDivHeights();
+        let adder = 0;
+        for (let i = 0; i < divs.length; i++) {
+          if (adder >= batchContainer.scrollTop) {
+            this.currentPage = i + 1;
+            break;
+          }
+          adder = adder + divs[i];
         }
-        adder = adder + divs[i].divHeight;
-      }
-    }, 100);
+      }, 100);
+    }
   }
 }
