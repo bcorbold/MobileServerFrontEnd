@@ -20,8 +20,9 @@
     <input matInput [value]="userInfo.locale" placeholder="Locale" type="text">
   </mat-input-container>
 
-  <div fxFlex></div>
+  <div fxFlex fxLayout="column" fxLayoutAlign="end stretch">
+    <button mat-raised-button color="primary" style="margin-bottom: 10px;">Save Info</button>
+    <button mat-raised-button color="warn">Discard Changes</button>
+  </div>
 
-  <button mat-raised-button color="primary" style="margin-bottom: 10px;">Save Info</button>
-  <button mat-raised-button color="warn">Discard Changes</button>
 </div>
