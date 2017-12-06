@@ -14,14 +14,8 @@
     border: solid $ms-red-border 2px;
   }
 
-  .send-button {
-    background-color: $ms-green-transparent;
-    border: solid $ms-green-border 2px;
-  }
-
   .send-button-placeholder {
-    background-color: $ms-red-transparent;
-    border: solid $ms-red-border 2px;
+    background-color: mat-color($ms-accent, 700);
   }
 }
 
