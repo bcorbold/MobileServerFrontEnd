@@ -1,0 +1,7 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <p class="page-numbers" (click)="changePage(1)"><<</p>
+  <p class="page-numbers" (click)="changePage(_currentPage - 5)">...</p>
+  <p *ngFor="let page of pagesShowing" class="page-numbers{{page===_currentPage ? ' ms-current-page' : ''}}" (click)="changePage(page)">{{page}}</p>
+  <p class="page-numbers" (click)="changePage(_currentPage + 5)">...</p>
+  <p class="page-numbers" (click)="changePage(numberOfPages)">>></p>
+</div>

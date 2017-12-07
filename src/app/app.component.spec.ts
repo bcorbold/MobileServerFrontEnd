@@ -2,10 +2,12 @@ import { async, TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AccountInfoModule } from './components/account-info/account-info.module';
+import { IncomingBatchesModule } from './components/incoming-batches/incoming-batches.module';
+import { PlaceOrderModule } from './components/place-order/place-order.module';
+
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-import { AccountInfoModule } from './components/account-info/account-info.module';
-import { PlaceOrderModule } from './components/place-order/place-order.module';
 
 
 describe('AppComponent', () => {
@@ -19,6 +21,7 @@ describe('AppComponent', () => {
         AccountInfoModule,
         BrowserAnimationsModule,
         BrowserModule,
+        IncomingBatchesModule,
         PlaceOrderModule
       ],
       providers: [

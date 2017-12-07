@@ -1,5 +1,7 @@
-@import 'components/place-order/place-order.theme';
 @import 'components/account-info/account-info.theme';
+@import 'components/incoming-batches/incoming-batches.theme';
+@import 'components/page-selector/page-selector.theme';
+@import 'components/place-order/place-order.theme';
 
 @mixin app-theme($theme) {
 
@@ -7,10 +9,13 @@
     color: $ms-light-text;
   }
 
+  @include account-info-theme($theme);
+  @include incoming-batches-theme($theme);
+  @include new-order-theme($theme);
+  @include page-selector-theme($theme);
+
   .ms-blur-container {
     background-color: $ms-dark-transparent;
   }
 
-  @include new-order-theme($theme);
-  @include account-info-theme($theme);
 }

@@ -19,7 +19,7 @@ export class AccountInfoComponent implements OnInit {
       lastName: 'Corbold',
       currentPermissions: 'User',
       defaultPermissions: 'User',
-      deskLocation: '1sr floor, section A, desk 3',
+      deskLocation: '1st floor, section A, desk 3',
       locale: 'en-GB'
     };
   }
