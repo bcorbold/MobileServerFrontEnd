@@ -1,0 +1,11 @@
+@mixin incoming-batches-theme($theme) {
+
+  .ms-order-done {
+    background-color: mat-color($ms-primary, 500);
+  }
+
+  .ms-order-todo {
+    background-color: mat-color($ms-accent, 800);
+  }
+}
+

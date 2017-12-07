@@ -10,6 +10,12 @@ import { POCComponent } from './poc.component';
 export { POCComponent } from './poc.component';
 
 @NgModule({
+  declarations: [
+    POCComponent
+  ],
+  exports: [
+    POCComponent
+  ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -17,14 +23,8 @@ export { POCComponent } from './poc.component';
     MessageModule,
     POCFormModule
   ],
-  declarations: [
-    POCComponent
-  ],
   providers: [
     MessageService
-  ],
-  exports: [
-    POCComponent
   ]
 })
 export class POCComponentModule { }

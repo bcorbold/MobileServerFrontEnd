@@ -7,8 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { AppConfig } from './app.config';
 import { AccountInfoModule } from './components/account-info/account-info.module';
 import { DesktopModule } from './components/desktop/desktop.module';
 import { LoginModule } from './components/login/login.module';
@@ -16,6 +14,8 @@ import { PlaceOrderModule } from './components/place-order/place-order.module';
 
 import { DesktopComponent } from './components/desktop/desktop.component';
 import { LoginComponent } from './components/login/login.component';
+import { AppComponent } from './app.component';
+import { AppConfig } from './app.config';
 
 const appRoutes: Routes = [
   { path: 'desktop', component: DesktopComponent },
@@ -24,6 +24,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [AppComponent],
   imports: [
     RouterModule.forRoot(
@@ -40,7 +41,6 @@ const appRoutes: Routes = [
   ],
   providers: [
     AppConfig
-  ],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule { }
