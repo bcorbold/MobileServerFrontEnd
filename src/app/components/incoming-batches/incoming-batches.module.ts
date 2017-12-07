@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { POCFormModule } from '../../forms/poc/poc-form.module';
 import { MessageModule, MessageService } from '../../services/message/message.module';
 import { PageSelectorModule } from '../page-selector/page-selector.module';
+
 import { IncomingBatchesComponent } from './incoming-batches.component';
 
 export { IncomingBatchesComponent } from './incoming-batches.component';
