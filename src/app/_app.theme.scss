@@ -1,5 +1,7 @@
 @import 'components/place-order/place-order.theme';
 @import 'components/account-info/account-info.theme';
+@import 'components/login/login.theme';
+@import 'components/desktop/desktop.theme';
 
 @mixin app-theme($theme) {
 
@@ -13,4 +15,6 @@
 
   @include new-order-theme($theme);
   @include account-info-theme($theme);
+  @include login-theme($theme);
+  @include desktop-theme($theme);
 }
