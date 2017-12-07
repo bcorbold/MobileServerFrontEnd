@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,17 +6,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnDestroy {
-  loginSuccess = false;
+export class AppComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  newSessionKey(sessionKey: string) {
-    this.loginSuccess = true;
-    this.router.navigate(['/desktop']);
-  }
-
-  ngOnDestroy() {
-    this.router.navigate(['/login']);
+  ngOnInit() {
+    this.router.navigate(['']);
   }
 }

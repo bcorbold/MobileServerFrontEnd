@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-login',
@@ -6,9 +7,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  @Output() sessionKey = new EventEmitter<string>();
+  constructor(private router: Router) {}
 
   onLogin() {
-    this.sessionKey.emit('xxxxx-xxxxxx-xxxxxx');
+    this.router.navigate(['/desktop']);
   }
 }
