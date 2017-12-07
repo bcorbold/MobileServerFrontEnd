@@ -1,9 +1,5 @@
 @mixin incoming-batches-theme($theme) {
 
-  .ms-blur-container {
-    background-color: $ms-dark-transparent;
-  }
-
   .ms-order-done {
     background-color: mat-color($ms-primary, 500);
   }

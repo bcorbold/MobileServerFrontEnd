@@ -1,28 +1,40 @@
 .ms-blur-container {
   border-radius: 5px;
   padding: 10px;
-}
 
-.batches-container {
-  overflow: auto;
-  max-height: 100%;
-}
+  .ms-batches-container {
+    overflow: auto;
+    max-height: 100%;
 
-.product-name {
-  padding-left: 5px;
-  padding-right: 20px;
-}
+    .ms-batch-container {
+      margin: 1px 0;
+    }
 
-.ms-batch-container {
-  margin: 1px 0;
-}
+    .ms-send-batch-button {
+      margin: 2px 0 2px 5px;
+      border-radius: 2px;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+    }
 
-.ms-order-container {
-  height: 50px;
-  width: 100%;
-  cursor: pointer;
-}
+    .ms-order-container {
+      height: 50px;
+      width: 100%;
+      cursor: pointer;
+      border-radius: 2px;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
 
-.send-button {
-  margin: 0 5px;
+      .product-name {
+        padding-left: 5px;
+        padding-right: 20px;
+      }
+    }
+
+  }
+
+  ms-page-selector {
+    padding-top: 10px;
+  }
+
 }
