@@ -11,12 +11,7 @@ $ms-warn: mat-palette($mat-red, 700, 600, 900);
 $ms-theme: mat-dark-theme($ms-primary, $ms-accent, $ms-warn);
 
 $ms-dark-transparent: rgba(0, 0, 0, 0.3);
-$ms-green-transparent: rgba(0, 100, 0, 0.5);
-$ms-red-transparent: rgba(100, 0, 0, 0.5);
 $ms-light-text: #FFFFFF;
-
-$ms-green-border: rgba(0, 100, 0, 1);
-$ms-red-border: rgba(100, 0, 0, 1);
 
 .ms-theme {
   @include angular-material-theme($ms-theme);
