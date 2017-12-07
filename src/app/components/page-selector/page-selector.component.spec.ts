@@ -1,10 +1,10 @@
 import { async, TestBed } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
+import { BrowserModule, By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { POCFormModule } from '../../forms/poc/poc-form.module';
 import { PageSelectorComponent } from './page-selector.component';
 

@@ -1,27 +1,11 @@
 @mixin incoming-batches-theme($theme) {
 
-  .ms-blur-container {
-    background-color: $ms-dark-transparent;
+  .ms-order-done {
+    background-color: mat-color($ms-primary, 500);
   }
 
-  .ms-green-container {
-    background-color: $ms-green-transparent;
-    border: solid $ms-green-border 2px;
-  }
-
-  .ms-red-container {
-    background-color: $ms-red-transparent;
-    border: solid $ms-red-border 2px;
-  }
-
-  .send-button {
-    background-color: $ms-green-transparent;
-    border: solid $ms-green-border 2px;
-  }
-
-  .send-button-placeholder {
-    background-color: $ms-red-transparent;
-    border: solid $ms-red-border 2px;
+  .ms-order-todo {
+    background-color: mat-color($ms-accent, 800);
   }
 }
 

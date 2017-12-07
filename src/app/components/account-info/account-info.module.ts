@@ -3,9 +3,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 
-import { PlaceOrderComponent } from './place-order.component';
+import { AccountInfoComponent } from './account-info.component';
 
-export { PlaceOrderComponent } from './place-order.component';
+export { AccountInfoComponent } from './account-info.component';
 
 @NgModule({
   imports: [
@@ -14,10 +14,10 @@ export { PlaceOrderComponent } from './place-order.component';
     MatInputModule
   ],
   declarations: [
-    PlaceOrderComponent
+    AccountInfoComponent
   ],
   exports: [
-    PlaceOrderComponent
+    AccountInfoComponent
   ]
 })
-export class PlaceOrderModule { }
+export class AccountInfoModule { }

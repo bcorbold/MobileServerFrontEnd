@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -27,6 +28,7 @@ export { IncomingBatchesComponent } from './incoming-batches.component';
     POCFormModule,
     FormsModule,
     MatButtonModule,
+    MatIconModule,
     MatInputModule,
     MatSlideToggleModule,
     PageSelectorModule
