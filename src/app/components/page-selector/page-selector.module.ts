@@ -5,7 +5,6 @@ import { MatButtonModule, MatInputModule, MatSlideToggleModule } from '@angular/
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { POCFormModule } from '../../forms/poc/poc-form.module';
 import { PageSelectorComponent } from './page-selector.component';
 
 export { PageSelectorComponent } from './page-selector.component';
@@ -21,7 +20,6 @@ export { PageSelectorComponent } from './page-selector.component';
     BrowserAnimationsModule,
     BrowserModule,
     FlexLayoutModule,
-    POCFormModule,
     FormsModule,
     MatButtonModule,
     MatInputModule,

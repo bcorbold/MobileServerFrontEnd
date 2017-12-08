@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { POCFormModule } from '../../forms/poc/poc-form.module';
 import { MessageModule, MessageService } from '../../services/message/message.module';
 import { PageSelectorModule } from '../page-selector/page-selector.module';
 
@@ -26,7 +25,6 @@ export { IncomingBatchesComponent } from './incoming-batches.component';
     BrowserModule,
     FlexLayoutModule,
     MessageModule,
-    POCFormModule,
     FormsModule,
     MatButtonModule,
     MatIconModule,
