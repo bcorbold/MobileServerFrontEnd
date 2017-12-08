@@ -10,6 +10,12 @@ import { POCFormComponent } from './poc-form.component';
 export { POCFormComponent } from './poc-form.component';
 
 @NgModule({
+  declarations: [
+      POCFormComponent
+  ],
+  exports: [
+      POCFormComponent
+  ],
   imports: [
     BrowserModule,
     FlexLayoutModule,
@@ -17,12 +23,6 @@ export { POCFormComponent } from './poc-form.component';
     MatButtonModule,
     MatInputModule,
     MatSlideToggleModule
-  ],
-  declarations: [
-    POCFormComponent
-  ],
-  exports: [
-    POCFormComponent
   ]
 })
 export class POCFormModule { }

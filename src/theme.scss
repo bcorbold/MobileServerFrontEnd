@@ -1,0 +1,19 @@
+@import '~@angular/material/_theming.scss';
+
+@import './app/app.theme';
+
+@include mat-core();
+
+$ms-primary: mat-palette($mat-blue);
+$ms-accent: mat-palette($mat-blue-grey, 400, 200, 700);
+$ms-warn: mat-palette($mat-red, 700, 600, 900);
+
+$ms-theme: mat-dark-theme($ms-primary, $ms-accent, $ms-warn);
+
+$ms-dark-transparent: rgba(0, 0, 0, 0.5);
+$ms-light-text: #FFFFFF;
+
+.ms-theme {
+  @include angular-material-theme($ms-theme);
+  @include app-theme($ms-theme);
+}
