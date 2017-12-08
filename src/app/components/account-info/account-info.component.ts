@@ -9,12 +9,12 @@ import { User } from '../../core/user';
 })
 export class AccountInfoComponent implements OnInit {
 
-  userInfo: User = new User();
+  userInfo: any = {};
 
   ngOnInit(): void {
     this.userInfo = {
       id: 123456,
-      username: 'bcorbold',
+      username: 'bradencorbold@gmail.com',
       firstName: 'Braden',
       lastName: 'Corbold',
       currentPermissions: 'User',

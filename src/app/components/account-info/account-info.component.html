@@ -1,8 +1,10 @@
 <div class="ms-blur-container" fxLayout="column">
   <h1 class="ms-header">Account Info</h1>
 
-  <img fxFlexAlign="center" class="accountPicture" src="assets/account-pic.jpg">
-  <p>{{userInfo.firstName}} {{userInfo.lastName}} - {{userInfo.username}}</p>
+  <img fxFlexAlign="center" class="ms-account-picture" src="assets/account-pic.jpg">
+
+  <h2 fxFlexAlign="center" class="ms-name-container">{{userInfo.firstName}} {{userInfo.lastName}}</h2>
+  <p fxFlexAlign="center" class="ms-username-container">{{userInfo.username}}</p>
 
   <mat-input-container>
     <input matInput [value]="userInfo.deskLocation" placeholder="Desk Location" type="text">

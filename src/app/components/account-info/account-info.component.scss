@@ -1,4 +1,4 @@
-$account-picture-size: 250px;
+$account-picture-size: 200px;
 
 .ms-blur-container {
   width: 100%;
@@ -6,13 +6,20 @@ $account-picture-size: 250px;
   border-radius: 5px;
   padding: 10px;
 
-  .accountPicture {
+  .ms-header {
+    margin-bottom: 10px;
+  }
+
+  .ms-account-picture {
     width: $account-picture-size;
     height: $account-picture-size;
     border-radius: $account-picture-size/2;
     -webkit-border-radius: $account-picture-size/2;
     -moz-border-radius: $account-picture-size/2;
-    margin-top: 10px;
-    margin-bottom: 40px;
   }
+
+  .ms-username-container {
+    margin-bottom: 20px;
+  }
+
 }

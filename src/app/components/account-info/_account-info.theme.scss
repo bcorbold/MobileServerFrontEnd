@@ -1,1 +1,11 @@
-@mixin account-info-theme($theme) {}
+@mixin account-info-theme($theme) {
+
+  .ms-name-container{
+    color: $ms-light-text;
+  }
+
+  .ms-username-container {
+    color: $ms-light-text;
+    font-family: Roboto-light;
+  }
+}
