@@ -4,10 +4,10 @@
   <div fxFlex class="ms-batches-container" fxLayout="column" (scroll)="onScroll()">
 
     <!-- this div should be repeated for every batch -->
-    <div *ngFor="let batch of batches" class="ms-batch-container">
+    <div *ngFor="let batch of batches">
 
       <!-- Order wrapper -->
-      <div fxLayout="row" fxLayoutAlign="space-between stretch" style="padding: 0 0 3px 0;">
+      <div class="{{getBatchStyle(batch)}}" fxLayout="row" fxLayoutAlign="space-between stretch" style="padding: 0 0 3px 0;">
         <div fxLayout="column" fxFlex>
           <div *ngFor="let order of batch.orders" style="margin: 2px 0;">
             <div fxLayout="row" fxLayoutAlign="start center"
@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <button mat-raised-button class="ms-send-batch-button" color="primary" [disabled]="!batch.markDone">
+        <button mat-raised-button class="ms-send-batch-button" [disabled]="!batch.markDone">
           <p>Send</p>
           <div fxLayout="row" fxLayoutAlign="center center">
             <mat-icon>alarm</mat-icon>

@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AccountInfoModule } from './components/account-info/account-info.module';
 import { IncomingBatchesModule } from './components/incoming-batches/incoming-batches.module';
+import { OrderHistoryModule } from './components/order-history/order-history.module';
 import { PlaceOrderModule } from './components/place-order/place-order.module';
 
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { AppConfig } from './app.config';
     BrowserModule,
     FlexLayoutModule,
     IncomingBatchesModule,
+    OrderHistoryModule,
     PlaceOrderModule
   ],
   providers: [

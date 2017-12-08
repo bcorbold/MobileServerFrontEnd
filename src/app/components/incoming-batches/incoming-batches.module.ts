@@ -3,7 +3,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MessageModule, MessageService } from '../../services/message/message.module';
@@ -21,8 +20,7 @@ export { IncomingBatchesComponent } from './incoming-batches.component';
     IncomingBatchesComponent
   ],
   imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
+    BrowserAnimationsModule, // todo: shouldn't have to import this
     FlexLayoutModule,
     MessageModule,
     FormsModule,

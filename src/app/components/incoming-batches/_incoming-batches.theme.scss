@@ -1,13 +1,38 @@
-@mixin incoming-batches-theme($theme) {
+@mixin ms-incoming-batches-theme($theme) {
 
-  .ms-order-done {
-    background-color: mat-color($primary, 500);
-    color: $ms-dark-text;
+
+  .ms-batch-wrapper-light{
+    .ms-order-done {
+      background-color: mat-color($primary, 500);
+      color: $ms-dark-text;
+    }
+
+    .ms-order-todo {
+      background-color: mat-color($accent, 800);
+      color: $ms-light-text;
+    }
+
+    .ms-send-batch-button {
+      background-color: mat-color($primary, 500);
+      color: $ms-dark-text;
+    }
   }
 
-  .ms-order-todo {
-    background-color: mat-color($accent, 800);
-    color: $ms-light-text;
+  .ms-batch-wrapper-dark{
+    .ms-order-done {
+      background-color: mat-color($primary, 300);
+      color: $ms-dark-text;
+    }
+
+    .ms-order-todo {
+      background-color: mat-color($accent, 600);
+      color: $ms-light-text;
+    }
+
+    .ms-send-batch-button {
+      background-color: mat-color($primary, 300);
+      color: $ms-dark-text;
+    }
   }
 }
 

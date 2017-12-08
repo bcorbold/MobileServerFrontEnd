@@ -1,4 +1,4 @@
-@mixin page-selector-theme($theme) {
+@mixin ms-page-selector-theme($theme) {
 
   .ms-current-page {
     color: mat-color($primary, 500);

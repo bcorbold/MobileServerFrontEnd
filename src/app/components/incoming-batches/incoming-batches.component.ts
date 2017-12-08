@@ -1470,4 +1470,15 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
       }, 100);
     }
   }
+
+  getBatchStyle(batch: any) { // todo: this is horrible... DON'T ACTUALLY USE THIS!!!!!
+    let style = 'ms-batch-wrapper-dark';
+    this.batches.forEach(item => {
+      if (item.batchId === batch.batchId && item.batchId % 2 === 1) {
+        style = 'ms-batch-wrapper-light';
+        return;
+      }
+    });
+    return style;
+  }
 }
