@@ -1,7 +1,11 @@
 @mixin page-selector-theme($theme) {
 
   .ms-current-page {
-    color: mat-color($ms-primary, 500);
+    color: mat-color($primary, 500);
+  }
+
+  .ms-page-numbers {
+    color: $ms-light-text;
   }
 
 }

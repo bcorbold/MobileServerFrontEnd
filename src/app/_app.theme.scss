@@ -5,17 +5,21 @@
 
 @mixin app-theme($theme) {
 
-  h1, h2, h3, p, pre, input {
-    color: $ms-light-text;
-  }
-
   @include account-info-theme($theme);
   @include incoming-batches-theme($theme);
   @include new-order-theme($theme);
   @include page-selector-theme($theme);
 
+  input {
+    color: $ms-light-text;
+  }
+
   .ms-blur-container {
     background-color: $ms-dark-transparent;
+  }
+
+  .ms-header {
+    color: $ms-light-text;
   }
 
 }
