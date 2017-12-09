@@ -4,10 +4,11 @@
   <div fxFlex class="ms-batches-container" fxLayout="column" (scroll)="onScroll()">
 
     <!-- this div should be repeated for every batch -->
-    <div *ngFor="let batch of batches">
+    <div *ngFor="let batch of batches; let i=index;">
 
       <!-- Order wrapper -->
-      <div class="{{getBatchStyle(batch)}}" fxLayout="row" fxLayoutAlign="space-between stretch" style="padding: 0 0 3px 0;">
+      <div class="{{i % 2 === 0 ? 'ms-batch-wrapper-dark' : 'ms-batch-wrapper-light'}}" style="padding: 0 0 3px 0;"
+           fxLayout="row" fxLayoutAlign="space-between stretch">
         <div fxLayout="column" fxFlex>
           <div *ngFor="let order of batch.orders" style="margin: 2px 0;">
             <div fxLayout="row" fxLayoutAlign="start center"
