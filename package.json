@@ -5,13 +5,14 @@
   "scripts": {
     "ng": "ng",
     "serve-dev": "ng serve",
-    "build": "ng build",
+    "serve-prod": "ng serve --prod --port 4201",
+    "build-dev": "ng build",
+    "build-prod": "ng build --prod",
     "test": "ng test",
     "test-travis": "ng lint && ng test --watch false --browser ChromeHeadless",
     "lint": "ng lint",
     "lint-fix": "ng lint --fix",
-    "e2e": "ng e2e",
-    "build-prod": "ng build -prod"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

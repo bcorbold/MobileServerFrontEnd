@@ -16,6 +16,7 @@ import { DesktopComponent } from './components/desktop/desktop.component';
 import { LoginComponent } from './components/login/login.component';
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
+import { environment } from '../environments/environment';
 
 const appRoutes: Routes = [
   { path: 'desktop', component: DesktopComponent },
@@ -23,13 +24,18 @@ const appRoutes: Routes = [
   { path: '',   redirectTo: 'login', pathMatch: 'full' }
 ];
 
+console.log(environment.production);
+
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [AppComponent],
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      {
+        enableTracing: false,
+        useHash: true
+      } // <-- debugging purposes only
     ),
     AccountInfoModule,
     BrowserAnimationsModule,

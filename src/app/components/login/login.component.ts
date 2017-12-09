@@ -10,6 +10,6 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   onLogin() {
-    this.router.navigate(['/desktop']);
+    this.router.navigate(['desktop']);
   }
 }
