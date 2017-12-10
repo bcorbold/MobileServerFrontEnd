@@ -11,18 +11,33 @@ import { AccountInfoModule } from './components/account-info/account-info.module
 import { DesktopModule } from './components/desktop/desktop.module';
 import { LoginModule } from './components/login/login.module';
 import { PlaceOrderModule } from './components/place-order/place-order.module';
+import { CatalogueModule } from './components/catalogue/catalogue.module';
 
 import { DesktopComponent } from './components/desktop/desktop.component';
 import { LoginComponent } from './components/login/login.component';
 import { AppComponent } from './app.component';
+import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { AppConfig } from './app.config';
 import { environment } from '../environments/environment';
+import { AccountInfoComponent } from './components/account-info/account-info.component';
+import { IncomingBatchesComponent } from './components/incoming-batches/incoming-batches.component';
+
+import { Components } from './components/catalogue/components';
 
 const appRoutes: Routes = [
   { path: 'desktop', component: DesktopComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: 'login', pathMatch: 'full' }
 ];
+
+if (!environment.production) {
+  appRoutes.push(
+    {
+      path: 'component-catalogue', component: CatalogueComponent,
+      children: new Components().components
+    }
+  );
+}
 
 console.log(environment.production);
 
@@ -40,6 +55,7 @@ console.log(environment.production);
     AccountInfoModule,
     BrowserAnimationsModule,
     BrowserModule,
+    CatalogueModule,
     DesktopModule,
     FlexLayoutModule,
     LoginModule,
