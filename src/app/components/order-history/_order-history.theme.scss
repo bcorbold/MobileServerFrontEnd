@@ -1,6 +1,6 @@
 @mixin ms-order-history-theme($theme) {
   .ms-history-item-light {
-    background-color: mat-color($accent, 600);
+    background-color: mat-color($accent, 600, 0.8);
     color: $ms-light-text;
 
     button {
@@ -10,7 +10,7 @@
   }
 
   .ms-history-item-dark {
-    background-color: mat-color($accent, 800);
+    background-color: mat-color($accent, 800, 0.8);
     color: $ms-light-text;
 
     button {
