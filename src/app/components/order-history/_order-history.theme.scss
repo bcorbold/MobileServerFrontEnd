@@ -1,1 +1,21 @@
-@mixin ms-order-history-theme($theme) {}
+@mixin ms-order-history-theme($theme) {
+  .ms-history-item-light {
+    background-color: mat-color($accent, 600);
+    color: $ms-light-text;
+
+    button {
+      background-color: mat-color($primary, 400);
+      color: $ms-dark-text;
+    }
+  }
+
+  .ms-history-item-dark {
+    background-color: mat-color($accent, 800);
+    color: $ms-light-text;
+
+    button {
+      background-color: mat-color($primary);
+      color: $ms-dark-text;
+    }
+  }
+}

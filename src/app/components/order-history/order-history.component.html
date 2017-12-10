@@ -1,4 +1,23 @@
 <div fxFill class="ms-blur-container" fxLayout="column">
   <h1 class="ms-header">Order History</h1>
 
+  <div fxFlex class="ms-order-history-container" fxLayout="column">
+    <div *ngFor="let order of orderHistory; let i = index;">
+      <div class="{{i % 2 === 0 ? 'ms-history-item-dark' : 'ms-history-item-light'}}" style="padding: 5px; margin: 5px 0; border-radius: 5px;">
+        <div fxLayout="row" fxLayoutAlign="start stretch">
+          <p>{{order.orderInfo.orderOption.name}}</p>
+          <div *ngFor="let addOn of order.orderInfo.selectedAddOns;">
+            <p *ngIf="addOn.value !== true" style="margin: 0 10px;">+{{addOn.value}} {{addOn.key}}</p>
+            <p *ngIf="addOn.value === true" style="margin: 0 10px;">with {{addOn.key}}</p>
+          </div>
+        </div>
+        <p>Ordered {{order.orderDate}}</p>
+        <p *ngIf="order.deliveryEta">Estimated time of arrival: [clock] 00:05:00</p>
+        <p *ngIf="order.deliveredDate">Delivered at {{order.deliveredDate}}</p>
+
+        <button mat-raised-button style="margin-top: 5px; width: 100%;">Re-order</button>
+      </div>
+    </div>
+  </div>
+
 </div>

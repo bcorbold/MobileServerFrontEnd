@@ -1417,7 +1417,7 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
      */
 
     this.currentPage = newPage;
-    const batchContainer = document.getElementsByClassName('ms-batches-container')[0];
+    const batchContainer = document.getElementsByClassName('ms-order-history-container')[0];
     const divs = this.getDivHeights();
     let value = 0;
     for (let i = 0; i < newPage - 1; i++) {
@@ -1433,7 +1433,7 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
 
   getDivHeights(): number[] {
     const divs = [];
-    const batchContainer = document.getElementsByClassName('ms-batches-container')[0];
+    const batchContainer = document.getElementsByClassName('ms-order-history-container')[0];
     for (let i = 0; i < batchContainer.children.length; i++) {
       divs.push((<HTMLElement>batchContainer.children[0]).offsetHeight);
     }
@@ -1456,7 +1456,7 @@ export class IncomingBatchesComponent implements OnInit, OnDestroy {
     clearTimeout(this.scrollDebounce);
     if (!this.pageSelected) {
       this.scrollDebounce = setTimeout(() => {
-        const batchContainer = document.getElementsByClassName('ms-batches-container')[0];
+        const batchContainer = document.getElementsByClassName('ms-order-history-container')[0];
         this.currentPage = 1;
         const divs = this.getDivHeights();
         let adder = 0;

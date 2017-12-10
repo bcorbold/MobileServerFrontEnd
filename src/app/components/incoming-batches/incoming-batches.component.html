@@ -1,13 +1,13 @@
 <div fxFill class="ms-blur-container" fxLayout="column">
   <h1 class="ms-header">Incoming Orders</h1>
 
-  <div fxFlex class="ms-batches-container" fxLayout="column" (scroll)="onScroll()">
+  <div fxFlex class="ms-order-history-container" fxLayout="column" (scroll)="onScroll()">
 
     <!-- this div should be repeated for every batch -->
     <div *ngFor="let batch of batches; let i=index;">
 
       <!-- Order wrapper -->
-      <div class="{{i % 2 === 0 ? 'ms-batch-wrapper-dark' : 'ms-batch-wrapper-light'}}" style="padding: 0 0 3px 0;"
+      <div class="{{i % 2 === 1 ? 'ms-batch-wrapper-dark' : 'ms-batch-wrapper-light'}}" style="padding: 0 0 3px 0;"
            fxLayout="row" fxLayoutAlign="space-between stretch">
         <div fxLayout="column" fxFlex>
           <div *ngFor="let order of batch.orders" style="margin: 2px 0;">

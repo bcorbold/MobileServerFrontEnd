@@ -1,4 +1,9 @@
 .ms-blur-container {
   border-radius: 5px;
   padding: 10px;
+
+  .ms-order-history-container {
+    overflow: auto;
+    max-height: 100%;
+  }
 }

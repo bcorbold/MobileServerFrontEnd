@@ -4,9 +4,10 @@ export class Order {
   id: string;
   state: string;
   deliveryEta: string;
+  orderDate: string;
   deliveredDate: string;
   orderInfo: {
     orderOption: OrderOption,
-    selectedAddOns: [any] // key=addOnTag, val=value
+    selectedAddOns: [{key: string, value: boolean | number | string}] // key=addOnTag, val=value
   };
 }
