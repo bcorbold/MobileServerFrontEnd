@@ -4,11 +4,11 @@ import { MatButtonModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { DesktopModule } from '../desktop/desktop.module';
 
-import { CatalogueComponent } from './catalogue.component';
-import { AccountInfoModule } from '../account-info/account-info.module';
-import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { AccountInfoModule } from '../account-info/account-info.module';
+import { CatalogueComponent } from './catalogue.component';
 
 export { CatalogueComponent } from './catalogue.component';
 
