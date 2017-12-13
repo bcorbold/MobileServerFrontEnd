@@ -16,19 +16,10 @@ import { PlaceOrderModule } from './components/place-order/place-order.module';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-import { AccountInfoComponent } from './components/account-info/account-info.component';
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
-import { DesktopComponent } from './components/desktop/desktop.component';
-import { IncomingBatchesComponent } from './components/incoming-batches/incoming-batches.component';
-import { LoginComponent } from './components/login/login.component';
-
 import { Components } from './components/catalogue/components';
 
-const appRoutes: Routes = [
-  { path: 'desktop', component: DesktopComponent },
-  { path: 'login', component: LoginComponent },
-  { path: '',   redirectTo: 'login', pathMatch: 'full' }
-];
+const appRoutes: Routes = new AppConfig().appRoutes;
 
 if (!environment.production) {
   appRoutes.push(
@@ -50,7 +41,7 @@ console.log(environment.production);
       {
         enableTracing: false,
         useHash: true
-      } // <-- debugging purposes only
+      }
     ),
     AccountInfoModule,
     BrowserAnimationsModule,

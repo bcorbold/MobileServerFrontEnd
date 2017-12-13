@@ -6,19 +6,27 @@ import { AccountInfoModule } from './components/account-info/account-info.module
 import { IncomingBatchesModule } from './components/incoming-batches/incoming-batches.module';
 import { PlaceOrderModule } from './components/place-order/place-order.module';
 
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
+import { AppModule } from './app.module';
 
+const appRoutes: Routes = new AppConfig().appRoutes;
 
 describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
       imports: [
+        RouterModule.forRoot(
+        appRoutes,
+        {
+          enableTracing: false,
+          useHash: true
+        }
+      ),
         AccountInfoModule,
+        AppModule,
         BrowserAnimationsModule,
         BrowserModule,
         IncomingBatchesModule,
