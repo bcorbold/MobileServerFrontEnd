@@ -1,11 +1,15 @@
+@import '~@angular/material/_theming.scss';
+
 @mixin ms-page-selector-theme($theme) {
+
+  $primary: map-get($theme, primary);
 
   .ms-current-page {
     color: mat-color($primary, 500);
   }
 
   .ms-page-numbers {
-    color: $ms-light-text;
+    color: $white-87-opacity;
   }
 
 }

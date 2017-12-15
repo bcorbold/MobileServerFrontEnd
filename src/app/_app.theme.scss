@@ -1,3 +1,5 @@
+@import '~@angular/material/_theming.scss';
+
 @import 'components/account-info/account-info.theme';
 @import 'components/incoming-batches/incoming-batches.theme';
 @import 'components/page-selector/page-selector.theme';
@@ -13,15 +15,15 @@
   @include ms-page-selector-theme($theme);
 
   input {
-    color: $ms-light-text;
+    color: $white-87-opacity;
   }
 
   .ms-blur-container {
-    background-color: $ms-dark-transparent;
+    background-color: $cdk-overlay-dark-backdrop-background;
   }
 
   .ms-header {
-    color: $ms-light-text;
+    color: $white-87-opacity;
   }
 
 }
