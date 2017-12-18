@@ -9,8 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CatalogueModule } from './components/catalogue/catalogue.module';
-import { DesktopModule } from './components/desktop/desktop.module';
-import { LoginModule } from './components/login/login.module';
+import { DesktopModule } from './components/views/desktop/desktop.module';
+import { LoginModule } from './components/views/login/login.module';
 import { AccountInfoModule } from './components/views/account-info/account-info.module';
 import { IncomingBatchesModule } from './components/views/incoming-batches/incoming-batches.module';
 import { OrderHistoryModule } from './components/views/order-history/order-history.module';
@@ -21,8 +21,8 @@ import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { Components } from './components/catalogue/components';
-import { DesktopComponent } from './components/desktop/desktop.component';
-import { LoginComponent } from './components/login/login.component';
+import { DesktopComponent } from './components/views/desktop/desktop.component';
+import { LoginComponent } from './components/views/login/login.component';
 
 const appRoutes: Routes = [
   { path: 'desktop', component: DesktopComponent },

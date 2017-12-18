@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import * as Cookies from 'js-cookie';
 import * as _ from 'lodash';
-import { User } from '../../core/user';
+import { User } from '../../../core/user';
 
 @Component({
   selector: 'ms-desktop',
