@@ -7,26 +7,15 @@ import { IncomingBatchesModule } from './components/views/incoming-batches/incom
 import { OrderHistoryModule } from './components/views/order-history/order-history.module';
 import { PlaceOrderModule } from './components/views/place-order/place-order.module';
 
-
-import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
 import { AppModule } from './app.module';
-
-const appRoutes: Routes = new AppConfig().appRoutes;
 
 describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterModule.forRoot(
-        appRoutes,
-        {
-          enableTracing: false,
-          useHash: true
-        }
-      ),
         AccountInfoModule,
         AppModule,
         BrowserAnimationsModule,

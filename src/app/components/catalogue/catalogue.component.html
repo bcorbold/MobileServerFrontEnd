@@ -1,9 +1,0 @@
-<div class="ms-blur-container" fxLayout="row" fxLayoutAlign="center center" fxFill>
-
-  <div fxFlex="initial" fxLayout="column">
-    <div *ngFor="let path of componentPaths">
-      <button (click)="onSelectComponent(path)">{{path}}</button>
-    </div>
-  </div>
-  <router-outlet fxFlex fxFill></router-outlet>
-</div>
