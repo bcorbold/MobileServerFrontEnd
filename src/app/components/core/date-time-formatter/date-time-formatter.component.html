@@ -1,0 +1,12 @@
+<div>
+  <div *ngIf="formatAsDate" fxLayout="row" fxLayoutAlign="start stretch">
+    <p>{{formatDate()}}</p>
+  </div>
+  <div *ngIf="!formatAsDate" fxLayout="row" fxLayoutAlign="start stretch">
+    <mat-icon>alarm</mat-icon>
+    <p>{{formatTime()}}</p>
+  </div>
+</div>
+
+
+<!--<p>{{date}}</p>-->

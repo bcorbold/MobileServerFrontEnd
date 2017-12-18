@@ -2,9 +2,9 @@ import { async, TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AccountInfoModule } from './components/account-info/account-info.module';
-import { IncomingBatchesModule } from './components/incoming-batches/incoming-batches.module';
-import { PlaceOrderModule } from './components/place-order/place-order.module';
+import { AccountInfoModule } from './components/views/account-info/account-info.module';
+import { IncomingBatchesModule } from './components/views/incoming-batches/incoming-batches.module';
+import { PlaceOrderModule } from './components/views/place-order/place-order.module';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';

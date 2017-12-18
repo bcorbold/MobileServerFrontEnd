@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Order } from '../../core/order';
-import { MessageService } from '../../services/message/message.service';
+import { isDefined } from '../../../core/is-defined';
+import { Order } from '../../../core/order';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'ms-order-history',
@@ -10,10 +11,9 @@ import { MessageService } from '../../services/message/message.service';
 })
 export class OrderHistoryComponent implements OnInit {
 
-  orderHistory: Order[];
+  orderHistory: any[];
 
   currentPage = 1;
-  deadlineInterval;
   scrollDebounce;
   selectDebounce;
   pageSelected = false;
@@ -24,6 +24,17 @@ export class OrderHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderHistory = this.messageService.getOrderHistory();
+    this.orderHistory.forEach(order => {
+      if (isDefined(order.deliveryEta)) {
+        order.deliveryEta = new Date(order.deliveryEta);
+      }
+      if (isDefined(order.orderDate)) {
+        order.orderDate = new Date(order.orderDate);
+      }
+      if (isDefined(order.deliveredDate)) {
+        order.deliveredDate = new Date(order.deliveredDate);
+      }
+    });
   }
 
   onNewPageSelected(newPage: number) {

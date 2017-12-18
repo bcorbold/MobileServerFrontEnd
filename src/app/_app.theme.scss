@@ -1,10 +1,10 @@
 @import '~@angular/material/_theming.scss';
 
-@import 'components/account-info/account-info.theme';
-@import 'components/incoming-batches/incoming-batches.theme';
-@import 'components/page-selector/page-selector.theme';
-@import 'components/order-history/order-history.theme';
-@import 'components/place-order/place-order.theme';
+@import 'components/views/account-info/account-info.theme';
+@import 'components/views/incoming-batches/incoming-batches.theme';
+@import 'components/core/page-selector/page-selector.theme';
+@import 'components/views/order-history/order-history.theme';
+@import 'components/views/place-order/place-order.theme';
 
 @mixin app-theme($theme) {
 

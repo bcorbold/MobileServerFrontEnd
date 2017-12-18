@@ -15,9 +15,20 @@
               <p *ngIf="addOn.value === true" style="margin: 0 10px;">with {{addOn.key}}</p>
             </div>
           </div>
-          <p>Ordered {{order.orderDate}}</p>
-          <p *ngIf="order.deliveryEta">Estimated time of arrival: [clock] 00:05:00</p>
-          <p *ngIf="order.deliveredDate">Delivered at {{order.deliveredDate}}</p>
+          <div fxLayout="row" fxLayoutAlign="start stretch">
+            <p>Ordered on</p>
+            <ms-date-time-formatter style="margin-left: 4px;" [date]="order.orderDate" [formatAsDate]="true"></ms-date-time-formatter>
+          </div>
+
+          <div *ngIf="order.deliveryEta" fxLayout="row" fxLayoutAlign="start stretch">
+            <p>Estimated time of arrival: </p>
+            <ms-date-time-formatter style="margin-left: 4px;" [date]="order.deliveryEta" [formatAsDate]="false"></ms-date-time-formatter>
+          </div>
+
+          <div *ngIf="order.deliveredDate" fxLayout="row" fxLayoutAlign="start stretch">
+            <p>Delivered on</p>
+            <ms-date-time-formatter style="margin-left: 4px;" [date]="order.deliveredDate" [formatAsDate]="true"></ms-date-time-formatter>
+          </div>
         </div>
 
         <button mat-raised-button style="margin-top: 5px;">Re-order</button>

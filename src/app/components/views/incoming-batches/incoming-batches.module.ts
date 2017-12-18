@@ -5,8 +5,8 @@ import { MatButtonModule, MatInputModule, MatSlideToggleModule } from '@angular/
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MessageModule, MessageService } from '../../services/message/message.module';
-import { PageSelectorModule } from '../page-selector/page-selector.module';
+import { MessageModule, MessageService } from '../../../services/message/message.module';
+import { PageSelectorModule } from '../../core/page-selector/page-selector.module';
 
 import { IncomingBatchesComponent } from './incoming-batches.component';
 
