@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between stretch" fxFill>
-  <!--<ms-incoming-batches fxFlex></ms-incoming-batches>-->
-  <ms-order-history fxFlex></ms-order-history>
-  <ms-place-order fxFlex></ms-place-order>
-  <ms-account-info fxFlex></ms-account-info>
+  <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
+  <ms-order-history fxFlex *ngIf="!isAdminView"></ms-order-history>
+  <ms-place-order fxFlex *ngIf="!isAdminView"></ms-place-order>
+  <ms-account-info fxFlex [user]="user" (userUpdate)="handleUserInfoChange($event)" (switchView)="changeView()"></ms-account-info>
 </div>

@@ -5,6 +5,7 @@ export class User {
   firstName: string;
   lastName: string;
   adminEnabled: boolean;
-  deskLocation: DeliveryLocation;
+  defaultView: string;
+  defaultDeliveryLocation: DeliveryLocation;
   locale: string;
 }

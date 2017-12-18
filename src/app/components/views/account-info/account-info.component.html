@@ -1,30 +1,38 @@
 <div class="ms-blur-container" fxLayout="column">
-  <h1 class="ms-header">Account Info</h1>
+  <div fxLayout="row" fxLayoutAlign="space-between stretch">
+    <h1 class="ms-header">Account Info</h1>
+    <button *ngIf="user.adminEnabled" mat-raised-button color="primary" (click)="switchView.emit()">Switch view</button>
+  </div>
 
   <img fxFlexAlign="center" class="ms-account-picture" src="assets/account-pic.jpg">
 
-  <h2 fxFlexAlign="center" class="ms-name-container">{{userInfo.firstName}} {{userInfo.lastName}}</h2>
-  <p fxFlexAlign="center" class="ms-username-container">{{userInfo.username}}</p>
+  <h2 fxFlexAlign="center" class="ms-name-container">{{user.firstName}} {{user.lastName}}</h2>
+  <p fxFlexAlign="center" class="ms-username-container">{{user.username}}</p>
 
-  <mat-input-container>
-    <input matInput [value]="userInfo.deskLocation" placeholder="Desk Location" type="text">
-  </mat-input-container>
+  <mat-form-field>
+    <mat-select [(value)]="user.defaultDeliveryLocation.id" placeholder="Default delivery location">
+      <mat-option [value]="1">1st floor, section A, desk 3</mat-option>
+      <mat-option [value]="2">2st floor, section A, desk 3</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  <mat-input-container>
-    <input matInput [value]="userInfo.currentPermissions" [disabled]="true" placeholder="Current Profile" type="text">
-  </mat-input-container>
+  <mat-form-field>
+    <mat-select [(value)]="user.locale" placeholder="Locale">
+      <mat-option [value]="'en_GB'">English</mat-option>
+      <mat-option [value]="'fr_FR'">French</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  <mat-input-container>
-    <input matInput [value]="userInfo.defaultPermissions" [disabled]="true" placeholder="Default Profile" type="text">
-  </mat-input-container>
-
-  <mat-input-container>
-    <input matInput [value]="userInfo.locale" placeholder="Locale" type="text">
-  </mat-input-container>
+  <mat-form-field *ngIf="user.adminEnabled">
+    <mat-select [(value)]="user.defaultView" placeholder="Default view">
+      <mat-option [value]="'user'">User</mat-option>
+      <mat-option [value]="'bartender'">Bartender</mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <div fxFlex fxLayout="column" fxLayoutAlign="end stretch">
-    <button mat-raised-button color="primary" style="margin-bottom: 10px;">Save Info</button>
-    <button mat-raised-button color="warn">Discard Changes</button>
+    <button mat-raised-button color="primary" style="margin-bottom: 10px;" (click)="updateAccountInfo()">Save Info</button>
+    <button mat-raised-button color="warn" (click)="resetAccountInfo()">Discard Changes</button>
   </div>
 
 </div>

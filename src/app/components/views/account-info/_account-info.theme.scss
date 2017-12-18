@@ -2,6 +2,10 @@
 
 @mixin ms-account-info-theme($theme) {
 
+  mat-slide-toggle {
+    color: $white-87-opacity;
+  }
+
   .ms-name-container{
     color: $white-87-opacity;
   }

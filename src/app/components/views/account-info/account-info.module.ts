@@ -1,7 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material';
-import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AccountInfoComponent } from './account-info.component';
 
@@ -9,9 +11,11 @@ export { AccountInfoComponent } from './account-info.component';
 
 @NgModule({
   imports: [
+    CommonModule,
     FlexLayoutModule,
+    FormsModule,
     MatButtonModule,
-    MatInputModule
+    MatSelectModule
   ],
   declarations: [
     AccountInfoComponent
