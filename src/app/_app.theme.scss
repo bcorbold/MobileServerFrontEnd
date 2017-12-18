@@ -1,25 +1,29 @@
-@import 'components/account-info/account-info.theme';
-@import 'components/login/login.theme';
-@import 'components/desktop/desktop.theme';
-@import 'components/incoming-batches/incoming-batches.theme';
-@import 'components/page-selector/page-selector.theme';
-@import 'components/place-order/place-order.theme';
+@import '~@angular/material/_theming.scss';
+
+@import 'components/views/account-info/account-info.theme';
+@import 'components/views/incoming-batches/incoming-batches.theme';
+@import 'components/core/page-selector/page-selector.theme';
+@import 'components/views/order-history/order-history.theme';
+@import 'components/views/place-order/place-order.theme';
 
 @mixin app-theme($theme) {
 
-  h1, h2, h3, p, pre, input {
-    color: $ms-light-text;
+  @include ms-account-info-theme($theme);
+  @include ms-incoming-batches-theme($theme);
+  @include ms-new-order-theme($theme);
+  @include ms-order-history-theme($theme);
+  @include ms-page-selector-theme($theme);
+
+  input {
+    color: $white-87-opacity;
   }
 
   .ms-blur-container {
-    background-color: $ms-dark-transparent;
+    background-color: $cdk-overlay-dark-backdrop-background;
   }
 
-  @include account-info-theme($theme);
-  @include desktop-theme($theme);
-  @include incoming-batches-theme($theme);
-  @include login-theme($theme);
-  @include new-order-theme($theme);
-  @include page-selector-theme($theme);
+  .ms-header {
+    color: $white-87-opacity;
+  }
 
 }

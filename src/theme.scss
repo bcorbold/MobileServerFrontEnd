@@ -4,14 +4,11 @@
 
 @include mat-core();
 
-$ms-primary: mat-palette($mat-blue);
-$ms-accent: mat-palette($mat-blue-grey, 400, 200, 700);
-$ms-warn: mat-palette($mat-red, 700, 600, 900);
+$primary: mat-palette($mat-green);
+$accent: mat-palette($mat-brown);
+$warn: mat-palette($mat-red, 700, 600, 900);
 
-$ms-theme: mat-dark-theme($ms-primary, $ms-accent, $ms-warn);
-
-$ms-dark-transparent: rgba(0, 0, 0, 0.5);
-$ms-light-text: #FFFFFF;
+$ms-theme: mat-dark-theme($primary, $accent, $warn);
 
 .ms-theme {
   @include angular-material-theme($ms-theme);

@@ -1,0 +1,13 @@
+@import '~@angular/material/_theming.scss';
+
+@mixin ms-account-info-theme($theme) {
+
+  .ms-name-container{
+    color: $white-87-opacity;
+  }
+
+  .ms-username-container {
+    color: $white-87-opacity;
+    font-family: Roboto-light;
+  }
+}

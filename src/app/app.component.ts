@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import * as Cookies from 'js-cookie';
 
+import { Component } from '@angular/core';
+
 @Component({
   selector: 'ms-root',
   styleUrls: ['./app.component.scss'],

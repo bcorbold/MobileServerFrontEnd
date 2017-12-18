@@ -1,0 +1,44 @@
+<div fxFill class="ms-blur-container" fxLayout="column">
+  <h1 class="ms-header">Order History</h1>
+
+  <div fxFlex class="ms-order-history-container" fxLayout="column" (scroll)="onScroll()">
+    <div *ngFor="let order of orderHistory; let i = index;">
+      <div class="{{i % 2 === 0 ? 'ms-history-item-dark' : 'ms-history-item-light'}}"
+           fxLayout="row" fxLayoutAlign="start stretch"
+           style="padding: 5px; margin: 5px 0; border-radius: 5px;">
+
+        <div fxFlex>
+          <div fxLayout="row" fxLayoutAlign="start stretch">
+            <p>{{order.orderInfo.orderOption.name}}</p>
+            <div *ngFor="let addOn of order.orderInfo.selectedAddOns;">
+              <p *ngIf="addOn.value !== true" style="margin: 0 10px;">+{{addOn.value}} {{addOn.key}}</p>
+              <p *ngIf="addOn.value === true" style="margin: 0 10px;">with {{addOn.key}}</p>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start stretch">
+            <p>Ordered on</p>
+            <ms-date-time-formatter style="margin-left: 4px;" [date]="order.orderDate" [formatAsDate]="true"></ms-date-time-formatter>
+          </div>
+
+          <div *ngIf="order.deliveryEta" fxLayout="row" fxLayoutAlign="start stretch">
+            <p>Estimated time of arrival: </p>
+            <ms-date-time-formatter style="margin-left: 4px;" [date]="order.deliveryEta" [formatAsDate]="false"></ms-date-time-formatter>
+          </div>
+
+          <div *ngIf="order.deliveredDate" fxLayout="row" fxLayoutAlign="start stretch">
+            <p>Delivered on</p>
+            <ms-date-time-formatter style="margin-left: 4px;" [date]="order.deliveredDate" [formatAsDate]="true"></ms-date-time-formatter>
+          </div>
+        </div>
+
+        <button mat-raised-button style="margin-top: 5px;">Re-order</button>
+      </div>
+    </div>
+  </div>
+
+  <ms-page-selector fxFlex="initial"
+                    (newPage)="onNewPageSelected($event)"
+                    [numberOfPages]="orderHistory.length"
+                    [currentPage]="currentPage"></ms-page-selector>
+
+</div>
