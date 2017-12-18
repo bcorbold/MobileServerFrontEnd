@@ -4,12 +4,14 @@ import { MatButtonModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 
 import { LoginComponent } from './login.component';
+import { FormsModule } from '@angular/forms';
 
 export { LoginComponent } from './login.component';
 
 @NgModule({
   imports: [
     FlexLayoutModule,
+    FormsModule,
     MatButtonModule,
     MatInputModule
   ],

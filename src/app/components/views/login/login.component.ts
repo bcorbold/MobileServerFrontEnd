@@ -11,8 +11,17 @@ import * as Cookies from 'js-cookie';
 export class LoginComponent {
   constructor(private router: Router) {}
 
+  user = {
+    username: '',
+    password: ''
+  };
+
   onLogin() {
     Cookies.set('ms-session-key', 'xxxxx-xxxxx-xxxxx-xxxxx');
-    this.router.navigate(['desktop']);
+    if (this.user.username === 'admin' && this.user.password === 'a') {
+      this.router.navigate(['admin/desktop']);
+    } else {
+      this.router.navigate(['user/desktop']);
+    }
   }
 }

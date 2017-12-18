@@ -25,11 +25,11 @@ import { DesktopComponent } from './components/views/desktop/desktop.component';
 import { LoginComponent } from './components/views/login/login.component';
 
 const appRoutes: Routes = [
-  { path: 'desktop', component: DesktopComponent },
+  { path: 'admin/desktop', component: DesktopComponent },
+  { path: 'user/desktop', component: DesktopComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: 'login', pathMatch: 'full' }
 ];
-// const appRoutes: Routes = new AppConfig().appRoutes;
 
 if (!environment.production) {
   appRoutes.push(

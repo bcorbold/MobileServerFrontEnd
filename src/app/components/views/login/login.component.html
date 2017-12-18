@@ -1,11 +1,11 @@
 <div class="ms-blur-container" fxLayout="column" fxLayoutAlign="center center" fxFill>
 
   <mat-input-container>
-    <input matInput placeholder="UserName" type="text">
+    <input matInput placeholder="UserName" type="text"[(ngModel)]="user.username" (keyup.enter)="onLogin()">
   </mat-input-container>
 
   <mat-input-container>
-    <input matInput placeholder="Password" type="text">
+    <input matInput placeholder="Password" type="text" [(ngModel)]="user.password" (keyup.enter)="onLogin()">
   </mat-input-container>
 
   <button mat-raised-button color="primary" (click)="onLogin()">Login</button>
