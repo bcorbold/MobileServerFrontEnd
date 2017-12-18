@@ -21,8 +21,15 @@ import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { Components } from './components/catalogue/components';
+import { DesktopComponent } from './components/desktop/desktop.component';
+import { LoginComponent } from './components/login/login.component';
 
-const appRoutes: Routes = new AppConfig().appRoutes;
+const appRoutes: Routes = [
+  { path: 'desktop', component: DesktopComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '',   redirectTo: 'login', pathMatch: 'full' }
+];
+// const appRoutes: Routes = new AppConfig().appRoutes;
 
 if (!environment.production) {
   appRoutes.push(

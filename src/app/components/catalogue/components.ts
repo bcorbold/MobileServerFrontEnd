@@ -1,5 +1,5 @@
-import { AccountInfoComponent } from '../account-info/account-info.component';
-import { IncomingBatchesComponent } from '../incoming-batches/incoming-batches.component';
+import { IncomingBatchesComponent } from '../views/incoming-batches/incoming-batches.component';
+import { AccountInfoComponent } from '../views/account-info/account-info.component';
 
 export class Components {
   components = [

@@ -3,10 +3,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AccountInfoModule } from '../account-info/account-info.module';
-import { IncomingBatchesModule } from '../incoming-batches/incoming-batches.module';
-import { PlaceOrderModule } from '../place-order/place-order.module';
 import { DesktopComponent } from './desktop.component';
+import { AccountInfoModule } from '../views/account-info/account-info.module';
+import { IncomingBatchesModule } from '../views/incoming-batches/incoming-batches.module';
+import { PlaceOrderModule } from '../views/place-order/place-order.module';
+import { OrderHistoryModule } from '../views/order-history/order-history.module';
 
 export { DesktopComponent } from './desktop.component';
 
@@ -17,7 +18,8 @@ export { DesktopComponent } from './desktop.component';
     BrowserModule,
     IncomingBatchesModule,
     FlexLayoutModule,
-    PlaceOrderModule
+    PlaceOrderModule,
+    OrderHistoryModule
   ],
   declarations: [
     DesktopComponent
