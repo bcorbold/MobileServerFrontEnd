@@ -7,20 +7,17 @@ import { IncomingBatchesModule } from './components/views/incoming-batches/incom
 import { OrderHistoryModule } from './components/views/order-history/order-history.module';
 import { PlaceOrderModule } from './components/views/place-order/place-order.module';
 
-
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-
+import { AppModule } from './app.module';
 
 describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
       imports: [
         AccountInfoModule,
+        AppModule,
         BrowserAnimationsModule,
         BrowserModule,
         IncomingBatchesModule,

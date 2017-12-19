@@ -1,37 +1,22 @@
-import * as _ from 'lodash';
+import * as Cookies from 'js-cookie';
 
-import { Component } from '@angular/core';
-
-import { User } from './core/user';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-root',
   styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  user: User = {
-    username: 'bradencorbold@gmail.com',
-    firstName: 'Braden',
-    lastName: 'Corbold',
-    adminEnabled: true,
-    defaultDeliveryLocation: {
-      id: 1,
-      name: '1st floor, section A, desk 3'
-    },
-    defaultView: 'user',
-    locale: 'en_GB'
-  };
+  constructor(private router: Router) {}
 
-  isAdminView = this.user.defaultView === 'bartender';
+  ngOnInit() {
+    window.addEventListener('beforeunload', () => {
+      Cookies.remove('ms-session-key');
+    });
 
-  handleUserInfoChange(newUser: User): void {
-    this.user = _.defaultsDeep({}, newUser);
+    this.router.navigate(['']);
   }
-
-  changeView(): void {
-    this.isAdminView = !this.isAdminView;
-  }
-
 }
