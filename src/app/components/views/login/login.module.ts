@@ -4,12 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 
+import { AccountModule, AccountService } from '../../../services/account/account.module';
+
 import { LoginComponent } from './login.component';
 
 export { LoginComponent } from './login.component';
 
 @NgModule({
   imports: [
+    AccountModule,
     FlexLayoutModule,
     FormsModule,
     MatButtonModule,
@@ -20,6 +23,9 @@ export { LoginComponent } from './login.component';
   ],
   exports: [
     LoginComponent
+  ],
+  providers: [
+    AccountService
   ]
 })
 export class LoginModule { }

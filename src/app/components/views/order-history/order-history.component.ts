@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { isDefined } from '../../../core/is-defined';
-import { Order } from '../../../core/order';
 import { MessageService } from '../../../services/message/message.service';
 
 @Component({

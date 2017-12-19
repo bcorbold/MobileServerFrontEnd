@@ -9,11 +9,39 @@ import { Subscription } from 'rxjs/Subscription';
 import { AppConfig } from '../../app.config';
 import { Order } from '../../core/order';
 import { OrderOption } from '../../core/order-option';
+import { UserInfo } from '../../core/user-info';
+
+const mockAdmin: UserInfo = {
+  username: 'bradencorbold@gmail.com',
+  firstName: 'Braden',
+  lastName: 'Corbold',
+  adminEnabled: true,
+  defaultDeliveryLocation: {
+    id: 1,
+    name: '1st floor, section A, desk 3'
+  },
+  defaultView: 'user',
+  locale: 'en_GB'
+};
+const mockUser: UserInfo = {
+  username: 'bradencorbold@gmail.com',
+  firstName: 'Braden',
+  lastName: 'Corbold',
+  adminEnabled: false,
+  defaultDeliveryLocation: {
+    id: 1,
+    name: '1st floor, section A, desk 3'
+  },
+  defaultView: 'user',
+  locale: 'en_GB'
+};
+const mockSessionKey = 'b1e6fe5e-4f82-4b4d-9993-59c7af3e6694';
 
 @Injectable()
 export class MessageService implements OnDestroy {
 
   private pollingSubscription: Subscription;
+  private sessionKey: string;
 
   backendUpdates: EventEmitter<any> = new EventEmitter<any>();
 
@@ -28,6 +56,20 @@ export class MessageService implements OnDestroy {
   ngOnDestroy(): void {
     this.pollingSubscription.unsubscribe();
     this.pollingSubscription = undefined;
+  }
+
+  login(username: string, password: string): Promise<UserInfo> {
+    return new Promise((resolve, reject) => {
+      if (username === 'admin' && password === 'a') {
+        this.sessionKey = mockSessionKey;
+        resolve(mockAdmin);
+      } else if (username === 'mobile' && password === 'server') {
+        this.sessionKey = mockSessionKey;
+        resolve(mockUser);
+      } else {
+        reject();
+      }
+    });
   }
 
   getOrderHistory(): Order[] {

@@ -1,6 +1,6 @@
 import { DeliveryLocation } from './delivery-location';
 
-export class User {
+export class UserInfo {
   username: string;
   firstName: string;
   lastName: string;

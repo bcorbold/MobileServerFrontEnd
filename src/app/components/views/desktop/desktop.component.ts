@@ -3,7 +3,8 @@ import * as _ from 'lodash';
 
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../../../core/user';
+import { UserInfo } from '../../../core/user-info';
+import { AccountService } from '../../../services/account/account.service';
 
 @Component({
   selector: 'ms-desktop',
@@ -11,7 +12,9 @@ import { User } from '../../../core/user';
   styleUrls: ['./desktop.component.scss']
 })
 export class DesktopComponent implements OnInit {
-  user: User = {
+  userInfo: UserInfo;
+
+  user: UserInfo = {
     username: 'bradencorbold@gmail.com',
     firstName: 'Braden',
     lastName: 'Corbold',
@@ -23,10 +26,13 @@ export class DesktopComponent implements OnInit {
     defaultView: 'user',
     locale: 'en_GB'
   };
-
   isAdminView = this.user.defaultView === 'bartender';
 
-  handleUserInfoChange(newUser: User): void {
+  constructor(private accountService: AccountService) {
+    this.userInfo = this.accountService.userInfo;
+  }
+
+  handleUserInfoChange(newUser: UserInfo): void {
     this.user = _.defaultsDeep({}, newUser);
   }
 
