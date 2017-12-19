@@ -18,12 +18,22 @@ export class AccountService implements OnDestroy {
     return new Promise((resolve, reject) => {
       this.messageService.login(username, password)
         .then(userInfo => {
-          this._userInfo = userInfo;
+          this.userInfo = userInfo;
           resolve();
         })
         .catch(() => {
           console.error('UserInfo authentication failed...');
           reject();
+        });
+    });
+  }
+
+  updateAccountInfo(updatedUserInfo: UserInfo): Promise<UserInfo> {
+    return new Promise<UserInfo>((resolve) => {
+      this.messageService.updateAccountInfo(updatedUserInfo)
+        .then(user => {
+          this.userInfo = user;
+          resolve(this.userInfo);
         });
     });
   }
