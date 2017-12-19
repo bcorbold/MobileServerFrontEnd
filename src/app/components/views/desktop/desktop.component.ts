@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
 import * as Cookies from 'js-cookie';
 import * as _ from 'lodash';
+
+import { Component, OnInit } from '@angular/core';
+
 import { User } from '../../../core/user';
 
 @Component({

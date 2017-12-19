@@ -1,7 +1,7 @@
+import * as Cookies from 'js-cookie';
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-import * as Cookies from 'js-cookie';
 
 @Component({
   selector: 'ms-login',
