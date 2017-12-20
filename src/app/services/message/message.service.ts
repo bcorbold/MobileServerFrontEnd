@@ -35,15 +35,19 @@ export class MessageService implements OnDestroy {
 
   login(username: string, password: string): Promise<UserInfo> {
     return new Promise((resolve, reject) => {
-      if (username === 'admin' && password === 'a') {
-        this.sessionKey = mockSessionKey;
-        resolve(mockAdmin);
-      } else if (username === 'mobile' && password === 'server') {
-        this.sessionKey = mockSessionKey;
-        resolve(mockUser);
-      } else {
-        reject();
-      }
+
+      setTimeout(() => {
+        if (username === 'admin' && password === 'a') {
+          this.sessionKey = mockSessionKey;
+          resolve(mockAdmin);
+        } else if (username === 'mobile' && password === 'server') {
+          this.sessionKey = mockSessionKey;
+          resolve(mockUser);
+        } else {
+          reject();
+        }
+      }, 2000);
+
     });
   }
 

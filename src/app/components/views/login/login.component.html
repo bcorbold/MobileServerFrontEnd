@@ -8,12 +8,15 @@
     </mat-input-container>
 
     <mat-input-container>
-      <input matInput placeholder="Password" type="text" [(ngModel)]="password" (keyup.enter)="attemptLogin()">
+      <input matInput placeholder="Password" type="password" [(ngModel)]="password" (keyup.enter)="attemptLogin()">
     </mat-input-container>
 
     <button mat-raised-button color="primary" (click)="attemptLogin()">Login</button>
   </div>
 
-  <p class="ms-login-message">{{loginMessage}}</p>
+  <div class="ms-login-message-wrapper" fxLayout="column" fxLayoutAlign="start center">
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
+    <p class="ms-login-message">{{loginMessage}}</p>
+  </div>
 
 </div>
