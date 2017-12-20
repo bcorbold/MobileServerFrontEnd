@@ -12,12 +12,13 @@ export class LoginComponent {
 
   username: string;
   password: string;
+  loginMessage: string;
 
   constructor(private router: Router, private accountService: AccountService) {}
 
   attemptLogin() {
     this.accountService.attemptLogin(this.username, this.password)
       .then(() => this.router.navigate(['admin/desktop']))
-      .catch(() => console.log('Invalid username or password'));
+      .catch(() => this.loginMessage = 'Invalid username or password');
   }
 }

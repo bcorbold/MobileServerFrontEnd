@@ -1,13 +1,19 @@
-<div class="ms-blur-container" fxLayout="column" fxLayoutAlign="center center" fxFill>
+<div class="ms-blur-container" fxLayout="column" fxLayoutAlign="center center">
 
-  <mat-input-container>
-    <input matInput placeholder="Username" type="text"[(ngModel)]="username" (keyup.enter)="attemptLogin()">
-  </mat-input-container>
+  <h1 class="ms-header">MobileServer</h1>
 
-  <mat-input-container>
-    <input matInput placeholder="Password" type="text" [(ngModel)]="password" (keyup.enter)="attemptLogin()">
-  </mat-input-container>
+  <div class="ms-login-wrapper" fxLayout="column" fxLayoutAlign="center stretch">
+    <mat-input-container>
+      <input matInput placeholder="Username" type="text" [(ngModel)]="username" (keyup.enter)="attemptLogin()">
+    </mat-input-container>
 
-  <button mat-raised-button color="primary" (click)="attemptLogin()">Login</button>
+    <mat-input-container>
+      <input matInput placeholder="Password" type="text" [(ngModel)]="password" (keyup.enter)="attemptLogin()">
+    </mat-input-container>
+
+    <button mat-raised-button color="primary" (click)="attemptLogin()">Login</button>
+  </div>
+
+  <p class="ms-login-message">{{loginMessage}}</p>
 
 </div>
