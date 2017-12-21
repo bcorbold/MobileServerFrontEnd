@@ -12,74 +12,6 @@ import { Order } from '../../core/order';
 import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 
-@Injectable()
-export class MessageService implements OnDestroy {
-
-  private pollingSubscription: Subscription;
-  private sessionKey: string;
-
-  backendUpdates: EventEmitter<any> = new EventEmitter<any>();
-
-  constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {
-    this.pollingSubscription = Observable.interval(5000).subscribe(() => {
-      this.http.get(this.config.getUrl).subscribe((data: any) => {
-        this.backendUpdates.next(data);
-      });
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.pollingSubscription.unsubscribe();
-    this.pollingSubscription = undefined;
-  }
-
-  login(username: string, password: string): Promise<UserInfo> {
-    return new Promise((resolve, reject) => {
-
-      setTimeout(() => {
-        if (username === 'admin' && password === 'a') {
-          this.sessionKey = mockSessionKey;
-          resolve(mockAdmin);
-        } else if (username === 'mobile' && password === 'server') {
-          this.sessionKey = mockSessionKey;
-          resolve(mockUser);
-        } else {
-          reject();
-        }
-      }, 2000);
-
-    });
-  }
-
-  updateAccountInfo(user: UserInfo): Promise<UserInfo> {
-    return new Promise<UserInfo>((resolve, reject) => {
-      resolve(user);
-    });
-  }
-
-  getOrderHistory(): Promise<Order[]> {
-    return new Promise<Order[]>((resolve => {
-      const orderHistory: Order[] = [];
-
-      mockOrderHistory.forEach(order => {
-        if (isDefined(order.deliveryEta)) {
-          order.deliveryEta = new Date(order.deliveryEta);
-        }
-        if (isDefined(order.orderDate)) {
-          order.orderDate = new Date(order.orderDate);
-        }
-        if (isDefined(order.deliveredDate)) {
-          order.deliveredDate = new Date(order.deliveredDate);
-        }
-        orderHistory.push(order);
-      });
-
-      resolve(orderHistory);
-    }));
-  }
-
-}
-
 // mock data
 const mockAdmin: UserInfo = {
   username: 'bradencorbold@gmail.com',
@@ -276,3 +208,71 @@ const mockOrderHistory: any[] = [
     }
   }
 ];
+
+@Injectable()
+export class MessageService implements OnDestroy {
+
+  private pollingSubscription: Subscription;
+  private sessionKey: string;
+
+  backendUpdates: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {
+    this.pollingSubscription = Observable.interval(5000).subscribe(() => {
+      this.http.get(this.config.getUrl).subscribe((data: any) => {
+        this.backendUpdates.next(data);
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.pollingSubscription.unsubscribe();
+    this.pollingSubscription = undefined;
+  }
+
+  login(username: string, password: string): Promise<UserInfo> {
+    return new Promise((resolve, reject) => {
+
+      setTimeout(() => {
+        if (username === 'admin' && password === 'a') {
+          this.sessionKey = mockSessionKey;
+          resolve(mockAdmin);
+        } else if (username === 'mobile' && password === 'server') {
+          this.sessionKey = mockSessionKey;
+          resolve(mockUser);
+        } else {
+          reject();
+        }
+      }, 2000);
+
+    });
+  }
+
+  updateAccountInfo(user: UserInfo): Promise<UserInfo> {
+    return new Promise<UserInfo>((resolve, reject) => {
+      resolve(user);
+    });
+  }
+
+  getOrderHistory(): Promise<Order[]> {
+    return new Promise<Order[]>((resolve => {
+      const orderHistory: Order[] = [];
+
+      mockOrderHistory.forEach(order => {
+        if (isDefined(order.deliveryEta)) {
+          order.deliveryEta = new Date(order.deliveryEta);
+        }
+        if (isDefined(order.orderDate)) {
+          order.orderDate = new Date(order.orderDate);
+        }
+        if (isDefined(order.deliveredDate)) {
+          order.deliveredDate = new Date(order.deliveredDate);
+        }
+        orderHistory.push(order);
+      });
+
+      resolve(orderHistory);
+    }));
+  }
+
+}
