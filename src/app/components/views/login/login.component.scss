@@ -1,6 +1,25 @@
+$login-box-width: 400px;
+
 .ms-blur-container {
   width: 100%;
   height: 100%;
-  border-radius: 5px;
-  padding: 10px;
+
+  .ms-header {
+    font-size: 64px;
+  }
+
+  .ms-login-wrapper {
+    width: $login-box-width;
+  }
+
+  .ms-login-message-wrapper {
+    min-height: 30px;
+    width: $login-box-width;
+    margin-bottom: 100px;
+
+    mat-progress-bar {
+      margin-top: 8px;
+    }
+  }
+
 }

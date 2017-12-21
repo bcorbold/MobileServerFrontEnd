@@ -1,41 +1,30 @@
-import * as Cookies from 'js-cookie';
-import * as _ from 'lodash';
+import { Component } from '@angular/core';
 
-import { Component, OnInit } from '@angular/core';
-
-import { User } from '../../../core/user';
+import { UserInfo } from '../../../core/user-info';
+import { AccountService } from '../../../services/account/account.service';
 
 @Component({
   selector: 'ms-desktop',
   templateUrl: './desktop.component.html',
   styleUrls: ['./desktop.component.scss']
 })
-export class DesktopComponent implements OnInit {
-  user: User = {
-    username: 'bradencorbold@gmail.com',
-    firstName: 'Braden',
-    lastName: 'Corbold',
-    adminEnabled: true,
-    defaultDeliveryLocation: {
-      id: 1,
-      name: '1st floor, section A, desk 3'
-    },
-    defaultView: 'user',
-    locale: 'en_GB'
-  };
+export class DesktopComponent {
+  userInfo: UserInfo;
+  isAdminView = false;
 
-  isAdminView = this.user.defaultView === 'bartender';
+  constructor(private accountService: AccountService) {
+    this.userInfo = this.accountService.userInfo;
+    this.isAdminView = this.userInfo.defaultView === 'bartender';
+  }
 
-  handleUserInfoChange(newUser: User): void {
-    this.user = _.defaultsDeep({}, newUser);
+  handleUserInfoChange(updatedUserInfo: UserInfo): void {
+    this.accountService.updateAccountInfo(updatedUserInfo)
+      .then(user => this.userInfo = user)
+      .catch(() => console.error('User account info could not be updated'));
   }
 
   changeView(): void {
     this.isAdminView = !this.isAdminView;
-  }
-
-  ngOnInit() {
-    console.log(Cookies.get('ms-session-key'));
   }
 
 }

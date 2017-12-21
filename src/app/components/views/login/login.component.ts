@@ -1,7 +1,7 @@
-import * as Cookies from 'js-cookie';
-
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { AccountService } from '../../../services/account/account.service';
 
 @Component({
   selector: 'ms-login',
@@ -9,19 +9,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(private router: Router) {}
 
-  user = {
-    username: '',
-    password: ''
-  };
+  username: string;
+  password: string;
+  loginMessage: string;
+  isLoading = false;
 
-  onLogin() {
-    Cookies.set('ms-session-key', 'xxxxx-xxxxx-xxxxx-xxxxx');
-    if (this.user.username === 'admin' && this.user.password === 'a') {
-      this.router.navigate(['admin/desktop']);
-    } else {
-      this.router.navigate(['user/desktop']);
-    }
+  constructor(private router: Router, private accountService: AccountService) {}
+
+  attemptLogin() {
+    this.loginMessage = '';
+    this.isLoading = true;
+    this.accountService.attemptLogin(this.username, this.password)
+      .then(() => {
+        this.isLoading = false;
+        this.router.navigate(['admin/desktop']);
+      })
+      .catch(() => {
+        this.isLoading = false;
+        this.loginMessage = 'Invalid username or password';
+      });
   }
 }

@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { User } from '../../../core/user';
+import { UserInfo } from '../../../core/user-info';
 
 @Component({
   selector: 'ms-account-info',
@@ -11,11 +11,11 @@ import { User } from '../../../core/user';
 })
 export class AccountInfoComponent implements OnInit {
 
-  @Input() user: User;
-  @Output() userUpdate: EventEmitter<User> = new EventEmitter<User>();
+  @Input() user: UserInfo;
+  @Output() userUpdate: EventEmitter<UserInfo> = new EventEmitter<UserInfo>();
   @Output() switchView: EventEmitter<void> = new EventEmitter<void>();
 
-  private defaultUserInfo: User;
+  private defaultUserInfo: UserInfo;
 
   ngOnInit(): void {
     this.defaultUserInfo = _.defaultsDeep({}, this.user);

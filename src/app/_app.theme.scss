@@ -1,8 +1,9 @@
 @import '~@angular/material/_theming.scss';
 
+@import 'components/core/page-selector/page-selector.theme';
 @import 'components/views/account-info/account-info.theme';
 @import 'components/views/incoming-batches/incoming-batches.theme';
-@import 'components/core/page-selector/page-selector.theme';
+@import 'components/views/login/login.theme';
 @import 'components/views/order-history/order-history.theme';
 @import 'components/views/place-order/place-order.theme';
 
@@ -10,6 +11,7 @@
 
   @include ms-account-info-theme($theme);
   @include ms-incoming-batches-theme($theme);
+  @include ms-login-theme($theme);
   @include ms-new-order-theme($theme);
   @include ms-order-history-theme($theme);
   @include ms-page-selector-theme($theme);

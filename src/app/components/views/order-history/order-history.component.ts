@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { isDefined } from '../../../core/is-defined';
-import { Order } from '../../../core/order';
 import { MessageService } from '../../../services/message/message.service';
 
 @Component({
@@ -23,18 +22,8 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.orderHistory = this.messageService.getOrderHistory();
-    this.orderHistory.forEach(order => {
-      if (isDefined(order.deliveryEta)) {
-        order.deliveryEta = new Date(order.deliveryEta);
-      }
-      if (isDefined(order.orderDate)) {
-        order.orderDate = new Date(order.orderDate);
-      }
-      if (isDefined(order.deliveredDate)) {
-        order.deliveredDate = new Date(order.deliveredDate);
-      }
-    });
+    this.messageService.getOrderHistory()
+      .then(orderHistory => this.orderHistory = orderHistory);
   }
 
   onNewPageSelected(newPage: number) {
