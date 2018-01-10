@@ -23,7 +23,11 @@ export class LoginComponent {
     this.accountService.attemptLogin(this.username, this.password)
       .then(() => {
         this.isLoading = false;
-        this.router.navigate(['admin/desktop']);
+        if (this.accountService.userInfo.adminEnabled) {
+          this.router.navigate(['admin/desktop']);
+        } else {
+          this.router.navigate(['user/desktop']);
+        }
       })
       .catch(() => {
         this.isLoading = false;
