@@ -232,19 +232,18 @@ export class MessageService implements OnDestroy {
 
   login(username: string, password: string): Promise<UserInfo> {
     return new Promise((resolve, reject) => {
-
-      setTimeout(() => {
-        if (username === 'admin' && password === 'a') {
-          this.sessionKey = mockSessionKey;
-          resolve(mockAdmin);
-        } else if (username === 'mobile' && password === 'server') {
-          this.sessionKey = mockSessionKey;
-          resolve(mockUser);
-        } else {
-          reject();
-        }
-      }, 2000);
-
+      this.http.post(this.config.devUrl + 'login', {username: username, password: password})
+        .subscribe(
+          (response: any) => {
+                  console.log(response);
+                  this.sessionKey = response.sessionKey;
+                  resolve(response.userInfo);
+                },
+          (error: any) => {
+                  console.log(error);
+                  reject();
+                }
+        );
     });
   }
 
