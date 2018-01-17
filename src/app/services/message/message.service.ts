@@ -193,10 +193,13 @@ export class MessageService implements OnDestroy {
   backendUpdates: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {
+
+    // todo: should only poll once a component wants to subscribe to it
     this.pollingSubscription = Observable.interval(5000).subscribe(() => {
-      this.http.get(this.config.getUrl).subscribe((data: any) => {
-        this.backendUpdates.next(data);
-      });
+      // todo: commented this out to not hit the backend so hard with requests while testing
+      // this.http.get(this.config.getUrl).subscribe((data: any) => {
+      //   this.backendUpdates.next(data);
+      // });
     });
   }
 

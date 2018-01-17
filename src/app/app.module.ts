@@ -1,6 +1,3 @@
-// hammerjs is imported due to an issue in @angular/material
-import 'hammerjs';
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
