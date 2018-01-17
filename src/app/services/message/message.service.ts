@@ -13,31 +13,6 @@ import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 
 // mock data
-const mockAdmin: UserInfo = {
-  username: 'bradencorbold@gmail.com',
-  firstName: 'Braden',
-  lastName: 'Corbold',
-  adminEnabled: true,
-  defaultDeliveryLocation: {
-    id: 1,
-    name: '1st floor, section A, desk 3'
-  },
-  defaultView: 'user',
-  locale: 'en_GB'
-};
-const mockUser: UserInfo = {
-  username: 'bradencorbold@gmail.com',
-  firstName: 'Braden',
-  lastName: 'Corbold',
-  adminEnabled: false,
-  defaultDeliveryLocation: {
-    id: 1,
-    name: '1st floor, section A, desk 3'
-  },
-  defaultView: 'user',
-  locale: 'en_GB'
-};
-const mockSessionKey = 'b1e6fe5e-4f82-4b4d-9993-59c7af3e6694';
 const mockOrderHistory: any[] = [
   {
     id: '9f1f05c8-da88-4f11-a49b-ab486b569666',
