@@ -21,12 +21,4 @@ export class AccountInfoComponent implements OnInit {
     this.defaultUserInfo = _.defaultsDeep({}, this.user);
   }
 
-  updateAccountInfo(): void {
-    this.userUpdate.emit(this.user);
-    this.defaultUserInfo = _.defaultsDeep({}, this.user);
-  }
-
-  resetAccountInfo(): void {
-    this.user = _.defaultsDeep({}, this.defaultUserInfo);
-  }
 }

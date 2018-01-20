@@ -1,25 +1,46 @@
-$account-picture-size: 200px;
-
 .ms-blur-container {
+  padding: 1em 2em;
+  color: white;
   width: 100%;
   height: 100%;
-  border-radius: 5px;
-  padding: 10px;
+  //-webkit-box-shadow: 0 0.1em 2em 0.5em rgba(0, 0, 0, 0.3);
+  //-moz-box-shadow: 0 0.1em 2em 0.5em rgba(0, 0, 0, 0.3);
+  //box-shadow: 0 0.1em 2em 0.5em rgba(0, 0, 0, 0.3);
 
-  .ms-header {
-    margin-bottom: 10px;
+  .picture-placeholder {
+    $picture-size: 12em;
+    width: $picture-size;
+    height: $picture-size;
+    background-color: white;
+    -webkit-border-radius: $picture-size/2;
+    -moz-border-radius: $picture-size/2;
+    border-radius: $picture-size/2;
   }
-
-  .ms-account-picture {
-    width: $account-picture-size;
-    height: $account-picture-size;
-    border-radius: $account-picture-size/2;
-    -webkit-border-radius: $account-picture-size/2;
-    -moz-border-radius: $account-picture-size/2;
-  }
-
-  .ms-username-container {
-    margin-bottom: 20px;
-  }
-
 }
+
+
+//$account-picture-size: 200px;
+//
+//.ms-blur-container {
+//  width: 100%;
+//  height: 100%;
+//  border-radius: 5px;
+//  padding: 10px;
+//
+//  .ms-header {
+//    margin-bottom: 10px;
+//  }
+//
+//  .ms-account-picture {
+//    width: $account-picture-size;
+//    height: $account-picture-size;
+//    border-radius: $account-picture-size/2;
+//    -webkit-border-radius: $account-picture-size/2;
+//    -moz-border-radius: $account-picture-size/2;
+//  }
+//
+//  .ms-username-container {
+//    margin-bottom: 20px;
+//  }
+//
+//}

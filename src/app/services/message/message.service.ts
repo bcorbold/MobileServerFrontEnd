@@ -10,6 +10,8 @@ import { AppConfig } from '../../app.config';
 import { isDefined } from '../../core/is-defined';
 import { Order } from '../../core/order';
 import { UserInfo } from '../../core/user-info';
+import { DeliveryLocation } from '../../core/delivery-location';
+import { OrderOption } from '../../core/order-option';
 
 @Injectable()
 export class MessageService implements OnDestroy {
@@ -17,6 +19,7 @@ export class MessageService implements OnDestroy {
   private pollingSubscription: Subscription;
   private sessionKey: string;
   private user: UserInfo;
+  private environmentDetails: {deliveryLocations: DeliveryLocation[], locales: string[], orderOptions: OrderOption[]};
 
   backendUpdates: EventEmitter<any> = new EventEmitter<any>();
 
@@ -29,6 +32,27 @@ export class MessageService implements OnDestroy {
       //   this.backendUpdates.next(data);
       // });
     });
+  }
+
+  private fetchEnvironmentDetails(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post(this.config.devUrl + 'getEnvironmentDetails', {username: this.user.username, sessionKey: this.sessionKey})
+        .subscribe(
+          (response: any) => {
+            console.log(response);
+            resolve(response);
+          },
+          error => reject(error)
+        );
+    });
+  }
+
+  getEnvironmentDetails(): Promise<any> {
+    if (isDefined(this.environmentDetails)) {
+      return new Promise<any>(resolve => { resolve(this.environmentDetails); });
+    } else {
+      return this.fetchEnvironmentDetails();
+    }
   }
 
   ngOnDestroy(): void {
@@ -51,12 +75,6 @@ export class MessageService implements OnDestroy {
                   reject(error);
                 }
         );
-    });
-  }
-
-  updateAccountInfo(user: UserInfo): Promise<UserInfo> {
-    return new Promise<UserInfo>((resolve, reject) => {
-      resolve(user);
     });
   }
 
@@ -87,6 +105,13 @@ export class MessageService implements OnDestroy {
                   reject(error);
                 }
         );
+    });
+  }
+
+  // todo: needs to be made not a mock
+  updateAccountInfo(user: UserInfo): Promise<UserInfo> {
+    return new Promise<UserInfo>((resolve, reject) => {
+      resolve(user);
     });
   }
 

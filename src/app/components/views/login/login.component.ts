@@ -16,8 +16,8 @@ export class LoginComponent {
   isLoading = false;
 
   constructor(private router: Router, private accountService: AccountService) {
-    this.username = 'mobile';
-    this.password = 'server';
+    this.username = 'admin';
+    this.password = 'a';
     this.attemptLogin();
   }
 

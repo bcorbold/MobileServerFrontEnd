@@ -1,5 +1,3 @@
-import * as Cookies from 'js-cookie';
-
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -13,10 +11,6 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    window.addEventListener('beforeunload', () => {
-      Cookies.remove('ms-session-key');
-    });
-
     this.router.navigate(['']);
   }
 }

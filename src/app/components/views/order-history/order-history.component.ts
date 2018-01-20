@@ -14,11 +14,7 @@ export class OrderHistoryComponent {
 
   constructor(private messageService: MessageService) {
     this.messageService.getOrderHistory()
-      .then(orderHistory => {
-        this.orderHistory = orderHistory;
-        console.log(this.orderHistory[0]);
-        console.log(this.orderHistory[0].orderInfo.orderOption.name);
-      });
+      .then(orderHistory => this.orderHistory = orderHistory );
   }
 
 }
