@@ -9,186 +9,14 @@ import { Subscription } from 'rxjs/Subscription';
 import { AppConfig } from '../../app.config';
 import { isDefined } from '../../core/is-defined';
 import { Order } from '../../core/order';
-import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
-
-// mock data
-const mockOrderHistory: any[] = [
-  {
-    id: '9f1f05c8-da88-4f11-a49b-ab486b569666',
-    state: 'Waiting',
-    deliveryEta: '2018-01-31T10:30:00.000Z',
-    orderDate: '2018-01-31T10:25:00.000Z',
-    deliveredDate: null,
-    orderInfo: {
-      orderOption: OrderOption.coffee(),
-      selectedAddOns: [
-        {key: 'milk', value: 2},
-        {key: 'sugar', value: 2}
-      ]
-    }
-  },
-  {
-    id: 'c251615b-4e8c-4551-ae1a-3ac9ac9ef6c1',
-    state: 'Delivering',
-    deliveryEta: '2018-01-31T10:25:00.000Z',
-    orderDate: '2018-01-31T10:20:00.000Z',
-    deliveredDate: null,
-    orderInfo: {
-      orderOption: OrderOption.tea(),
-      selectedAddOns: [
-        {key: 'milk', value: 2},
-        {key: 'sugar', value: 2},
-        {key: 'bag in', value: true}
-      ]
-    }
-  },
-  {
-    id: '5473755b-c562-4148-b7a4-d0c479a35b20',
-    state: 'Delivered',
-    deliveryEta: null,
-    orderDate: '2018-01-30T09:30:00.000Z',
-    deliveredDate: '2018-01-30T09:45:00.000Z',
-    orderInfo: {
-      orderOption: OrderOption.coke(),
-      selectedAddOns: [
-        {key: 'ice', value: true}
-      ]
-    }
-  },
-  {
-    id: '9f1f05c8-da88-4f11-a49b-ab486b569666',
-    state: 'Waiting',
-    deliveryEta: '2018-01-31T10:30:00.000Z',
-    orderDate: '2018-01-31T10:25:00.000Z',
-    deliveredDate: null,
-    orderInfo: {
-      orderOption: OrderOption.coffee(),
-      selectedAddOns: [
-        {key: 'milk', value: 2},
-        {key: 'sugar', value: 2}
-      ]
-    }
-  },
-  {
-    id: 'c251615b-4e8c-4551-ae1a-3ac9ac9ef6c1',
-    state: 'Delivering',
-    deliveryEta: '2018-01-31T10:25:00.000Z',
-    orderDate: '2018-01-31T10:20:00.000Z',
-    deliveredDate: null,
-    orderInfo: {
-      orderOption: OrderOption.tea(),
-      selectedAddOns: [
-        {key: 'milk', value: 2},
-        {key: 'sugar', value: 2},
-        {key: 'bag in', value: true}
-      ]
-    }
-  },
-  {
-    id: '5473755b-c562-4148-b7a4-d0c479a35b20',
-    state: 'Delivered',
-    deliveryEta: null,
-    orderDate: '2018-01-30T09:30:00.000Z',
-    deliveredDate: '2018-01-30T09:45:00.000Z',
-    orderInfo: {
-      orderOption: OrderOption.coke(),
-      selectedAddOns: [
-        {key: 'ice', value: true}
-      ]
-    }
-  },
-  {
-    id: '9f1f05c8-da88-4f11-a49b-ab486b569666',
-    state: 'Waiting',
-    deliveryEta: '2018-01-31T10:30:00.000Z',
-    orderDate: '2018-01-31T10:25:00.000Z',
-    deliveredDate: null,
-    orderInfo: {
-      orderOption: OrderOption.coffee(),
-      selectedAddOns: [
-        {key: 'milk', value: 2},
-        {key: 'sugar', value: 2}
-      ]
-    }
-  },
-  {
-    id: 'c251615b-4e8c-4551-ae1a-3ac9ac9ef6c1',
-    state: 'Delivering',
-    deliveryEta: '2018-01-31T10:25:00.000Z',
-    orderDate: '2018-01-31T10:20:00.000Z',
-    deliveredDate: null,
-    orderInfo: {
-      orderOption: OrderOption.tea(),
-      selectedAddOns: [
-        {key: 'milk', value: 2},
-        {key: 'sugar', value: 2},
-        {key: 'bag in', value: true}
-      ]
-    }
-  },
-  {
-    id: '5473755b-c562-4148-b7a4-d0c479a35b20',
-    state: 'Delivered',
-    deliveryEta: null,
-    orderDate: '2018-01-30T09:30:00.000Z',
-    deliveredDate: '2018-01-30T09:45:00.000Z',
-    orderInfo: {
-      orderOption: OrderOption.coke(),
-      selectedAddOns: [
-        {key: 'ice', value: true}
-      ]
-    }
-  },
-  {
-    id: '9f1f05c8-da88-4f11-a49b-ab486b569666',
-    state: 'Waiting',
-    deliveryEta: '2018-01-31T10:30:00.000Z',
-    orderDate: '2018-01-31T10:25:00.000Z',
-    deliveredDate: null,
-    orderInfo: {
-      orderOption: OrderOption.coffee(),
-      selectedAddOns: [
-        {key: 'milk', value: 2},
-        {key: 'sugar', value: 2}
-      ]
-    }
-  },
-  {
-    id: 'c251615b-4e8c-4551-ae1a-3ac9ac9ef6c1',
-    state: 'Delivering',
-    deliveryEta: '2018-01-31T10:25:00.000Z',
-    orderDate: '2018-01-31T10:20:00.000Z',
-    deliveredDate: null,
-    orderInfo: {
-      orderOption: OrderOption.tea(),
-      selectedAddOns: [
-        {key: 'milk', value: 2},
-        {key: 'sugar', value: 2},
-        {key: 'bag in', value: true}
-      ]
-    }
-  },
-  {
-    id: '5473755b-c562-4148-b7a4-d0c479a35b20',
-    state: 'Delivered',
-    deliveryEta: null,
-    orderDate: '2018-01-30T09:30:00.000Z',
-    deliveredDate: '2018-01-30T09:45:00.000Z',
-    orderInfo: {
-      orderOption: OrderOption.coke(),
-      selectedAddOns: [
-        {key: 'ice', value: true}
-      ]
-    }
-  }
-];
 
 @Injectable()
 export class MessageService implements OnDestroy {
 
   private pollingSubscription: Subscription;
   private sessionKey: string;
+  private user: UserInfo;
 
   backendUpdates: EventEmitter<any> = new EventEmitter<any>();
 
@@ -213,13 +41,14 @@ export class MessageService implements OnDestroy {
       this.http.post(this.config.devUrl + 'login', {username: username, password: password})
         .subscribe(
           (response: any) => {
-                  console.log(response);
+                  // console.log(response);
                   this.sessionKey = response.sessionKey;
+                  this.user = response.userInfo;
                   resolve(response.userInfo);
                 },
           (error: any) => {
-                  console.log(error);
-                  reject();
+                  // console.log(error);
+                  reject(error);
                 }
         );
     });
@@ -232,24 +61,33 @@ export class MessageService implements OnDestroy {
   }
 
   getOrderHistory(): Promise<Order[]> {
-    return new Promise<Order[]>((resolve => {
-      const orderHistory: Order[] = [];
+    return new Promise<Order[]>((resolve, reject) => {
+      this.http.post(this.config.devUrl + 'getOrderHistory', {username: this.user.username, sessionKey: this.sessionKey})
+        .subscribe(
+          (response: any) => {
+                  // console.log(response);
+                  const orderHistory: Order[] = [];
+                  response.orderHistory.forEach(order => {
+                      if (isDefined(order.deliveryEta)) {
+                        order.deliveryEta = new Date(order.deliveryEta);
+                      }
+                      if (isDefined(order.orderDate)) {
+                        order.orderDate = new Date(order.orderDate);
+                      }
+                      if (isDefined(order.deliveredDate)) {
+                        order.deliveredDate = new Date(order.deliveredDate);
+                      }
+                      orderHistory.push(order);
+                  });
 
-      mockOrderHistory.forEach(order => {
-        if (isDefined(order.deliveryEta)) {
-          order.deliveryEta = new Date(order.deliveryEta);
-        }
-        if (isDefined(order.orderDate)) {
-          order.orderDate = new Date(order.orderDate);
-        }
-        if (isDefined(order.deliveredDate)) {
-          order.deliveredDate = new Date(order.deliveredDate);
-        }
-        orderHistory.push(order);
-      });
-
-      resolve(orderHistory);
-    }));
+                  resolve(orderHistory);
+                },
+          error => {
+                  // console.log(error);
+                  reject(error);
+                }
+        );
+    });
   }
 
 }

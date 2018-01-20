@@ -27,8 +27,7 @@ export { OrderHistoryComponent } from './order-history.component';
     MatIconModule,
     MatInputModule,
     MatSlideToggleModule,
-    MessageModule,
-    PageSelectorModule
+    MessageModule
   ],
   providers: [
     MessageService

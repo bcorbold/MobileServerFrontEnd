@@ -1,13 +1,31 @@
 .ms-blur-container {
-  border-radius: 5px;
-  padding: 10px;
+  padding: 2em 4em;
+
+  .ms-header {
+    margin-bottom: 1em;
+  }
 
   .ms-order-history-container {
     overflow: auto;
     max-height: 100%;
+    color: white;
+
+
+    .waiting {
+      background-color: #D3C36D;
+    }
+
+    .delivering {
+      background-color: #76B976;
+    }
+
+    .delivered {
+      background-color: #6DA0D3;
+    }
+
+    .delayed {
+      background-color: #D04D4D;
+    }
   }
 
-  ms-page-selector {
-    margin-top: 10px;
-  }
 }

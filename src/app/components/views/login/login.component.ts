@@ -15,9 +15,19 @@ export class LoginComponent {
   loginMessage: string;
   isLoading = false;
 
-  constructor(private router: Router, private accountService: AccountService) {}
+  constructor(private router: Router, private accountService: AccountService) {
+    this.username = 'mobile';
+    this.password = 'server';
+    this.attemptLogin();
+  }
 
-  attemptLogin() {
+  // ngAfterViewInit(): void {
+  //   this.username = 'mobile';
+  //   this.password = 'server';
+  //   this.attemptLogin();
+  // }
+
+  attemptLogin(): void {
     this.loginMessage = '';
     this.isLoading = true;
     this.accountService.attemptLogin(this.username, this.password)

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { isDefined } from '../../../core/is-defined';
 import { MessageService } from '../../../services/message/message.service';
@@ -8,66 +8,17 @@ import { MessageService } from '../../../services/message/message.service';
   styleUrls: ['order-history.component.scss'],
   templateUrl: './order-history.component.html'
 })
-export class OrderHistoryComponent implements OnInit {
+export class OrderHistoryComponent {
 
   orderHistory: any[];
 
-  currentPage = 1;
-  scrollDebounce;
-  selectDebounce;
-  pageSelected = false;
-
   constructor(private messageService: MessageService) {
-    this.orderHistory = [];
-  }
-
-  ngOnInit(): void {
     this.messageService.getOrderHistory()
-      .then(orderHistory => this.orderHistory = orderHistory);
-  }
-
-  onNewPageSelected(newPage: number) {
-    this.currentPage = newPage;
-    const batchContainer = document.getElementsByClassName('ms-order-history-container')[0];
-    const divs = this.getDivHeights();
-    let value = 0;
-    for (let i = 0; i < newPage - 1; i++) {
-      value = value + divs[i];
-    }
-    clearTimeout(this.selectDebounce);
-    this.pageSelected = true;
-    this.selectDebounce = setTimeout(() => {
-      this.pageSelected = false;
-    }, 100);
-    batchContainer.scrollTop = value;
-  }
-
-  getDivHeights(): number[] {
-    const divs = [];
-    const batchContainer = document.getElementsByClassName('ms-order-history-container')[0];
-    for (let i = 0; i < batchContainer.children.length; i++) {
-      divs.push((<HTMLElement>batchContainer.children[0]).offsetHeight);
-    }
-    return divs;
-  }
-
-  onScroll() {
-    clearTimeout(this.scrollDebounce);
-    if (!this.pageSelected) {
-      this.scrollDebounce = setTimeout(() => {
-        const batchContainer = document.getElementsByClassName('ms-order-history-container')[0];
-        this.currentPage = 1;
-        const divs = this.getDivHeights();
-        let adder = 0;
-        for (let i = 0; i < divs.length; i++) {
-          if (adder >= batchContainer.scrollTop) {
-            this.currentPage = i + 1;
-            break;
-          }
-          adder = adder + divs[i];
-        }
-      }, 100);
-    }
+      .then(orderHistory => {
+        this.orderHistory = orderHistory;
+        console.log(this.orderHistory[0]);
+        console.log(this.orderHistory[0].orderInfo.orderOption.name);
+      });
   }
 
 }

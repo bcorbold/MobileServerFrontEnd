@@ -1,3 +1,4 @@
+import { DeliveryLocation } from './delivery-location';
 import { OrderOption } from './order-option';
 
 export class Order {
@@ -10,4 +11,5 @@ export class Order {
     orderOption: OrderOption,
     selectedAddOns: [{key: string, value: boolean | number | string}] // key=addOnTag, val=value
   };
+  deliveryLocation: DeliveryLocation;
 }

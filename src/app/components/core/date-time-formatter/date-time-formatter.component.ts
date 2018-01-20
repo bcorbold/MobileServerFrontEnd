@@ -9,6 +9,7 @@ export class DateTimeFormatterComponent {
 
   @Input() date = new Date();
   @Input() formatAsDate = true;
+  @Input() timeTooEstimate = false; // todo: need to implement this
 
   formatDate(): string {
     return `${this.date.toDateString()} at ${this.formatTime()}`;

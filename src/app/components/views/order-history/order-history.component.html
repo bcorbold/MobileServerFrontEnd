@@ -1,44 +1,54 @@
 <div fxFill class="ms-blur-container" fxLayout="column">
   <h1 class="ms-header">Order History</h1>
 
-  <div fxFlex class="ms-order-history-container" fxLayout="column" (scroll)="onScroll()">
-    <div *ngFor="let order of orderHistory; let i = index;">
-      <div class="{{i % 2 === 0 ? 'ms-history-item-dark' : 'ms-history-item-light'}}"
-           fxLayout="row" fxLayoutAlign="start stretch"
-           style="padding: 5px; margin: 5px 0; border-radius: 5px;">
+  <div fxFlex class="ms-order-history-container" fxLayout="column">
+    <div *ngFor="let order of orderHistory;">
+      <div fxLayout="row" fxLayoutAlign="start stretch" style="margin-bottom: 1em; background-color: #393939;">
 
-        <div fxFlex>
-          <div fxLayout="row" fxLayoutAlign="start stretch">
+        <!-- todo: add a tool tip to the color bar for state information -->
+        <div style="width: 0.5em;"
+             [ngClass]="{waiting: order.state === 'Waiting', delivering: order.state === 'Delivering', delivered: order.state === 'Delivered', delayed: order.state === 'Delayed'}"></div>
+        <div fxFlex style="margin: 0.5em 1em;" fxLayout="row" fxLayoutAlign="start stretch">
+          <div fxFlex="30" fxLayout="column">
             <p>{{order.orderInfo.orderOption.name}}</p>
-            <div *ngFor="let addOn of order.orderInfo.selectedAddOns;">
-              <p *ngIf="addOn.value !== true" style="margin: 0 10px;">+{{addOn.value}} {{addOn.key}}</p>
-              <p *ngIf="addOn.value === true" style="margin: 0 10px;">with {{addOn.key}}</p>
+            <!-- todo: Add chip list of selected addOns here -->
+          </div>
+
+          <div fxFlex *ngIf="order.state !== 'Delivered'" fxLayout="row">
+            <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+              <p>Delivering too:</p>
+              <p style="font-weight: 300;">{{order.deliveryLocation.name}}</p>
+            </div>
+
+            <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+              <p>Arriving in:</p>
+              <p style="font-weight: 300;">
+                <ms-date-time-formatter [date]="order.deliveryEta" [formatAsDate]="false" [timeTooEstimate]="true"></ms-date-time-formatter>
+              </p>
             </div>
           </div>
-          <div fxLayout="row" fxLayoutAlign="start stretch">
-            <p>Ordered on</p>
-            <ms-date-time-formatter style="margin-left: 4px;" [date]="order.orderDate" [formatAsDate]="true"></ms-date-time-formatter>
+
+          <div fxFlex *ngIf="order.state === 'Delivered'">
+            <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+              <p>Ordered on:</p>
+              <p style="font-weight: 300;">
+                <ms-date-time-formatter [date]="order.orderDate"></ms-date-time-formatter>
+              </p>
+            </div>
+
+            <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+              <p>Delivered on:</p>
+              <p style="font-weight: 300;">
+                <ms-date-time-formatter [date]="order.deliveredDate"></ms-date-time-formatter>
+              </p>
+            </div>
           </div>
 
-          <div *ngIf="order.deliveryEta" fxLayout="row" fxLayoutAlign="start stretch">
-            <p>Estimated time of arrival: </p>
-            <ms-date-time-formatter style="margin-left: 4px;" [date]="order.deliveryEta" [formatAsDate]="false"></ms-date-time-formatter>
-          </div>
-
-          <div *ngIf="order.deliveredDate" fxLayout="row" fxLayoutAlign="start stretch">
-            <p>Delivered on</p>
-            <ms-date-time-formatter style="margin-left: 4px;" [date]="order.deliveredDate" [formatAsDate]="true"></ms-date-time-formatter>
-          </div>
+          <!-- todo: hook this up to the message service-->
+          <button mat-button>Reorder</button>
         </div>
-
-        <button mat-raised-button style="margin-top: 5px;">Re-order</button>
       </div>
+
     </div>
   </div>
-
-  <ms-page-selector fxFlex="initial"
-                    (newPage)="onNewPageSelected($event)"
-                    [numberOfPages]="orderHistory.length"
-                    [currentPage]="currentPage"></ms-page-selector>
-
 </div>
