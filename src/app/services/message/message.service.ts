@@ -7,11 +7,10 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AppConfig } from '../../app.config';
+import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
 import { Order } from '../../core/order';
 import { UserInfo } from '../../core/user-info';
-import { DeliveryLocation } from '../../core/delivery-location';
-import { OrderOption } from '../../core/order-option';
 
 @Injectable()
 export class MessageService implements OnDestroy {
@@ -19,7 +18,7 @@ export class MessageService implements OnDestroy {
   private pollingSubscription: Subscription;
   private sessionKey: string;
   private user: UserInfo;
-  private environmentDetails: {deliveryLocations: DeliveryLocation[], locales: string[], orderOptions: OrderOption[]};
+  private environmentDetails: EnvironmentDetails;
 
   backendUpdates: EventEmitter<any> = new EventEmitter<any>();
 
@@ -34,12 +33,11 @@ export class MessageService implements OnDestroy {
     });
   }
 
-  private fetchEnvironmentDetails(): Promise<any> {
+  private fetchEnvironmentDetails(): Promise<EnvironmentDetails> {
     return new Promise<any>((resolve, reject) => {
       this.http.post(this.config.devUrl + 'getEnvironmentDetails', {username: this.user.username, sessionKey: this.sessionKey})
         .subscribe(
-          (response: any) => {
-            console.log(response);
+          (response: EnvironmentDetails) => {
             resolve(response);
           },
           error => reject(error)
@@ -47,9 +45,9 @@ export class MessageService implements OnDestroy {
     });
   }
 
-  getEnvironmentDetails(): Promise<any> {
+  getEnvironmentDetails(): Promise<EnvironmentDetails> {
     if (isDefined(this.environmentDetails)) {
-      return new Promise<any>(resolve => { resolve(this.environmentDetails); });
+      return new Promise<EnvironmentDetails>(resolve => { resolve(this.environmentDetails); });
     } else {
       return this.fetchEnvironmentDetails();
     }
@@ -108,10 +106,13 @@ export class MessageService implements OnDestroy {
     });
   }
 
-  // todo: needs to be made not a mock
-  updateAccountInfo(user: UserInfo): Promise<UserInfo> {
-    return new Promise<UserInfo>((resolve, reject) => {
-      resolve(user);
+  updateAccountInfo(user: UserInfo): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.http.post(this.config.devUrl + 'updateAccountInfo', {username: user.username, sessionKey: this.sessionKey, userInfo: user})
+        .subscribe(
+          () => resolve(),
+          error => reject(error)
+        );
     });
   }
 

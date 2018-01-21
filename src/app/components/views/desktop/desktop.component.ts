@@ -19,8 +19,8 @@ export class DesktopComponent {
 
   handleUserInfoChange(updatedUserInfo: UserInfo): void {
     this.accountService.updateAccountInfo(updatedUserInfo)
-      .then(user => this.userInfo = user)
-      .catch(() => console.error('User account info could not be updated'));
+      .then(() => this.userInfo = updatedUserInfo)
+      .catch((error) => console.error(error));
   }
 
   changeView(): void {

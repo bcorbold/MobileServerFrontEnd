@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
 
 import { AccountInfoComponent } from './account-info.component';
+import { MessageService } from '../../../services/message/message.service';
 
 export { AccountInfoComponent } from './account-info.component';
 
@@ -22,6 +23,9 @@ export { AccountInfoComponent } from './account-info.component';
   ],
   exports: [
     AccountInfoComponent
+  ],
+  providers: [
+    MessageService
   ]
 })
 export class AccountInfoModule { }
