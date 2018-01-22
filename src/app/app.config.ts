@@ -6,9 +6,7 @@ import { LoginComponent } from './components/views/login/login.component';
 
 @Injectable()
 export class AppConfig {
-  getUrl = 'https://mobile-server-backend.herokuapp.com/userGet'; // todo: no longer applies
-  postUrl = 'https://mobile-server-backend.herokuapp.com/userPost';
-
-  devUrl = 'http://localhost:8080/ui/';
-  prodUrl = 'https://mobile-server-backend.herokuapp.com/ui/';
+  // todo: would be nice to be able to switch these based on the build
+  backendUrl = 'http://localhost:8080/ui/'; // develop
+  // backendUrl = 'https://mobile-server-backend.herokuapp.com/ui/'; // production
 }

@@ -38,7 +38,7 @@ export class MessageService implements OnDestroy {
 
   private fetchEnvironmentDetails(): Promise<EnvironmentDetails> {
     return new Promise<any>((resolve, reject) => {
-      this.http.post(this.config.devUrl + 'getEnvironmentDetails', {username: this.user.username, sessionKey: this.sessionKey})
+      this.http.post(this.config.backendUrl + 'getEnvironmentDetails', {username: this.user.username, sessionKey: this.sessionKey})
         .subscribe(
           (response: EnvironmentDetails) => {
             resolve(response);
@@ -63,7 +63,7 @@ export class MessageService implements OnDestroy {
 
   login(username: string, password: string): Promise<UserInfo> {
     return new Promise((resolve, reject) => {
-      this.http.post(this.config.devUrl + 'login', {username: username, password: password})
+      this.http.post(this.config.backendUrl + 'login', {username: username, password: password})
         .subscribe(
           (response: any) => {
                   // console.log(response);
@@ -79,9 +79,25 @@ export class MessageService implements OnDestroy {
     });
   }
 
+  logout(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const body = {username: this.user.username, sessionKey: this.sessionKey};
+      this.http.post(this.config.backendUrl + 'logout', body)
+        .subscribe(
+          () => {
+            this.sessionKey = undefined;
+            this.user = undefined;
+            this.environmentDetails = undefined;
+            resolve();
+          },
+          error => reject(error)
+        );
+    });
+  }
+
   getOrderHistory(): Promise<Order[]> {
     return new Promise<Order[]>((resolve, reject) => {
-      this.http.post(this.config.devUrl + 'getOrderHistory', {username: this.user.username, sessionKey: this.sessionKey})
+      this.http.post(this.config.backendUrl + 'getOrderHistory', {username: this.user.username, sessionKey: this.sessionKey})
         .subscribe(
           (response: any) => {
                   // console.log(response);
@@ -116,7 +132,7 @@ export class MessageService implements OnDestroy {
         sessionKey: this.sessionKey,
         userInfo: user
       };
-      this.http.post(this.config.devUrl + 'updateAccountInfo', body)
+      this.http.post(this.config.backendUrl + 'updateAccountInfo', body)
         .subscribe(() => resolve(), error => reject(error));
     });
   }
@@ -130,7 +146,7 @@ export class MessageService implements OnDestroy {
         orderInfo: new OrderInfo(selectedBeverage, selectedAddOns),
         deliveryLocation: deliveryLocation
       };
-      this.http.post(this.config.devUrl + 'placeOrder', body)
+      this.http.post(this.config.backendUrl + 'placeOrder', body)
         .subscribe(
           response => resolve(response),
           error => reject(error)

@@ -3,6 +3,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EnvironmentDetails } from '../../../core/environment-details';
 import { UserInfo } from '../../../core/user-info';
 import { MessageService } from '../../../services/message/message.service';
+import { AccountService } from '../../../services/account/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-account-info',
@@ -20,7 +22,7 @@ export class AccountInfoComponent implements OnInit {
 
   private defaultUserInfo: UserInfo;
 
-  constructor(private messageService: MessageService) {
+  constructor(private router: Router, private messageService: MessageService, private accountService: AccountService) {
     this.environmentDetails = new EnvironmentDetails();
     this.messageService.getEnvironmentDetails()
       .then((envDetails) => {
@@ -36,6 +38,18 @@ export class AccountInfoComponent implements OnInit {
   updateAccountInfo(): void {
     this.userUpdate.emit(this.user);
     this.defaultUserInfo = new UserInfo(this.user);
+  }
+
+  logout(): void {
+    this.accountService.logout()
+      .then(() => {
+      //  todo: router switch to login
+        this.router.navigate(['/']);
+      })
+      .catch(error => {
+        console.error(error);
+      //  todo: how do we want to handle this...
+      });
   }
 
   resetAccountInfo(): void {

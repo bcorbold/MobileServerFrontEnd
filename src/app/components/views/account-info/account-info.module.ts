@@ -6,6 +6,7 @@ import { MatButtonModule, MatSelectModule, MatSlideToggleModule } from '@angular
 
 import { AccountInfoComponent } from './account-info.component';
 import { MessageService } from '../../../services/message/message.service';
+import { AccountService } from '../../../services/account/account.service';
 
 export { AccountInfoComponent } from './account-info.component';
 
@@ -25,7 +26,8 @@ export { AccountInfoComponent } from './account-info.component';
     AccountInfoComponent
   ],
   providers: [
-    MessageService
+    MessageService,
+    AccountService
   ]
 })
 export class AccountInfoModule { }

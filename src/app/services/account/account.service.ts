@@ -28,6 +28,17 @@ export class AccountService implements OnDestroy {
     });
   }
 
+  logout(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.messageService.logout()
+        .then(() => {
+          this.userInfo = undefined;
+          resolve();
+        })
+        .catch(error => reject(error));
+    });
+  }
+
   updateAccountInfo(updatedUserInfo: UserInfo): Promise<void> {
     return this.messageService.updateAccountInfo(updatedUserInfo);
   }

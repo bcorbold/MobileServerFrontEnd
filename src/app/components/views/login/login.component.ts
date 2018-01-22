@@ -21,12 +21,6 @@ export class LoginComponent {
     this.attemptLogin();
   }
 
-  // ngAfterViewInit(): void {
-  //   this.username = 'mobile';
-  //   this.password = 'server';
-  //   this.attemptLogin();
-  // }
-
   attemptLogin(): void {
     this.loginMessage = '';
     this.isLoading = true;
