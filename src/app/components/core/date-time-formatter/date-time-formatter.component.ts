@@ -1,24 +1,34 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { isDefined } from '../../../core/is-defined';
 
 @Component({
   selector: 'ms-date-time-formatter',
   templateUrl: './date-time-formatter.component.html',
   styleUrls: ['./date-time-formatter.component.scss']
 })
-export class DateTimeFormatterComponent {
+export class DateTimeFormatterComponent implements OnInit, OnDestroy {
+
+  // todo: parsing time amount needs HEAVY TESTING!!!! THIS HAS NOT BEEN TESTED YET!!
+
+  static MILLIS_PER_SECOND = 1000;
+  static MILLIS_PER_MINUTE = 1000 * 60;
+  static MILLIS_PER_HOUR = 1000 * 60 * 60;
 
   @Input() date = new Date();
   @Input() formatAsDate = true;
-  @Input() timeTooEstimate = false; // todo: need to implement this
+  @Input() timeTooEstimate = false;
 
-  formatDate(): string {
-    return `${this.date.toDateString()} at ${this.formatTime()}`;
-  }
+  formattedDate: string;
+  formattedTime: string;
 
-  formatTime(): string {
-    const hours: number = this.date.getHours();
-    const minutes: number = this.date.getMinutes();
-    const seconds: number = this.date.getSeconds();
+  private secondCounter: Subscription;
+
+  formatDate(date: Date): void {
+    const hours: number = date.getHours();
+    const minutes: number = date.getMinutes();
+    const seconds: number = date.getSeconds();
 
     let formattedString = '';
 
@@ -26,6 +36,47 @@ export class DateTimeFormatterComponent {
     formattedString += minutes < 10 ? `0${minutes}:` : `${minutes}:`;
     formattedString += seconds < 10 ? `0${seconds}` : `${seconds}`;
 
-    return formattedString;
+    this.formattedDate = `${date.toDateString()} at ${formattedString}`;
+  }
+
+  formatTimeToo(millis: number) {
+    if (millis >= 0) {
+      const h = Math.floor(millis / DateTimeFormatterComponent.MILLIS_PER_HOUR);
+      const m = Math.floor(millis / DateTimeFormatterComponent.MILLIS_PER_MINUTE) - h * 60;
+      const s = Math.floor(millis / DateTimeFormatterComponent.MILLIS_PER_SECOND) - m * 60;
+
+      let formattedString = '';
+
+      formattedString += h < 10 ? `0${h}:` : `${h}:`;
+      formattedString += m < 10 ? `0${m}:` : `${m}:`;
+      formattedString += s < 10 ? `0${s}` : `${s}`;
+
+      this.formattedTime = formattedString;
+
+    } else {
+      this.formattedTime = '00:00:00';
+    }
+  }
+
+  ngOnInit(): void {
+    if (this.formatAsDate) {
+      this.formatDate(this.date);
+    } else {
+      // this.formatTime(this.date);
+    }
+
+    if (this.timeTooEstimate) {
+      this.secondCounter = Observable.interval(1000).subscribe(() => {
+        const now = new Date();
+        this.formatTimeToo(new Date(this.date.toISOString()).getTime() - now.getTime());
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (isDefined(this.secondCounter)) {
+      this.secondCounter.unsubscribe();
+      this.secondCounter = undefined;
+    }
   }
 }

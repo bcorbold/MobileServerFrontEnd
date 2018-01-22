@@ -35,9 +35,10 @@ export class PlaceOrderComponent {
     }
   }
 
+  // todo: Need to reset lower levels of the form when higher level changes
   environmentDetails: EnvironmentDetails;
   potentialAddOn: AddOn;
-  potentialAddOnValue: string | boolean | number;
+  potentialAddOnValue: string | boolean | number = 1;
 
   userInfo: UserInfo;
   selectedDeliveryLocation: DeliveryLocation;
@@ -57,14 +58,10 @@ export class PlaceOrderComponent {
   }
 
   addAddOnToSelectedList(): void {
-    const addOnValueInput: any = document.getElementById('addOnValueInput');
-
-    if (isDefined(addOnValueInput)) {
-      // console.log({key: this.potentialAddOn.name, value: addOnValueInput.value});
-      this.selectedAddOns.push({key: this.potentialAddOn.name, value: addOnValueInput.value});
-    } else {
-      // console.log({key: this.potentialAddOn.name, value: this.potentialAddOnValue});
+    if (this.potentialAddOn.type !== 'boolean') {
       this.selectedAddOns.push({key: this.potentialAddOn.name, value: this.potentialAddOnValue});
+    } else {
+      this.selectedAddOns.push({key: this.potentialAddOn.name, value: true});
     }
   }
 

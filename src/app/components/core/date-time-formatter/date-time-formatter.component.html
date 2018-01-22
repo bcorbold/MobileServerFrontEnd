@@ -1,9 +1,9 @@
 <div>
   <div *ngIf="formatAsDate" fxLayout="row" fxLayoutAlign="start stretch">
-    <p>{{formatDate()}}</p>
+    <p>{{formattedDate}}</p>
   </div>
   <div *ngIf="!formatAsDate" fxLayout="row" fxLayoutAlign="start stretch">
     <mat-icon>alarm</mat-icon>
-    <p>{{formatTime()}}</p>
+    <p>{{formattedTime}}</p>
   </div>
 </div>

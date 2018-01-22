@@ -34,10 +34,8 @@
 
         <div *ngIf="potentialAddOn">
             <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'">
-              <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" value="{{potentialAddOnValue}}">
+              <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" value="{{potentialAddOnValue}}" min="1">
             </mat-input-container>
-
-            <mat-checkbox [(ngModel)]="potentialAddOnValue" *ngIf="potentialAddOn.type === 'boolean'">{{potentialAddOn.name}}</mat-checkbox>
         </div>
 
         <button mat-button (click)="addAddOnToSelectedList()">Add</button>
@@ -45,7 +43,7 @@
 
       <mat-chip-list>
         <div *ngFor="let addOnChip of selectedAddOns">
-          <mat-chip>{{addOnChip.key}}, {{addOnChip.value}} <button mat-button color="warn" (click)="removeAddOnChip(addOnChip)">x</button></mat-chip>
+          <mat-chip>{{addOnChip.key}}{{addOnChip.value !== true && addOnChip.value !== false ? ', ' + addOnChip.value : ''}} <button mat-button color="warn" (click)="removeAddOnChip(addOnChip)">x</button></mat-chip>
         </div>
       </mat-chip-list>
     </div>
