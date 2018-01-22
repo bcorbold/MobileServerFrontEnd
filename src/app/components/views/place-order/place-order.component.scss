@@ -1,13 +1,17 @@
 .ms-blur-container {
-  border: 1px solid pink;
   color: white;
+  padding: 1em 2em;
 
   width: 100%;
   height: 100%;
-  //border-radius: 5px;
-  //padding: 10px;
-  //
-  //.ms-header {
-  //  margin-bottom: 10px;
-  //}
+
+  .ms-header {
+    margin-bottom: 1em;
+  }
+
+  .drink-description {
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.8em;
+  }
 }

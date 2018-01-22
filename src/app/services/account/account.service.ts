@@ -8,7 +8,7 @@ import { MessageService } from '../message/message.service';
 export class AccountService implements OnDestroy {
   private _userInfo: UserInfo;
   set userInfo(user: UserInfo) { this._userInfo = user; }
-  get userInfo(): UserInfo { return this._userInfo; }
+  get userInfo() { return this._userInfo; }
 
   constructor(@Inject(AppConfig) private config: AppConfig, private messageService: MessageService) {}
 

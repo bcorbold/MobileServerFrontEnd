@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { UserInfo } from '../../../core/user-info';
 import { AccountService } from '../../../services/account/account.service';
+import { Order } from '../../../core/order';
 
 @Component({
   selector: 'ms-desktop',
@@ -11,6 +12,7 @@ import { AccountService } from '../../../services/account/account.service';
 export class DesktopComponent {
   userInfo: UserInfo;
   isAdminView = false;
+  pastOrder: Order;
 
   constructor(private accountService: AccountService) {
     this.userInfo = this.accountService.userInfo;
@@ -25,6 +27,10 @@ export class DesktopComponent {
 
   changeView(): void {
     this.isAdminView = !this.isAdminView;
+  }
+
+  populatePlaceOrder(pastOrder: Order) {
+    this.pastOrder = Order.copy(pastOrder);
   }
 
 }

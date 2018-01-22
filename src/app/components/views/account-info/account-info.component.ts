@@ -22,11 +22,9 @@ export class AccountInfoComponent implements OnInit {
 
   constructor(private messageService: MessageService) {
     this.environmentDetails = new EnvironmentDetails();
-
     this.messageService.getEnvironmentDetails()
       .then((envDetails) => {
         this.environmentDetails = envDetails;
-        console.log(this.environmentDetails);
       })
       .catch(error => console.error(error));
   }

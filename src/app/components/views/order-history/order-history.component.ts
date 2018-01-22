@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { isDefined } from '../../../core/is-defined';
 import { MessageService } from '../../../services/message/message.service';
+import { Order } from '../../../core/order';
 
 @Component({
   selector: 'ms-order-history',
@@ -10,7 +11,8 @@ import { MessageService } from '../../../services/message/message.service';
 })
 export class OrderHistoryComponent {
 
-  orderHistory: any[];
+  @Output() reorder: EventEmitter<Order> = new EventEmitter<Order>();
+  orderHistory: Order[];
 
   constructor(private messageService: MessageService) {
     this.messageService.getOrderHistory()

@@ -1,5 +1,6 @@
 import { DeliveryLocation } from './delivery-location';
-import { OrderOption } from './order-option';
+import { OrderInfo } from './order-info';
+import { isDefined } from './is-defined';
 
 export class Order {
   id: string;
@@ -7,9 +8,28 @@ export class Order {
   deliveryEta: Date;
   orderDate: Date;
   deliveredDate: Date;
-  orderInfo: {
-    orderOption: OrderOption,
-    selectedAddOns: [{key: string, value: boolean | number | string}] // key=addOnTag, val=value
-  };
+  orderInfo: OrderInfo;
   deliveryLocation: DeliveryLocation;
+
+  static copy(that: Order): Order {
+    const order: Order = new Order();
+
+    order.id = that.id;
+    order.state = that.state;
+
+    if (isDefined(that.deliveryEta)) { // todo: this causes the null fields in "that" to not exist on the copied object
+      order.deliveryEta = new Date(that.deliveryEta);
+    }
+    if (isDefined(that.orderDate)) {
+      order.orderDate = new Date(that.orderDate);
+    }
+    if (isDefined(that.deliveredDate)) {
+      order.deliveredDate = new Date(that.deliveredDate);
+    }
+    order.orderInfo = OrderInfo.copy(that.orderInfo);
+    order.deliveryLocation = DeliveryLocation.copy(that.deliveryLocation);
+    return order;
+  }
+
+  constructor() {}
 }

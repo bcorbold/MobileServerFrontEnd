@@ -1,30 +1,59 @@
 <div class="ms-blur-container" fxLayout="column">
   <h1 class="ms-header">Place Order</h1>
 
-  <!--&lt;!&ndash;todo: this is all based off of the mock, needs to be dynamic!&ndash;&gt;-->
-  <!--<mat-input-container>-->
-    <!--<input matInput placeholder="Beverage" type="text">-->
-  <!--</mat-input-container>-->
+  <div fxFlex fxLayout="row" fxLayoutAlign="start stretch">
+    <!-- todo: add delivery location selection here-->
+    <mat-form-field fxLayout="column">
+      <mat-select placeholder="Delivery location" [(value)]="selectedDeliveryLocation.id">
+        <div *ngFor="let location of environmentDetails.deliveryLocations">
+          <mat-option [value]="location.id">{{location.name}}</mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
 
-  <!--<mat-input-container>-->
-    <!--<input matInput placeholder="Milk" type="number">-->
-  <!--</mat-input-container>-->
+    <div fxLayout="column">
+      <mat-form-field>
+        <mat-select placeholder="Beverage" [(value)]="selectedBeverage">
+          <div *ngFor="let drink of environmentDetails.orderOptions">
+            <mat-option [value]="drink">{{drink.name}}</mat-option>
+          </div>
+        </mat-select>
+      </mat-form-field>
+      <p class="drink-description">{{selectedBeverage?.description}}</p>
+    </div>
 
-  <!--<mat-input-container>-->
-    <!--<input matInput placeholder="Cream" type="number">-->
-  <!--</mat-input-container>-->
+    <div fxLayout="column">
+      <div fxLayout="row" *ngIf="selectedBeverage?.addOns">
+        <mat-form-field>
+          <mat-select placeholder="Add-On" [(value)]="potentialAddOn">
+            <div *ngFor="let addOn of selectedBeverage.addOns">
+              <mat-option [value]="addOn">{{addOn.name}}</mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
 
-  <!--<mat-input-container>-->
-    <!--<input matInput placeholder="Sugar" type="number">-->
-  <!--</mat-input-container>-->
+        <div *ngIf="potentialAddOn">
+            <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'">
+              <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" value="{{potentialAddOnValue}}">
+            </mat-input-container>
 
-  <!--<mat-input-container>-->
-    <!--<input matInput placeholder="Sweetener" type="number">-->
-  <!--</mat-input-container>-->
+            <mat-checkbox [(ngModel)]="potentialAddOnValue" *ngIf="potentialAddOn.type === 'boolean'">{{potentialAddOn.name}}</mat-checkbox>
+        </div>
 
-  <!--<div fxFlex fxLayout="column" fxLayoutAlign="end stretch">-->
-    <!--<button mat-raised-button color="primary" style="margin-bottom: 10px;">Submit Order</button>-->
-    <!--<button mat-raised-button color="warn">Reset</button>-->
-  <!--</div>-->
+        <button mat-button (click)="addAddOnToSelectedList()">Add</button>
+      </div>
+
+      <mat-chip-list>
+        <div *ngFor="let addOnChip of selectedAddOns">
+          <mat-chip>{{addOnChip.key}}, {{addOnChip.value}} <button mat-button color="warn" (click)="removeAddOnChip(addOnChip)">x</button></mat-chip>
+        </div>
+      </mat-chip-list>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="1em">
+    <button fxFlex mat-raised-button (click)="placeOrder()">Submit</button>
+    <button fxFlex mat-raised-button color="warn" (click)="resetOrder()">Reset</button>
+  </div>
 
 </div>

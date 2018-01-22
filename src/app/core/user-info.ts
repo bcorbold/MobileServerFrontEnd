@@ -15,7 +15,7 @@ export class UserInfo {
     this.lastName = that.lastName;
     this.adminEnabled = that.adminEnabled;
     this.defaultView = that.defaultView;
-    this.defaultDeliveryLocation = new DeliveryLocation(that.defaultDeliveryLocation);
+    this.defaultDeliveryLocation = DeliveryLocation.copy(that.defaultDeliveryLocation);
     this.locale = that.locale;
   }
 

@@ -7,9 +7,12 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AppConfig } from '../../app.config';
+import { DeliveryLocation } from '../../core/delivery-location';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
 import { Order } from '../../core/order';
+import { OrderInfo } from '../../core/order-info';
+import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 
 @Injectable()
@@ -108,9 +111,28 @@ export class MessageService implements OnDestroy {
 
   updateAccountInfo(user: UserInfo): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.http.post(this.config.devUrl + 'updateAccountInfo', {username: user.username, sessionKey: this.sessionKey, userInfo: user})
+      const body = {
+        username: user.username,
+        sessionKey: this.sessionKey,
+        userInfo: user
+      };
+      this.http.post(this.config.devUrl + 'updateAccountInfo', body)
+        .subscribe(() => resolve(), error => reject(error));
+    });
+  }
+
+  placeOrder(selectedBeverage: OrderOption, selectedAddOns: {key: string, value: string | boolean | number}[],
+             deliveryLocation: DeliveryLocation): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      const body = {
+        username: this.user.username,
+        sessionKey: this.sessionKey,
+        orderInfo: new OrderInfo(selectedBeverage, selectedAddOns),
+        deliveryLocation: deliveryLocation
+      };
+      this.http.post(this.config.devUrl + 'placeOrder', body)
         .subscribe(
-          () => resolve(),
+          response => resolve(response),
           error => reject(error)
         );
     });
