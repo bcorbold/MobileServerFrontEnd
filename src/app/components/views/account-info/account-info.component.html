@@ -1,5 +1,5 @@
 <div fxLayout="column" class="ms-blur-container" fxLayoutAlign="center stretch">
-  <mat-slide-toggle fxFlexAlign="end" (click)="switchView.emit()" [checked]="isAdminView">Bartender view</mat-slide-toggle>
+  <mat-slide-toggle *ngIf="user.adminEnabled" fxFlexAlign="end" [checked]="isAdminView" (click)="switchView.emit()">Bartender view</mat-slide-toggle>
 
   <div fxFlex fxLayout="row" fxLayoutAlign="start center">
     <div class="picture-placeholder"></div>

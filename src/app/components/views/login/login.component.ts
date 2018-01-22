@@ -18,6 +18,8 @@ export class LoginComponent {
   constructor(private router: Router, private accountService: AccountService) {
     this.username = 'admin';
     this.password = 'a';
+    // this.username = 'mobile';
+    // this.password = 'server';
     this.attemptLogin();
   }
 
