@@ -2,41 +2,46 @@
 
 @mixin ms-incoming-batches-theme($theme) {
 
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
 
-  .ms-batch-wrapper-light{
-    .ms-order-done {
-      background-color: mat-color($primary, 500, 0.8);
-      color: $black-87-opacity;
-    }
 
-    .ms-order-todo {
-      background-color: mat-color($accent, 800, 0.8);
-      color: $white-87-opacity;
-    }
 
-    .ms-send-batch-button {
-      background-color: mat-color($primary, 500);
-      color: $black-87-opacity;
-    }
-  }
 
-  .ms-batch-wrapper-dark{
-    .ms-order-done {
-      background-color: mat-color($primary, 300, 0.8);
-      color: $black-87-opacity;
-    }
 
-    .ms-order-todo {
-      background-color: mat-color($accent, 600, 0.8);
-      color: $white-87-opacity;
-    }
-
-    .ms-send-batch-button {
-      background-color: mat-color($primary, 300);
-      color: $black-87-opacity;
-    }
-  }
+  //$primary: map-get($theme, primary);
+  //$accent: map-get($theme, accent);
+  //
+  //.ms-batch-wrapper-light{
+  //  .ms-order-done {
+  //    background-color: mat-color($primary, 500, 0.8);
+  //    color: $black-87-opacity;
+  //  }
+  //
+  //  .ms-order-todo {
+  //    background-color: mat-color($accent, 800, 0.8);
+  //    color: $white-87-opacity;
+  //  }
+  //
+  //  .ms-send-batch-button {
+  //    background-color: mat-color($primary, 500);
+  //    color: $black-87-opacity;
+  //  }
+  //}
+  //
+  //.ms-batch-wrapper-dark{
+  //  .ms-order-done {
+  //    background-color: mat-color($primary, 300, 0.8);
+  //    color: $black-87-opacity;
+  //  }
+  //
+  //  .ms-order-todo {
+  //    background-color: mat-color($accent, 600, 0.8);
+  //    color: $white-87-opacity;
+  //  }
+  //
+  //  .ms-send-batch-button {
+  //    background-color: mat-color($primary, 300);
+  //    color: $black-87-opacity;
+  //  }
+  //}
 }
 

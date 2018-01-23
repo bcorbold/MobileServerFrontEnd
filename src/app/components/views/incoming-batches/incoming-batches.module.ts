@@ -1,9 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MessageModule, MessageService } from '../../../services/message/message.module';
 import { PageSelectorModule } from '../../core/page-selector/page-selector.module';
@@ -20,7 +20,7 @@ export { IncomingBatchesComponent } from './incoming-batches.component';
     IncomingBatchesComponent
   ],
   imports: [
-    BrowserAnimationsModule, // todo: shouldn't have to import this
+    CommonModule,
     FlexLayoutModule,
     MessageModule,
     FormsModule,

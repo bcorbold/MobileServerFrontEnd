@@ -1,7 +1,9 @@
 <div class="ms-desktop-wrapper" fxLayout="row" fxLayoutAlign="center stretch" fxFill>
   <ms-order-history fxFlex *ngIf="!isAdminView" (reorder)="populatePlaceOrder($event)"></ms-order-history>
+  <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
   <div fxFlex fxLayout="column">
-    <ms-account-info fxFlex [user]="userInfo" (userUpdate)="handleUserInfoChange($event)" (switchView)="changeView()"></ms-account-info>
+    <ms-account-info fxFlex [user]="userInfo" [isAdminView]="isAdminView" (userUpdate)="handleUserInfoChange($event)" (switchView)="changeView()"></ms-account-info>
     <ms-place-order fxFlex *ngIf="!isAdminView" [pastOrder]="pastOrder"></ms-place-order>
+    <div fxFlex *ngIf="isAdminView"></div>
   </div>
 </div>

@@ -1,44 +1,74 @@
 .ms-blur-container {
-  border-radius: 5px;
-  padding: 10px;
+  padding: 1em 2em;
+  -webkit-box-shadow: 0.1em 0 2em 0.5em rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0.1em 0 2em 0.5em rgba(0, 0, 0, 0.3);
+  box-shadow: 0.1em 0 2em 0.5em rgba(0, 0, 0, 0.3);
+
+  p {
+    color: white;
+  }
 
   .ms-header {
-    margin-bottom: 10px;
+    margin-bottom: 1em;
   }
 
-  .ms-order-batch-container {
-    overflow: auto;
-    max-height: 100%;
+  .batch-container {
+    margin: 0.25em 0;
+    background-color: #393939;
+  }
 
-    .ms-batch-container {
-      margin: 1px 0;
+  .order-container {
+    .order-not-made {
+      background-color: #D3C36D;
     }
 
-    .ms-send-batch-button {
-      margin: 2px 0 2px 5px;
-      border-radius: 2px;
-      -webkit-border-radius: 2px;
-      -moz-border-radius: 2px;
+    .order-made {
+      background-color: #76B976;
     }
 
-    .ms-order-container {
-      height: 50px;
-      width: 100%;
-      cursor: pointer;
-      border-radius: 2px;
-      -webkit-border-radius: 2px;
-      -moz-border-radius: 2px;
-
-      .product-name {
-        padding-left: 5px;
-        padding-right: 20px;
-      }
+    .order-sent {
+      background-color: #6DA0D3;
     }
 
   }
 
-  ms-page-selector {
-    margin-top: 10px;
-  }
+  //.ms-header {
+  //  margin-bottom: 10px;
+  //}
+  //
+  //.ms-order-batch-container {
+  //  overflow: auto;
+  //  max-height: 100%;
+  //
+  //  .ms-batch-container {
+  //    margin: 1px 0;
+  //  }
+  //
+  //  .ms-send-batch-button {
+  //    margin: 2px 0 2px 5px;
+  //    border-radius: 2px;
+  //    -webkit-border-radius: 2px;
+  //    -moz-border-radius: 2px;
+  //  }
+  //
+  //  .ms-order-container {
+  //    height: 50px;
+  //    width: 100%;
+  //    cursor: pointer;
+  //    border-radius: 2px;
+  //    -webkit-border-radius: 2px;
+  //    -moz-border-radius: 2px;
+  //
+  //    .product-name {
+  //      padding-left: 5px;
+  //      padding-right: 20px;
+  //    }
+  //  }
+  //
+  //}
+  //
+  //ms-page-selector {
+  //  margin-top: 10px;
+  //}
 
 }

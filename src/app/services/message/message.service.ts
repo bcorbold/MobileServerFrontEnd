@@ -2,11 +2,13 @@
 import 'rxjs/add/observable/interval';
 
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AppConfig } from '../../app.config';
+import { Batch } from '../../core/batch';
 import { DeliveryLocation } from '../../core/delivery-location';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
@@ -15,26 +17,19 @@ import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 
+
 @Injectable()
 export class MessageService implements OnDestroy {
 
-  private pollingSubscription: Subscription;
+  private static BATCH_POLLING_RATE = 5000;
+
   private sessionKey: string;
   private user: UserInfo;
   private environmentDetails: EnvironmentDetails;
+  private batchPollingTimer: Subscription;
+  private incomingBatchesSubject: Subject<Batch[]>;
 
-  backendUpdates: EventEmitter<any> = new EventEmitter<any>();
-
-  constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {
-
-    // todo: should only poll once a component wants to subscribe to it
-    this.pollingSubscription = Observable.interval(5000).subscribe(() => {
-      // todo: commented this out to not hit the backend so hard with requests while testing
-      // this.http.get(this.config.getUrl).subscribe((data: any) => {
-      //   this.backendUpdates.next(data);
-      // });
-    });
-  }
+  constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {}
 
   private fetchEnvironmentDetails(): Promise<EnvironmentDetails> {
     return new Promise<any>((resolve, reject) => {
@@ -54,11 +49,6 @@ export class MessageService implements OnDestroy {
     } else {
       return this.fetchEnvironmentDetails();
     }
-  }
-
-  ngOnDestroy(): void {
-    this.pollingSubscription.unsubscribe();
-    this.pollingSubscription = undefined;
   }
 
   login(username: string, password: string): Promise<UserInfo> {
@@ -152,6 +142,41 @@ export class MessageService implements OnDestroy {
           error => reject(error)
         );
     });
+  }
+
+  getIncomingBatches(): Subject<Batch[]> {
+    if (isDefined(this.incomingBatchesSubject)) {
+      return this.incomingBatchesSubject;
+    } else {
+      this.incomingBatchesSubject = new Subject<Batch[]>();
+
+      // send request now so that we don't have to wait the polling time till the first response
+      const body = {username: this.user.username, sessionKey: this.sessionKey};
+      this.http.post(this.config.backendUrl + 'getIncomingBatches', body)
+        .subscribe((response: {batches: Batch[]}) => {
+          this.incomingBatchesSubject.next(response.batches);
+          console.log(response.batches);
+        });
+
+      this.batchPollingTimer = Observable.interval(MessageService.BATCH_POLLING_RATE).subscribe(() => {
+        this.http.post(this.config.backendUrl + 'getIncomingBatches', body)
+          .subscribe((response: {batches: Batch[]}) => {
+            this.incomingBatchesSubject.next(response.batches);
+          });
+      });
+      return this.incomingBatchesSubject;
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (isDefined(this.batchPollingTimer)) {
+      this.batchPollingTimer.unsubscribe();
+      this.batchPollingTimer = undefined;
+    }
+    if (isDefined(this.incomingBatchesSubject)) {
+      this.incomingBatchesSubject.complete();
+      this.incomingBatchesSubject = undefined;
+    }
   }
 
 }
