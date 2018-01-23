@@ -5,4 +5,5 @@ export class Batch {
   orders: [Order];
   batchEta: string;
   robotId: string;
+  state: string;
 }
