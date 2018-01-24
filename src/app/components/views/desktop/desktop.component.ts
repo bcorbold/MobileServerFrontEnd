@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
+import { Order } from '../../../core/order';
 import { UserInfo } from '../../../core/user-info';
 import { AccountService } from '../../../services/account/account.service';
-import { Order } from '../../../core/order';
 
 @Component({
   selector: 'ms-desktop',

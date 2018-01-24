@@ -1,27 +1,3 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-order-history-theme($theme) {
-
-  //$primary: map-get($theme, primary);
-  //$accent: map-get($theme, accent);
-  //
-  //.ms-history-item-light {
-  //  background-color: mat-color($accent, 600, 0.8);
-  //  color: $white-87-opacity;
-  //
-  //  button {
-  //    background-color: mat-color($primary, 400);
-  //    color: $black-87-opacity;
-  //  }
-  //}
-  //
-  //.ms-history-item-dark {
-  //  background-color: mat-color($accent, 800, 0.8);
-  //  color: $white-87-opacity;
-  //
-  //  button {
-  //    background-color: mat-color($primary);
-  //    color: $black-87-opacity;
-  //  }
-  //}
-}
+@mixin ms-order-history-theme($theme) {}

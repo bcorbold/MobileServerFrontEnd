@@ -69,9 +69,9 @@ export class PlaceOrderComponent {
     this.selectedAddOns = _.pull(this.selectedAddOns, addOnChip);
   }
 
-  placeOrder(): void { // todo: not fully implemented yet
+  placeOrder(): void { // todo: Should give the user some sort of feedback on the response
     this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation)
-      .then(response => console.log(response))
+      .then(response => console.log('Order has been placed'))
       .catch(error => console.error(error));
   }
 

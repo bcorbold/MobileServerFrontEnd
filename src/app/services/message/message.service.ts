@@ -34,19 +34,19 @@ export class MessageService implements OnDestroy {
 
   private fetchEnvironmentDetails(): Promise<EnvironmentDetails> {
     return new Promise<any>((resolve, reject) => {
-      this.http.post(this.config.backendUrl + 'getEnvironmentDetails', {username: this.user.username, sessionKey: this.sessionKey})
-        .subscribe(
-          (response: EnvironmentDetails) => {
-            resolve(response);
-          },
-          error => reject(error)
-        );
+      const body = {
+        username: this.user.username,
+        sessionKey: this.sessionKey
+      };
+
+      this.http.post(this.config.backendUrl + 'getEnvironmentDetails', body)
+        .subscribe((response: EnvironmentDetails) => resolve(response), error => reject(error));
     });
   }
 
   getEnvironmentDetails(): Promise<EnvironmentDetails> {
     if (isDefined(this.environmentDetails)) {
-      return new Promise<EnvironmentDetails>(resolve => { resolve(this.environmentDetails); });
+      return new Promise<EnvironmentDetails>(resolve => resolve(this.environmentDetails));
     } else {
       return this.fetchEnvironmentDetails();
     }
@@ -56,7 +56,7 @@ export class MessageService implements OnDestroy {
     return new Promise((resolve, reject) => {
       this.http.post(this.config.backendUrl + 'login', {username: username, password: password})
         .subscribe(
-          (response: any) => {
+          (response: {sessionKey: string, userInfo: UserInfo}) => {
                   this.sessionKey = response.sessionKey;
                   this.user = response.userInfo;
                   resolve(response.userInfo);
@@ -84,7 +84,8 @@ export class MessageService implements OnDestroy {
 
   getOrderHistory(): Promise<Order[]> {
     return new Promise<Order[]>((resolve, reject) => {
-      this.http.post(this.config.backendUrl + 'getOrderHistory', {username: this.user.username, sessionKey: this.sessionKey})
+      const body = {username: this.user.username, sessionKey: this.sessionKey};
+      this.http.post(this.config.backendUrl + 'getOrderHistory', body)
         .subscribe(
           (response: any) => {
                   const orderHistory: Order[] = [];
@@ -122,7 +123,7 @@ export class MessageService implements OnDestroy {
 
   placeOrder(selectedBeverage: OrderOption, selectedAddOns: {key: string, value: string | boolean | number}[],
              deliveryLocation: DeliveryLocation): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       const body = {
         username: this.user.username,
         sessionKey: this.sessionKey,
@@ -130,10 +131,7 @@ export class MessageService implements OnDestroy {
         deliveryLocation: deliveryLocation
       };
       this.http.post(this.config.backendUrl + 'placeOrder', body)
-        .subscribe(
-          response => resolve(response),
-          error => reject(error)
-        );
+        .subscribe(() => resolve(), error => reject(error));
     });
   }
 
@@ -174,10 +172,7 @@ export class MessageService implements OnDestroy {
       };
 
       // todo: can we just map this???
-      this.http.post(this.config.backendUrl + 'sendBatch', body).subscribe(
-        () => resolve(),
-        error => reject(error)
-      );
+      this.http.post(this.config.backendUrl + 'sendBatch', body).subscribe(() => resolve(), error => reject(error));
     });
   }
 

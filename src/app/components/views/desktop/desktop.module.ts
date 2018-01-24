@@ -10,17 +10,16 @@ import { SystemDetailsModule } from '../system-details/system-details.module';
 
 import { DesktopComponent } from './desktop.component';
 
-
 export { DesktopComponent } from './desktop.component';
 
 @NgModule({
   imports: [
     AccountInfoModule,
     BrowserModule,
-    IncomingBatchesModule,
     FlexLayoutModule,
-    PlaceOrderModule,
+    IncomingBatchesModule,
     OrderHistoryModule,
+    PlaceOrderModule,
     SystemDetailsModule
   ],
   declarations: [

@@ -42,14 +42,8 @@ export class AccountInfoComponent implements OnInit {
 
   logout(): void {
     this.accountService.logout()
-      .then(() => {
-      //  todo: router switch to login
-        this.router.navigate(['/']);
-      })
-      .catch(error => {
-        console.error(error);
-      //  todo: how do we want to handle this...
-      });
+      .then(() => this.router.navigate(['/']))
+      .catch(error => console.error(error)); //  todo: how do we want to handle this...
   }
 
   resetAccountInfo(): void {

@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { MessageModule, MessageService } from '../../../services/message/message.module';
 import { DateTimeFormatterModule } from '../../core/date-time-formatter/date-time-formatter.module';
-
 import { OrderHistoryComponent } from './order-history.component';
 
 export { OrderHistoryComponent } from './order-history.component';

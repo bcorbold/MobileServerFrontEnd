@@ -4,9 +4,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
 
-import { AccountInfoComponent } from './account-info.component';
-import { MessageService } from '../../../services/message/message.service';
 import { AccountService } from '../../../services/account/account.service';
+import { MessageService } from '../../../services/message/message.service';
+import { AccountInfoComponent } from './account-info.component';
 
 export { AccountInfoComponent } from './account-info.component';
 
@@ -26,8 +26,8 @@ export { AccountInfoComponent } from './account-info.component';
     AccountInfoComponent
   ],
   providers: [
-    MessageService,
-    AccountService
+    AccountService,
+    MessageService
   ]
 })
 export class AccountInfoModule { }

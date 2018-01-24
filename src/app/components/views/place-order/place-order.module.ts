@@ -4,9 +4,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatChipsModule, MatInputModule, MatSelectModule } from '@angular/material';
 
+import { AccountService } from '../../../services/account/account.service';
 import { MessageService } from '../../../services/message/message.service';
 import { PlaceOrderComponent } from './place-order.component';
-import { AccountService } from '../../../services/account/account.service';
 
 export { PlaceOrderComponent } from './place-order.component';
 

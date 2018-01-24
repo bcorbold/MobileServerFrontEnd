@@ -2,12 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatChipsModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
-import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule, MatChipsModule, MatIconModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
 
 import { MessageModule, MessageService } from '../../../services/message/message.module';
-import { PageSelectorModule } from '../../core/page-selector/page-selector.module';
-
 import { IncomingBatchesComponent } from './incoming-batches.component';
 
 export { IncomingBatchesComponent } from './incoming-batches.component';
@@ -22,14 +19,13 @@ export { IncomingBatchesComponent } from './incoming-batches.component';
   imports: [
     CommonModule,
     FlexLayoutModule,
-    MessageModule,
     FormsModule,
     MatButtonModule,
     MatChipsModule,
     MatIconModule,
     MatInputModule,
     MatSlideToggleModule,
-    PageSelectorModule
+    MessageModule
   ],
   providers: [
     MessageService
