@@ -17,7 +17,6 @@ import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 
-
 @Injectable()
 export class MessageService implements OnDestroy {
 
@@ -28,6 +27,7 @@ export class MessageService implements OnDestroy {
   private environmentDetails: EnvironmentDetails;
   private batchPollingTimer: Subscription;
   private incomingBatchesSubject: Subject<Batch[]>;
+  private incomingBatchesCache: Batch[];
 
   constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {}
 
@@ -56,15 +56,11 @@ export class MessageService implements OnDestroy {
       this.http.post(this.config.backendUrl + 'login', {username: username, password: password})
         .subscribe(
           (response: any) => {
-                  // console.log(response);
                   this.sessionKey = response.sessionKey;
                   this.user = response.userInfo;
                   resolve(response.userInfo);
                 },
-          (error: any) => {
-                  // console.log(error);
-                  reject(error);
-                }
+          error => reject(error)
         );
     });
   }
@@ -90,7 +86,6 @@ export class MessageService implements OnDestroy {
       this.http.post(this.config.backendUrl + 'getOrderHistory', {username: this.user.username, sessionKey: this.sessionKey})
         .subscribe(
           (response: any) => {
-                  // console.log(response);
                   const orderHistory: Order[] = [];
                   response.orderHistory.forEach(order => {
                       if (isDefined(order.deliveryEta)) {
@@ -107,10 +102,7 @@ export class MessageService implements OnDestroy {
 
                   resolve(orderHistory);
                 },
-          error => {
-                  // console.log(error);
-                  reject(error);
-                }
+          error => reject(error)
         );
     });
   }
@@ -146,6 +138,9 @@ export class MessageService implements OnDestroy {
 
   getIncomingBatches(): Subject<Batch[]> {
     if (isDefined(this.incomingBatchesSubject)) {
+      setTimeout(() => {
+        this.incomingBatchesSubject.next(this.incomingBatchesCache);
+      });
       return this.incomingBatchesSubject;
     } else {
       this.incomingBatchesSubject = new Subject<Batch[]>();
@@ -154,14 +149,15 @@ export class MessageService implements OnDestroy {
       const body = {username: this.user.username, sessionKey: this.sessionKey};
       this.http.post(this.config.backendUrl + 'getIncomingBatches', body)
         .subscribe((response: {batches: Batch[]}) => {
-          this.incomingBatchesSubject.next(response.batches);
-          console.log(response.batches);
+          this.incomingBatchesCache = response.batches;
+          this.incomingBatchesSubject.next(this.incomingBatchesCache);
         });
 
       this.batchPollingTimer = Observable.interval(MessageService.BATCH_POLLING_RATE).subscribe(() => {
         this.http.post(this.config.backendUrl + 'getIncomingBatches', body)
           .subscribe((response: {batches: Batch[]}) => {
-            this.incomingBatchesSubject.next(response.batches);
+            this.incomingBatchesCache = response.batches;
+            this.incomingBatchesSubject.next(this.incomingBatchesCache);
           });
       });
       return this.incomingBatchesSubject;

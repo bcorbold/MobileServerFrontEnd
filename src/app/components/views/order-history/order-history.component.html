@@ -6,7 +6,7 @@
       <div fxLayout="row" fxLayoutAlign="start stretch" style="margin-bottom: 0.5em; background-color: #393939;">
 
         <!-- todo: add a tool tip to the color bar for state information -->
-        <div style="width: 0.5em;"
+        <div style="width: 1em;"
              [ngClass]="{waiting: order.state === 'Waiting', delivering: order.state === 'Delivering', delivered: order.state === 'Delivered', delayed: order.state === 'Delayed'}"></div>
         <div fxFlex style="margin: 0.5em 1em;" fxLayout="row" fxLayoutAlign="start stretch">
           <div fxFlex="30" fxLayout="column">

@@ -4,6 +4,6 @@
   <div fxFlex fxLayout="column">
     <ms-account-info fxFlex [user]="userInfo" [isAdminView]="isAdminView" (userUpdate)="handleUserInfoChange($event)" (switchView)="changeView()"></ms-account-info>
     <ms-place-order fxFlex *ngIf="!isAdminView" [pastOrder]="pastOrder"></ms-place-order>
-    <div fxFlex *ngIf="isAdminView"></div>
+    <ms-system-details fxFlex *ngIf="isAdminView"></ms-system-details>
   </div>
 </div>

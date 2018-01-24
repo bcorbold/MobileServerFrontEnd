@@ -8,15 +8,16 @@
         <div fxFlex fxLayout="column">
           <div *ngFor="let order of batch.orders">
             <div class="order-container" [ngClass]="{'pointer-row': batch.state !== 'delivering'}" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="1em" (click)="order.ready = !order.ready">
-              <div style="width: 0.5em;" [ngClass]="{'order-sent': batch.state === 'delivering', 'order-ready': order.ready && batch.state !== 'delivering', 'order-not-ready': !order.ready  && batch.state !== 'delivering'}"></div>
+              <div style="width: 1em;" [ngClass]="{'order-sent': batch.state === 'delivering', 'order-ready': order.ready && batch.state !== 'delivering', 'order-not-ready': !order.ready  && batch.state !== 'delivering'}"></div>
               <div class="order-row" fxLayout="row" fxLayoutAlign="start center">
-                <p style="margin-right: 0.5em;">{{order.orderInfo.orderOption.name}}</p>
-
-                <mat-chip-list style="margin-right: 0.5em;">
-                  <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
-                    <mat-chip>{{addOn.key}}, {{addOn.value}}</mat-chip>
-                  </div>
-                </mat-chip-list>
+                <div fxLayout="column">
+                  <p style="margin-right: 0.5em;">{{order.orderInfo.orderOption.name}}</p>
+                  <mat-chip-list style="margin-right: 0.5em;">
+                    <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
+                      <mat-chip>{{addOn.key}}, {{addOn.value}}</mat-chip>
+                    </div>
+                  </mat-chip-list>
+                </div>
 
                 <p style="margin-right: 0.25em;">Delivering too:</p>
                 <p style="font-weight: 300;">{{order.deliveryLocation.name}}</p>
@@ -26,10 +27,11 @@
         </div>
 
         <!-- todo: disable if all are not ready -->
-        <button *ngIf="batch.state !== 'delivering'" mat-button>Send with robot ##</button>
+        <button *ngIf="batch.state !== 'delivering'" mat-button>Send with<br><i>Timmy</i></button>
 
-        <div *ngIf="batch.state === 'delivering'" fxLayoutAlign="center center">
-          <p>Delivery with robot ##</p>
+        <div *ngIf="batch.state === 'delivering'" fxLayout="column" fxLayoutAlign="center center" style="font-size: 0.9em; padding: 0.5em;">
+          <p><i>Timmy</i></p>
+          <p>is enroute</p>
         </div>
       </div>
     </div>
