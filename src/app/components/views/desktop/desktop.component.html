@@ -3,6 +3,11 @@
   <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
   <div fxFlex fxLayout="column">
     <ms-account-info fxFlex [user]="userInfo" [isAdminView]="isAdminView" (userUpdate)="handleUserInfoChange($event)" (switchView)="changeView()"></ms-account-info>
+
+    <div class="ms-divider">
+      <div fxFlex></div>
+    </div>
+
     <ms-place-order fxFlex *ngIf="!isAdminView" [pastOrder]="pastOrder"></ms-place-order>
     <ms-system-details fxFlex *ngIf="isAdminView"></ms-system-details>
   </div>

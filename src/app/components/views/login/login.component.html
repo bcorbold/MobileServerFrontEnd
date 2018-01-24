@@ -3,15 +3,15 @@
   <h1 class="ms-header">MobileServer</h1>
 
   <div class="ms-login-wrapper" fxLayout="column" fxLayoutAlign="center stretch">
-    <mat-input-container>
+    <mat-input-container color="accent">
       <input matInput placeholder="Username" type="text" [(ngModel)]="username" (keyup.enter)="attemptLogin()">
     </mat-input-container>
 
-    <mat-input-container>
+    <mat-input-container color="accent">
       <input matInput placeholder="Password" type="password" [(ngModel)]="password" (keyup.enter)="attemptLogin()">
     </mat-input-container>
 
-    <button mat-raised-button color="primary" (click)="attemptLogin()">Login</button>
+    <button mat-raised-button color="accent" (click)="attemptLogin()">Login</button>
   </div>
 
   <div class="ms-login-message-wrapper" fxLayout="column" fxLayoutAlign="start center">

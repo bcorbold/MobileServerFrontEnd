@@ -1,8 +1,5 @@
-.ms-blur-container {
+.ms-order-history-wrapper {
   padding: 1em 2em;
-  -webkit-box-shadow: 0.1em 0 2em 0.5em rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0.1em 0 2em 0.5em rgba(0, 0, 0, 0.3);
-  box-shadow: 0.1em 0 2em 0.5em rgba(0, 0, 0, 0.3);
 
   .ms-header {
     margin-bottom: 1em;
@@ -11,31 +8,30 @@
   .ms-order-history-container {
     overflow: auto;
     max-height: 100%;
-    color: white;
 
+    .order-row {
+      margin-bottom: 0.5em;
 
-    .waiting {
-      background-color: #D3C36D;
-    }
+      .state-color-bar {
+        width: 1em;
+      }
 
-    .delivering {
-      background-color: #76B976;
-    }
-
-    .delivered {
-      background-color: #6DA0D3;
-    }
-
-    .delayed {
-      background-color: #D04D4D;
+      .row-info {
+        margin: 0.5em 1em;
+      }
     }
   }
-
 }
 
+
+// todo: maybe these can move to the global theme?
 /deep/
 mat-chip {
   padding: 0.2em 0.5em !important;
   font-weight: 300 !important;
   margin: 0.2em;
+}
+
+.light-text {
+  font-weight: 300;
 }

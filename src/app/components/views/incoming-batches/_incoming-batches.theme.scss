@@ -1,4 +1,40 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-incoming-batches-theme($theme) {}
+@mixin ms-incoming-batches-theme($theme) {
+
+  $primary: map-get($theme, primary);
+
+  .ms-incoming-batches-container {
+    color: white;
+    background-color: mat-color($primary, 700);
+
+    .batch-container {
+      background-color: map-get($primary, 800);
+
+      .order-not-ready {
+        .state-indicator {
+          background-color: mat-color($mat-amber, 300);
+        }
+      }
+
+      .order-ready {
+        background-color: map-get($primary, 900);
+        .state-indicator {
+          background-color: mat-color($mat-light-green, 400);
+        }
+      }
+
+      .order-sent {
+        background-color: map-get($primary, 900);
+        .state-indicator {
+          background-color: mat-color($mat-light-blue, 200);
+        }
+      }
+
+      .delivering-to {
+        background-color: map-get($primary, 900);
+      }
+    }
+  }
+}
 

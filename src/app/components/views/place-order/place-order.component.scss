@@ -1,7 +1,5 @@
-.ms-blur-container {
-  color: white;
+.ms-place-order-wrapper {
   padding: 1em 2em;
-
   width: 100%;
   height: 100%;
 
@@ -13,5 +11,16 @@
     font-weight: 300;
     font-style: italic;
     font-size: 0.8em;
+  }
+
+  mat-chip-list {
+    padding: 0.2em 0.5em !important;
+    font-weight: 300 !important;
+    margin: 0.2em;
+    overflow: auto;
+
+    .remove-chip {
+      cursor: pointer;
+    }
   }
 }

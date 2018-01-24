@@ -2,12 +2,10 @@
   <h1 class="ms-header">Robot Details</h1>
 
   <div *ngFor="let status of _robotStatuses" style="margin-bottom: 1em;">
-    <div class="status-container" fxLayout="row" fxLayoutAlign="start center">
+    <div class="status-container" fxLayout="row" fxLayoutAlign="start stretch">
       <div class="state-indicator" [ngClass]="{'online': status.isConnected && !status.robotError, 'offline': !status.isConnected, 'error': status.robotError}"></div>
-      <p style="margin: 1em; font-size: 1.5em;">{{status.robotInfo.name}}</p>
-      <p style="font-weight: 300;">{{status.robotError ? 'error' : !status.isConnected ? 'offline' : 'online'}}</p>
+      <p fxFlex="20" style="margin: 1em; font-size: 1.5em;">{{status.robotInfo.name}}</p>
+      <p class="light-text" fxFlexAlign="center">{{status.robotError ? 'error' : !status.isConnected ? 'offline' : 'online'}}</p>
     </div>
   </div>
-
-
 </div>

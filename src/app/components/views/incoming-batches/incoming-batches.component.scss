@@ -1,9 +1,5 @@
-.ms-blur-container {
+.ms-incoming-batches-container {
   padding: 1em 2em;
-  -webkit-box-shadow: 0.1em 0 2em 0.5em rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0.1em 0 2em 0.5em rgba(0, 0, 0, 0.3);
-  box-shadow: 0.1em 0 2em 0.5em rgba(0, 0, 0, 0.3);
-  color: white;
 
   .ms-header {
     margin-bottom: 1em;
@@ -11,7 +7,6 @@
 
   .batch-container {
     margin-bottom: 0.5em;
-    background-color: #393939;
 
     .order-container {
       .state-indicator {
@@ -30,30 +25,22 @@
       }
     }
 
-    .order-not-ready {
-      .state-indicator {
-        background-color: #D3C36D;
-      }
-    }
-
-    .order-ready {
-      background-color: #202020;
-      .state-indicator {
-        background-color: #76B976;
-      }
-    }
-
-    .order-sent {
-      .state-indicator {
-        background-color: #6DA0D3;
-      }
-    }
-
     .pointer-row {
       cursor: pointer;
     }
+
+    .delivering-to {
+      font-size: 0.9em;
+      padding: 1em;
+    }
+
+    button {
+      line-height: 1.5em;
+    }
   }
 
+}
 
-
+.light-text {
+  font-weight: 300;
 }

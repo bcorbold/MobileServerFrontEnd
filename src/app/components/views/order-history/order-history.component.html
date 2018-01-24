@@ -1,14 +1,13 @@
-<div fxFill class="ms-blur-container" fxLayout="column">
+<div fxFill class="ms-order-history-wrapper" fxLayout="column">
   <h1 class="ms-header">Order History</h1>
 
   <div fxFlex class="ms-order-history-container" fxLayout="column">
     <div *ngFor="let order of orderHistory;">
-      <div fxLayout="row" fxLayoutAlign="start stretch" style="margin-bottom: 0.5em; background-color: #393939;">
+      <div class="order-row" fxLayout="row" fxLayoutAlign="start stretch">
 
         <!-- todo: add a tool tip to the color bar for state information -->
-        <div style="width: 1em;"
-             [ngClass]="{waiting: order.state === 'Waiting', delivering: order.state === 'Delivering', delivered: order.state === 'Delivered', delayed: order.state === 'Delayed'}"></div>
-        <div fxFlex style="margin: 0.5em 1em;" fxLayout="row" fxLayoutAlign="start stretch">
+        <div class="state-color-bar" [ngClass]="{waiting: order.state === 'Waiting', delivering: order.state === 'Delivering', delivered: order.state === 'Delivered', delayed: order.state === 'Delayed'}"></div>
+        <div fxFlex class="row-info" fxLayout="row" fxLayoutAlign="start stretch">
           <div fxFlex="30" fxLayout="column">
             <p>{{order.orderInfo.orderOption.name}}</p>
             <mat-chip-list>
@@ -16,18 +15,17 @@
                 <mat-chip>{{addOn.key}}, {{addOn.value}}</mat-chip>
               </div>
             </mat-chip-list>
-            <!-- todo: Add chip list of selected addOns here -->
           </div>
 
           <div fxFlex *ngIf="order.state !== 'Delivered'" fxLayout="row">
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
               <p>Delivering too:</p>
-              <p style="font-weight: 300;">{{order.deliveryLocation.name}}</p>
+              <p class="light-text">{{order.deliveryLocation.name}}</p>
             </div>
 
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
               <p>Estimated time till arrival:</p>
-              <p style="font-weight: 300;">
+              <p class="light-text">
                 <ms-date-time-formatter [date]="order.deliveryEta" [formatAsDate]="false" [timeTooEstimate]="true"></ms-date-time-formatter>
               </p>
             </div>
@@ -36,23 +34,22 @@
           <div fxFlex *ngIf="order.state === 'Delivered'">
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
               <p>Ordered on:</p>
-              <p style="font-weight: 300;">
+              <p class="light-text">
                 <ms-date-time-formatter [date]="order.orderDate"></ms-date-time-formatter>
               </p>
             </div>
 
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
               <p>Delivered on:</p>
-              <p style="font-weight: 300;">
+              <p class="light-text">
                 <ms-date-time-formatter [date]="order.deliveredDate"></ms-date-time-formatter>
               </p>
             </div>
           </div>
 
-          <button mat-button (click)="reorder.emit(order)">Reorder</button>
+          <button mat-button (click)="reorder.emit(order)" color="accent">Reorder</button>
         </div>
       </div>
-
     </div>
   </div>
 </div>

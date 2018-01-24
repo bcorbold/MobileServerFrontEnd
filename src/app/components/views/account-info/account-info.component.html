@@ -1,22 +1,22 @@
-<div fxLayout="column" class="ms-blur-container" fxLayoutAlign="center stretch">
+<div fxLayout="column" class="ms-account-info-wrapper" fxLayoutAlign="center stretch">
   <mat-slide-toggle *ngIf="user.adminEnabled" fxFlexAlign="end" [checked]="isAdminView" (click)="switchView.emit()">Bartender view</mat-slide-toggle>
 
   <div fxFlex fxLayout="row" fxLayoutAlign="start center">
     <div class="picture-placeholder"></div>
 
-    <div fxFlex fxLayout="column" style="margin-left: 2em;">
+    <div fxFlex fxLayout="column" class="ms-account-info-container">
       <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
-      <p style="font-size: 1.2em; font-weight: 300;">{{user.username}}</p>
+      <p class="light-large-text">{{user.username}}</p>
 
       <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1em" style="margin-top: 2em;">
-        <mat-form-field>
+        <mat-form-field color="accent">
           <mat-select [(value)]="user.defaultDeliveryLocation.id" placeholder="Default delivery location">
             <div *ngFor="let location of environmentDetails.deliveryLocations">
               <mat-option [value]="location.id">{{location.name}}</mat-option>
             </div>
           </mat-select>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field color="accent">
           <mat-select [(value)]="user.locale" placeholder="Locale">
             <div *ngFor="let locale of environmentDetails.locales">
               <mat-option [value]="locale">{{locale}}</mat-option>
@@ -26,7 +26,7 @@
       </div>
 
       <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1em">
-        <mat-form-field>
+        <mat-form-field color="accent">
           <mat-select [(value)]="user.defaultView" placeholder="Default view" [disabled]="!user.adminEnabled">
             <div *ngFor="let view of environmentDetails.uiViews">
               <mat-option [value]="view">{{view}}</mat-option>
@@ -34,8 +34,8 @@
           </mat-select>
         </mat-form-field>
 
-        <button mat-raised-button (click)="updateAccountInfo()">Submit</button>
-        <button mat-raised-button color="warn" (click)="resetAccountInfo()">Reset</button>
+        <button mat-button (click)="updateAccountInfo()" color="accent">Submit</button>
+        <button mat-button color="warn" (click)="resetAccountInfo()">Reset</button>
       </div>
     </div>
   </div>

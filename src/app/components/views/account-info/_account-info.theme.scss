@@ -1,3 +1,10 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-account-info-theme($theme) {}
+@mixin ms-account-info-theme($theme) {
+
+  $primary: map-get($theme, primary);
+
+  .ms-account-info-wrapper {
+    color: white;
+  }
+}
