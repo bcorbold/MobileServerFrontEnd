@@ -16,6 +16,7 @@ import { Order } from '../../core/order';
 import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
+import { RobotStatus } from '../../core/robot-status';
 
 @Injectable()
 export class MessageService implements OnDestroy {
@@ -175,6 +176,20 @@ export class MessageService implements OnDestroy {
       // todo: can we just map this???
       this.http.post(this.config.backendUrl + 'sendBatch', body).subscribe(
         () => resolve(),
+        error => reject(error)
+      );
+    });
+  }
+
+  getRobotStatusUpdates(): Promise<RobotStatus[]> {
+    return new Promise<RobotStatus[]>((resolve, reject) => {
+      const body = {
+        username: this.user.username,
+        sessionKey: this.sessionKey
+      };
+
+      this.http.post(this.config.backendUrl + 'getRobotStatusUpdates', body).subscribe(
+        (response: {robotStatuses: RobotStatus[]}) => resolve(response.robotStatuses),
         error => reject(error)
       );
     });
