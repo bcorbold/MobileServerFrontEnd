@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { isDefined } from '../../../core/is-defined';
-import { MessageService } from '../../../services/message/message.service';
 import { Order } from '../../../core/order';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'ms-order-history',

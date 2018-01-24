@@ -1,6 +1,6 @@
 import { DeliveryLocation } from './delivery-location';
-import { OrderInfo } from './order-info';
 import { isDefined } from './is-defined';
+import { OrderInfo } from './order-info';
 
 export class Order {
   id: string;

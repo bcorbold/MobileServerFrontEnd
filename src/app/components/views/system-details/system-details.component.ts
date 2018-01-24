@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 import { EnvironmentDetails } from '../../../core/environment-details';
 import { RobotInfo } from '../../../core/robot-info';
-import { MessageService } from '../../../services/message/message.service';
 import { RobotStatus } from '../../../core/robot-status';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'ms-system-details',

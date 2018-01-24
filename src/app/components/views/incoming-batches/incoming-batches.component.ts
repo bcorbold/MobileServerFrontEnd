@@ -1,14 +1,14 @@
 import * as _ from 'lodash';
 
 import { Component, OnDestroy } from '@angular/core';
-
 import { Subscription } from 'rxjs/Subscription';
+
 import { Batch } from '../../../core/batch';
 import { EnvironmentDetails } from '../../../core/environment-details';
 import { isDefined } from '../../../core/is-defined';
+import { Order } from '../../../core/order';
 import { RobotInfo } from '../../../core/robot-info';
 import { MessageService } from '../../../services/message/message.service';
-import { Order } from '../../../core/order';
 
 @Component({
   selector: 'ms-incoming-batches',
@@ -28,7 +28,7 @@ export class IncomingBatchesComponent implements OnDestroy {
         this.batches.forEach(batch => {
           const i = _.findIndex(batches, {id: batch.id});
           if (i !== -1) {
-            batches[i] =_.defaultsDeep(batches[i], batch);
+            batches[i] = _.defaultsDeep(batches[i], batch);
           }
         });
         this.batches = batches;

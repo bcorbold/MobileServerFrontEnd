@@ -15,8 +15,8 @@ import { isDefined } from '../../core/is-defined';
 import { Order } from '../../core/order';
 import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
-import { UserInfo } from '../../core/user-info';
 import { RobotStatus } from '../../core/robot-status';
+import { UserInfo } from '../../core/user-info';
 
 @Injectable()
 export class MessageService implements OnDestroy {

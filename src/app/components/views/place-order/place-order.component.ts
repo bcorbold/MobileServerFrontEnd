@@ -3,14 +3,14 @@ import * as _ from 'lodash';
 import { Component, Input } from '@angular/core';
 
 import { AddOn } from '../../../core/add-on';
+import { DeliveryLocation } from '../../../core/delivery-location';
 import { EnvironmentDetails } from '../../../core/environment-details';
 import { isDefined } from '../../../core/is-defined';
-import { OrderOption } from '../../../core/order-option';
-import { MessageService } from '../../../services/message/message.service';
-import { DeliveryLocation } from '../../../core/delivery-location';
-import { AccountService } from '../../../services/account/account.service';
-import { UserInfo } from '../../../core/user-info';
 import { Order } from '../../../core/order';
+import { OrderOption } from '../../../core/order-option';
+import { UserInfo } from '../../../core/user-info';
+import { AccountService } from '../../../services/account/account.service';
+import { MessageService } from '../../../services/message/message.service';
 
 
 @Component({
