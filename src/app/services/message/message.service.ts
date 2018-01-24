@@ -164,6 +164,22 @@ export class MessageService implements OnDestroy {
     }
   }
 
+  sendBatch(batch: Batch): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const body = {
+        username: this.user.username,
+        sessionKey: this.sessionKey,
+        batchId: batch.id
+      };
+
+      // todo: can we just map this???
+      this.http.post(this.config.backendUrl + 'sendBatch', body).subscribe(
+        () => resolve(),
+        error => reject(error)
+      );
+    });
+  }
+
   ngOnDestroy(): void {
     if (isDefined(this.batchPollingTimer)) {
       this.batchPollingTimer.unsubscribe();

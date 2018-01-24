@@ -4,8 +4,11 @@ import { Component, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs/Subscription';
 import { Batch } from '../../../core/batch';
+import { EnvironmentDetails } from '../../../core/environment-details';
 import { isDefined } from '../../../core/is-defined';
+import { RobotInfo } from '../../../core/robot-info';
 import { MessageService } from '../../../services/message/message.service';
+import { Order } from '../../../core/order';
 
 @Component({
   selector: 'ms-incoming-batches',
@@ -16,6 +19,7 @@ export class IncomingBatchesComponent implements OnDestroy {
 
   batches: Batch[] = [];
   incomingBatchSubscription: Subscription;
+  configuredRobots: RobotInfo[];
 
   constructor(private messageService: MessageService) {
     this.incomingBatchSubscription = this.messageService.getIncomingBatches().subscribe(
@@ -29,8 +33,22 @@ export class IncomingBatchesComponent implements OnDestroy {
         });
         this.batches = batches;
       },
-      error => console.error(error)
+      error => console.error(error) // todo: do something?
     );
+    this.messageService.getEnvironmentDetails().then((envDetails: EnvironmentDetails) => {
+      this.configuredRobots = envDetails.configuredRobots;
+    });
+  }
+
+  updateOrderStatus(order: Order, batch: Batch) {
+    order.ready = !order.ready;
+    let isBatchReady = true;
+    batch.orders.forEach(o => isBatchReady = isBatchReady && o.ready);
+    batch.ready = isBatchReady;
+  }
+
+  sendBatch(batch: Batch) {
+    this.messageService.sendBatch(batch);
   }
 
   ngOnDestroy(): void {

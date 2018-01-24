@@ -12,6 +12,7 @@ import { MessageService } from '../../../services/message/message.service';
 export class SystemDetailsComponent {
 
   configuredRobots: RobotInfo[];
+  robotStatus: any;
 
   constructor(private messageService: MessageService) {
     this.messageService.getEnvironmentDetails().then((environmentDetails: EnvironmentDetails) => {

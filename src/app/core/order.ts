@@ -10,7 +10,7 @@ export class Order {
   deliveredDate: Date;
   orderInfo: OrderInfo;
   deliveryLocation: DeliveryLocation;
-  completed?: boolean;
+  ready?: boolean;
 
   static copy(that: Order): Order {
     const order: Order = new Order();
@@ -29,8 +29,8 @@ export class Order {
     }
     order.orderInfo = OrderInfo.copy(that.orderInfo);
     order.deliveryLocation = DeliveryLocation.copy(that.deliveryLocation);
-    if (isDefined(that.completed)) {
-      order.completed = that.completed;
+    if (isDefined(that.ready)) {
+      order.ready = that.ready;
     }
     return order;
   }

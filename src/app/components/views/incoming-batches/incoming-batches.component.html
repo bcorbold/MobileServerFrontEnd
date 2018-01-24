@@ -7,8 +7,12 @@
 
         <div fxFlex fxLayout="column">
           <div *ngFor="let order of batch.orders">
-            <div class="order-container" [ngClass]="{'pointer-row': batch.state !== 'delivering'}" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="1em" (click)="order.ready = !order.ready">
-              <div style="width: 1em;" [ngClass]="{'order-sent': batch.state === 'delivering', 'order-ready': order.ready && batch.state !== 'delivering', 'order-not-ready': !order.ready  && batch.state !== 'delivering'}"></div>
+            <div class="order-container" fxLayoutAlign="start stretch" fxLayoutGap="1em" (click)="updateOrderStatus(order, batch)"
+                 [ngClass]="{ 'pointer-row': batch.state !== 'delivering',
+                              'order-sent': batch.state === 'delivering',
+                              'order-ready': order.ready && batch.state !== 'delivering',
+                              'order-not-ready': !order.ready  && batch.state !== 'delivering' }">
+              <div class="state-indicator"></div>
               <div class="order-row" fxLayout="row" fxLayoutAlign="start center">
                 <div fxLayout="column">
                   <p style="margin-right: 0.5em;">{{order.orderInfo.orderOption.name}}</p>
@@ -26,11 +30,10 @@
           </div>
         </div>
 
-        <!-- todo: disable if all are not ready -->
-        <button *ngIf="batch.state !== 'delivering'" mat-button>Send with<br><i>Timmy</i></button>
+        <button *ngIf="batch.state !== 'delivering'" mat-button [disabled]="!batch.ready" (click)="sendBatch(batch)">Send with<br><i>{{batch.assignedRobot.name}}</i></button>
 
         <div *ngIf="batch.state === 'delivering'" fxLayout="column" fxLayoutAlign="center center" style="font-size: 0.9em; padding: 0.5em;">
-          <p><i>Timmy</i></p>
+          <p><i>{{batch.assignedRobot.name}}</i></p>
           <p>is enroute</p>
         </div>
       </div>

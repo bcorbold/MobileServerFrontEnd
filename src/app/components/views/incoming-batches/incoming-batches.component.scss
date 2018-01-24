@@ -14,16 +14,8 @@
     background-color: #393939;
 
     .order-container {
-      .order-not-ready {
-        background-color: #D3C36D;
-      }
-
-      .order-ready {
-        background-color: #76B976;
-      }
-
-      .order-sent {
-        background-color: #6DA0D3;
+      .state-indicator {
+        width: 1em !important;
       }
 
       .order-row {
@@ -35,6 +27,25 @@
           font-weight: 300 !important;
           margin: 0.2em;
         }
+      }
+    }
+
+    .order-not-ready {
+      .state-indicator {
+        background-color: #D3C36D;
+      }
+    }
+
+    .order-ready {
+      background-color: #202020;
+      .state-indicator {
+        background-color: #76B976;
+      }
+    }
+
+    .order-sent {
+      .state-indicator {
+        background-color: #6DA0D3;
       }
     }
 
