@@ -6,7 +6,7 @@
       <div class="order-row" fxLayout="row" fxLayoutAlign="start stretch">
 
         <!-- todo: add a tool tip to the color bar for state information -->
-        <div class="state-color-bar" [ngClass]="{waiting: order.state === 'Waiting', delivering: order.state === 'Delivering', delivered: order.state === 'Delivered', delayed: order.state === 'Delayed'}"></div>
+        <div class="state-color-bar" [ngClass]="{waiting: order.state === 'Waiting' || order.state === 'Queued', delivering: order.state === 'Delivering', delivered: order.state === 'Delivered', delayed: order.state === 'Delayed'}"></div>
         <div fxFlex class="row-info" fxLayout="row" fxLayoutAlign="start stretch">
           <div fxFlex="30" fxLayout="column">
             <p>{{order.orderInfo.orderOption.name}}</p>
@@ -23,6 +23,7 @@
               <p class="light-text">{{order.deliveryLocation.name}}</p>
             </div>
 
+            <!-- todo: Once time estimates are finished add/test -->
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
               <p>Estimated time till arrival:</p>
               <p class="light-text">
@@ -51,5 +52,6 @@
         </div>
       </div>
     </div>
+    <div *ngIf="orderHistory.length === 0"><i>No past orders to be displayed... Try ordering something!</i></div>
   </div>
 </div>

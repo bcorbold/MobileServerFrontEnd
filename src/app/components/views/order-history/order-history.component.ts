@@ -12,7 +12,7 @@ import { MessageService } from '../../../services/message/message.service';
 export class OrderHistoryComponent {
 
   @Output() reorder: EventEmitter<Order> = new EventEmitter<Order>();
-  orderHistory: Order[];
+  orderHistory: Order[] = [];
 
   constructor(private messageService: MessageService) {
     this.messageService.getOrderHistory()

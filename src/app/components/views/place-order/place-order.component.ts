@@ -50,7 +50,6 @@ export class PlaceOrderComponent {
     this.messageService.getEnvironmentDetails()
       .then((envDetails) => {
         this.environmentDetails = envDetails;
-        console.log(this.environmentDetails);
       })
       .catch(error => console.error(error));
     this.userInfo = this.accountService.userInfo;
@@ -71,7 +70,10 @@ export class PlaceOrderComponent {
 
   placeOrder(): void { // todo: Should give the user some sort of feedback on the response
     this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation)
-      .then(response => console.log('Order has been placed'))
+      .then(response => {
+        console.log('Order has been placed');
+        // todo: subscribe to updates on the orderHistory
+      })
       .catch(error => console.error(error));
   }
 

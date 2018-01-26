@@ -22,7 +22,6 @@ export class SystemDetailsComponent {
     this._robotStatuses.forEach(status => {
       if (status.isConnected) { this.onlineRobots++; }
     });
-    console.log(this._robotStatuses);
   }
 
   configuredRobots: RobotInfo[];

@@ -22,7 +22,7 @@ export class IncomingBatchesComponent implements OnDestroy {
   configuredRobots: RobotInfo[];
 
   constructor(private messageService: MessageService) {
-    this.incomingBatchSubscription = this.messageService.getIncomingBatches().subscribe(
+    this.incomingBatchSubscription = this.messageService.getIncomingBatches('IncomingBatchesComponent').subscribe(
       (batches: Batch[]) => {
         // this is needed so that bartender can keep track of finished drinks after an update
         this.batches.forEach(batch => {
@@ -55,6 +55,7 @@ export class IncomingBatchesComponent implements OnDestroy {
     if (isDefined(this.incomingBatchSubscription)) {
       this.incomingBatchSubscription.unsubscribe();
       this.incomingBatchSubscription = undefined;
+      this.messageService.removeIncomingBatchesSubscriber('IncomingBatchesComponent');
     }
   }
 

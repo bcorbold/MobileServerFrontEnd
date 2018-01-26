@@ -1,6 +1,8 @@
 // this is required since "Observable" doesn't include interval on import
 import 'rxjs/add/observable/interval';
 
+import * as _ from 'lodash';
+
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -27,6 +29,8 @@ export class MessageService implements OnDestroy {
   private user: UserInfo;
   private environmentDetails: EnvironmentDetails;
   private batchPollingTimer: Subscription;
+
+  private incomingBatchesSubscribers: string[] = [];
   private incomingBatchesSubject: Subject<Batch[]>;
   private incomingBatchesCache: Batch[];
 
@@ -82,7 +86,7 @@ export class MessageService implements OnDestroy {
     });
   }
 
-  getOrderHistory(): Promise<Order[]> {
+  getOrderHistory(): Promise<Order[]> { // todo: based on the state of the order, should start subscribing based on incomplete orders
     return new Promise<Order[]>((resolve, reject) => {
       const body = {username: this.user.username, sessionKey: this.sessionKey};
       this.http.post(this.config.backendUrl + 'getOrderHistory', body)
@@ -122,8 +126,8 @@ export class MessageService implements OnDestroy {
   }
 
   placeOrder(selectedBeverage: OrderOption, selectedAddOns: {key: string, value: string | boolean | number}[],
-             deliveryLocation: DeliveryLocation): Promise<any> {
-    return new Promise<void>((resolve, reject) => {
+             deliveryLocation: DeliveryLocation): Promise<Order> {
+    return new Promise<Order>((resolve, reject) => {
       const body = {
         username: this.user.username,
         sessionKey: this.sessionKey,
@@ -131,11 +135,11 @@ export class MessageService implements OnDestroy {
         deliveryLocation: deliveryLocation
       };
       this.http.post(this.config.backendUrl + 'placeOrder', body)
-        .subscribe(() => resolve(), error => reject(error));
+        .subscribe((response: {order: Order}) => resolve(response.order), error => reject(error));
     });
   }
 
-  getIncomingBatches(): Subject<Batch[]> {
+  getIncomingBatches(subscriber: string): Subject<Batch[]> {
     if (isDefined(this.incomingBatchesSubject)) {
       setTimeout(() => {
         this.incomingBatchesSubject.next(this.incomingBatchesCache);
@@ -143,6 +147,8 @@ export class MessageService implements OnDestroy {
       return this.incomingBatchesSubject;
     } else {
       this.incomingBatchesSubject = new Subject<Batch[]>();
+      this.incomingBatchesSubscribers.push(subscriber);
+      this.incomingBatchesSubscribers = _.uniq(this.incomingBatchesSubscribers);
 
       // send request now so that we don't have to wait the polling time till the first response
       const body = {username: this.user.username, sessionKey: this.sessionKey};
@@ -188,6 +194,17 @@ export class MessageService implements OnDestroy {
         error => reject(error)
       );
     });
+  }
+
+  removeIncomingBatchesSubscriber(subscriber: string) {
+    this.incomingBatchesSubscribers = _.remove(this.incomingBatchesSubscribers, [subscriber]);
+
+    if (this.incomingBatchesSubscribers.length === 0) {
+      this.incomingBatchesSubject.complete();
+      this.batchPollingTimer.unsubscribe();
+      this.incomingBatchesSubject = undefined;
+      this.batchPollingTimer = undefined;
+    }
   }
 
   ngOnDestroy(): void {
