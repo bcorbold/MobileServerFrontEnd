@@ -24,15 +24,21 @@ import { UserInfo } from '../../core/user-info';
 export class MessageService implements OnDestroy {
 
   private static BATCH_POLLING_RATE = 5000;
+  private static ORDER_POLLING_RATE = 5000;
 
   private sessionKey: string;
   private user: UserInfo;
   private environmentDetails: EnvironmentDetails;
-  private batchPollingTimer: Subscription;
 
+  private orderUpdatesTimer: Subscription; // todo: should we be saving the observable instead of the subscription?
+  private orderHistoryCache: Order[] = [];
+  private ordersToMonitor: Order[] = [];
+  private orderHistorySubject: Subject<Order[]>;
+
+  private batchPollingTimer: Subscription;
   private incomingBatchesSubscribers: string[] = [];
   private incomingBatchesSubject: Subject<Batch[]>;
-  private incomingBatchesCache: Batch[];
+  private incomingBatchesCache: Batch[] = [];
 
   constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {}
 
@@ -86,31 +92,75 @@ export class MessageService implements OnDestroy {
     });
   }
 
-  getOrderHistory(): Promise<Order[]> { // todo: based on the state of the order, should start subscribing based on incomplete orders
+  // todo: based on the state of the order, should start subscribing based on incomplete orders
+  fetchOrderHistory(): Promise<Order[]> {
     return new Promise<Order[]>((resolve, reject) => {
       const body = {username: this.user.username, sessionKey: this.sessionKey};
       this.http.post(this.config.backendUrl + 'getOrderHistory', body)
         .subscribe(
-          (response: any) => {
-                  const orderHistory: Order[] = [];
-                  response.orderHistory.forEach(order => {
-                      if (isDefined(order.deliveryEta)) {
-                        order.deliveryEta = new Date(order.deliveryEta);
-                      }
-                      if (isDefined(order.orderDate)) {
-                        order.orderDate = new Date(order.orderDate);
-                      }
-                      if (isDefined(order.deliveredDate)) {
-                        order.deliveredDate = new Date(order.deliveredDate);
-                      }
-                      orderHistory.push(order);
-                  });
-
-                  resolve(orderHistory);
+          (response: {orderHistory: any}) => {
+                  // const orderHistory: Order[] = [];
+                  // response.orderHistory.forEach(order => {
+                  //     if (isDefined(order.deliveryEta)) {
+                  //       order.deliveryEta = new Date(order.deliveryEta);
+                  //     }
+                  //     if (isDefined(order.orderDate)) {
+                  //       order.orderDate = new Date(order.orderDate);
+                  //     }
+                  //     if (isDefined(order.deliveredDate)) {
+                  //       order.deliveredDate = new Date(order.deliveredDate);
+                  //     }
+                  //     orderHistory.push(order);
+                  // });
+                  resolve(_.reverse(_.sortBy(response.orderHistory, 'orderDate')));
                 },
           error => reject(error)
         );
     });
+  }
+
+  getOrderHistory(): Subject<Order[]> {
+    if (!isDefined(this.orderHistorySubject)) {
+      this.orderHistorySubject = new Subject<Order[]>();
+      this.ordersToMonitor = [];
+      this.fetchOrderHistory().then((orderHistory: any) => {
+        console.log(orderHistory);
+        orderHistory.forEach((order: Order) => {
+          if (order.state !== 'Delivered') {
+            this.ordersToMonitor.push(order);
+          }
+        });
+
+        if (this.ordersToMonitor.length !== 0) {
+          Observable.interval(MessageService.ORDER_POLLING_RATE).subscribe(() => {
+            const body = {
+              username: this.user.username,
+              sessionKey: this.sessionKey,
+              orders: this.ordersToMonitor
+            };
+            this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
+              .subscribe((response: {orders: Order[]}) => {
+                console.log(response);
+                response.orders.forEach((order: Order) => {
+                  const i = _.findIndex(this.orderHistoryCache, order, (o) => {
+                    return o.id === order.id;
+                  });
+                  if (i !== -1) {
+                    this.orderHistoryCache.splice(i, 1, order);
+                  } else {
+                    this.orderHistoryCache.push(order);
+                  }
+                  this.orderHistorySubject.next(_.reverse(_.sortBy(this.orderHistoryCache, 'orderDate')));
+                });
+              });
+          });
+        }
+
+        this.orderHistorySubject.next(orderHistory);
+      }).catch();
+      return this.orderHistorySubject;
+    }
+    return this.orderHistorySubject;
   }
 
   updateAccountInfo(user: UserInfo): Promise<void> {
@@ -135,13 +185,16 @@ export class MessageService implements OnDestroy {
         deliveryLocation: deliveryLocation
       };
       this.http.post(this.config.backendUrl + 'placeOrder', body)
-        .subscribe((response: {order: Order}) => resolve(response.order), error => reject(error));
+        .subscribe((response: {order: Order}) => {
+          this.ordersToMonitor.push(response.order);
+            resolve(response.order);
+          }, error => reject(error));
     });
   }
 
   getIncomingBatches(subscriber: string): Subject<Batch[]> {
     if (isDefined(this.incomingBatchesSubject)) {
-      setTimeout(() => {
+      setTimeout(() => { // todo: this isn't that nice...
         this.incomingBatchesSubject.next(this.incomingBatchesCache);
       });
       return this.incomingBatchesSubject;

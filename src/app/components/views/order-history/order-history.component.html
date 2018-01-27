@@ -27,7 +27,7 @@
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
               <p>Estimated time till arrival:</p>
               <p class="light-text">
-                <ms-date-time-formatter [date]="order.deliveryEta" [formatAsDate]="false" [timeTooEstimate]="true"></ms-date-time-formatter>
+                <!--<ms-date-time-formatter [date]="order.deliveryEta" [formatAsDate]="false" [timeTooEstimate]="true"></ms-date-time-formatter>-->
               </p>
             </div>
           </div>
@@ -36,14 +36,15 @@
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
               <p>Ordered on:</p>
               <p class="light-text">
-                <ms-date-time-formatter [date]="order.orderDate"></ms-date-time-formatter>
+                <!--<ms-date-time-formatter [date]="order.orderDate"></ms-date-time-formatter>-->
               </p>
             </div>
 
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
               <p>Delivered on:</p>
               <p class="light-text">
-                <ms-date-time-formatter [date]="order.deliveredDate"></ms-date-time-formatter>
+                <!-- todo: need to add this back in once BE sends back date -->
+                <!--<ms-date-time-formatter [date]="order.deliveredDate"></ms-date-time-formatter>-->
               </p>
             </div>
           </div>
