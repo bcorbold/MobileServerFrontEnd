@@ -132,28 +132,8 @@ export class MessageService implements OnDestroy {
         });
 
         if (this.ordersToMonitor.length !== 0) {
-          Observable.interval(MessageService.ORDER_POLLING_RATE).subscribe(() => {
-            const body = {
-              username: this.user.username,
-              sessionKey: this.sessionKey,
-              orders: this.ordersToMonitor
-            };
-            this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
-              .subscribe((response: {orders: Order[]}) => {
-                console.log(response);
-                response.orders.forEach((order: Order) => {
-                  const i = _.findIndex(this.orderHistoryCache, order, (o) => {
-                    return o.id === order.id;
-                  });
-                  if (i !== -1) {
-                    this.orderHistoryCache.splice(i, 1, order);
-                  } else {
-                    this.orderHistoryCache.push(order);
-                  }
-                  this.orderHistorySubject.next(_.reverse(_.sortBy(this.orderHistoryCache, 'orderDate')));
-                });
-              });
-          });
+          this.orderUpdatesTimer = Observable.interval(MessageService.ORDER_POLLING_RATE)
+            .subscribe(() => this.handleGetOrderUpdates());
         }
 
         this.orderHistorySubject.next(orderHistory);
@@ -161,6 +141,29 @@ export class MessageService implements OnDestroy {
       return this.orderHistorySubject;
     }
     return this.orderHistorySubject;
+  }
+
+  private handleGetOrderUpdates(): void {
+    const body = {
+      username: this.user.username,
+      sessionKey: this.sessionKey,
+      orders: this.ordersToMonitor
+    };
+    this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
+      .subscribe((response: {orders: Order[]}) => {
+        console.log(response);
+        response.orders.forEach((order: Order) => {
+          const i = _.findIndex(this.orderHistoryCache, order, (o) => {
+            return o.id === order.id;
+          });
+          if (i !== -1) {
+            this.orderHistoryCache.splice(i, 1, order);
+          } else {
+            this.orderHistoryCache.push(order);
+          }
+          this.orderHistorySubject.next(_.reverse(_.sortBy(this.orderHistoryCache, 'orderDate')));
+        });
+      });
   }
 
   updateAccountInfo(user: UserInfo): Promise<void> {
@@ -175,6 +178,14 @@ export class MessageService implements OnDestroy {
     });
   }
 
+  private getUpdatesForOrder(order: Order): void {
+    if (this.ordersToMonitor.length === 0) {
+
+    } else {
+      this.ordersToMonitor.push(order);
+    }
+  }
+
   placeOrder(selectedBeverage: OrderOption, selectedAddOns: {key: string, value: string | boolean | number}[],
              deliveryLocation: DeliveryLocation): Promise<Order> {
     return new Promise<Order>((resolve, reject) => {
@@ -186,7 +197,7 @@ export class MessageService implements OnDestroy {
       };
       this.http.post(this.config.backendUrl + 'placeOrder', body)
         .subscribe((response: {order: Order}) => {
-          this.ordersToMonitor.push(response.order);
+          this.getUpdatesForOrder(response.order);
             resolve(response.order);
           }, error => reject(error));
     });
