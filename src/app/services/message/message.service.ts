@@ -98,22 +98,7 @@ export class MessageService implements OnDestroy {
       const body = {username: this.user.username, sessionKey: this.sessionKey};
       this.http.post(this.config.backendUrl + 'getOrderHistory', body)
         .subscribe(
-          (response: {orderHistory: any}) => {
-                  // const orderHistory: Order[] = [];
-                  // response.orderHistory.forEach(order => {
-                  //     if (isDefined(order.deliveryEta)) {
-                  //       order.deliveryEta = new Date(order.deliveryEta);
-                  //     }
-                  //     if (isDefined(order.orderDate)) {
-                  //       order.orderDate = new Date(order.orderDate);
-                  //     }
-                  //     if (isDefined(order.deliveredDate)) {
-                  //       order.deliveredDate = new Date(order.deliveredDate);
-                  //     }
-                  //     orderHistory.push(order);
-                  // });
-                  resolve(_.reverse(_.sortBy(response.orderHistory, 'orderDate')));
-                },
+          (response: {orderHistory: any}) => resolve(_.reverse(_.sortBy(response.orderHistory, 'orderDate'))),
           error => reject(error)
         );
     });
@@ -124,18 +109,20 @@ export class MessageService implements OnDestroy {
       this.orderHistorySubject = new Subject<Order[]>();
       this.ordersToMonitor = [];
       this.fetchOrderHistory().then((orderHistory: any) => {
-        console.log(orderHistory);
+        console.log('112 getOrderHistory' + orderHistory);
         orderHistory.forEach((order: Order) => {
           if (order.state !== 'Delivered') {
             this.ordersToMonitor.push(order);
           }
         });
 
+        this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
+        console.log('120 orderToMonitor (uniq): ' + this.ordersToMonitor);
+
         if (this.ordersToMonitor.length !== 0) {
           this.orderUpdatesTimer = Observable.interval(MessageService.ORDER_POLLING_RATE)
             .subscribe(() => this.handleGetOrderUpdates());
         }
-
         this.orderHistorySubject.next(orderHistory);
       }).catch();
       return this.orderHistorySubject;
@@ -144,6 +131,7 @@ export class MessageService implements OnDestroy {
   }
 
   private handleGetOrderUpdates(): void {
+    console.log('134 orderToMonitor (uniq): ' + this.ordersToMonitor);
     const body = {
       username: this.user.username,
       sessionKey: this.sessionKey,
@@ -151,18 +139,20 @@ export class MessageService implements OnDestroy {
     };
     this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
       .subscribe((response: {orders: Order[]}) => {
-        console.log(response);
+        console.log('cache before updateMerge: ' + this.orderHistoryCache);
         response.orders.forEach((order: Order) => {
           const i = _.findIndex(this.orderHistoryCache, order, (o) => {
             return o.id === order.id;
           });
           if (i !== -1) {
-            this.orderHistoryCache.splice(i, 1, order);
+            this.orderHistoryCache = this.orderHistoryCache.splice(i, 1, order);
           } else {
             this.orderHistoryCache.push(order);
           }
-          this.orderHistorySubject.next(_.reverse(_.sortBy(this.orderHistoryCache, 'orderDate')));
         });
+        console.log('cache after updateMerge: ' + this.orderHistoryCache);
+
+        this.orderHistorySubject.next(_.reverse(_.sortBy(this.orderHistoryCache, 'orderDate')));
       });
   }
 
@@ -180,9 +170,14 @@ export class MessageService implements OnDestroy {
 
   private getUpdatesForOrder(order: Order): void {
     if (this.ordersToMonitor.length === 0) {
-
+      this.ordersToMonitor.push(order);
+      this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
+      this.orderHistorySubject = new Subject<Order[]>();
+      this.orderUpdatesTimer = Observable.interval(MessageService.ORDER_POLLING_RATE)
+        .subscribe(() => this.handleGetOrderUpdates());
     } else {
       this.ordersToMonitor.push(order);
+      this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
     }
   }
 
