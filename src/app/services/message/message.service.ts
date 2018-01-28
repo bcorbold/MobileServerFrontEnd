@@ -1,3 +1,5 @@
+/* tslint:disable */
+
 // this is required since "Observable" doesn't include interval on import
 import 'rxjs/add/observable/interval';
 
@@ -25,20 +27,26 @@ export class MessageService implements OnDestroy {
 
   private static BATCH_POLLING_RATE = 5000;
   private static ORDER_POLLING_RATE = 5000;
+  private static WAITING = 'Wiating';
+  private static DELIVERING = 'Delivering';
+  private static DELIVERED = 'Delivered';
+  private static DELAYED = 'Delayed';
 
   private sessionKey: string;
   private user: UserInfo;
   private environmentDetails: EnvironmentDetails;
 
-  private orderUpdatesTimer: Subscription; // todo: should we be saving the observable instead of the subscription?
+  private orderUpdatesTimer: Observable<number>;
+  private orderUpdatesSubscription: Subscription;
   private orderHistoryCache: Order[] = [];
   private ordersToMonitor: Order[] = [];
   private orderHistorySubject: Subject<Order[]>;
 
-  private batchPollingTimer: Subscription;
-  private incomingBatchesSubscribers: string[] = [];
-  private incomingBatchesSubject: Subject<Batch[]>;
-  private incomingBatchesCache: Batch[] = [];
+  // private incomingBatchesSubscribers: string[] = []; // todo: why do we need this?
+  private batchUpdatesTimer: Observable<number>;
+  private batchUpdatesSubscription: Subscription;
+  private batchUpdatesSubject: Subject<Batch[]>;
+  private batchUpdatesCache: Batch[] = [];
 
   constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {}
 
@@ -92,70 +100,6 @@ export class MessageService implements OnDestroy {
     });
   }
 
-  // todo: based on the state of the order, should start subscribing based on incomplete orders
-  fetchOrderHistory(): Promise<Order[]> {
-    return new Promise<Order[]>((resolve, reject) => {
-      const body = {username: this.user.username, sessionKey: this.sessionKey};
-      this.http.post(this.config.backendUrl + 'getOrderHistory', body)
-        .subscribe(
-          (response: {orderHistory: any}) => resolve(_.reverse(_.sortBy(response.orderHistory, 'orderDate'))),
-          error => reject(error)
-        );
-    });
-  }
-
-  getOrderHistory(): Subject<Order[]> {
-    if (!isDefined(this.orderHistorySubject)) {
-      this.orderHistorySubject = new Subject<Order[]>();
-      this.ordersToMonitor = [];
-      this.fetchOrderHistory().then((orderHistory: any) => {
-        console.log('112 getOrderHistory' + orderHistory);
-        orderHistory.forEach((order: Order) => {
-          if (order.state !== 'Delivered') {
-            this.ordersToMonitor.push(order);
-          }
-        });
-
-        this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
-        console.log('120 orderToMonitor (uniq): ' + this.ordersToMonitor);
-
-        if (this.ordersToMonitor.length !== 0) {
-          this.orderUpdatesTimer = Observable.interval(MessageService.ORDER_POLLING_RATE)
-            .subscribe(() => this.handleGetOrderUpdates());
-        }
-        this.orderHistorySubject.next(orderHistory);
-      }).catch();
-      return this.orderHistorySubject;
-    }
-    return this.orderHistorySubject;
-  }
-
-  private handleGetOrderUpdates(): void {
-    console.log('134 orderToMonitor (uniq): ' + this.ordersToMonitor);
-    const body = {
-      username: this.user.username,
-      sessionKey: this.sessionKey,
-      orders: this.ordersToMonitor
-    };
-    this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
-      .subscribe((response: {orders: Order[]}) => {
-        console.log('cache before updateMerge: ' + this.orderHistoryCache);
-        response.orders.forEach((order: Order) => {
-          const i = _.findIndex(this.orderHistoryCache, order, (o) => {
-            return o.id === order.id;
-          });
-          if (i !== -1) {
-            this.orderHistoryCache = this.orderHistoryCache.splice(i, 1, order);
-          } else {
-            this.orderHistoryCache.push(order);
-          }
-        });
-        console.log('cache after updateMerge: ' + this.orderHistoryCache);
-
-        this.orderHistorySubject.next(_.reverse(_.sortBy(this.orderHistoryCache, 'orderDate')));
-      });
-  }
-
   updateAccountInfo(user: UserInfo): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const body = {
@@ -168,63 +112,30 @@ export class MessageService implements OnDestroy {
     });
   }
 
-  private getUpdatesForOrder(order: Order): void {
-    if (this.ordersToMonitor.length === 0) {
-      this.ordersToMonitor.push(order);
-      this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
-      this.orderHistorySubject = new Subject<Order[]>();
-      this.orderUpdatesTimer = Observable.interval(MessageService.ORDER_POLLING_RATE)
-        .subscribe(() => this.handleGetOrderUpdates());
-    } else {
-      this.ordersToMonitor.push(order);
-      this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
-    }
-  }
-
-  placeOrder(selectedBeverage: OrderOption, selectedAddOns: {key: string, value: string | boolean | number}[],
-             deliveryLocation: DeliveryLocation): Promise<Order> {
-    return new Promise<Order>((resolve, reject) => {
-      const body = {
-        username: this.user.username,
-        sessionKey: this.sessionKey,
-        orderInfo: new OrderInfo(selectedBeverage, selectedAddOns),
-        deliveryLocation: deliveryLocation
-      };
-      this.http.post(this.config.backendUrl + 'placeOrder', body)
-        .subscribe((response: {order: Order}) => {
-          this.getUpdatesForOrder(response.order);
-            resolve(response.order);
-          }, error => reject(error));
-    });
-  }
-
-  getIncomingBatches(subscriber: string): Subject<Batch[]> {
-    if (isDefined(this.incomingBatchesSubject)) {
-      setTimeout(() => { // todo: this isn't that nice...
-        this.incomingBatchesSubject.next(this.incomingBatchesCache);
-      });
-      return this.incomingBatchesSubject;
-    } else {
-      this.incomingBatchesSubject = new Subject<Batch[]>();
-      this.incomingBatchesSubscribers.push(subscriber);
-      this.incomingBatchesSubscribers = _.uniq(this.incomingBatchesSubscribers);
-
-      // send request now so that we don't have to wait the polling time till the first response
+  getIncomingBatches(): Subject<Batch[]> {
+    if (!isDefined(this.batchUpdatesSubject)) {
+      this.batchUpdatesSubject = new Subject<Batch[]>();
       const body = {username: this.user.username, sessionKey: this.sessionKey};
       this.http.post(this.config.backendUrl + 'getIncomingBatches', body)
         .subscribe((response: {batches: Batch[]}) => {
-          this.incomingBatchesCache = response.batches;
-          this.incomingBatchesSubject.next(this.incomingBatchesCache);
+          // send request now so that we don't have to wait the polling time till the first response
+          this.batchUpdatesCache = response.batches;
+          this.batchUpdatesSubject.next(this.batchUpdatesCache);
         });
 
-      this.batchPollingTimer = Observable.interval(MessageService.BATCH_POLLING_RATE).subscribe(() => {
+      this.batchUpdatesTimer = Observable.interval(MessageService.BATCH_POLLING_RATE);
+      this.batchUpdatesSubscription = this.batchUpdatesTimer.subscribe(() => {
         this.http.post(this.config.backendUrl + 'getIncomingBatches', body)
           .subscribe((response: {batches: Batch[]}) => {
-            this.incomingBatchesCache = response.batches;
-            this.incomingBatchesSubject.next(this.incomingBatchesCache);
+            this.batchUpdatesCache = response.batches;
+            this.batchUpdatesSubject.next(this.batchUpdatesCache);
           });
       });
-      return this.incomingBatchesSubject;
+
+      return this.batchUpdatesSubject;
+    } else {
+      setTimeout(() => this.batchUpdatesSubject.next(this.batchUpdatesCache));
+      return this.batchUpdatesSubject;
     }
   }
 
@@ -255,26 +166,146 @@ export class MessageService implements OnDestroy {
     });
   }
 
-  removeIncomingBatchesSubscriber(subscriber: string) {
-    this.incomingBatchesSubscribers = _.remove(this.incomingBatchesSubscribers, [subscriber]);
-
-    if (this.incomingBatchesSubscribers.length === 0) {
-      this.incomingBatchesSubject.complete();
-      this.batchPollingTimer.unsubscribe();
-      this.incomingBatchesSubject = undefined;
-      this.batchPollingTimer = undefined;
+  unsubscribeFromBatchUpdates(): void {
+    if (isDefined(this.batchUpdatesSubscription)) {
+      this.batchUpdatesSubscription.unsubscribe();
+      this.batchUpdatesSubscription = undefined;
     }
+    if (isDefined(this.batchUpdatesTimer)) {
+      this.batchUpdatesTimer = undefined;
+    }
+    if (isDefined(this.batchUpdatesSubject)) {
+      this.batchUpdatesSubject.complete();
+      this.batchUpdatesSubject = undefined;
+    }
+
   }
 
   ngOnDestroy(): void {
-    if (isDefined(this.batchPollingTimer)) {
-      this.batchPollingTimer.unsubscribe();
-      this.batchPollingTimer = undefined;
+    if (isDefined(this.batchUpdatesSubscription)) {
+      this.batchUpdatesSubscription.unsubscribe();
+      this.batchUpdatesSubscription = undefined;
     }
-    if (isDefined(this.incomingBatchesSubject)) {
-      this.incomingBatchesSubject.complete();
-      this.incomingBatchesSubject = undefined;
+    if (isDefined(this.batchUpdatesSubject)) {
+      this.batchUpdatesSubject.complete();
+      this.batchUpdatesSubject = undefined;
     }
+    if (isDefined(this.orderUpdatesSubscription)) {
+      this.orderUpdatesSubscription.unsubscribe();
+      this.orderUpdatesSubscription = undefined;
+    }
+    if (isDefined(this.orderHistorySubject)) {
+      this.orderHistorySubject.complete();
+      this.orderHistorySubject = undefined;
+    }
+}
+
+  placeOrder(selectedBeverage: OrderOption, selectedAddOns: {key: string, value: string | boolean | number}[],
+             deliveryLocation: DeliveryLocation): Promise<Order> {
+    return new Promise<Order>((resolve, reject) => {
+      const body = {
+        username: this.user.username,
+        sessionKey: this.sessionKey,
+        orderInfo: new OrderInfo(selectedBeverage, selectedAddOns),
+        deliveryLocation: deliveryLocation
+      };
+      this.http.post(this.config.backendUrl + 'placeOrder', body)
+        .subscribe((response: {order: Order}) => {
+          if (response.order.state !== MessageService.DELIVERED) {
+            this.ordersToMonitor.push(response.order);
+            if (!isDefined(this.orderUpdatesSubscription)) {
+              this.orderUpdatesTimer = Observable.interval(MessageService.ORDER_POLLING_RATE);
+              this.orderUpdatesSubscription = this.orderUpdatesTimer.subscribe(() => this.handleGetOrderUpdates());
+            }
+          }
+          resolve(response.order);
+        }, error => reject(error));
+    });
+  }
+
+  getOrderHistory(): Subject<Order[]> {
+    if (!isDefined(this.orderHistorySubject)) {
+      this.orderHistorySubject = new Subject<Order[]>();
+      this.ordersToMonitor = [];
+
+      const body = {username: this.user.username, sessionKey: this.sessionKey};
+      this.http.post(this.config.backendUrl + 'getOrderHistory', body).subscribe(
+        (response: {orderHistory: Order}) => {
+                this.orderHistoryCache = _.reverse(_.sortBy(response.orderHistory, 'orderDate'));
+
+                this.orderHistoryCache.forEach((order: Order) => {
+                  if (order.state !== MessageService.DELIVERED) {
+                    this.ordersToMonitor.push(order);
+                  }
+                });
+                this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
+
+                if (this.ordersToMonitor.length !== 0 && !isDefined(this.orderUpdatesSubscription)) {
+                  this.orderUpdatesSubscription = Observable.interval(MessageService.ORDER_POLLING_RATE)
+                    .subscribe(() => this.handleGetOrderUpdates());
+                }
+
+                this.orderHistorySubject.next(this.orderHistoryCache);
+              },
+        error => console.error(error));
+      return this.orderHistorySubject;
+    }
+    setTimeout(() => this.orderHistorySubject.next(this.orderHistoryCache));
+    return this.orderHistorySubject;
+  }
+
+  unsubscribeFromOrderHistoryUpdates(): void {
+    if (isDefined(this.orderUpdatesSubscription)) {
+      this.orderUpdatesSubscription.unsubscribe();
+      this.orderUpdatesSubscription = undefined;
+    }
+    if (isDefined(this.orderUpdatesTimer)) {
+      this.orderUpdatesTimer = undefined;
+    }
+    if (isDefined(this.orderHistorySubject)) {
+      this.orderHistorySubject.complete();
+      this.orderHistorySubject = undefined;
+    }
+  }
+
+  private handleGetOrderUpdates(): void {
+    // this is when the timer has triggered, need to fetch orders from the monitored Orders
+    // then merge that with the cache (updating where needed)
+    // emit the new cache to the subject
+
+    const body = {
+      username: this.user.username,
+      sessionKey: this.sessionKey,
+      orders: this.ordersToMonitor
+    };
+    this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
+      .subscribe(
+        (response: {orders: Order[]}) => {
+                response.orders.forEach((order: Order) => {
+                  const i = _.findIndex(this.orderHistoryCache, (cachedOrder: Order) => {
+                    return cachedOrder.id === order.id;
+                  });
+
+                  console.log('i: ' + i);
+                  if (i === -1) {
+                    this.orderHistoryCache.push(order);
+                  } else {
+                    this.orderHistoryCache[i] = order;
+                  }
+
+                  if (order.state === MessageService.DELIVERED) {
+                    const j = _.findIndex(this.ordersToMonitor, (monitoredOrder: Order) => {
+                      return monitoredOrder.id === order.id;
+                    });
+                    console.log('j: ' + j);
+                    this.ordersToMonitor.splice(j, 1);
+                  }
+                });
+
+                this.orderHistoryCache = _.reverse(_.sortBy(this.orderHistoryCache, 'orderDate'));
+                this.orderHistorySubject.next(this.orderHistoryCache);
+              },
+        error => console.error(error));
   }
 
 }

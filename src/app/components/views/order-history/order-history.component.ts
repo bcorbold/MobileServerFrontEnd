@@ -18,9 +18,7 @@ export class OrderHistoryComponent implements OnDestroy {
 
   constructor(private messageService: MessageService) {
     this.orderHistorySubscription = this.messageService.getOrderHistory().subscribe(
-      (orderHistory: Order[]) => {
-              this.orderHistory = orderHistory;
-            },
+      (orderHistory: Order[]) => this.orderHistory = orderHistory,
       error => console.error(error)
     );
   }
@@ -29,6 +27,7 @@ export class OrderHistoryComponent implements OnDestroy {
     if (isDefined(this.orderHistorySubscription)) {
       this.orderHistorySubscription.unsubscribe();
       this.orderHistorySubscription = undefined;
+      this.messageService.unsubscribeFromOrderHistoryUpdates();
     }
   }
 
