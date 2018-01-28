@@ -5,8 +5,7 @@
     <div *ngFor="let order of orderHistory;">
       <div class="order-row" fxLayout="row" fxLayoutAlign="start stretch">
 
-        <!-- todo: add a tool tip to the color bar for state information -->
-        <div class="state-color-bar" [ngClass]="{waiting: order.state === 'Waiting' || order.state === 'Queued', delivering: order.state === 'Delivering', delivered: order.state === 'Delivered', delayed: order.state === 'Delayed'}"></div>
+        <div class="state-color-bar" matTooltip="{{order.state}}" matTooltipPosition="after" [ngClass]="{waiting: order.state === 'Waiting' || order.state === 'Queued', delivering: order.state === 'Delivering', delivered: order.state === 'Delivered', delayed: order.state === 'Delayed'}"></div>
         <div fxFlex class="row-info" fxLayout="row" fxLayoutAlign="start stretch">
           <div fxFlex="30" fxLayout="column">
             <p>{{order.orderInfo.orderOption.name}}</p>
@@ -19,13 +18,13 @@
 
           <div fxFlex *ngIf="order.state !== 'Delivered'" fxLayout="row">
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-              <p>Delivering too:</p>
+              <p>Delivering to:</p>
               <p class="light-text">{{order.deliveryLocation.name}}</p>
             </div>
 
             <!-- todo: Once time estimates are finished add/test -->
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-              <p>Estimated time till arrival:</p>
+              <!--<p>Estimated time till arrival:</p>-->
               <p class="light-text">
                 <!--<ms-date-time-formatter [date]="order.deliveryEta" [formatAsDate]="false" [timeTooEstimate]="true"></ms-date-time-formatter>-->
               </p>
@@ -34,14 +33,14 @@
 
           <div fxFlex *ngIf="order.state === 'Delivered'">
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-              <p>Ordered on:</p>
+              <!--<p>Ordered on:</p>-->
               <p class="light-text">
                 <!--<ms-date-time-formatter [date]="order.orderDate"></ms-date-time-formatter>-->
               </p>
             </div>
 
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-              <p>Delivered on:</p>
+              <!--<p>Delivered on:</p>-->
               <p class="light-text">
                 <!-- todo: need to add this back in once BE sends back date -->
                 <!--<ms-date-time-formatter [date]="order.deliveredDate"></ms-date-time-formatter>-->

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule, MatChipsModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MessageModule, MessageService } from '../../../services/message/message.module';
 import { DateTimeFormatterModule } from '../../core/date-time-formatter/date-time-formatter.module';
@@ -26,6 +27,7 @@ export { OrderHistoryComponent } from './order-history.component';
     MatIconModule,
     MatInputModule,
     MatSlideToggleModule,
+    MatTooltipModule,
     MessageModule
   ],
   providers: [

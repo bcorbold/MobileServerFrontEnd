@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { MatChipsModule } from '@angular/material';
+import { MatChipsModule, MatTooltipModule } from '@angular/material';
 
 import { MessageService } from '../../../services/message/message.service';
 import { SystemDetailsComponent } from './system-details.component';
@@ -14,7 +14,8 @@ export { SystemDetailsComponent } from './system-details.component';
     CommonModule,
     FlexLayoutModule,
     FormsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTooltipModule
   ],
   declarations: [
     SystemDetailsComponent
