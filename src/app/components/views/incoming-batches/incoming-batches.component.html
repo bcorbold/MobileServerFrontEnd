@@ -1,39 +1,43 @@
-<div fxFill class="ms-blur-container" fxLayout="column">
-  <h1 class="ms-header">Incoming Orders</h1>
+<div fxFill class="ms-incoming-batches-container" fxLayout="column">
+  <h1 class="ms-header">Incoming Batches</h1>
 
-  <div fxFlex class="ms-order-batch-container" fxLayout="column" (scroll)="onScroll()">
+  <div fxFlex style="overflow: auto">
+    <div *ngFor="let batch of batches" fxLayout="column">
+      <div class="batch-container" fxLayout="row" fxLayoutAlign="start space-between">
 
-    <!-- this div should be repeated for every batch -->
-    <div *ngFor="let batch of batches; let i=index;">
+        <div fxFlex fxLayout="column">
+          <div *ngFor="let order of batch.orders">
+            <div class="order-container" fxLayoutAlign="start stretch" fxLayoutGap="1em" (click)="updateOrderStatus(order, batch)"
+                 [ngClass]="{ 'pointer-row': batch.state !== 'Delivering',
+                              'order-sent': batch.state === 'Delivering',
+                              'order-ready': order.ready && batch.state !== 'Delivering',
+                              'order-not-ready': !order.ready  && batch.state !== 'Delivering' }">
+              <div class="state-indicator" matTooltip="{{batch.state}}" matTooltipPosition="after"></div>
+              <div class="order-row" fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayout="column">
+                  <p style="margin-right: 0.5em;">{{order.orderInfo.orderOption.name}}</p>
+                  <mat-chip-list style="margin-right: 0.5em;">
+                    <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
+                      <mat-chip>{{addOn.key}}, {{addOn.value}}</mat-chip>
+                    </div>
+                  </mat-chip-list>
+                </div>
 
-      <!-- Order wrapper -->
-      <div class="{{i % 2 === 1 ? 'ms-batch-wrapper-dark' : 'ms-batch-wrapper-light'}}" style="padding: 0 0 3px 0;"
-           fxLayout="row" fxLayoutAlign="space-between stretch">
-        <div fxLayout="column" fxFlex>
-          <div *ngFor="let order of batch.orders" style="margin: 2px 0;">
-            <div fxLayout="row" fxLayoutAlign="start center"
-              class="{{order.markedDone ? 'ms-order-container ms-order-done' : 'ms-order-container ms-order-todo'}}"
-                 (click)="order.markedDone = !order.markedDone; checkBatchStatus()">
-              <div fxFlex="initial" class="product-name">
-                <p>{{order.orderInfo.productName}}</p>
+                <p style="margin-right: 0.25em;">Delivering too:</p>
+                <p class="light-text">{{order.deliveryLocation.name}}</p>
               </div>
             </div>
           </div>
         </div>
 
-        <button mat-raised-button class="ms-send-batch-button" [disabled]="!batch.markDone">
-          <p>Send</p>
-          <div fxLayout="row" fxLayoutAlign="center center">
-            <mat-icon>alarm</mat-icon>
-            <span>{{batch.timeRemaining}}</span>
-          </div>
-        </button>
+        <button *ngIf="batch.state !== 'Delivering'" mat-button color="accent" [disabled]="!batch.ready" (click)="sendBatch(batch)">Send with<br><i>{{batch.assignedRobot.name}}</i></button>
+
+        <div class="delivering-to" *ngIf="batch.state === 'delivering'" fxLayout="column" fxLayoutAlign="center center">
+          <p><i>{{batch.assignedRobot.name}}</i></p>
+          <p>is enroute</p>
+        </div>
       </div>
     </div>
+    <p *ngIf="batches.length === 0"><i>No batches available.</i></p>
   </div>
-
-  <ms-page-selector fxFlex="initial"
-                    (newPage)="onNewPageSelected($event)"
-                    [numberOfPages]="numberOfBatches"
-                    [currentPage]="currentPage"></ms-page-selector>
 </div>

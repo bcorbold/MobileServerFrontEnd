@@ -1,1 +1,12 @@
-@mixin desktop-theme($theme) {}
+@mixin ms-desktop-theme($theme) {
+
+  $primary: map-get($theme, primary);
+
+  .ms-divider {
+    background-color: mat-color($primary, 800);
+
+    div {
+      background-color: mat-color($primary, 900);
+    }
+  }
+}

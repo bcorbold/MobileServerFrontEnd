@@ -1,38 +1,44 @@
-<div class="ms-blur-container" fxLayout="column">
-  <div fxLayout="row" fxLayoutAlign="space-between stretch">
-    <h1 class="ms-header">Account Info</h1>
-    <button *ngIf="user.adminEnabled" mat-raised-button color="primary" (click)="switchView.emit()">Switch view</button>
+<div fxLayout="column" class="ms-account-info-wrapper" fxLayoutAlign="center stretch">
+  <mat-slide-toggle *ngIf="user.adminEnabled" fxFlexAlign="end" [checked]="isAdminView" (click)="switchView.emit()">Bartender view</mat-slide-toggle>
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+    <div class="picture-placeholder"></div>
+
+    <div fxFlex fxLayout="column" class="ms-account-info-container">
+      <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
+      <p class="light-large-text">{{user.username}}</p>
+
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1em" style="margin-top: 2em;">
+        <mat-form-field color="accent">
+          <mat-select [(value)]="user.defaultDeliveryLocation.id" placeholder="Default delivery location">
+            <div *ngFor="let location of environmentDetails.deliveryLocations">
+              <mat-option [value]="location.id">{{location.name}}</mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <mat-select [(value)]="user.locale" placeholder="Locale">
+            <div *ngFor="let locale of environmentDetails.locales">
+              <mat-option [value]="locale">{{locale}}</mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1em">
+        <mat-form-field color="accent">
+          <mat-select [(value)]="user.defaultView" placeholder="Default view" [disabled]="!user.adminEnabled">
+            <div *ngFor="let view of environmentDetails.uiViews">
+              <mat-option [value]="view">{{view}}</mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-button (click)="updateAccountInfo()" color="accent">Submit</button>
+        <button mat-button color="warn" (click)="resetAccountInfo()">Reset</button>
+      </div>
+    </div>
   </div>
 
-  <img fxFlexAlign="center" class="ms-account-picture" src="assets/account-pic.jpg">
-
-  <h2 fxFlexAlign="center" class="ms-name-container">{{user.firstName}} {{user.lastName}}</h2>
-  <p fxFlexAlign="center" class="ms-username-container">{{user.username}}</p>
-
-  <mat-form-field>
-    <mat-select [(value)]="user.defaultDeliveryLocation.id" placeholder="Default delivery location">
-      <mat-option [value]="1">1st floor, section A, desk 3</mat-option>
-      <mat-option [value]="2">2st floor, section A, desk 3</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-select [(value)]="user.locale" placeholder="Locale">
-      <mat-option [value]="'en_GB'">English</mat-option>
-      <mat-option [value]="'fr_FR'">French</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field *ngIf="user.adminEnabled">
-    <mat-select [(value)]="user.defaultView" placeholder="Default view">
-      <mat-option [value]="'user'">User</mat-option>
-      <mat-option [value]="'bartender'">Bartender</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <div fxFlex fxLayout="column" fxLayoutAlign="end stretch">
-    <button mat-raised-button color="primary" style="margin-bottom: 10px;" (click)="updateAccountInfo()">Save Info</button>
-    <button mat-raised-button color="warn" (click)="resetAccountInfo()">Discard Changes</button>
-  </div>
-
+  <button mat-raised-button color="warn" (click)="logout()">Logout</button>
 </div>

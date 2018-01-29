@@ -4,11 +4,15 @@
 
 @include mat-core();
 
-$primary: mat-palette($mat-green);
-$accent: mat-palette($mat-brown);
-$warn: mat-palette($mat-red, 700, 600, 900);
+$primary: mat-palette($mat-grey);
+$accent: mat-palette($mat-green, 600);
+$warn: mat-palette($mat-red);
 
 $ms-theme: mat-dark-theme($primary, $accent, $warn);
+
+html {
+  background-color: mat-color($primary, 800);
+}
 
 .ms-theme {
   @include angular-material-theme($ms-theme);

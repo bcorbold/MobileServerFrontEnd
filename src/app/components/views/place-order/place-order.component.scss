@@ -1,10 +1,26 @@
-.ms-blur-container {
+.ms-place-order-wrapper {
+  padding: 1em 2em;
   width: 100%;
   height: 100%;
-  border-radius: 5px;
-  padding: 10px;
 
   .ms-header {
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
+  }
+
+  .drink-description {
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.8em;
+  }
+
+  mat-chip-list {
+    padding: 0.2em 0.5em !important;
+    font-weight: 300 !important;
+    margin: 0.2em;
+    overflow: auto;
+
+    .remove-chip {
+      cursor: pointer;
+    }
   }
 }

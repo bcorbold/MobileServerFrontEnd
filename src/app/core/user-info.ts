@@ -8,4 +8,15 @@ export class UserInfo {
   defaultView: string;
   defaultDeliveryLocation: DeliveryLocation;
   locale: string;
+
+  constructor(that: UserInfo) {
+    this.username = that.username;
+    this.firstName = that.firstName;
+    this.lastName = that.lastName;
+    this.adminEnabled = that.adminEnabled;
+    this.defaultView = that.defaultView;
+    this.defaultDeliveryLocation = DeliveryLocation.copy(that.defaultDeliveryLocation);
+    this.locale = that.locale;
+  }
+
 }

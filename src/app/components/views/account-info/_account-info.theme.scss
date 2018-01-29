@@ -2,12 +2,9 @@
 
 @mixin ms-account-info-theme($theme) {
 
-  .ms-name-container{
-    color: $white-87-opacity;
-  }
+  $primary: map-get($theme, primary);
 
-  .ms-username-container {
-    color: $white-87-opacity;
-    font-family: Roboto-light;
+  .ms-account-info-wrapper {
+    color: white;
   }
 }

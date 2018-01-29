@@ -3,25 +3,34 @@
 @mixin ms-order-history-theme($theme) {
 
   $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
 
-  .ms-history-item-light {
-    background-color: mat-color($accent, 600, 0.8);
-    color: $white-87-opacity;
+  .ms-order-history-wrapper {
+    background-color: mat-color($primary, 700);
 
-    button {
-      background-color: mat-color($primary, 400);
-      color: $black-87-opacity;
+    .ms-order-history-container {
+      color: white;
+
+      .waiting {
+        background-color: mat-color($mat-amber, 300);
+      }
+
+      .delivering {
+        background-color: mat-color($mat-light-green, 400);
+      }
+
+      .delivered {
+        background-color: mat-color($mat-light-blue, 200);
+      }
+
+      .delayed {
+        background-color: mat-color($warn);
+      }
+
+      .order-row {
+        background-color: mat-color($primary, 900);
+      }
     }
   }
 
-  .ms-history-item-dark {
-    background-color: mat-color($accent, 800, 0.8);
-    color: $white-87-opacity;
-
-    button {
-      background-color: mat-color($primary);
-      color: $black-87-opacity;
-    }
-  }
 }

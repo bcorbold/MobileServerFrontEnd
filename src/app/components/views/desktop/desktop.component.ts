@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { Order } from '../../../core/order';
 import { UserInfo } from '../../../core/user-info';
 import { AccountService } from '../../../services/account/account.service';
 
@@ -11,6 +12,7 @@ import { AccountService } from '../../../services/account/account.service';
 export class DesktopComponent {
   userInfo: UserInfo;
   isAdminView = false;
+  pastOrder: Order;
 
   constructor(private accountService: AccountService) {
     this.userInfo = this.accountService.userInfo;
@@ -19,12 +21,16 @@ export class DesktopComponent {
 
   handleUserInfoChange(updatedUserInfo: UserInfo): void {
     this.accountService.updateAccountInfo(updatedUserInfo)
-      .then(user => this.userInfo = user)
-      .catch(() => console.error('User account info could not be updated'));
+      .then(() => this.userInfo = updatedUserInfo)
+      .catch((error) => console.error(error));
   }
 
   changeView(): void {
     this.isAdminView = !this.isAdminView;
+  }
+
+  populatePlaceOrder(pastOrder: Order) {
+    this.pastOrder = Order.copy(pastOrder);
   }
 
 }

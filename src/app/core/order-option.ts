@@ -3,43 +3,21 @@ import { AddOn } from './add-on';
 export class OrderOption {
   id: number;
   name: string;
-  addOns: [AddOn];
+  addOns: AddOn[];
+  description: string;
 
-  static coffee(): OrderOption {
-    return {
-      id: 1,
-      name: 'Coffee',
-      addOns: [
-        AddOn.milk(),
-        AddOn.cream(),
-        AddOn.sugar(),
-        AddOn.sweetener()
-      ]
-    };
+  static copy(that: OrderOption): OrderOption {
+    const orderOption = new OrderOption();
+    orderOption.id = that.id;
+    orderOption.name = that.name;
+    orderOption.addOns = [];
+    that.addOns.forEach(addOn => {
+      orderOption.addOns.push(AddOn.copy(addOn));
+    });
+    orderOption.description = that.description;
+    return orderOption;
   }
 
-  static tea(): OrderOption {
-    return {
-      id: 2,
-      name: 'Tea',
-      addOns: [
-        AddOn.milk(),
-        AddOn.cream(),
-        AddOn.sugar(),
-        AddOn.sweetener(),
-        AddOn.bagIn()
-      ]
-    };
-  }
-
-  static coke(): OrderOption {
-    return {
-      id: 3,
-      name: 'Coke',
-      addOns: [
-        AddOn.ice()
-      ]
-    };
-  }
+  constructor() {}
 
 }

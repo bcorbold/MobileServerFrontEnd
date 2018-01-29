@@ -1,44 +1,46 @@
-.ms-blur-container {
-  border-radius: 5px;
-  padding: 10px;
+.ms-incoming-batches-container {
+  padding: 1em 2em;
 
   .ms-header {
-    margin-bottom: 10px;
+    margin-bottom: 0.5em;
   }
 
-  .ms-order-batch-container {
-    overflow: auto;
-    max-height: 100%;
+  .batch-container {
+    margin-bottom: 0.5em;
 
-    .ms-batch-container {
-      margin: 1px 0;
-    }
+    .order-container {
+      .state-indicator {
+        width: 1em !important;
+      }
 
-    .ms-send-batch-button {
-      margin: 2px 0 2px 5px;
-      border-radius: 2px;
-      -webkit-border-radius: 2px;
-      -moz-border-radius: 2px;
-    }
+      .order-row {
+        margin: 0.5em;
 
-    .ms-order-container {
-      height: 50px;
-      width: 100%;
-      cursor: pointer;
-      border-radius: 2px;
-      -webkit-border-radius: 2px;
-      -moz-border-radius: 2px;
-
-      .product-name {
-        padding-left: 5px;
-        padding-right: 20px;
+        /deep/
+        mat-chip {
+          padding: 0.2em 0.5em !important;
+          font-weight: 300 !important;
+          margin: 0.2em;
+        }
       }
     }
 
+    .pointer-row {
+      cursor: pointer;
+    }
+
+    .delivering-to {
+      font-size: 0.9em;
+      padding: 1em;
+    }
+
+    button {
+      line-height: 1.5em;
+    }
   }
 
-  ms-page-selector {
-    margin-top: 10px;
-  }
+}
 
+.light-text {
+  font-weight: 300;
 }
