@@ -3,39 +3,37 @@
 @mixin ms-incoming-batches-theme($theme) {
 
   $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
 
-  .ms-batch-wrapper-light{
-    .ms-order-done {
-      background-color: mat-color($primary, 500, 0.8);
-      color: $black-87-opacity;
-    }
+  .ms-incoming-batches-container {
+    color: white;
+    background-color: mat-color($primary, 700);
 
-    .ms-order-todo {
-      background-color: mat-color($accent, 800, 0.8);
-      color: $white-87-opacity;
-    }
+    .batch-container {
+      background-color: map-get($primary, 800);
 
-    .ms-send-batch-button {
-      background-color: mat-color($primary, 500);
-      color: $black-87-opacity;
-    }
-  }
+      .order-not-ready {
+        .state-indicator {
+          background-color: mat-color($mat-amber, 300);
+        }
+      }
 
-  .ms-batch-wrapper-dark{
-    .ms-order-done {
-      background-color: mat-color($primary, 300, 0.8);
-      color: $black-87-opacity;
-    }
+      .order-ready {
+        background-color: map-get($primary, 900);
+        .state-indicator {
+          background-color: mat-color($mat-light-green, 400);
+        }
+      }
 
-    .ms-order-todo {
-      background-color: mat-color($accent, 600, 0.8);
-      color: $white-87-opacity;
-    }
+      .order-sent {
+        background-color: map-get($primary, 900);
+        .state-indicator {
+          background-color: mat-color($mat-light-green, 400);
+        }
+      }
 
-    .ms-send-batch-button {
-      background-color: mat-color($primary, 300);
-      color: $black-87-opacity;
+      .delivering-to {
+        background-color: map-get($primary, 900);
+      }
     }
   }
 }
