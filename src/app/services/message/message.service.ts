@@ -1,5 +1,3 @@
-/* tslint:disable */
-
 // this is required since "Observable" doesn't include interval on import
 import 'rxjs/add/observable/interval';
 
@@ -27,9 +25,9 @@ export class MessageService implements OnDestroy {
 
   private static BATCH_POLLING_RATE = 5000;
   private static ORDER_POLLING_RATE = 5000;
-  private static WAITING = 'Wiating';
-  private static DELIVERING = 'Delivering';
   private static DELIVERED = 'Delivered';
+  private static WAITING = 'Waiting';
+  private static DELIVERING = 'Delivering';
   private static DELAYED = 'Delayed';
 
   private sessionKey: string;
@@ -42,7 +40,6 @@ export class MessageService implements OnDestroy {
   private ordersToMonitor: Order[] = [];
   private orderHistorySubject: Subject<Order[]>;
 
-  // private incomingBatchesSubscribers: string[] = []; // todo: why do we need this?
   private batchUpdatesTimer: Observable<number>;
   private batchUpdatesSubscription: Subscription;
   private batchUpdatesSubject: Subject<Batch[]>;
@@ -60,6 +57,40 @@ export class MessageService implements OnDestroy {
       this.http.post(this.config.backendUrl + 'getEnvironmentDetails', body)
         .subscribe((response: EnvironmentDetails) => resolve(response), error => reject(error));
     });
+  }
+
+  private handleGetOrderUpdates(): void {
+    // this is when the timer has triggered, need to fetch orders from the monitored Orders
+    // then merge that with the cache (updating where needed)
+    // emit the new cache to the subject
+
+    const body = {
+      username: this.user.username,
+      sessionKey: this.sessionKey,
+      orders: this.ordersToMonitor
+    };
+    this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
+      .subscribe(
+        (response: {orders: Order[]}) => {
+          response.orders.forEach((order: Order) => {
+            const i = _.findIndex(this.orderHistoryCache, (cachedOrder: Order) => {
+              return cachedOrder.id === order.id;
+            });
+
+            i === -1 ? this.orderHistoryCache.push(order) : this.orderHistoryCache[i] = order;
+
+            if (order.state === MessageService.DELIVERED) {
+              const j = _.findIndex(this.ordersToMonitor, (monitoredOrder: Order) => {
+                return monitoredOrder.id === order.id;
+              });
+              this.ordersToMonitor.splice(j, 1);
+            }
+          });
+
+          this.orderHistoryCache = _.reverse(_.sortBy(this.orderHistoryCache, 'orderDate'));
+          this.orderHistorySubject.next(this.orderHistoryCache);
+        },
+        error => console.error(error));
   }
 
   getEnvironmentDetails(): Promise<EnvironmentDetails> {
@@ -181,25 +212,6 @@ export class MessageService implements OnDestroy {
 
   }
 
-  ngOnDestroy(): void {
-    if (isDefined(this.batchUpdatesSubscription)) {
-      this.batchUpdatesSubscription.unsubscribe();
-      this.batchUpdatesSubscription = undefined;
-    }
-    if (isDefined(this.batchUpdatesSubject)) {
-      this.batchUpdatesSubject.complete();
-      this.batchUpdatesSubject = undefined;
-    }
-    if (isDefined(this.orderUpdatesSubscription)) {
-      this.orderUpdatesSubscription.unsubscribe();
-      this.orderUpdatesSubscription = undefined;
-    }
-    if (isDefined(this.orderHistorySubject)) {
-      this.orderHistorySubject.complete();
-      this.orderHistorySubject = undefined;
-    }
-}
-
   placeOrder(selectedBeverage: OrderOption, selectedAddOns: {key: string, value: string | boolean | number}[],
              deliveryLocation: DeliveryLocation): Promise<Order> {
     return new Promise<Order>((resolve, reject) => {
@@ -266,46 +278,25 @@ export class MessageService implements OnDestroy {
       this.orderHistorySubject.complete();
       this.orderHistorySubject = undefined;
     }
-  }
+}
 
-  private handleGetOrderUpdates(): void {
-    // this is when the timer has triggered, need to fetch orders from the monitored Orders
-    // then merge that with the cache (updating where needed)
-    // emit the new cache to the subject
-
-    const body = {
-      username: this.user.username,
-      sessionKey: this.sessionKey,
-      orders: this.ordersToMonitor
-    };
-    this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
-      .subscribe(
-        (response: {orders: Order[]}) => {
-                response.orders.forEach((order: Order) => {
-                  const i = _.findIndex(this.orderHistoryCache, (cachedOrder: Order) => {
-                    return cachedOrder.id === order.id;
-                  });
-
-                  console.log('i: ' + i);
-                  if (i === -1) {
-                    this.orderHistoryCache.push(order);
-                  } else {
-                    this.orderHistoryCache[i] = order;
-                  }
-
-                  if (order.state === MessageService.DELIVERED) {
-                    const j = _.findIndex(this.ordersToMonitor, (monitoredOrder: Order) => {
-                      return monitoredOrder.id === order.id;
-                    });
-                    console.log('j: ' + j);
-                    this.ordersToMonitor.splice(j, 1);
-                  }
-                });
-
-                this.orderHistoryCache = _.reverse(_.sortBy(this.orderHistoryCache, 'orderDate'));
-                this.orderHistorySubject.next(this.orderHistoryCache);
-              },
-        error => console.error(error));
+  ngOnDestroy(): void {
+    if (isDefined(this.batchUpdatesSubscription)) {
+      this.batchUpdatesSubscription.unsubscribe();
+      this.batchUpdatesSubscription = undefined;
+    }
+    if (isDefined(this.batchUpdatesSubject)) {
+      this.batchUpdatesSubject.complete();
+      this.batchUpdatesSubject = undefined;
+    }
+    if (isDefined(this.orderUpdatesSubscription)) {
+      this.orderUpdatesSubscription.unsubscribe();
+      this.orderUpdatesSubscription = undefined;
+    }
+    if (isDefined(this.orderHistorySubject)) {
+      this.orderHistorySubject.complete();
+      this.orderHistorySubject = undefined;
+    }
   }
 
 }

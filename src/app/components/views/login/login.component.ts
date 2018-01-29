@@ -18,15 +18,16 @@ export class LoginComponent {
   constructor(private router: Router, private accountService: AccountService) {}
 
   attemptLogin(): void {
-    // this.username = 'admin';
-    // this.password = 'a';
-
     this.loginMessage = '';
     this.isLoading = true;
     this.accountService.attemptLogin(this.username, this.password)
       .then(() => {
         this.isLoading = false;
-        this.router.navigate(['admin/desktop']);
+        if (this.accountService.userInfo.adminEnabled) {
+          this.router.navigate(['admin/desktop']);
+        } else {
+          this.router.navigate(['user/desktop']);
+        }
       })
       .catch(() => {
         this.isLoading = false;
