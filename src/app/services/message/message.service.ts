@@ -23,8 +23,8 @@ import { UserInfo } from '../../core/user-info';
 @Injectable()
 export class MessageService implements OnDestroy {
 
-  private static BATCH_POLLING_RATE = 5000;
-  private static ORDER_POLLING_RATE = 5000;
+  private static BATCH_POLLING_RATE = 250;
+  private static ORDER_POLLING_RATE = 250;
   private static DELIVERED = 'Delivered';
   private static WAITING = 'Waiting';
   private static DELIVERING = 'Delivering';
