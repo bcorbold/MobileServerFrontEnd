@@ -72,23 +72,34 @@ export class MessageService implements OnDestroy {
     this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
       .subscribe(
         (response: {orders: Order[]}) => {
+          let isCacheChanged = false;
           response.orders.forEach((order: Order) => {
             const i = _.findIndex(this.orderHistoryCache, (cachedOrder: Order) => {
               return cachedOrder.id === order.id;
             });
 
-            i === -1 ? this.orderHistoryCache.push(order) : this.orderHistoryCache[i] = order;
-
-            if (order.state === MessageService.DELIVERED) {
-              const j = _.findIndex(this.ordersToMonitor, (monitoredOrder: Order) => {
-                return monitoredOrder.id === order.id;
-              });
-              this.ordersToMonitor.splice(j, 1);
+            if (i === -1) {
+              this.orderHistoryCache.push(order);
+              isCacheChanged = true;
+            } else {
+              const cachedOrder = this.orderHistoryCache[i];
+              if (order.state !== cachedOrder.state || order.deliveryEta !== cachedOrder.deliveryEta) {
+                this.orderHistoryCache[i] = order;
+                isCacheChanged = true;
+                if (order.state === MessageService.DELIVERED) {
+                  const j = _.findIndex(this.ordersToMonitor, (monitoredOrder: Order) => {
+                    return monitoredOrder.id === order.id;
+                  });
+                  this.ordersToMonitor.splice(j, 1);
+                }
+              }
             }
           });
 
-          this.orderHistoryCache = _.reverse(_.sortBy(this.orderHistoryCache, 'orderDate'));
-          this.orderHistorySubject.next(this.orderHistoryCache);
+          if (isCacheChanged) {
+            this.orderHistoryCache = _.reverse(_.sortBy(this.orderHistoryCache, 'orderDate'));
+            this.orderHistorySubject.next(this.orderHistoryCache);
+          }
         },
         error => console.error(error));
   }
@@ -158,8 +169,27 @@ export class MessageService implements OnDestroy {
       this.batchUpdatesSubscription = this.batchUpdatesTimer.subscribe(() => {
         this.http.post(this.config.backendUrl + 'getIncomingBatches', body)
           .subscribe((response: {batches: Batch[]}) => {
-            this.batchUpdatesCache = response.batches;
-            this.batchUpdatesSubject.next(this.batchUpdatesCache);
+            // todo: check if there is a change
+            let isCacheChanged = false;
+            if (response.batches.length !== this.batchUpdatesCache.length) {
+              isCacheChanged = true;
+            } else {
+              // state, batchEta
+              response.batches.forEach((batch: Batch) => {
+                const i = _.findIndex(this.batchUpdatesCache, (cachedBatch: Batch) => {
+                  return cachedBatch.id === batch.id;
+                });
+                if (this.batchUpdatesCache[i].state !== batch.state || this.batchUpdatesCache[i].batchEta !== batch.batchEta) {
+                  isCacheChanged = true;
+                  return;
+                }
+              });
+            }
+
+            if (isCacheChanged) {
+              this.batchUpdatesCache = response.batches;
+              this.batchUpdatesSubject.next(this.batchUpdatesCache);
+            }
           });
       });
 
