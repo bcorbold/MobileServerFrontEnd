@@ -29,24 +29,23 @@ export class PlaceOrderComponent {
   @Input() set pastOrder(order: Order) {
     if (isDefined(order)) {
       this._pastOrder = order; // todo: populates value in form, but drink name isn't displayed
-      this.selectedBeverage = OrderOption.copy(this._pastOrder.orderInfo.orderOption);
-      this.selectedAddOns = [];
-      this._pastOrder.orderInfo.selectedAddOns.forEach(addOn => {
-        this.selectedAddOns.push(_.defaultsDeep({}, addOn));
-      });
+      // this.selectedBeverage = OrderOption.copy(this._pastOrder.orderInfo.orderOption);
+      // this.selectedAddOns = [];
+      // this._pastOrder.orderInfo.selectedAddOns.forEach(addOn => {
+      //   this.selectedAddOns.push(_.defaultsDeep({}, addOn));
+      // });
     }
   }
 
-  // todo: Need to reset lower levels of the form when higher level changes
   environmentDetails: EnvironmentDetails = new EnvironmentDetails();
+  userInfo: UserInfo;
+
   potentialAddOn: AddOn;
   potentialAddOnValue: string | boolean | number = 1;
 
-  userInfo: UserInfo;
+  selectedDeliveryLocation: DeliveryLocation;
   selectedBeverage: OrderOption;
   selectedAddOns: { key: string, value: string | boolean | number }[] = [];
-
-
 
   locationControl: FormControl;
   filteredLocations: Observable<DeliveryLocation[]>;
@@ -60,19 +59,33 @@ export class PlaceOrderComponent {
       .then((envDetails: EnvironmentDetails) => this.environmentDetails = envDetails)
       .catch(error => console.error(error));
     this.userInfo = this.accountService.userInfo;
+    this.selectedDeliveryLocation = DeliveryLocation.copy(this.userInfo.defaultDeliveryLocation);
 
     // setting up all of the form filtering
     this.locationControl = new FormControl(this.userInfo.defaultDeliveryLocation.name);
     this.filteredLocations = this.locationControl.valueChanges
       .pipe(
-        map(locationName => locationName ? this.filterLocations(locationName) : this.environmentDetails.deliveryLocations.slice())
+        map(locationName => {
+          if (locationName) {
+            const filteredLoctations = this.filterLocations(locationName);
+            if (filteredLoctations.length === 1) {
+              this.selectedDeliveryLocation = filteredLoctations[0];
+            }
+            return filteredLoctations;
+          } else {
+            return this.environmentDetails.deliveryLocations.slice();
+          }
+        })
       );
 
     this.beverageControl = new FormControl();
     this.filteredBeverages = this.beverageControl.valueChanges
       .pipe(
         map(beverage => {
-          if (isDefined(beverage)) {
+          this.selectedAddOns = [];
+          this.potentialAddOnValue = 1;
+          this.potentialAddOn = undefined;
+          if (beverage) {
             const filteredBeverages = this.filterBeverages(beverage);
             if (filteredBeverages.length === 1) {
               this.selectedBeverage = filteredBeverages[0];
@@ -87,18 +100,13 @@ export class PlaceOrderComponent {
 
   filterLocations(locationName: string): DeliveryLocation[] {
     return this.environmentDetails.deliveryLocations.filter((location: DeliveryLocation) =>
-    location.name.toLowerCase().indexOf(locationName.toLowerCase()) !== -1);
+      location.name.toLowerCase().indexOf(locationName.toLowerCase()) !== -1);
   }
 
   filterBeverages(name: string): OrderOption[] {
     return this.environmentDetails.orderOptions.filter(beverage =>
       beverage.name.toLowerCase().indexOf(name.toLowerCase()) !== -1);
   }
-
-
-
-
-
 
   addAddOnToSelectedList(): void {
     let existingIndex: number;
@@ -125,17 +133,11 @@ export class PlaceOrderComponent {
     this.selectedAddOns = _.pull(this.selectedAddOns, addOnChip);
   }
 
-  // todo: need to add validation to the form
-  placeOrder(): void { // todo: Should give the user some sort of feedback on the response
-    console.log(this.selectedBeverage);
-    console.log(this.selectedAddOns);
-
-    // this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation)
-    //   .then(response => {
-    //     console.log('Order has been placed');
-    //     // todo: subscribe to updates on the orderHistory
-    //   })
-    //   .catch(error => console.error(error));
+  placeOrder(): void {
+    // todo: need to add validation to the form
+    this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation)
+      .then(response => console.log('Order has been placed')) // todo: Should give the user some sort of feedback on the responses
+      .catch(error => console.error(error));
   }
 
   resetOrder(): void {
