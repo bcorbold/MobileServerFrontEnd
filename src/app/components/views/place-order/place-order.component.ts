@@ -28,9 +28,7 @@ export class PlaceOrderComponent {
   get pastOrder(): Order { return this._pastOrder; }
   @Input() set pastOrder(order: Order) {
     if (isDefined(order)) {
-      this._pastOrder = order;
-      // this.selectedDeliveryLocation = DeliveryLocation.copy(this._pastOrder.deliveryLocation);
-      // todo: populates value in form, but drink name isn't displayed
+      this._pastOrder = order; // todo: populates value in form, but drink name isn't displayed
       this.selectedBeverage = OrderOption.copy(this._pastOrder.orderInfo.orderOption);
       this.selectedAddOns = [];
       this._pastOrder.orderInfo.selectedAddOns.forEach(addOn => {
@@ -40,12 +38,11 @@ export class PlaceOrderComponent {
   }
 
   // todo: Need to reset lower levels of the form when higher level changes
-  environmentDetails: EnvironmentDetails;
+  environmentDetails: EnvironmentDetails = new EnvironmentDetails();
   potentialAddOn: AddOn;
   potentialAddOnValue: string | boolean | number = 1;
 
   userInfo: UserInfo;
-  // selectedDeliveryLocation: DeliveryLocation;
   selectedBeverage: OrderOption;
   selectedAddOns: { key: string, value: string | boolean | number }[] = [];
 
@@ -58,14 +55,11 @@ export class PlaceOrderComponent {
   filteredBeverages: Observable<OrderOption[]>;
 
   constructor(private messageService: MessageService, private accountService: AccountService) {
-    this.environmentDetails = new EnvironmentDetails();
+    // getting user/environment information to set up forms
     this.messageService.getEnvironmentDetails()
-      .then((envDetails) => {
-        this.environmentDetails = envDetails;
-      })
+      .then((envDetails: EnvironmentDetails) => this.environmentDetails = envDetails)
       .catch(error => console.error(error));
     this.userInfo = this.accountService.userInfo;
-    // this.selectedDeliveryLocation = DeliveryLocation.copy(this.userInfo.defaultDeliveryLocation);
 
     // setting up all of the form filtering
     this.locationControl = new FormControl(this.userInfo.defaultDeliveryLocation.name);
@@ -107,10 +101,23 @@ export class PlaceOrderComponent {
 
 
   addAddOnToSelectedList(): void {
-    if (this.potentialAddOn.type !== 'boolean') {
-      this.selectedAddOns.push({key: this.potentialAddOn.name, value: this.potentialAddOnValue});
+    let existingIndex: number;
+
+    this.selectedAddOns.forEach((addOn, index) => {
+      if (addOn.key.toLowerCase() === this.potentialAddOn.name.toLowerCase()) {
+        existingIndex = index;
+        return;
+      }
+    });
+
+    if (isDefined(existingIndex)) {
+      this.selectedAddOns[existingIndex] = this.potentialAddOn.type === 'boolean' ?
+                                          {key: this.potentialAddOn.name, value: true} :
+                                          {key: this.potentialAddOn.name, value: this.potentialAddOnValue};
     } else {
-      this.selectedAddOns.push({key: this.potentialAddOn.name, value: true});
+      this.selectedAddOns.push(this.potentialAddOn.type === 'boolean' ?
+                              {key: this.potentialAddOn.name, value: true} :
+                              {key: this.potentialAddOn.name, value: this.potentialAddOnValue});
     }
   }
 
@@ -122,7 +129,6 @@ export class PlaceOrderComponent {
   placeOrder(): void { // todo: Should give the user some sort of feedback on the response
     console.log(this.selectedBeverage);
     console.log(this.selectedAddOns);
-    // console.log(this.selectedDeliveryLocation);
 
     // this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation)
     //   .then(response => {
@@ -138,6 +144,8 @@ export class PlaceOrderComponent {
     this.selectedAddOns = [];
     this.potentialAddOn = undefined;
     this.potentialAddOnValue = undefined;
+    this.locationControl.reset(this.userInfo.defaultDeliveryLocation.name);
+    this.beverageControl.reset();
   }
 
 }

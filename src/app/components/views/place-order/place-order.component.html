@@ -3,14 +3,12 @@
 
   <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
     <div fxLayout="row" fxLayoutAlign="start stretch">
-
       <mat-form-field fxLayout="column" color="accent">
         <input matInput placeholder="Delivery location" aria-label="Delivery location" [matAutocomplete]="autoLocation" [formControl]="locationControl">
         <mat-autocomplete #autoLocation="matAutocomplete">
           <mat-option *ngFor="let location of filteredLocations | async" [value]="location.name">{{location.name}}</mat-option>
         </mat-autocomplete>
       </mat-form-field>
-
       <div fxLayout="column">
         <mat-form-field color="accent">
           <input matInput placeholder="Beverage" aria-label="Beverage" [matAutocomplete]="autoBeverage" [formControl]="beverageControl">
@@ -25,6 +23,7 @@
     <div fxLayout="row" fxLayoutAlign="start stretch">
       <div fxLayout="column">
         <div fxLayout="row" *ngIf="selectedBeverage?.addOns">
+
           <mat-form-field color="accent">
             <mat-select placeholder="Add-On" [(value)]="potentialAddOn">
               <div *ngFor="let addOn of selectedBeverage.addOns">
@@ -35,7 +34,7 @@
 
           <div *ngIf="potentialAddOn">
             <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="accent">
-              <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" value="{{potentialAddOnValue}}" min="1">
+              <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" [(ngModel)]="potentialAddOnValue" min="1">
             </mat-input-container>
           </div>
 
