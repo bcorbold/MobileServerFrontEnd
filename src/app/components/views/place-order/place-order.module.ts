@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatChipsModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { AccountService } from '../../../services/account/account.service';
 import { MessageService } from '../../../services/message/message.service';
@@ -15,12 +16,14 @@ export { PlaceOrderComponent } from './place-order.component';
     CommonModule,
     FlexLayoutModule,
     FormsModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatCheckboxModule,
     MatChipsModule,
     MatIconModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   declarations: [
     PlaceOrderComponent
