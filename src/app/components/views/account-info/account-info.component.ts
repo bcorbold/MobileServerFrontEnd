@@ -14,9 +14,17 @@ import { MessageService } from '../../../services/message/message.service';
 export class AccountInfoComponent implements OnInit {
 
   @Input() user: UserInfo;
-  @Input() isAdminView: boolean;
   @Output() userUpdate: EventEmitter<UserInfo> = new EventEmitter<UserInfo>();
-  @Output() switchView: EventEmitter<void> = new EventEmitter<void>();
+
+  _isAdminView: boolean;
+  @Input() set isAdminView(isAdminView: boolean) {
+    this._isAdminView = isAdminView;
+    this.isAdminViewChange.emit(this._isAdminView);
+  }
+  get isAdminView() {
+    return this._isAdminView;
+  }
+  @Output() isAdminViewChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   environmentDetails: EnvironmentDetails;
 
