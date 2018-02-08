@@ -25,7 +25,7 @@ import { MessageService } from '../../../services/message/message.service';
 export class PlaceOrderComponent {
 
   private _pastOrder: Order;
-  get pastOrder(): Order { return this._pastOrder; }
+
   @Input() set pastOrder(order: Order) {
     if (isDefined(order)) {
       this._pastOrder = order;
@@ -37,6 +37,7 @@ export class PlaceOrderComponent {
       });
     }
   }
+  get pastOrder(): Order { return this._pastOrder; }
 
   environmentDetails: EnvironmentDetails = new EnvironmentDetails();
   userInfo: UserInfo;
@@ -68,11 +69,11 @@ export class PlaceOrderComponent {
       .pipe(
         map(locationName => {
           if (locationName) {
-            const filteredLoctations = this.filterLocations(locationName);
-            if (filteredLoctations.length === 1) {
-              this.selectedDeliveryLocation = filteredLoctations[0];
+            const filteredLocations = this.filterLocations(locationName);
+            if (filteredLocations.length === 1) {
+              this.selectedDeliveryLocation = filteredLocations[0];
             }
-            return filteredLoctations;
+            return filteredLocations;
           } else {
             return this.environmentDetails.deliveryLocations.slice();
           }

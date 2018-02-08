@@ -10,10 +10,11 @@ import { AccountService } from '../../../services/account/account.service';
   styleUrls: ['./desktop.component.scss']
 })
 export class DesktopComponent {
+  private _isAdminView: boolean;
+
   userInfo: UserInfo;
   pastOrder: Order;
 
-  _isAdminView: boolean;
   get isAdminView(): boolean {
     return this._isAdminView;
   }

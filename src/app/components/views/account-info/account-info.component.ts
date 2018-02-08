@@ -13,10 +13,14 @@ import { MessageService } from '../../../services/message/message.service';
 })
 export class AccountInfoComponent implements OnInit {
 
-  @Input() user: UserInfo;
-  @Output() userUpdate: EventEmitter<UserInfo> = new EventEmitter<UserInfo>();
+  private _isAdminView: boolean;
+  private defaultUserInfo: UserInfo;
+  environmentDetails: EnvironmentDetails;
 
-  _isAdminView: boolean;
+  @Output() userUpdate: EventEmitter<UserInfo> = new EventEmitter<UserInfo>();
+  @Output() isAdminViewChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Input() user: UserInfo;
   @Input() set isAdminView(isAdminView: boolean) {
     this._isAdminView = isAdminView;
     this.isAdminViewChange.emit(this._isAdminView);
@@ -24,11 +28,6 @@ export class AccountInfoComponent implements OnInit {
   get isAdminView() {
     return this._isAdminView;
   }
-  @Output() isAdminViewChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  environmentDetails: EnvironmentDetails;
-
-  private defaultUserInfo: UserInfo;
 
   constructor(private router: Router, private messageService: MessageService, private accountService: AccountService) {
     this.environmentDetails = new EnvironmentDetails();
