@@ -28,12 +28,13 @@ export class PlaceOrderComponent {
   get pastOrder(): Order { return this._pastOrder; }
   @Input() set pastOrder(order: Order) {
     if (isDefined(order)) {
-      this._pastOrder = order; // todo: populates value in form, but drink name isn't displayed
-      // this.selectedBeverage = OrderOption.copy(this._pastOrder.orderInfo.orderOption);
-      // this.selectedAddOns = [];
-      // this._pastOrder.orderInfo.selectedAddOns.forEach(addOn => {
-      //   this.selectedAddOns.push(_.defaultsDeep({}, addOn));
-      // });
+      this._pastOrder = order;
+      this.selectedBeverage = OrderOption.copy(this._pastOrder.orderInfo.orderOption);
+      this.beverageControl.setValue(this.selectedBeverage.name);
+      this.selectedAddOns = [];
+      this._pastOrder.orderInfo.selectedAddOns.forEach(addOn => {
+        this.selectedAddOns.push(_.defaultsDeep({}, addOn));
+      });
     }
   }
 
