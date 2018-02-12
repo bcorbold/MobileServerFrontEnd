@@ -4,20 +4,17 @@
   <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
     <div fxLayout="row" fxLayoutAlign="start stretch">
       <mat-form-field fxLayout="column" color="accent">
-        <mat-select placeholder="Delivery location" [(value)]="selectedDeliveryLocation.id">
-          <div *ngFor="let location of environmentDetails.deliveryLocations">
-            <mat-option [value]="location.id">{{location.name}}</mat-option>
-          </div>
-        </mat-select>
+        <input matInput placeholder="Delivery location" aria-label="Delivery location" [matAutocomplete]="autoLocation" [formControl]="locationControl">
+        <mat-autocomplete #autoLocation="matAutocomplete">
+          <mat-option *ngFor="let location of filteredLocations | async" [value]="location.name">{{location.name}}</mat-option>
+        </mat-autocomplete>
       </mat-form-field>
-
       <div fxLayout="column">
         <mat-form-field color="accent">
-          <mat-select placeholder="Beverage" [(value)]="selectedBeverage">
-            <div *ngFor="let drink of environmentDetails.orderOptions">
-              <mat-option [value]="drink">{{drink.name}}</mat-option>
-            </div>
-          </mat-select>
+          <input matInput placeholder="Beverage" aria-label="Beverage" [matAutocomplete]="autoBeverage" [formControl]="beverageControl">
+          <mat-autocomplete #autoBeverage="matAutocomplete">
+            <mat-option *ngFor="let drink of filteredBeverages | async" [value]="drink.name">{{drink.name}}</mat-option>
+          </mat-autocomplete>
         </mat-form-field>
         <p class="drink-description">{{selectedBeverage?.description}}</p>
       </div>
@@ -26,6 +23,7 @@
     <div fxLayout="row" fxLayoutAlign="start stretch">
       <div fxLayout="column">
         <div fxLayout="row" *ngIf="selectedBeverage?.addOns">
+
           <mat-form-field color="accent">
             <mat-select placeholder="Add-On" [(value)]="potentialAddOn">
               <div *ngFor="let addOn of selectedBeverage.addOns">
@@ -36,7 +34,7 @@
 
           <div *ngIf="potentialAddOn">
             <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="accent">
-              <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" value="{{potentialAddOnValue}}" min="1">
+              <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" [(ngModel)]="potentialAddOnValue" min="1">
             </mat-input-container>
           </div>
 

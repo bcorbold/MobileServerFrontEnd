@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { isDefined } from '../../../core/is-defined';
 import { Order } from '../../../core/order';
 import { MessageService } from '../../../services/message/message.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ms-order-history',

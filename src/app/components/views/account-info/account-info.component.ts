@@ -13,14 +13,21 @@ import { MessageService } from '../../../services/message/message.service';
 })
 export class AccountInfoComponent implements OnInit {
 
-  @Input() user: UserInfo;
-  @Input() isAdminView: boolean;
-  @Output() userUpdate: EventEmitter<UserInfo> = new EventEmitter<UserInfo>();
-  @Output() switchView: EventEmitter<void> = new EventEmitter<void>();
-
+  private _isAdminView: boolean;
+  private defaultUserInfo: UserInfo;
   environmentDetails: EnvironmentDetails;
 
-  private defaultUserInfo: UserInfo;
+  @Output() userUpdate: EventEmitter<UserInfo> = new EventEmitter<UserInfo>();
+  @Output() isAdminViewChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Input() user: UserInfo;
+  @Input() set isAdminView(isAdminView: boolean) {
+    this._isAdminView = isAdminView;
+    this.isAdminViewChange.emit(this._isAdminView);
+  }
+  get isAdminView() {
+    return this._isAdminView;
+  }
 
   constructor(private router: Router, private messageService: MessageService, private accountService: AccountService) {
     this.environmentDetails = new EnvironmentDetails();

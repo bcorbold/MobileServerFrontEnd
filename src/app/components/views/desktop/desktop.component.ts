@@ -10,9 +10,17 @@ import { AccountService } from '../../../services/account/account.service';
   styleUrls: ['./desktop.component.scss']
 })
 export class DesktopComponent {
+  private _isAdminView: boolean;
+
   userInfo: UserInfo;
-  isAdminView = false;
   pastOrder: Order;
+
+  get isAdminView(): boolean {
+    return this._isAdminView;
+  }
+  set isAdminView(isAdminView: boolean) {
+    this._isAdminView = isAdminView;
+  }
 
   constructor(private accountService: AccountService) {
     this.userInfo = this.accountService.userInfo;
@@ -25,11 +33,7 @@ export class DesktopComponent {
       .catch((error) => console.error(error));
   }
 
-  changeView(): void {
-    this.isAdminView = !this.isAdminView;
-  }
-
-  populatePlaceOrder(pastOrder: Order) {
+  populatePlaceOrder(pastOrder: Order): void {
     this.pastOrder = Order.copy(pastOrder);
   }
 
