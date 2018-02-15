@@ -1,7 +1,7 @@
 @import '~@angular/material/_theming.scss';
 
 @import 'components/core/page-selector/page-selector.theme';
-@import 'components/views/desktop/desktop.theme';
+@import 'components/views/home/home.theme';
 @import 'components/views/account-info/account-info.theme';
 @import 'components/views/incoming-batches/incoming-batches.theme';
 @import 'components/views/login/login.theme';
@@ -12,7 +12,7 @@
 @mixin app-theme($theme) {
 
   @include ms-account-info-theme($theme);
-  @include ms-desktop-theme($theme);
+  @include ms-home-theme($theme);
   @include ms-incoming-batches-theme($theme);
   @include ms-login-theme($theme);
   @include ms-new-order-theme($theme);

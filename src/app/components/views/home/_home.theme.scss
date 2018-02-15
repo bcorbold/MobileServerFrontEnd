@@ -1,4 +1,6 @@
-@mixin ms-desktop-theme($theme) {
+@import '~@angular/material/_theming.scss';
+
+@mixin ms-home-theme($theme) {
 
   $primary: map-get($theme, primary);
 

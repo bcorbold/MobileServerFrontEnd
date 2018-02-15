@@ -8,9 +8,9 @@ import { OrderHistoryModule } from '../order-history/order-history.module';
 import { PlaceOrderModule } from '../place-order/place-order.module';
 import { SystemDetailsModule } from '../system-details/system-details.module';
 
-import { DesktopComponent } from './desktop.component';
+import { HomeComponent } from './home.component';
 
-export { DesktopComponent } from './desktop.component';
+export { HomeComponent } from './home.component';
 
 @NgModule({
   imports: [
@@ -23,10 +23,10 @@ export { DesktopComponent } from './desktop.component';
     SystemDetailsModule
   ],
   declarations: [
-    DesktopComponent
+    HomeComponent
   ],
   exports: [
-    DesktopComponent
+    HomeComponent
   ]
 })
-export class DesktopModule { }
+export class HomeModule { }

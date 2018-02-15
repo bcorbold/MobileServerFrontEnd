@@ -24,9 +24,9 @@ export class LoginComponent {
       .then(() => {
         this.isLoading = false;
         if (this.accountService.userInfo.adminEnabled) {
-          this.router.navigate(['admin/desktop']);
+          this.router.navigate(['admin']);
         } else {
-          this.router.navigate(['user/desktop']);
+          this.router.navigate(['user']);
         }
       })
       .catch(() => {

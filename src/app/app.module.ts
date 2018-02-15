@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AccountInfoModule } from './components/views/account-info/account-info.module';
-import { DesktopModule } from './components/views/desktop/desktop.module';
+import { HomeModule } from './components/views/home/home.module';
 import { IncomingBatchesModule } from './components/views/incoming-batches/incoming-batches.module';
 import { LoginModule } from './components/views/login/login.module';
 import { OrderHistoryModule } from './components/views/order-history/order-history.module';
@@ -14,12 +14,12 @@ import { PlaceOrderModule } from './components/views/place-order/place-order.mod
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-import { DesktopComponent } from './components/views/desktop/desktop.component';
+import { HomeComponent } from './components/views/home/home.component';
 import { LoginComponent } from './components/views/login/login.component';
 
 const appRoutes: Routes = [
-  { path: 'admin/desktop', component: DesktopComponent },
-  { path: 'user/desktop', component: DesktopComponent },
+  { path: 'admin', component: HomeComponent },
+  { path: 'user', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: '',   redirectTo: 'login', pathMatch: 'full' }
 ];
@@ -39,8 +39,8 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     BrowserModule,
     CommonModule,
-    DesktopModule,
     FlexLayoutModule,
+    HomeModule,
     IncomingBatchesModule,
     LoginModule,
     OrderHistoryModule,

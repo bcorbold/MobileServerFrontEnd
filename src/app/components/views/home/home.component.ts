@@ -5,11 +5,11 @@ import { UserInfo } from '../../../core/user-info';
 import { AccountService } from '../../../services/account/account.service';
 
 @Component({
-  selector: 'ms-desktop',
-  templateUrl: './desktop.component.html',
-  styleUrls: ['./desktop.component.scss']
+  selector: 'ms-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class DesktopComponent {
+export class HomeComponent {
   private _isAdminView: boolean;
 
   userInfo: UserInfo;
