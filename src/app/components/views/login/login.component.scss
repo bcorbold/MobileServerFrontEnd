@@ -1,8 +1,36 @@
-$login-box-width: 30em;
-
 .ms-login-wrapper {
   width: 100%;
   height: 100%;
+
+  .ms-login-message-wrapper {
+    min-height: 2em;
+
+    mat-progress-bar {
+      margin-top: 0.5em;
+    }
+  }
+
+}
+
+.ms-mobile {
+  $login-box-width: 20em;
+
+  .ms-header {
+    font-size: 3em;
+    letter-spacing: 0.04em;
+  }
+
+  .ms-login-container {
+    width: $login-box-width;
+  }
+
+  .ms-login-message-wrapper {
+    width: $login-box-width;
+  }
+}
+
+.ms-desktop {
+  $login-box-width: 30em;
 
   .ms-header {
     font-size: 5em;
@@ -14,13 +42,7 @@ $login-box-width: 30em;
   }
 
   .ms-login-message-wrapper {
-    min-height: 2em;
     width: $login-box-width;
     margin-bottom: 8em;
-
-    mat-progress-bar {
-      margin-top: 8px;
-    }
   }
-
 }
