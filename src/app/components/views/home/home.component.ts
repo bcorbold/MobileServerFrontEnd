@@ -14,6 +14,7 @@ export class HomeComponent {
 
   userInfo: UserInfo;
   pastOrder: Order;
+  componentInView: string;
 
   get isAdminView(): boolean {
     return this._isAdminView;
@@ -25,6 +26,7 @@ export class HomeComponent {
   constructor(private accountService: AccountService) {
     this.userInfo = this.accountService.userInfo;
     this.isAdminView = this.userInfo.defaultView === 'bartender';
+    this.componentInView = this.isAdminView ? 'incoming-batches' : 'place-order';
   }
 
   handleUserInfoChange(updatedUserInfo: UserInfo): void {

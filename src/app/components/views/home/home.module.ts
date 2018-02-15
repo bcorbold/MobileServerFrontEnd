@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AccountInfoModule } from '../account-info/account-info.module';
@@ -18,6 +21,9 @@ export { HomeComponent } from './home.component';
     BrowserModule,
     FlexLayoutModule,
     IncomingBatchesModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
     OrderHistoryModule,
     PlaceOrderModule,
     SystemDetailsModule

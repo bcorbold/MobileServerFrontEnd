@@ -1,14 +1,52 @@
-<div class="ms-desktop-wrapper" fxLayout="row" fxLayoutAlign="center stretch" fxFill>
-  <ms-order-history fxFlex *ngIf="!isAdminView" (reorder)="populatePlaceOrder($event)"></ms-order-history>
-  <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
-  <div fxFlex fxLayout="column">
-    <ms-account-info fxFlex [user]="userInfo" [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)"></ms-account-info>
+<div fxLayout="row" fxLayoutAlign="center stretch" fxFill ngClass.gt-sm="ms-desktop" ngClass.lt-md="ms-mobile">
 
-    <div class="ms-divider">
-      <div fxFlex></div>
+  <div fxShow fxHide.lt-md fxFlex>
+    <ms-order-history fxFlex *ngIf="!isAdminView" (reorder)="populatePlaceOrder($event)"></ms-order-history>
+    <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
+    <div fxFlex fxLayout="column">
+      <ms-account-info fxFlex [user]="userInfo" [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)"></ms-account-info>
+
+      <!-- todo: restyle hr tag instead -->
+      <div class="ms-divider">
+        <div fxFlex></div>
+      </div>
+
+      <ms-place-order fxFlex *ngIf="!isAdminView" [pastOrder]="pastOrder"></ms-place-order>
+      <ms-system-details fxFlex *ngIf="isAdminView"></ms-system-details>
     </div>
-
-    <ms-place-order fxFlex *ngIf="!isAdminView" [pastOrder]="pastOrder"></ms-place-order>
-    <ms-system-details fxFlex *ngIf="isAdminView"></ms-system-details>
   </div>
+
+  <div fxHide fxShow.lt-md fxFlex style="padding: 1em;" fxLayout="column" fxLayoutAlign="center stretch">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="componentInView = 'place-order'">
+        <mat-icon>add_shopping_cart</mat-icon>
+        <span>Place Order</span>
+      </button>
+      <button mat-menu-item (click)="componentInView = 'order-history'">
+        <mat-icon>history</mat-icon>
+        <span>Order History</span>
+      </button>
+      <button mat-menu-item (click)="componentInView = 'account-info'">
+        <mat-icon>account_circle</mat-icon>
+        <span>Account</span>
+      </button>
+      <button *ngIf="isAdminView" mat-menu-item (click)="componentInView = 'incoming-batches'">
+        <mat-icon>receipt</mat-icon>
+        <span>Batches</span>
+      </button>
+      <button *ngIf="isAdminView" mat-menu-item (click)="componentInView = 'system-details'">
+        <mat-icon>settings</mat-icon>
+        <span>System</span>
+      </button>
+    </mat-menu>
+
+    <div *ngIf="componentInView === 'place-order'" fxFlex style="background-color: #81d4fa;"></div>
+    <div *ngIf="componentInView === 'order-history'" fxFlex style="background-color: #ef9a9a;"></div>
+    <div *ngIf="componentInView === 'account-info'" fxFlex style="background-color: khaki;"></div>
+
+  </div>
+
 </div>
