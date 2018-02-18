@@ -5,7 +5,6 @@ import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
 
 import { AddOn } from '../../../core/add-on';
 import { DeliveryLocation } from '../../../core/delivery-location';
@@ -14,7 +13,7 @@ import { isDefined } from '../../../core/is-defined';
 import { Order } from '../../../core/order';
 import { OrderOption } from '../../../core/order-option';
 import { UserInfo } from '../../../core/user-info';
-import { AccountService } from '../../../services/account/account.service';
+import { CacheService } from '../../../services/cache/cache.service';
 import { MessageService } from '../../../services/message/message.service';
 
 @Component({
@@ -55,12 +54,12 @@ export class PlaceOrderComponent {
   beverageControl: FormControl;
   filteredBeverages: Observable<OrderOption[]>;
 
-  constructor(private messageService: MessageService, private accountService: AccountService) {
+  constructor(private messageService: MessageService, private cache: CacheService) {
     // getting user/environment information to set up forms
-    this.messageService.getEnvironmentDetails()
+    this.cache.getEnvironmentDetails()
       .then((envDetails: EnvironmentDetails) => this.environmentDetails = envDetails)
       .catch(error => console.error(error));
-    this.userInfo = this.accountService.userInfo;
+    this.userInfo = this.cache.user;
     this.selectedDeliveryLocation = DeliveryLocation.copy(this.userInfo.defaultDeliveryLocation);
 
     // setting up all of the form filtering

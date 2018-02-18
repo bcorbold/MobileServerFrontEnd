@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatChipsModule, MatTooltipModule } from '@angular/material';
 
+import { CacheService } from '../../../services/cache/cache.service';
 import { MessageService } from '../../../services/message/message.service';
 import { SystemDetailsComponent } from './system-details.component';
 
@@ -24,6 +25,7 @@ export { SystemDetailsComponent } from './system-details.component';
     SystemDetailsComponent
   ],
   providers: [
+    CacheService,
     MessageService
   ]
 })

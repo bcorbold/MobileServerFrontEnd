@@ -4,7 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatChipsModule, MatIconModule, MatInputModule, MatTooltipModule } from '@angular/material';
 
-import { MessageModule, MessageService } from '../../../services/message/message.module';
+import { CacheService } from '../../../services/cache/cache.service';
+import { MessageService } from '../../../services/message/message.module';
 import { IncomingBatchesComponent } from './incoming-batches.component';
 
 export { IncomingBatchesComponent } from './incoming-batches.component';
@@ -24,10 +25,10 @@ export { IncomingBatchesComponent } from './incoming-batches.component';
     MatChipsModule,
     MatIconModule,
     MatInputModule,
-    MatTooltipModule,
-    MessageModule
+    MatTooltipModule
   ],
   providers: [
+    CacheService,
     MessageService
   ]
 })

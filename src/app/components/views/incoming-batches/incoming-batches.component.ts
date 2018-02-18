@@ -8,6 +8,7 @@ import { EnvironmentDetails } from '../../../core/environment-details';
 import { isDefined } from '../../../core/is-defined';
 import { Order } from '../../../core/order';
 import { RobotInfo } from '../../../core/robot-info';
+import { CacheService } from '../../../services/cache/cache.service';
 import { MessageService } from '../../../services/message/message.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class IncomingBatchesComponent implements OnDestroy {
   incomingBatchSubscription: Subscription;
   configuredRobots: RobotInfo[];
 
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService, private cache: CacheService) {
     this.incomingBatchSubscription = this.messageService.getIncomingBatches().subscribe(
       (batches: Batch[]) => {
         // this is needed so that bartender can keep track of finished drinks after an update
@@ -35,7 +36,7 @@ export class IncomingBatchesComponent implements OnDestroy {
       },
       error => console.error(error) // todo: do something?
     );
-    this.messageService.getEnvironmentDetails().then((envDetails: EnvironmentDetails) => {
+    this.cache.getEnvironmentDetails().then((envDetails: EnvironmentDetails) => {
       this.configuredRobots = envDetails.configuredRobots;
     });
   }

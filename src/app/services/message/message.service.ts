@@ -31,8 +31,6 @@ export class MessageService implements OnDestroy {
   private static DELAYED = 'Delayed';
 
   private sessionKey: string;
-  private user: UserInfo;
-  private environmentDetails: EnvironmentDetails;
 
   private orderUpdatesTimer: Observable<number>;
   private orderUpdatesSubscription: Subscription;
@@ -45,9 +43,16 @@ export class MessageService implements OnDestroy {
   private batchUpdatesSubject: Subject<Batch[]>;
   private batchUpdatesCache: Batch[] = [];
 
+
+
+  // methods after cache update
+  private user: UserInfo; // todo: would be nice to get rid of this, don't think it's possible
+  userUpdates: Subject<UserInfo> = new Subject<UserInfo>();
+
   constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {}
 
-  private fetchEnvironmentDetails(): Promise<EnvironmentDetails> {
+  // todo: checked
+  getEnvironmentDetails(): Promise<EnvironmentDetails> {
     return new Promise<any>((resolve, reject) => {
       const body = {
         username: this.user.username,
@@ -58,6 +63,59 @@ export class MessageService implements OnDestroy {
         .subscribe((response: EnvironmentDetails) => resolve(response), error => reject(error));
     });
   }
+
+  login(username: string, password: string): Promise<UserInfo> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.config.backendUrl + 'login', {username: username, password: password})
+        .subscribe(
+          (response: {sessionKey: string, userInfo: UserInfo}) => {
+            this.sessionKey = response.sessionKey;
+            this.user = response.userInfo;
+            this.userUpdates.next(this.user);
+            resolve();
+          },
+          error => reject('Invalid username or password') // todo: can do a better job of handling this
+        );
+    });
+  }
+
+  logout(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const body = {username: this.user.username, sessionKey: this.sessionKey};
+      this.http.post(this.config.backendUrl + 'logout', body)
+        .subscribe(
+          () => {
+            this.sessionKey = undefined;
+            this.user = undefined;
+            this.userUpdates.next(undefined);
+            resolve();
+          },
+          error => reject(error)
+        );
+    });
+  }
+
+  updateAccountInfo(user: UserInfo): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const body = {
+        username: user.username,
+        sessionKey: this.sessionKey,
+        userInfo: user
+      };
+      this.http.post(this.config.backendUrl + 'updateAccountInfo', body)
+        .subscribe(
+          () => {
+            this.user = user;
+            this.userUpdates.next(this.user);
+            resolve();
+          },
+          error => reject(error));
+    });
+  }
+
+
+
+
 
   private handleGetOrderUpdates(): void {
     // this is when the timer has triggered, need to fetch orders from the monitored Orders
@@ -104,55 +162,7 @@ export class MessageService implements OnDestroy {
         error => console.error(error));
   }
 
-  getEnvironmentDetails(): Promise<EnvironmentDetails> {
-    if (isDefined(this.environmentDetails)) {
-      return new Promise<EnvironmentDetails>(resolve => resolve(this.environmentDetails));
-    } else {
-      return this.fetchEnvironmentDetails();
-    }
-  }
 
-  login(username: string, password: string): Promise<UserInfo> {
-    return new Promise((resolve, reject) => {
-      this.http.post(this.config.backendUrl + 'login', {username: username, password: password})
-        .subscribe(
-          (response: {sessionKey: string, userInfo: UserInfo}) => {
-                  this.sessionKey = response.sessionKey;
-                  this.user = response.userInfo;
-                  resolve(response.userInfo);
-                },
-          error => reject(error)
-        );
-    });
-  }
-
-  logout(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      const body = {username: this.user.username, sessionKey: this.sessionKey};
-      this.http.post(this.config.backendUrl + 'logout', body)
-        .subscribe(
-          () => {
-            this.sessionKey = undefined;
-            this.user = undefined;
-            this.environmentDetails = undefined;
-            resolve();
-          },
-          error => reject(error)
-        );
-    });
-  }
-
-  updateAccountInfo(user: UserInfo): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      const body = {
-        username: user.username,
-        sessionKey: this.sessionKey,
-        userInfo: user
-      };
-      this.http.post(this.config.backendUrl + 'updateAccountInfo', body)
-        .subscribe(() => resolve(), error => reject(error));
-    });
-  }
 
   getIncomingBatches(): Subject<Batch[]> {
     if (!isDefined(this.batchUpdatesSubject)) {

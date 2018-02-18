@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 import { Order } from '../../../core/order';
 import { UserInfo } from '../../../core/user-info';
-import { AccountService } from '../../../services/account/account.service';
+import { CacheService } from '../../../services/cache/cache.service';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'ms-home',
@@ -12,7 +13,7 @@ import { AccountService } from '../../../services/account/account.service';
 export class HomeComponent {
   private _isAdminView: boolean;
 
-  userInfo: UserInfo;
+  // userInfo: UserInfo;
   pastOrder: Order;
   componentInView: string;
 
@@ -23,16 +24,14 @@ export class HomeComponent {
     this._isAdminView = isAdminView;
   }
 
-  constructor(private accountService: AccountService) {
-    this.userInfo = this.accountService.userInfo;
-    this.isAdminView = this.userInfo.defaultView === 'bartender';
+  constructor(private messageService: MessageService, private cache: CacheService) {
+    // this.userInfo = this.cache.user; // todo: this should be moved to the cache
+    this.isAdminView = this.cache.user.defaultView === 'bartender';
     this.componentInView = this.isAdminView ? 'Incoming Batches' : 'Place Order';
   }
 
   handleUserInfoChange(updatedUserInfo: UserInfo): void {
-    this.accountService.updateAccountInfo(updatedUserInfo)
-      .then(() => this.userInfo = updatedUserInfo)
-      .catch((error) => console.error(error));
+    this.messageService.updateAccountInfo(updatedUserInfo);
   }
 
   populatePlaceOrder(pastOrder: Order): void {

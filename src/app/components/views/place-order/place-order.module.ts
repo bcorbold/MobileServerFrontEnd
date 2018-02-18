@@ -12,7 +12,7 @@ import {
   MatSelectModule
 } from '@angular/material';
 
-import { AccountService } from '../../../services/account/account.service';
+import { CacheService } from '../../../services/cache/cache.service';
 import { MessageService } from '../../../services/message/message.service';
 import { PlaceOrderComponent } from './place-order.component';
 
@@ -39,7 +39,7 @@ export { PlaceOrderComponent } from './place-order.component';
     PlaceOrderComponent
   ],
   providers: [
-    AccountService,
+    CacheService,
     MessageService
   ]
 })

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { EnvironmentDetails } from '../../../core/environment-details';
 import { RobotInfo } from '../../../core/robot-info';
 import { RobotStatus } from '../../../core/robot-status';
+import { CacheService } from '../../../services/cache/cache.service';
 import { MessageService } from '../../../services/message/message.service';
 
 @Component({
@@ -27,8 +28,8 @@ export class SystemDetailsComponent {
   configuredRobots: RobotInfo[];
   onlineRobots: number;
 
-  constructor(private messageService: MessageService) {
-    this.messageService.getEnvironmentDetails().then((environmentDetails: EnvironmentDetails) => {
+  constructor(private messageService: MessageService, private cache: CacheService) {
+    this.cache.getEnvironmentDetails().then((environmentDetails: EnvironmentDetails) => {
       this.configuredRobots = environmentDetails.configuredRobots;
     });
     this.messageService.getRobotStatusUpdates()

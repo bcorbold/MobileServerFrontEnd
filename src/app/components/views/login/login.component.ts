@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AccountService } from '../../../services/account/account.service';
+import { CacheService } from '../../../services/cache/cache.service';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'ms-login',
@@ -15,7 +16,7 @@ export class LoginComponent {
   loginMessage: string;
   isLoading = false;
 
-  constructor(private router: Router, private accountService: AccountService) {
+  constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {
     // todo: remove this
     this.username = 'bcorbold';
     this.password = '4tb6';
@@ -24,16 +25,16 @@ export class LoginComponent {
   attemptLogin(): void {
     this.loginMessage = '';
     this.isLoading = true;
-    this.accountService.attemptLogin(this.username, this.password)
+    this.messageService.login(this.username, this.password)
       .then(() => {
         this.isLoading = false;
-        if (this.accountService.userInfo.adminEnabled) {
+        if (this.cache.user.adminEnabled) {
           this.router.navigate(['admin']);
         } else {
           this.router.navigate(['user']);
         }
       })
-      .catch(() => {
+      .catch((error) => {
         this.isLoading = false;
         if (this.username === 'anakin' && this.password === 'skywalker') {
           console.log('          ___________________________\n' +
@@ -42,7 +43,7 @@ export class LoginComponent {
             '---/||\\   ---------------------------\n' +
             '    /\\');
         }
-        this.loginMessage = 'Invalid username or password';
+        this.loginMessage = error;
       });
   }
 }
