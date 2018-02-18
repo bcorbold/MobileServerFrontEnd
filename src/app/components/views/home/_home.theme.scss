@@ -4,11 +4,15 @@
 
   $primary: map-get($theme, primary);
 
-  .ms-divider {
-    background-color: mat-color($primary, 800);
+  .ms-home-wrapper {
+    color: white;
 
-    div {
-      background-color: mat-color($primary, 900);
+    .ms-divider {
+      background-color: mat-color($primary, 800);
+
+      div {
+        background-color: mat-color($primary, 900);
+      }
     }
   }
 }

@@ -5,6 +5,7 @@
   $primary: map-get($theme, primary);
 
   .ms-account-info-wrapper {
+    background-color: mat-color($primary, 800);
     color: white;
   }
 }

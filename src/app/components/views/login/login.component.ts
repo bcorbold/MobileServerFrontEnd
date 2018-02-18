@@ -15,7 +15,11 @@ export class LoginComponent {
   loginMessage: string;
   isLoading = false;
 
-  constructor(private router: Router, private accountService: AccountService) {}
+  constructor(private router: Router, private accountService: AccountService) {
+    // todo: remove this
+    this.username = 'bcorbold';
+    this.password = '4tb6';
+  }
 
   attemptLogin(): void {
     this.loginMessage = '';

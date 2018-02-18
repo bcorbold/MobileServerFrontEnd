@@ -26,7 +26,7 @@ export class HomeComponent {
   constructor(private accountService: AccountService) {
     this.userInfo = this.accountService.userInfo;
     this.isAdminView = this.userInfo.defaultView === 'bartender';
-    this.componentInView = this.isAdminView ? 'incoming-batches' : 'place-order';
+    this.componentInView = this.isAdminView ? 'Incoming Batches' : 'Place Order';
   }
 
   handleUserInfoChange(updatedUserInfo: UserInfo): void {
