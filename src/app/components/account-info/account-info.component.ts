@@ -32,7 +32,7 @@ export class AccountInfoComponent implements OnInit {
   constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {
     this.environmentDetails = new EnvironmentDetails();
     this.cache.getEnvironmentDetails().then((envDetails) => this.environmentDetails = envDetails);
-    this.user = this.cache.user; // todo: check for aliasing
+    this.user = this.cache.user;
   }
 
   ngOnInit(): void {
@@ -45,9 +45,7 @@ export class AccountInfoComponent implements OnInit {
   }
 
   logout(): void {
-    this.messageService.logout()
-      .then(() => this.router.navigate(['/']))
-      .catch(error => console.error(error)); //  todo: how do we want to handle this...
+    this.messageService.logout().then(() => this.router.navigate(['/']));
   }
 
   resetAccountInfo(): void {

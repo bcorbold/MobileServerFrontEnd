@@ -25,6 +25,15 @@ export class LoginComponent {
   attemptLogin(): void {
     this.loginMessage = '';
     this.isLoading = true;
+
+    if (this.username === 'anakin' && this.password === 'skywalker') {
+      console.log('          ___________________________\n' +
+        '         / It\'s over Anakin!        |\n' +
+        '    ()   \\ I have the high ground!  |\n' +
+        '---/||\\   ---------------------------\n' +
+        '    /\\');
+    }
+
     this.messageService.login(this.username, this.password)
       .then(() => {
         this.isLoading = false;
@@ -36,13 +45,6 @@ export class LoginComponent {
       })
       .catch((error) => {
         this.isLoading = false;
-        if (this.username === 'anakin' && this.password === 'skywalker') {
-          console.log('          ___________________________\n' +
-            '         / It\'s over Anakin!        |\n' +
-            '    ()   \\ I have the high ground!  |\n' +
-            '---/||\\   ---------------------------\n' +
-            '    /\\');
-        }
         this.loginMessage = error;
       });
   }

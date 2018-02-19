@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Component, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 
 import { Batch } from '../../core/batch';
 import { EnvironmentDetails } from '../../core/environment-details';

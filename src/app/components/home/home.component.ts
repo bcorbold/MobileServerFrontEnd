@@ -11,9 +11,9 @@ import { MessageService } from '../../services/message/message.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+
   private _isAdminView: boolean;
 
-  // userInfo: UserInfo;
   pastOrder: Order;
   componentInView: string;
 
@@ -25,7 +25,6 @@ export class HomeComponent {
   }
 
   constructor(private messageService: MessageService, private cache: CacheService) {
-    // this.userInfo = this.cache.user; // todo: this should be moved to the cache
     this.isAdminView = this.cache.user.defaultView === 'bartender';
     this.componentInView = this.isAdminView ? 'Incoming Batches' : 'Place Order';
   }

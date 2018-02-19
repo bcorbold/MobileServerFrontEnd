@@ -11,9 +11,9 @@ import { Batch } from '../../core/batch';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
 import { Order } from '../../core/order';
+import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
 import { MessageService } from '../message/message.service';
-import { SystemDetails } from '../../core/system-details';
 
 @Injectable()
 export class CacheService implements OnDestroy {
@@ -202,7 +202,7 @@ export class CacheService implements OnDestroy {
 
   }
 
-  // todo: should have a think about if there will be 2 components that need this and how that will be handled
+  // todo: should have a think about if there will be 2 components that need these and how that will be handled
   unsubscribeFromBatchUpdates(): void {
     if (isDefined(this.batchUpdatesSubscription)) {
       this.batchUpdatesSubscription.unsubscribe();
@@ -217,7 +217,6 @@ export class CacheService implements OnDestroy {
     }
   }
 
-  // todo: should have a think about if there will be 2 components that need this and how that will be handled
   unsubscribeFromOrderHistoryUpdates(): void {
     if (isDefined(this.orderUpdatesSubscription)) {
       this.orderUpdatesSubscription.unsubscribe();
@@ -232,26 +231,26 @@ export class CacheService implements OnDestroy {
     }
   }
 
+  unsubscribeFromSystemDetailsUpdates(): void {
+    if (isDefined(this.systemDetailsSubscription)) {
+      this.systemDetailsSubscription.unsubscribe();
+      this.systemDetailsSubscription = undefined;
+    }
+    if (isDefined(this.systemDetailsTimer)) {
+      this.systemDetailsTimer = undefined;
+    }
+    if (isDefined(this.systemDetailsSubject)) {
+      this.systemDetailsSubject.complete();
+      this.systemDetailsSubject = undefined;
+    }
+  }
+
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
     this.userSubscription = undefined;
-
-    if (isDefined(this.batchUpdatesSubscription)) {
-      this.batchUpdatesSubscription.unsubscribe();
-      this.batchUpdatesSubscription = undefined;
-    }
-    if (isDefined(this.batchUpdatesSubject)) {
-      this.batchUpdatesSubject.complete();
-      this.batchUpdatesSubject = undefined;
-    }
-    if (isDefined(this.orderUpdatesSubscription)) {
-      this.orderUpdatesSubscription.unsubscribe();
-      this.orderUpdatesSubscription = undefined;
-    }
-    if (isDefined(this.orderHistorySubject)) {
-      this.orderHistorySubject.complete();
-      this.orderHistorySubject = undefined;
-    }
+    this.unsubscribeFromBatchUpdates();
+    this.unsubscribeFromOrderHistoryUpdates();
+    this.unsubscribeFromSystemDetailsUpdates();
   }
 
 }

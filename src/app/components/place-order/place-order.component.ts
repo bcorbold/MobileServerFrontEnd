@@ -136,13 +136,12 @@ export class PlaceOrderComponent {
 
   placeOrder(): void {
     // todo: need to add validation to the form
-    this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation)
-      .then(response => console.log('Order has been placed')) // todo: Should give the user some sort of feedback on the responses
-      .catch(error => console.error(error));
+    // todo: Should give the user some sort of feedback on the responses
+    // todo: should just pass in an OrderInfo object
+    this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation);
   }
 
   resetOrder(): void {
-    // this.selectedDeliveryLocation = DeliveryLocation.copy(this.userInfo.defaultDeliveryLocation);
     this.selectedBeverage = undefined;
     this.selectedAddOns = [];
     this.potentialAddOn = undefined;

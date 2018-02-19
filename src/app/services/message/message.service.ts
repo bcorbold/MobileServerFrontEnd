@@ -1,6 +1,3 @@
-// this is required since "Observable" doesn't include interval on import
-// import 'rxjs/add/observable/interval';
-
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
@@ -12,17 +9,15 @@ import { EnvironmentDetails } from '../../core/environment-details';
 import { Order } from '../../core/order';
 import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
-import { RobotStatus } from '../../core/robot-status';
-import { UserInfo } from '../../core/user-info';
 import { SystemDetails } from '../../core/system-details';
+import { UserInfo } from '../../core/user-info';
 
 @Injectable()
 export class MessageService {
 
   private sessionKey: string;
-
-  // methods after cache update
   private user: UserInfo; // todo: would be nice to get rid of this, don't think it's possible
+
   userUpdates: Subject<UserInfo> = new Subject<UserInfo>();
   orderPlacedUpdate: Subject<Order> = new Subject<Order>();
 

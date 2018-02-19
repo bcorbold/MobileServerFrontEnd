@@ -6,9 +6,6 @@ import { CacheService } from './cache.service';
 export { CacheService } from './cache.service';
 
 @NgModule({
-  imports: [
-    // MessageModule
-  ],
   providers: [
     MessageService
   ]
