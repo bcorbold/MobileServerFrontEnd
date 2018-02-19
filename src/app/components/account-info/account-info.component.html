@@ -1,7 +1,7 @@
-<div fxLayout="column" class="ms-account-info-wrapper" fxLayoutAlign="center stretch">
-  <mat-slide-toggle *ngIf="user.adminEnabled" fxFlexAlign="end" [(ngModel)]="isAdminView">Bartender view</mat-slide-toggle>
+<div fxLayout="column" class="ms-account-info-wrapper" ngClass.gt-sm="ms-desktop-account" ngClass.lt-md="ms-mobile-account" fxLayoutAlign="center stretch">
+  <mat-slide-toggle *ngIf="user.adminEnabled" fxShow fxHide.lt-md fxFlexAlign="end" [(ngModel)]="isAdminView">Bartender view</mat-slide-toggle>
 
-  <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+  <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.lt-md>
     <div class="picture-placeholder"></div>
 
     <div fxFlex fxLayout="column" class="ms-account-info-container">
@@ -37,6 +37,37 @@
         <button mat-button (click)="updateAccountInfo()" color="accent">Submit</button>
         <button mat-button color="warn" (click)="resetAccountInfo()">Reset</button>
       </div>
+    </div>
+  </div>
+
+  <div fxFlex fxHide fxShow.lt-md fxLayout="column" fxLayoutAlign="start center" style="padding: 0 0.5em;">
+    <div class="picture-placeholder"></div>
+    <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
+    <p class="light-text">{{user.username}}</p>
+    <mat-form-field color="accent">
+      <mat-select [(value)]="user.defaultDeliveryLocation.id" placeholder="Default delivery location">
+        <div *ngFor="let location of environmentDetails.deliveryLocations">
+          <mat-option [value]="location.id">{{location.name}}</mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field color="accent">
+      <mat-select [(value)]="user.locale" placeholder="Locale">
+        <div *ngFor="let locale of environmentDetails.locales">
+          <mat-option [value]="locale">{{locale}}</mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field color="accent">
+      <mat-select [(value)]="user.defaultView" placeholder="Default view" [disabled]="!user.adminEnabled">
+        <div *ngFor="let view of environmentDetails.uiViews">
+          <mat-option [value]="view">{{view}}</mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+    <div style="width: 100%;" fxLayoutGap="0.5em">
+      <button fxFlex mat-raised-button (click)="updateAccountInfo()" color="accent">Submit</button>
+      <button fxFlex mat-raised-button color="warn" (click)="resetAccountInfo()">Reset</button>
     </div>
   </div>
 

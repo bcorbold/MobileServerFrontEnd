@@ -16,6 +16,7 @@
     </div>
   </div>
 
+  <!-- todo: have to sort out difference for sm layout (landscape) and xs layout (portrait) -->
   <!-- mobile layout -->
   <div fxHide fxShow.lt-md fxFlex fxLayout="column" fxLayoutAlign="center stretch">
 
@@ -50,7 +51,7 @@
 
     <div *ngIf="componentInView === 'Place Order'" fxFlex style="background-color: #81d4fa;"></div>
     <ms-order-history *ngIf="componentInView === 'Order History'" (reorder)="populatePlaceOrder($event)" fxFlex></ms-order-history>
-    <div *ngIf="componentInView === 'Account Info'" fxFlex style="background-color: khaki;"></div>
+    <ms-account-info [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)" *ngIf="componentInView === 'Account Info'" fxFlex></ms-account-info>
     <ms-incoming-batches fxFlex *ngIf="adminEnabled && componentInView === 'Incoming Batches'"></ms-incoming-batches>
     <div *ngIf="adminEnabled && componentInView === 'System Details'" fxFlex style="background-color: #9ccc65;"></div>
 

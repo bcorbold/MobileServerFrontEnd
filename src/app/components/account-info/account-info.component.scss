@@ -1,9 +1,27 @@
-.ms-account-info-wrapper {
+.ms-desktop-account {
   padding: 1em 2em;
+}
+
+.ms-mobile-account {
+
+  .picture-placeholder {
+    margin-top: 2em;
+  }
+
+  .ms-header {
+    letter-spacing: 0.04em;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.ms-account-info-wrapper {
   width: 100%;
   height: 100%;
 
-  // todo: replace with actual picture for demo
+  // todo: replace with actual picture
   .picture-placeholder {
     $picture-size: 12em;
     width: $picture-size;

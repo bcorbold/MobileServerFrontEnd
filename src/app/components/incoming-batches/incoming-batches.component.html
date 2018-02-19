@@ -11,6 +11,7 @@
                               'order-sent': batch.state === 'Delivering',
                               'order-ready': order.ready && batch.state !== 'Delivering',
                               'order-not-ready': !order.ready  && batch.state !== 'Delivering' }">
+              <!-- todo: state indicator doesn't fill the height when only one row-->
               <div class="state-indicator" matTooltip="{{batch.state}}" matTooltipPosition="after"></div>
               <div class="order-row" fxLayout="row" fxLayoutAlign="start center">
                 <div fxLayout="column">
