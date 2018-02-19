@@ -11,7 +11,7 @@
     margin-bottom: 0.5em;
   }
 
-  .batch-container {
+  .desktop-batch-container {
     margin-bottom: 0.5em;
 
     .order-container {
@@ -42,6 +42,21 @@
 
     button {
       line-height: 1.5em;
+    }
+  }
+
+  .mobile-batch-container {
+    margin-bottom: 0.5em;
+
+    .state-indicator {
+      width: 0.5em !important;
+    }
+
+    /deep/
+    mat-chip {
+      padding: 0.2em 0.5em !important;
+      font-weight: 300 !important;
+      margin: 0.2em;
     }
   }
 

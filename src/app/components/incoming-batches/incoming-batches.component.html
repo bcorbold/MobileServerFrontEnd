@@ -3,8 +3,7 @@
 
   <div fxFlex style="overflow: auto">
     <div *ngFor="let batch of batches" fxLayout="column">
-      <div class="batch-container" fxLayout="row" fxLayoutAlign="start space-between">
-
+      <div class="desktop-batch-container" fxShow fxHide.lt-md fxLayout="row" fxLayoutAlign="start space-between">
         <div fxFlex fxLayout="column">
           <div *ngFor="let order of batch.orders">
             <div class="order-container" fxLayoutAlign="start stretch" fxLayoutGap="1em" (click)="updateOrderStatus(order, batch)"
@@ -18,7 +17,7 @@
                   <p style="margin-right: 0.5em;">{{order.orderInfo.orderOption.name}}</p>
                   <mat-chip-list style="margin-right: 0.5em;">
                     <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
-                      <mat-chip>{{addOn.key}}, {{addOn.value}}</mat-chip>
+                      <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
                     </div>
                   </mat-chip-list>
                 </div>
@@ -36,6 +35,37 @@
           <p><i>{{batch.assignedRobot.name}}</i></p>
           <p>is enroute</p>
         </div>
+      </div>
+
+      <div class="mobile-batch-container" fxHide fxShow.lt-md fxLayout="column" fxLayoutAlign="start stretch">
+        <div *ngFor="let order of batch.orders">
+          <div fxLayout="row" fxLayoutAlign="start stretch" (click)="updateOrderStatus(order, batch)"
+               [ngClass]="{ 'pointer-row': batch.state !== 'Delivering',
+                              'order-sent': batch.state === 'Delivering',
+                              'order-ready': order.ready && batch.state !== 'Delivering',
+                              'order-not-ready': !order.ready  && batch.state !== 'Delivering' }">
+            <!-- todo: have a think about how to replace the tooltip for accessibility for mobile users -->
+            <div class="state-indicator" matTooltip="{{batch.state}}" matTooltipPosition="after"></div>
+            <div fxFlex fxLayout="column" fxLayoutAlign="start stretch" style="margin: 0.5em;">
+              <div fxLayout="row">
+                <p fxFlex="50" style="margin-right: 0.5em;">{{order.orderInfo.orderOption.name}}</p>
+                <div fxFlex="50">
+                  <span style="margin-right: 0.25em;">Delivering too:</span>
+                  <span class="light-text">{{order.deliveryLocation.name}}</span>
+                </div>
+              </div>
+              <div fxLayout="row">
+                <mat-chip-list fxFlex="50" style="margin-right: 0.5em;">
+                  <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
+                    <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
+                  </div>
+                </mat-chip-list>
+                <div fxFlex="50"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button *ngIf="batch.state !== 'Delivering' && batch.ready" mat-raised-button color="accent" (click)="sendBatch(batch)">Send with <i>{{batch.assignedRobot.name}}</i></button>
       </div>
     </div>
     <p *ngIf="batches.length === 0"><i>No batches available.</i></p>

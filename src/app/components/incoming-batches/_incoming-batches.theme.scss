@@ -9,38 +9,42 @@
   }
 
   .ms-mobile-batches {
-    //background-color: #9ccc65;
+    //background-color: mat-color($primary, 800);
   }
 
   .ms-incoming-batches-container {
     color: white;
 
-    .batch-container {
+    .desktop-batch-container {
       background-color: map-get($primary, 800);
+    }
 
-      .order-not-ready {
-        .state-indicator {
-          background-color: mat-color($mat-amber, 300);
-        }
-      }
+    .mobile-batch-container {
+      background-color: map-get($primary, 800);
+    }
 
-      .order-ready {
-        background-color: map-get($primary, 900);
-        .state-indicator {
-          background-color: mat-color($mat-light-green, 400);
-        }
+    .order-not-ready {
+      .state-indicator {
+        background-color: mat-color($mat-amber, 300);
       }
+    }
 
-      .order-sent {
-        background-color: map-get($primary, 900);
-        .state-indicator {
-          background-color: mat-color($mat-light-green, 400);
-        }
+    .order-ready {
+      background-color: map-get($primary, 900);
+      .state-indicator {
+        background-color: mat-color($mat-light-green, 400);
       }
+    }
 
-      .delivering-to {
-        background-color: map-get($primary, 900);
+    .order-sent {
+      background-color: map-get($primary, 900);
+      .state-indicator {
+        background-color: mat-color($mat-light-green, 400);
       }
+    }
+
+    .delivering-to {
+      background-color: map-get($primary, 900);
     }
   }
 }
