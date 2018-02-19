@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { isDefined } from '../../../core/is-defined';
 import { Order } from '../../../core/order';
 import { MessageService } from '../../../services/message/message.service';
+import { CacheService } from '../../../services/cache/cache.service';
 
 @Component({
   selector: 'ms-order-history',
@@ -16,8 +17,8 @@ export class OrderHistoryComponent implements OnDestroy {
   orderHistory: Order[] = [];
   orderHistorySubscription: Subscription;
 
-  constructor(private messageService: MessageService) {
-    this.orderHistorySubscription = this.messageService.getOrderHistory().subscribe(
+  constructor(private messageService: MessageService, private cache: CacheService) {
+    this.orderHistorySubscription = this.cache.getOrderHistory().subscribe(
       (orderHistory: Order[]) => this.orderHistory = orderHistory,
       error => console.error(error)
     );
@@ -27,7 +28,7 @@ export class OrderHistoryComponent implements OnDestroy {
     if (isDefined(this.orderHistorySubscription)) {
       this.orderHistorySubscription.unsubscribe();
       this.orderHistorySubscription = undefined;
-      this.messageService.unsubscribeFromOrderHistoryUpdates();
+      this.cache.unsubscribeFromOrderHistoryUpdates();
     }
   }
 
