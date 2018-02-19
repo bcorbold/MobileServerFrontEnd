@@ -25,6 +25,7 @@ export class CacheService implements OnDestroy {
 
   private environmentDetails: EnvironmentDetails;
 
+  // todo: running into issues with the cache when batches at empty, and then order is placed
   private batchUpdatesTimer: Observable<number>;
   private batchUpdatesSubscription: Subscription;
   private batchUpdatesSubject: Subject<Batch[]>;

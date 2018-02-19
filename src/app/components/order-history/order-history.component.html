@@ -1,57 +1,45 @@
-<div fxFill class="ms-order-history-wrapper" fxLayout="column">
-  <h1 class="ms-header">Order History</h1>
+<div fxFill class="ms-order-history-wrapper" ngClass.gt-sm="ms-desktop-history" ngClass.lt-md="ms-mobile-history" fxLayout="column">
+  <h1 class="ms-header" fxShow fxHide.lt-md>Order History</h1>
+
+  <!-- todo: add filters at the top to help search through history -->
 
   <div fxFlex class="ms-order-history-container" fxLayout="column">
     <div *ngFor="let order of orderHistory;">
       <div class="order-row" fxLayout="row" fxLayoutAlign="start stretch">
 
         <div class="state-color-bar" matTooltip="{{order.state}}" matTooltipPosition="after" [ngClass]="{waiting: order.state === 'Waiting' || order.state === 'Queued', delivering: order.state === 'Delivering', delivered: order.state === 'Delivered', delayed: order.state === 'Delayed'}"></div>
-        <div fxFlex class="row-info" fxLayout="row" fxLayoutAlign="start stretch">
-          <div fxFlex="30" fxLayout="column">
-            <p>{{order.orderInfo.orderOption.name}}</p>
-            <mat-chip-list>
+        <div fxFlex class="row-info" fxLayout="column" fxLayoutAlign="start stretch">
+          <div fxFlex="50">
+            <p fxFlex="50">{{order.orderInfo.orderOption.name}}</p>
+
+            <div fxFlex="50">
+              <span *ngIf="order.state !== 'Delivered'">Delivering to:</span>
+              <span *ngIf="order.state === 'Delivered'">Delivered to:</span>
+              <span class="light-text">{{order.deliveryLocation.name}}</span>
+            </div>
+
+          </div>
+          <div fxFlex="50">
+            <mat-chip-list fxFlex="50">
               <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
                 <mat-chip>{{addOn.key}}, {{addOn.value}}</mat-chip>
               </div>
             </mat-chip-list>
-          </div>
+            <div fxFlex="50" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              <span *ngIf="order.state !== 'Delivered'">Order ETA:</span>
+              <!-- todo: this needs to be formatted -->
+              <span *ngIf="order.state !== 'Delivered'" class="light-text">{{order.deliveryEta}}</span>
 
-          <div fxFlex *ngIf="order.state !== 'Delivered'" fxLayout="row">
-            <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-              <p>Delivering to:</p>
-              <p class="light-text">{{order.deliveryLocation.name}}</p>
-            </div>
-
-            <!-- todo: Once time estimates are finished add/test -->
-            <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-              <!--<p>Estimated time till arrival:</p>-->
-              <p class="light-text">
-                <!--<ms-date-time-formatter [date]="order.deliveryEta" [formatAsDate]="false" [timeTooEstimate]="true"></ms-date-time-formatter>-->
-              </p>
+              <span *ngIf="order.state === 'Delivered'">Ordered on:</span>
+              <!-- todo: this needs to be formatted -->
+              <span *ngIf="order.state === 'Delivered'" class="light-text">{{order.deliveredDate}}</span>
             </div>
           </div>
-
-          <div fxFlex *ngIf="order.state === 'Delivered'">
-            <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-              <!--<p>Ordered on:</p>-->
-              <p class="light-text">
-                <!--<ms-date-time-formatter [date]="order.orderDate"></ms-date-time-formatter>-->
-              </p>
-            </div>
-
-            <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
-              <!--<p>Delivered on:</p>-->
-              <p class="light-text">
-                <!-- todo: need to add this back in once BE sends back date -->
-                <!--<ms-date-time-formatter [date]="order.deliveredDate"></ms-date-time-formatter>-->
-              </p>
-            </div>
-          </div>
-
-          <button mat-button (click)="reorder.emit(order)" color="accent">Reorder</button>
         </div>
+        <!-- todo: hiding in mobile view for now -->
+        <button mat-raised-button (click)="reorder.emit(order)" color="accent" fxShow fxHide.lt-md>Reorder</button>
       </div>
     </div>
-    <div *ngIf="orderHistory.length === 0"><i>No past orders to be displayed... Try ordering something!</i></div>
+    <i *ngIf="orderHistory.length === 0">No past orders to be displayed... Try ordering something!</i>
   </div>
 </div>

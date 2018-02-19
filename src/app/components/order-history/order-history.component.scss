@@ -1,6 +1,21 @@
-.ms-order-history-wrapper {
+.ms-desktop-history {
   padding: 1em 2em;
 
+  .state-color-bar {
+    width: 1em;
+  }
+}
+
+.ms-mobile-history {
+
+  .state-color-bar {
+    width: 0.5em;
+  }
+}
+
+.ms-order-history-wrapper {
+
+  // todo: these should be moved to global styles for consistency
   .ms-header {
     margin-bottom: 0.5em;
   }
@@ -12,10 +27,6 @@
     .order-row {
       margin-bottom: 0.5em;
 
-      .state-color-bar {
-        width: 1em;
-      }
-
       .row-info {
         margin: 0.5em 1em;
       }
@@ -23,15 +34,10 @@
   }
 }
 
-
-// todo: maybe these can move to the global theme?
+// todo: figure out adding to global theme
 /deep/
 mat-chip {
   padding: 0.2em 0.5em !important;
   font-weight: 300 !important;
   margin: 0.2em;
-}
-
-.light-text {
-  font-weight: 300;
 }
