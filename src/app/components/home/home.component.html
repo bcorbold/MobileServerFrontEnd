@@ -1,0 +1,59 @@
+<div fxLayout="row" fxLayoutAlign="center stretch" fxFill class="ms-home-wrapper">
+
+  <div fxShow fxHide.lt-md fxFlex>
+    <ms-order-history fxFlex *ngIf="!isAdminView" (reorder)="populatePlaceOrder($event)"></ms-order-history>
+    <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
+    <div fxFlex fxLayout="column">
+      <ms-account-info fxFlex [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)"></ms-account-info>
+
+      <div class="ms-divider">
+        <div fxFlex></div>
+      </div>
+
+      <ms-place-order fxFlex *ngIf="!isAdminView" [pastOrder]="pastOrder"></ms-place-order>
+      <ms-system-details fxFlex *ngIf="isAdminView"></ms-system-details>
+    </div>
+  </div>
+
+  <div fxHide fxShow.lt-md fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <p style="font-size: 2em;">{{componentInView}}</p>
+    </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="componentInView = 'Place Order'">
+        <mat-icon>add_shopping_cart</mat-icon>
+        <span>Place Order</span>
+      </button>
+      <button mat-menu-item (click)="componentInView = 'Order History'">
+        <mat-icon>history</mat-icon>
+        <span>Order History</span>
+      </button>
+      <button mat-menu-item (click)="componentInView = 'Account Info'">
+        <mat-icon>account_circle</mat-icon>
+        <span>Account</span>
+      </button>
+      <button *ngIf="isAdminView" mat-menu-item (click)="componentInView = 'Incoming Batches'">
+        <mat-icon>receipt</mat-icon>
+        <span>Batches</span>
+      </button>
+      <button *ngIf="isAdminView" mat-menu-item (click)="componentInView = 'System Details'">
+        <mat-icon>settings</mat-icon>
+        <span>System</span>
+      </button>
+    </mat-menu>
+
+    <div *ngIf="componentInView === 'Place Order'" fxFlex style="background-color: #81d4fa;"></div>
+    <div *ngIf="componentInView === 'Order History'" fxFlex style="background-color: #ef9a9a;"></div>
+    <div *ngIf="componentInView === 'Account Info'" fxFlex style="background-color: khaki;"></div>
+    <!-- todo: this still needs to be sorted out -->
+    <ms-incoming-batches fxFlex *ngIf="isAdminView && componentInView === 'Incoming Batches'"></ms-incoming-batches>
+    <div *ngIf="componentInView === 'System Details'" fxFlex style="background-color: #9ccc65;"></div>
+
+
+  </div>
+
+</div>

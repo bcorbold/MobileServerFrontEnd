@@ -5,17 +5,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AccountInfoModule } from './components/views/account-info/account-info.module';
-import { HomeModule } from './components/views/home/home.module';
-import { IncomingBatchesModule } from './components/views/incoming-batches/incoming-batches.module';
-import { LoginModule } from './components/views/login/login.module';
-import { OrderHistoryModule } from './components/views/order-history/order-history.module';
-import { PlaceOrderModule } from './components/views/place-order/place-order.module';
+import { AccountInfoModule } from './components/account-info/account-info.module';
+import { HomeModule } from './components/home/home.module';
+import { IncomingBatchesModule } from './components/incoming-batches/incoming-batches.module';
+import { LoginModule } from './components/login/login.module';
+import { OrderHistoryModule } from './components/order-history/order-history.module';
+import { PlaceOrderModule } from './components/place-order/place-order.module';
 
 import { AppComponent } from './app.component';
 import { AppConfig } from './app.config';
-import { HomeComponent } from './components/views/home/home.component';
-import { LoginComponent } from './components/views/login/login.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
   { path: 'admin', component: HomeComponent },
