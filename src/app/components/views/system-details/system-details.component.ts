@@ -5,6 +5,7 @@ import { RobotInfo } from '../../../core/robot-info';
 import { RobotStatus } from '../../../core/robot-status';
 import { CacheService } from '../../../services/cache/cache.service';
 import { MessageService } from '../../../services/message/message.service';
+import { SystemDetails } from '../../../core/system-details';
 
 @Component({
   selector: 'ms-system-details',
@@ -13,28 +14,15 @@ import { MessageService } from '../../../services/message/message.service';
 })
 export class SystemDetailsComponent {
 
-  _robotStatuses: RobotStatus[];
-  get robotStatuses(): RobotStatus[] {
-    return this._robotStatuses;
-  }
-  set robotStatuses(robotStatuses: RobotStatus[]) {
-    this._robotStatuses = robotStatuses;
-    this.onlineRobots = 0;
-    this._robotStatuses.forEach(status => {
-      if (status.isConnected) { this.onlineRobots++; }
-    });
-  }
-
+  systemDetails: SystemDetails;
   configuredRobots: RobotInfo[];
-  onlineRobots: number;
 
   constructor(private messageService: MessageService, private cache: CacheService) {
     this.cache.getEnvironmentDetails().then((environmentDetails: EnvironmentDetails) => {
       this.configuredRobots = environmentDetails.configuredRobots;
     });
-    this.messageService.getRobotStatusUpdates()
-      .then(robotStatuses => this.robotStatuses = robotStatuses)
-      .catch(error => console.error(error)); // todo: should do something better than this
+
+    this.cache.getSystemDetails().subscribe((systemDetails: SystemDetails) => this.systemDetails = systemDetails);
   }
 
 }

@@ -1,26 +1,27 @@
-import { Injectable, OnDestroy } from '@angular/core';
 import * as _ from 'lodash';
 import 'rxjs/add/observable/interval';
+
+import { Injectable, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+
 import { Batch } from '../../core/batch';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
+import { Order } from '../../core/order';
 import { UserInfo } from '../../core/user-info';
 import { MessageService } from '../message/message.service';
-import { Order } from '../../core/order';
+import { SystemDetails } from '../../core/system-details';
 
 @Injectable()
 export class CacheService implements OnDestroy {
 
   private static BATCH_POLLING_RATE = 250;
   private static ORDER_POLLING_RATE = 250;
-  private static DELIVERED = 'Delivered';
-  private static WAITING = 'Waiting';
-  private static DELIVERING = 'Delivering';
-  private static DELAYED = 'Delayed';
+  private static SYSTEM_DETAILS_POLLING_RATE = 1000;
+  private static DELIVERED = 'Delivered'; // todo: move to a defined list
 
   private environmentDetails: EnvironmentDetails;
 
@@ -31,9 +32,14 @@ export class CacheService implements OnDestroy {
 
   private orderUpdatesTimer: Observable<number>;
   private orderUpdatesSubscription: Subscription;
+  private orderHistorySubject: Subject<Order[]>;
   private orderHistoryCache: Order[] = [];
   private ordersToMonitor: Order[] = [];
-  private orderHistorySubject: Subject<Order[]>;
+
+  private systemDetailsTimer: Observable<number>;
+  private systemDetailsSubscription: Subscription;
+  private systemDetailsSubject: Subject<SystemDetails>;
+  private systemDetailsCache: SystemDetails;
 
   user: UserInfo;
   userSubscription: Subscription;
@@ -58,102 +64,6 @@ export class CacheService implements OnDestroy {
       error => console.log(error),
       () => this.placedOrderSubscription.unsubscribe()
     );
-  }
-
-  getEnvironmentDetails(): Promise<EnvironmentDetails> {
-    if (isDefined(this.environmentDetails)) {
-      return new Promise<EnvironmentDetails>(resolve => resolve(this.environmentDetails));
-    } else {
-      return this.messageService.getEnvironmentDetails();
-    }
-  }
-
-  getIncomingBatches(): Subject<Batch[]> {
-    if (!isDefined(this.batchUpdatesSubject)) {
-      this.batchUpdatesSubject = new Subject<Batch[]>();
-      this.messageService.getIncomingBatches().then((batches: Batch[]) => {
-        this.batchUpdatesCache = batches;
-        this.batchUpdatesSubject.next(this.batchUpdatesCache);
-      });
-
-      this.batchUpdatesTimer = Observable.interval(CacheService.BATCH_POLLING_RATE);
-      this.batchUpdatesSubscription = this.batchUpdatesTimer.subscribe(() => {
-        this.messageService.getIncomingBatches().then((batches: Batch[]) => {
-          // todo: check if there is a change
-          let isCacheChanged = false;
-          if (batches.length !== this.batchUpdatesCache.length) {
-            isCacheChanged = true;
-          } else {
-            // state, batchEta
-            batches.forEach((batch: Batch) => {
-              const i = _.findIndex(this.batchUpdatesCache, (cachedBatch: Batch) => {
-                return cachedBatch.id === batch.id;
-              });
-              if (this.batchUpdatesCache[i].state !== batch.state || this.batchUpdatesCache[i].batchEta !== batch.batchEta) {
-                isCacheChanged = true;
-                return;
-              }
-            });
-          }
-
-          if (isCacheChanged) {
-            this.batchUpdatesCache = batches;
-            this.batchUpdatesSubject.next(this.batchUpdatesCache);
-          }
-        });
-      });
-
-      return this.batchUpdatesSubject;
-    } else {
-      setTimeout(() => this.batchUpdatesSubject.next(this.batchUpdatesCache));
-      return this.batchUpdatesSubject;
-    }
-  }
-
-  // todo: should have a think about if there will be 2 components that need this and how that will be handled
-  unsubscribeFromBatchUpdates(): void {
-    if (isDefined(this.batchUpdatesSubscription)) {
-      this.batchUpdatesSubscription.unsubscribe();
-      this.batchUpdatesSubscription = undefined;
-    }
-    if (isDefined(this.batchUpdatesTimer)) {
-      this.batchUpdatesTimer = undefined;
-    }
-    if (isDefined(this.batchUpdatesSubject)) {
-      this.batchUpdatesSubject.complete();
-      this.batchUpdatesSubject = undefined;
-    }
-  }
-
-  getOrderHistory(): Subject<Order[]> {
-    if (!isDefined(this.orderHistorySubject)) {
-      this.orderHistorySubject = new Subject<Order[]>();
-      this.ordersToMonitor = [];
-
-      this.messageService.getOrderHistory().then((orderHistory: Order[]) => {
-        this.orderHistoryCache = _.reverse(_.sortBy(orderHistory, 'orderDate'));
-
-        this.orderHistoryCache.forEach((order: Order) => {
-          if (order.state !== CacheService.DELIVERED) {
-            this.ordersToMonitor.push(order);
-          }
-        });
-        this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
-
-        if (this.ordersToMonitor.length !== 0 && !isDefined(this.orderUpdatesSubscription)) {
-          this.orderUpdatesSubscription = Observable.interval(CacheService.ORDER_POLLING_RATE)
-            .subscribe(() => this.handleGetOrderUpdates());
-        }
-
-        this.orderHistorySubject.next(this.orderHistoryCache);
-      });
-
-
-      return this.orderHistorySubject;
-    } else {
-      setTimeout(() => this.orderHistorySubject.next(this.orderHistoryCache));
-      return this.orderHistorySubject;
-    }
   }
 
   private handleGetOrderUpdates(): void {
@@ -193,6 +103,121 @@ export class CacheService implements OnDestroy {
     });
   }
 
+  getEnvironmentDetails(): Promise<EnvironmentDetails> {
+    if (isDefined(this.environmentDetails)) {
+      return new Promise<EnvironmentDetails>(resolve => resolve(this.environmentDetails));
+    } else {
+      return this.messageService.getEnvironmentDetails();
+    }
+  }
+
+  getIncomingBatches(): Subject<Batch[]> {
+    if (!isDefined(this.batchUpdatesSubject)) {
+      this.batchUpdatesSubject = new Subject<Batch[]>();
+      this.messageService.getIncomingBatches().then((batches: Batch[]) => {
+        this.batchUpdatesCache = batches;
+        this.batchUpdatesSubject.next(this.batchUpdatesCache);
+      });
+
+      this.batchUpdatesTimer = Observable.interval(CacheService.BATCH_POLLING_RATE);
+      this.batchUpdatesSubscription = this.batchUpdatesTimer.subscribe(() => {
+        this.messageService.getIncomingBatches().then((batches: Batch[]) => {
+          let isCacheChanged = false;
+          if (batches.length !== this.batchUpdatesCache.length) {
+            isCacheChanged = true;
+          } else {
+            batches.forEach((batch: Batch) => {
+              const i = _.findIndex(this.batchUpdatesCache, (cachedBatch: Batch) => {
+                return cachedBatch.id === batch.id;
+              });
+              if (this.batchUpdatesCache[i].state !== batch.state || this.batchUpdatesCache[i].batchEta !== batch.batchEta) {
+                isCacheChanged = true;
+                return;
+              }
+            });
+          }
+
+          if (isCacheChanged) {
+            this.batchUpdatesCache = batches;
+            this.batchUpdatesSubject.next(this.batchUpdatesCache);
+          }
+        });
+      });
+
+      return this.batchUpdatesSubject;
+    } else {
+      setTimeout(() => this.batchUpdatesSubject.next(this.batchUpdatesCache));
+      return this.batchUpdatesSubject;
+    }
+  }
+
+  getOrderHistory(): Subject<Order[]> {
+    if (!isDefined(this.orderHistorySubject)) {
+      this.orderHistorySubject = new Subject<Order[]>();
+      this.ordersToMonitor = [];
+
+      this.messageService.getOrderHistory().then((orderHistory: Order[]) => {
+        this.orderHistoryCache = _.reverse(_.sortBy(orderHistory, 'orderDate'));
+
+        this.orderHistoryCache.forEach((order: Order) => {
+          if (order.state !== CacheService.DELIVERED) {
+            this.ordersToMonitor.push(order);
+          }
+        });
+        this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
+
+        if (this.ordersToMonitor.length !== 0 && !isDefined(this.orderUpdatesSubscription)) {
+          this.orderUpdatesSubscription = Observable.interval(CacheService.ORDER_POLLING_RATE)
+            .subscribe(() => this.handleGetOrderUpdates());
+        }
+
+        this.orderHistorySubject.next(this.orderHistoryCache);
+      });
+
+      return this.orderHistorySubject;
+    } else {
+      setTimeout(() => this.orderHistorySubject.next(this.orderHistoryCache));
+      return this.orderHistorySubject;
+    }
+  }
+
+  getSystemDetails(): Subject<SystemDetails> {
+    if (!isDefined(this.systemDetailsCache)) {
+      this.systemDetailsSubject = new Subject<SystemDetails>();
+      this.messageService.getSystemDetails().then((systemDetails: SystemDetails) => this.systemDetailsCache = systemDetails);
+
+      this.systemDetailsTimer = Observable.interval(CacheService.SYSTEM_DETAILS_POLLING_RATE);
+      this.systemDetailsSubscription = this.systemDetailsTimer.subscribe(() => {
+        this.messageService.getSystemDetails().then((systemDetails: SystemDetails) => {
+          // todo: check to see if any updates have occurred, only emit if there is a change
+          this.systemDetailsCache = systemDetails;
+          this.systemDetailsSubject.next(this.systemDetailsCache);
+        });
+      });
+      return this.systemDetailsSubject;
+    } else {
+      setTimeout(() => this.systemDetailsSubject.next(this.systemDetailsCache));
+      return this.systemDetailsSubject;
+    }
+
+  }
+
+  // todo: should have a think about if there will be 2 components that need this and how that will be handled
+  unsubscribeFromBatchUpdates(): void {
+    if (isDefined(this.batchUpdatesSubscription)) {
+      this.batchUpdatesSubscription.unsubscribe();
+      this.batchUpdatesSubscription = undefined;
+    }
+    if (isDefined(this.batchUpdatesTimer)) {
+      this.batchUpdatesTimer = undefined;
+    }
+    if (isDefined(this.batchUpdatesSubject)) {
+      this.batchUpdatesSubject.complete();
+      this.batchUpdatesSubject = undefined;
+    }
+  }
+
+  // todo: should have a think about if there will be 2 components that need this and how that will be handled
   unsubscribeFromOrderHistoryUpdates(): void {
     if (isDefined(this.orderUpdatesSubscription)) {
       this.orderUpdatesSubscription.unsubscribe();

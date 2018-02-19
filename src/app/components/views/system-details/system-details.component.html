@@ -1,7 +1,7 @@
 <div class="ms-system-details">
   <h1 class="ms-header">Robot Details</h1>
 
-  <div *ngFor="let status of _robotStatuses" style="margin-bottom: 1em;">
+  <div *ngFor="let status of systemDetails?.robots" style="margin-bottom: 1em;">
     <div class="status-container" fxLayout="row" fxLayoutAlign="start stretch">
       <div class="state-indicator" matTooltip="{{!status.isConnected ? 'Offline' : status.robotError ? 'Error' : 'Online'}}"
            matTooltipPosition="after" [ngClass]="{'online': status.isConnected && !status.robotError, 'offline': !status.isConnected, 'error': status.robotError}"></div>

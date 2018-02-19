@@ -1,5 +1,5 @@
 // this is required since "Observable" doesn't include interval on import
-import 'rxjs/add/observable/interval';
+// import 'rxjs/add/observable/interval';
 
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
@@ -14,6 +14,7 @@ import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
 import { RobotStatus } from '../../core/robot-status';
 import { UserInfo } from '../../core/user-info';
+import { SystemDetails } from '../../core/system-details';
 
 @Injectable()
 export class MessageService {
@@ -155,19 +156,15 @@ export class MessageService {
     });
   }
 
-
-
-
-
-  getRobotStatusUpdates(): Promise<RobotStatus[]> {
-    return new Promise<RobotStatus[]>((resolve, reject) => {
+  getSystemDetails(): Promise<SystemDetails> {
+    return new Promise<SystemDetails>((resolve, reject) => {
       const body = {
         username: this.user.username,
         sessionKey: this.sessionKey
       };
 
-      this.http.post(this.config.backendUrl + 'getRobotStatusUpdates', body).subscribe(
-        (response: {robotStatuses: RobotStatus[]}) => resolve(response.robotStatuses),
+      this.http.post(this.config.backendUrl + 'getSystemDetails', body).subscribe(
+        (response: SystemDetails) => resolve(response),
         error => reject(error)
       );
     });

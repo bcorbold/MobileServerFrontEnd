@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { isDefined } from '../../../core/is-defined';
 import { Order } from '../../../core/order';
-import { MessageService } from '../../../services/message/message.service';
 import { CacheService } from '../../../services/cache/cache.service';
+import { MessageService } from '../../../services/message/message.service';
 
 @Component({
   selector: 'ms-order-history',
