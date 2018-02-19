@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { Order } from '../../../core/order';
-import { UserInfo } from '../../../core/user-info';
-import { CacheService } from '../../../services/cache/cache.service';
-import { MessageService } from '../../../services/message/message.service';
+import { Order } from '../../core/order';
+import { UserInfo } from '../../core/user-info';
+import { CacheService } from '../../services/cache/cache.service';
+import { MessageService } from '../../services/message/message.service';
 
 @Component({
   selector: 'ms-home',

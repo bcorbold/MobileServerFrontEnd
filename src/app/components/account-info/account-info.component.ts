@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { EnvironmentDetails } from '../../../core/environment-details';
-import { UserInfo } from '../../../core/user-info';
-import { CacheService } from '../../../services/cache/cache.service';
-import { MessageService } from '../../../services/message/message.service';
+import { EnvironmentDetails } from '../../core/environment-details';
+import { UserInfo } from '../../core/user-info';
+import { CacheService } from '../../services/cache/cache.service';
+import { MessageService } from '../../services/message/message.service';
 
 @Component({
   selector: 'ms-account-info',

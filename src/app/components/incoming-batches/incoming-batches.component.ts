@@ -3,13 +3,13 @@ import * as _ from 'lodash';
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Batch } from '../../../core/batch';
-import { EnvironmentDetails } from '../../../core/environment-details';
-import { isDefined } from '../../../core/is-defined';
-import { Order } from '../../../core/order';
-import { RobotInfo } from '../../../core/robot-info';
-import { CacheService } from '../../../services/cache/cache.service';
-import { MessageService } from '../../../services/message/message.service';
+import { Batch } from '../../core/batch';
+import { EnvironmentDetails } from '../../core/environment-details';
+import { isDefined } from '../../core/is-defined';
+import { Order } from '../../core/order';
+import { RobotInfo } from '../../core/robot-info';
+import { CacheService } from '../../services/cache/cache.service';
+import { MessageService } from '../../services/message/message.service';
 
 @Component({
   selector: 'ms-incoming-batches',

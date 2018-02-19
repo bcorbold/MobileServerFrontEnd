@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { isDefined } from '../../../core/is-defined';
+import { isDefined } from '../../core/is-defined';
 
 @Component({
   selector: 'ms-date-time-formatter',

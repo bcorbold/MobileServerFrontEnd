@@ -6,15 +6,15 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 
-import { AddOn } from '../../../core/add-on';
-import { DeliveryLocation } from '../../../core/delivery-location';
-import { EnvironmentDetails } from '../../../core/environment-details';
-import { isDefined } from '../../../core/is-defined';
-import { Order } from '../../../core/order';
-import { OrderOption } from '../../../core/order-option';
-import { UserInfo } from '../../../core/user-info';
-import { CacheService } from '../../../services/cache/cache.service';
-import { MessageService } from '../../../services/message/message.service';
+import { AddOn } from '../../core/add-on';
+import { DeliveryLocation } from '../../core/delivery-location';
+import { EnvironmentDetails } from '../../core/environment-details';
+import { isDefined } from '../../core/is-defined';
+import { Order } from '../../core/order';
+import { OrderOption } from '../../core/order-option';
+import { UserInfo } from '../../core/user-info';
+import { CacheService } from '../../services/cache/cache.service';
+import { MessageService } from '../../services/message/message.service';
 
 @Component({
   selector: 'ms-place-order',

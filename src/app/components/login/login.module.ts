@@ -6,8 +6,8 @@ import { MatButtonModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { CacheService } from '../../../services/cache/cache.service';
-import { MessageService } from '../../../services/message/message.service';
+import { CacheService } from '../../services/cache/cache.service';
+import { MessageService } from '../../services/message/message.service';
 import { LoginComponent } from './login.component';
 
 export { LoginComponent } from './login.component';

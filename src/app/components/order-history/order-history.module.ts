@@ -5,8 +5,8 @@ import { MatButtonModule, MatChipsModule, MatInputModule, MatSlideToggleModule }
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { MessageModule, MessageService } from '../../../services/message/message.module';
-import { DateTimeFormatterModule } from '../../core/date-time-formatter/date-time-formatter.module';
+import { MessageModule, MessageService } from '../../services/message/message.module';
+import { DateTimeFormatterModule } from '../date-time-formatter/date-time-formatter.module';
 import { OrderHistoryComponent } from './order-history.component';
 
 export { OrderHistoryComponent } from './order-history.component';

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-import { EnvironmentDetails } from '../../../core/environment-details';
-import { RobotInfo } from '../../../core/robot-info';
-import { RobotStatus } from '../../../core/robot-status';
-import { CacheService } from '../../../services/cache/cache.service';
-import { MessageService } from '../../../services/message/message.service';
-import { SystemDetails } from '../../../core/system-details';
+import { EnvironmentDetails } from '../../core/environment-details';
+import { RobotInfo } from '../../core/robot-info';
+import { RobotStatus } from '../../core/robot-status';
+import { CacheService } from '../../services/cache/cache.service';
+import { MessageService } from '../../services/message/message.service';
+import { SystemDetails } from '../../core/system-details';
 
 @Component({
   selector: 'ms-system-details',

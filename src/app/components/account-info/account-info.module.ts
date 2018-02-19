@@ -4,8 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
 
-import { CacheService } from '../../../services/cache/cache.service';
-import { MessageService } from '../../../services/message/message.service';
+import { CacheService } from '../../services/cache/cache.service';
+import { MessageService } from '../../services/message/message.service';
 import { AccountInfoComponent } from './account-info.component';
 
 export { AccountInfoComponent } from './account-info.component';
