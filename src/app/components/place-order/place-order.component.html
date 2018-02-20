@@ -1,7 +1,8 @@
-<div class="ms-place-order-wrapper" fxLayout="column">
-  <h1 class="ms-header">Place Order</h1>
+<div class="ms-place-order-wrapper" fxLayout="column" ngClass.gt-sm="ms-desktop-order" ngClass.lt-md="ms-mobile-order">
+  <h1 class="ms-header" fxShow fxHide.lt-md>Place Order</h1>
 
-  <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+  <!-- desktop layout -->
+  <div *msMediaIf="'gt-sm'" fxFlex fxLayout="column" fxLayoutAlign="start stretch">
     <div fxLayout="row" fxLayoutAlign="start stretch">
       <mat-form-field fxLayout="column" color="accent">
         <input matInput placeholder="Delivery location" aria-label="Delivery location" [matAutocomplete]="autoLocation" [formControl]="locationControl">
@@ -19,7 +20,6 @@
         <p class="drink-description">{{selectedBeverage?.description}}</p>
       </div>
     </div>
-
     <div fxLayout="row" fxLayoutAlign="start stretch">
       <div fxLayout="column">
         <div fxLayout="row" *ngIf="selectedBeverage?.addOns">
@@ -50,6 +50,52 @@
         </mat-chip-list>
       </div>
     </div>
+  </div>
+
+  <!-- mobile layout -->
+  <div *msMediaIf="'lt-md'" fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-form-field fxLayout="column" color="accent">
+      <input matInput placeholder="Delivery location" aria-label="Delivery location" [matAutocomplete]="autoLocation" [formControl]="locationControl">
+      <mat-autocomplete #autoLocation="matAutocomplete">
+        <mat-option *ngFor="let location of filteredLocations | async" [value]="location.name">{{location.name}}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field color="accent">
+      <input matInput placeholder="Beverage" aria-label="Beverage" [matAutocomplete]="autoBeverage" [formControl]="beverageControl">
+      <mat-autocomplete #autoBeverage="matAutocomplete">
+        <mat-option *ngFor="let drink of filteredBeverages | async" [value]="drink.name">{{drink.name}}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <p class="drink-description">{{selectedBeverage?.description}}</p>
+
+    <div fxLayout="row" *ngIf="selectedBeverage?.addOns">
+      <div fxLayout="column" style="width: 100%;">
+        <mat-form-field fxFlex color="accent">
+          <mat-select placeholder="Add-On" [(value)]="potentialAddOn">
+            <div *ngFor="let addOn of selectedBeverage.addOns">
+              <mat-option [value]="addOn">{{addOn.name}}</mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="potentialAddOn" style="width: 100%;">
+          <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="accent" style="width: 100%;">
+            <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" [(ngModel)]="potentialAddOnValue" min="1">
+          </mat-input-container>
+        </div>
+      </div>
+      <button mat-raised-button color="accent" (click)="addAddOnToSelectedList()">Add</button>
+    </div>
+
+    <mat-chip-list>
+      <div *ngFor="let addOnChip of selectedAddOns">
+        <mat-chip>
+          {{addOnChip.key}}{{addOnChip.value !== true && addOnChip.value !== false ? ', ' + addOnChip.value : ''}}
+          <mat-icon class="remove-chip" color="warn" (click)="removeAddOnChip(addOnChip)">clear</mat-icon>
+        </mat-chip>
+      </div>
+    </mat-chip-list>
   </div>
 
   <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="1em">

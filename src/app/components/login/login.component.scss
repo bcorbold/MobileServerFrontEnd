@@ -13,19 +13,19 @@
 }
 
 .ms-mobile-login {
-  $login-box-width: 20em;
+  padding: 0.5em;
 
   .ms-header {
-    font-size: 3em;
-    letter-spacing: 0.04em;
+    font-size: 3.5em;
+    letter-spacing: 0.05em;
   }
 
   .ms-login-container {
-    width: $login-box-width;
+    width: 100%;
   }
 
   .ms-login-message-wrapper {
-    width: $login-box-width;
+    width: 100%;
   }
 }
 
@@ -34,7 +34,7 @@
 
   .ms-header {
     font-size: 5em;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
   }
 
   .ms-login-container {

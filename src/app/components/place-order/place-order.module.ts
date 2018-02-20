@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
+import { MediaIfModule } from '../../directives/media-if.module';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
 import { PlaceOrderComponent } from './place-order.component';
@@ -28,6 +29,7 @@ export { PlaceOrderComponent } from './place-order.component';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MediaIfModule,
     ReactiveFormsModule
   ],
   declarations: [

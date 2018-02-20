@@ -1,5 +1,12 @@
-.ms-place-order-wrapper {
+.ms-desktop-order {
   padding: 1em 2em;
+}
+
+.ms-mobile-order {
+  padding: 0.5em;
+}
+
+.ms-place-order-wrapper {
   width: 100%;
   height: 100%;
 
@@ -13,6 +20,8 @@
     font-size: 0.8em;
   }
 
+  // todo: this isn't applying to the styles
+  /deep/
   mat-chip-list {
     padding: 0.2em 0.5em !important;
     font-weight: 300 !important;

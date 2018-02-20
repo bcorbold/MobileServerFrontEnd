@@ -19,7 +19,6 @@
   <!-- todo: have to sort out difference for sm layout (landscape) and xs layout (portrait) -->
   <!-- mobile layout -->
   <div *msMediaIf="'lt-md'" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-
     <div fxLayout="row" fxLayoutAlign="start center">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
@@ -49,7 +48,7 @@
       </button>
     </mat-menu>
 
-    <div *ngIf="componentInView === 'Place Order'" fxFlex style="background-color: #81d4fa;"></div>
+    <ms-place-order *ngIf="componentInView === 'Place Order'" [pastOrder]="pastOrder" fxFlex></ms-place-order>
     <ms-order-history *ngIf="componentInView === 'Order History'" (reorder)="populatePlaceOrder($event)" fxFlex></ms-order-history>
     <ms-account-info [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)" *ngIf="componentInView === 'Account Info'" fxFlex></ms-account-info>
     <ms-incoming-batches fxFlex *ngIf="adminEnabled && componentInView === 'Incoming Batches'"></ms-incoming-batches>
