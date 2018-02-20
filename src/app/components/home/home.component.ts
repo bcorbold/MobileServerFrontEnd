@@ -28,7 +28,7 @@ export class HomeComponent {
   constructor(private messageService: MessageService, private cache: CacheService) {
     this.isAdminView = this.cache.user.defaultView === 'bartender';
     this.adminEnabled = this.cache.user.adminEnabled;
-    this.componentInView = 'Place Order'; // todo: this is just for easy loading, replace with below line for release
+    this.componentInView = 'System Details'; // todo: this is just for easy loading, replace with below line for release
     // this.componentInView = this.isAdminView ? 'Incoming Batches' : 'Place Order';
   }
 

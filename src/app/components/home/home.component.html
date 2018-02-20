@@ -52,7 +52,7 @@
     <ms-order-history *ngIf="componentInView === 'Order History'" (reorder)="populatePlaceOrder($event)" fxFlex></ms-order-history>
     <ms-account-info [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)" *ngIf="componentInView === 'Account Info'" fxFlex></ms-account-info>
     <ms-incoming-batches fxFlex *ngIf="adminEnabled && componentInView === 'Incoming Batches'"></ms-incoming-batches>
-    <div *ngIf="adminEnabled && componentInView === 'System Details'" fxFlex style="background-color: #9ccc65;"></div>
+    <ms-system-details *ngIf="adminEnabled && componentInView === 'System Details'" fxFlex></ms-system-details>
 
 
   </div>

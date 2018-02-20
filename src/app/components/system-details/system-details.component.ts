@@ -8,7 +8,6 @@ import { SystemDetails } from '../../core/system-details';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
 
-
 @Component({
   selector: 'ms-system-details',
   templateUrl: './system-details.component.html',

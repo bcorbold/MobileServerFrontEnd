@@ -183,7 +183,7 @@ export class CacheService implements OnDestroy {
   }
 
   getSystemDetails(): Subject<SystemDetails> {
-    if (!isDefined(this.systemDetailsCache)) {
+    if (!isDefined(this.systemDetailsSubscription)) {
       this.systemDetailsSubject = new Subject<SystemDetails>();
       this.messageService.getSystemDetails().then((systemDetails: SystemDetails) => this.systemDetailsCache = systemDetails);
 
