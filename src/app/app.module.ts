@@ -13,7 +13,6 @@ import { OrderHistoryModule } from './components/order-history/order-history.mod
 import { PlaceOrderModule } from './components/place-order/place-order.module';
 
 import { AppComponent } from './app.component';
-import { AppConfig } from './app.config';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 
@@ -45,9 +44,6 @@ const appRoutes: Routes = [
     LoginModule,
     OrderHistoryModule,
     PlaceOrderModule
-  ],
-  providers: [
-    AppConfig
   ]
 })
 export class AppModule { }

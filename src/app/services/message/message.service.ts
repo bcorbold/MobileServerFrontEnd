@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
-import { AppConfig } from '../../app.config';
+import { environment } from '../../../environments/environment';
+
 import { Batch } from '../../core/batch';
 import { DeliveryLocation } from '../../core/delivery-location';
 import { EnvironmentDetails } from '../../core/environment-details';
@@ -21,7 +22,7 @@ export class MessageService {
   userUpdates: Subject<UserInfo> = new Subject<UserInfo>();
   orderPlacedUpdate: Subject<Order> = new Subject<Order>();
 
-  constructor(@Inject(AppConfig) private config: AppConfig, private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   getEnvironmentDetails(): Promise<EnvironmentDetails> {
     return new Promise<any>((resolve, reject) => {
@@ -30,14 +31,14 @@ export class MessageService {
         sessionKey: this.sessionKey
       };
 
-      this.http.post(this.config.backendUrl + 'getEnvironmentDetails', body)
+      this.http.post(environment.backendUrl + 'getEnvironmentDetails', body)
         .subscribe((response: EnvironmentDetails) => resolve(response), error => reject(error));
     });
   }
 
   login(username: string, password: string): Promise<UserInfo> {
     return new Promise((resolve, reject) => {
-      this.http.post(this.config.backendUrl + 'login', {username: username, password: password})
+      this.http.post(environment.backendUrl + 'login', {username: username, password: password})
         .subscribe(
           (response: {sessionKey: string, userInfo: UserInfo}) => {
             this.sessionKey = response.sessionKey;
@@ -53,7 +54,7 @@ export class MessageService {
   logout(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       const body = {username: this.user.username, sessionKey: this.sessionKey};
-      this.http.post(this.config.backendUrl + 'logout', body)
+      this.http.post(environment.backendUrl + 'logout', body)
         .subscribe(
           () => {
             this.sessionKey = undefined;
@@ -73,7 +74,7 @@ export class MessageService {
         sessionKey: this.sessionKey,
         userInfo: user
       };
-      this.http.post(this.config.backendUrl + 'updateAccountInfo', body)
+      this.http.post(environment.backendUrl + 'updateAccountInfo', body)
         .subscribe(
           () => {
             this.user = user;
@@ -93,14 +94,14 @@ export class MessageService {
       };
 
       // todo: can we just map this???
-      this.http.post(this.config.backendUrl + 'sendBatch', body).subscribe(() => resolve(), error => reject(error));
+      this.http.post(environment.backendUrl + 'sendBatch', body).subscribe(() => resolve(), error => reject(error));
     });
   }
 
   getIncomingBatches(): Promise<Batch[]> {
     return new Promise<Batch[]>((resolve, reject) => {
       const body = {username: this.user.username, sessionKey: this.sessionKey};
-      this.http.post(this.config.backendUrl + 'getIncomingBatches', body)
+      this.http.post(environment.backendUrl + 'getIncomingBatches', body)
         .subscribe(
           (response: {batches: Batch[]}) => resolve(response.batches),
           error => reject(error)
@@ -111,7 +112,7 @@ export class MessageService {
   getOrderHistory(): Promise<Order[]> {
     return new Promise<Order[]>((resolve, reject) => {
       const body = {username: this.user.username, sessionKey: this.sessionKey};
-      this.http.post(this.config.backendUrl + 'getOrderHistory', body).subscribe(
+      this.http.post(environment.backendUrl + 'getOrderHistory', body).subscribe(
         (response: {orderHistory: Order[]}) => resolve(response.orderHistory),
         error => reject(error)
       );
@@ -125,7 +126,7 @@ export class MessageService {
         sessionKey: this.sessionKey,
         orders: ordersToMonitor
       };
-      this.http.post(this.config.backendUrl + 'getOrderUpdates', body)
+      this.http.post(environment.backendUrl + 'getOrderUpdates', body)
         .subscribe(
           (response: {orders: Order[]}) => resolve(response.orders),
           error => reject(error)
@@ -143,7 +144,7 @@ export class MessageService {
         orderInfo: new OrderInfo(selectedBeverage, selectedAddOns),
         deliveryLocation: deliveryLocation
       };
-      this.http.post(this.config.backendUrl + 'placeOrder', body)
+      this.http.post(environment.backendUrl + 'placeOrder', body)
         .subscribe((response: {order: Order}) => {
           this.orderPlacedUpdate.next(response.order);
           resolve(response.order);
@@ -158,7 +159,7 @@ export class MessageService {
         sessionKey: this.sessionKey
       };
 
-      this.http.post(this.config.backendUrl + 'getSystemDetails', body).subscribe(
+      this.http.post(environment.backendUrl + 'getSystemDetails', body).subscribe(
         (response: SystemDetails) => resolve(response),
         error => reject(error)
       );
