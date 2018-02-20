@@ -11,6 +11,7 @@ import { OrderHistoryModule } from '../order-history/order-history.module';
 import { PlaceOrderModule } from '../place-order/place-order.module';
 import { SystemDetailsModule } from '../system-details/system-details.module';
 
+import { MediaIfModule } from '../../directives/media-if.module';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
 import { HomeComponent } from './home.component';
@@ -26,6 +27,7 @@ export { HomeComponent } from './home.component';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MediaIfModule,
     OrderHistoryModule,
     PlaceOrderModule,
     SystemDetailsModule

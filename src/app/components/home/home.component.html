@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center stretch" fxFill class="ms-home-wrapper">
 
   <!-- desktop layout -->
-  <div fxShow fxHide.lt-md fxFlex>
+  <div *msMediaIf="'gt-sm'" fxFlex>
     <ms-order-history fxFlex *ngIf="!isAdminView" (reorder)="populatePlaceOrder($event)"></ms-order-history>
     <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
     <div fxFlex fxLayout="column">
@@ -18,7 +18,7 @@
 
   <!-- todo: have to sort out difference for sm layout (landscape) and xs layout (portrait) -->
   <!-- mobile layout -->
-  <div fxHide fxShow.lt-md fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+  <div *msMediaIf="'lt-md'" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
 
     <div fxLayout="row" fxLayoutAlign="start center">
       <button mat-icon-button [matMenuTriggerFor]="menu">
