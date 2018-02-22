@@ -3,7 +3,7 @@
 
   <div fxFlex style="overflow: auto">
     <div *ngFor="let batch of batches" fxLayout="column">
-      <div class="desktop-batch-container" fxShow fxHide.lt-md fxLayout="row" fxLayoutAlign="start space-between">
+      <div class="ms-batch-container ms-desktop-batch-container" fxShow fxHide.lt-md fxLayout="row" fxLayoutAlign="start space-between">
         <div fxFlex fxLayout="column">
           <div *ngFor="let order of batch.orders">
             <div class="order-container" fxLayoutAlign="start stretch" fxLayoutGap="1em" (click)="updateOrderStatus(order, batch)"
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="mobile-batch-container" fxHide fxShow.lt-md fxLayout="column" fxLayoutAlign="start stretch">
+      <div class="ms-batch-container ms-mobile-batch-container" fxHide fxShow.lt-md fxLayout="column" fxLayoutAlign="start stretch">
         <div *ngFor="let order of batch.orders">
           <div fxLayout="row" fxLayoutAlign="start stretch" (click)="updateOrderStatus(order, batch)"
                [ngClass]="{ 'pointer-row': batch.state !== 'Delivering',

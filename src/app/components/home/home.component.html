@@ -19,7 +19,7 @@
   <!-- todo: have to sort out difference for sm layout (landscape) and xs layout (portrait) -->
   <!-- mobile layout -->
   <div *msMediaIf="'lt-md'" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
-    <div fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="row" fxLayoutAlign="start center" class="ms-mobile-header">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
       </button>
@@ -53,7 +53,6 @@
     <ms-account-info [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)" *ngIf="componentInView === 'Account Info'" fxFlex></ms-account-info>
     <ms-incoming-batches fxFlex *ngIf="adminEnabled && componentInView === 'Incoming Batches'"></ms-incoming-batches>
     <ms-system-details *ngIf="adminEnabled && componentInView === 'System Details'" fxFlex></ms-system-details>
-
 
   </div>
 

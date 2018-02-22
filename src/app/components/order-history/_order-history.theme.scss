@@ -6,7 +6,7 @@
   $warn: map-get($theme, warn);
 
   .ms-order-history-wrapper {
-    background-color: mat-color($primary, 700);
+    //background-color: mat-color($primary, 700);
 
     .ms-order-history-container {
       color: white;
@@ -16,7 +16,7 @@
       }
 
       .delivering {
-        background-color: mat-color($mat-light-green, 400);
+        background-color: mat-color($mat-green, 600);
       }
 
       .delivered {

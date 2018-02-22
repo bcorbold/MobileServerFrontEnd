@@ -7,12 +7,12 @@
 
   .ms-system-details {
     color: white;
-    background-color: mat-color($primary, 800);
+    //background-color: mat-color($primary, 800);
 
     .status-container {
       background-color: mat-color($primary, 900);
       .online {
-        background-color: mat-color($mat-light-green, 400);
+        background-color: mat-color($mat-green, 600);
       }
 
       .offline {
