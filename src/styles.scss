@@ -28,6 +28,12 @@ h1, h2, h3, p {
   margin: 0;
 }
 
-.light-text {
+.ms-light-text {
   font-weight: 300;
+}
+
+.ms-square-button {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
 }

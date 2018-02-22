@@ -12,19 +12,32 @@
     letter-spacing: 0.04em;
   }
 
+  .ms-light-text {
+    margin-bottom: 0.5em;
+  }
+
+  .ms-button-wrapper {
+    width: 100%;
+    min-height: 2.5em;
+    margin-bottom: 0.5em;
+
+    button {
+      min-height: 2.5em;
+    }
+  }
+
   mat-form-field {
     width: 100%;
   }
 }
 
 .ms-account-info-wrapper {
-  width: 100%;
-  height: 100%;
 
   .picture-placeholder {
     $picture-size: 12em;
     width: $picture-size;
     height: $picture-size;
+    min-height: $picture-size;
     background-image: url(../../../assets/account-pic.jpg); // todo: look into serving from the backend
     background-size: cover;
     -webkit-border-radius: $picture-size/2;
@@ -34,10 +47,5 @@
 
   .ms-account-info-container {
     margin-left: 2em;
-
-    .light-large-text {
-      font-size: 1.2em;
-      font-weight: 300;
-    }
   }
 }

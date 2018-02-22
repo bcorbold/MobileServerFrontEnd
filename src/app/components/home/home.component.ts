@@ -28,7 +28,8 @@ export class HomeComponent {
   constructor(private messageService: MessageService, private cache: CacheService) {
     this.isAdminView = this.cache.user.defaultView === 'bartender';
     this.adminEnabled = this.cache.user.adminEnabled;
-    this.componentInView = this.isAdminView ? 'Incoming Batches' : 'Place Order';
+    this.componentInView = 'Account Info';
+    // this.componentInView = this.isAdminView ? 'Incoming Batches' : 'Place Order';
   }
 
   handleUserInfoChange(updatedUserInfo: UserInfo): void {

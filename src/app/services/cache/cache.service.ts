@@ -48,7 +48,12 @@ export class CacheService implements OnDestroy {
 
   constructor(private messageService: MessageService) {
     this.userSubscription = this.messageService.userUpdates.subscribe(
-      (user: UserInfo) => this.user = user,
+      (user: UserInfo) => {
+          this.user = user;
+          // todo: remove these lines to return to normal (not simulating user account)
+          // this.user.adminEnabled = false;
+          // this.user.defaultView = 'user';
+        },
       error => console.error(error),
       () => this.userSubscription.unsubscribe()
     );

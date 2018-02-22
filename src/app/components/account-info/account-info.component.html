@@ -1,4 +1,4 @@
-<div fxLayout="column" class="ms-account-info-wrapper" ngClass.gt-sm="ms-desktop-account" ngClass.lt-md="ms-mobile-account" fxLayoutAlign="center stretch">
+<div fxFlex fxLayout="column" class="ms-account-info-wrapper" ngClass.gt-sm="ms-desktop-account" ngClass.lt-md="ms-mobile-account" fxLayoutAlign="center stretch">
   <mat-slide-toggle *ngIf="user.adminEnabled" fxShow fxHide.lt-md fxFlexAlign="end" [(ngModel)]="isAdminView">Bartender view</mat-slide-toggle>
 
   <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.lt-md>
@@ -6,7 +6,7 @@
 
     <div fxFlex fxLayout="column" class="ms-account-info-container">
       <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
-      <p class="light-large-text">{{user.username}}</p>
+      <p class="ms-light-text">{{user.username}}</p>
 
       <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1em" style="margin-top: 2em;">
         <mat-form-field color="accent">
@@ -34,16 +34,16 @@
           </mat-select>
         </mat-form-field>
 
-        <button mat-button (click)="updateAccountInfo()" color="accent">Submit</button>
-        <button mat-button color="warn" (click)="resetAccountInfo()">Reset</button>
+        <button mat-raised-button (click)="updateAccountInfo()" color="accent">Submit</button>
+        <button mat-raised-button color="warn" (click)="resetAccountInfo()">Reset</button>
       </div>
     </div>
   </div>
 
-  <div fxFlex fxHide fxShow.lt-md fxLayout="column" fxLayoutAlign="start center" style="padding: 0 0.5em;">
+  <div fxFlex fxHide fxShow.lt-md fxLayout="column" fxLayoutAlign="start center" style="padding: 0 0.5em; overflow: auto;">
     <div class="picture-placeholder"></div>
     <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
-    <p class="light-text">{{user.username}}</p>
+    <p class="ms-light-text">{{user.username}}</p>
     <mat-form-field color="accent">
       <mat-select [(value)]="user.defaultDeliveryLocation.id" placeholder="Default delivery location">
         <div *ngFor="let location of environmentDetails.deliveryLocations">
@@ -65,11 +65,11 @@
         </div>
       </mat-select>
     </mat-form-field>
-    <div style="width: 100%;" fxLayoutGap="0.5em">
+    <div class="ms-button-wrapper" fxLayoutGap="0.5em" fxLayoutAlign="center space-between">
       <button fxFlex mat-raised-button (click)="updateAccountInfo()" color="accent">Submit</button>
       <button fxFlex mat-raised-button color="warn" (click)="resetAccountInfo()">Reset</button>
     </div>
   </div>
 
-  <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+  <button mat-raised-button color="warn" class="ms-square-button" (click)="logout()">Logout</button>
 </div>

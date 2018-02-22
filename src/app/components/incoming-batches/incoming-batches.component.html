@@ -18,7 +18,7 @@
                 <p fxFlex="50" style="margin-right: 0.5em;">{{order.orderInfo.orderOption.name}}</p>
                 <div fxFlex="50">
                   <span style="margin-right: 0.25em;">Delivering too:</span>
-                  <span class="light-text">{{order.deliveryLocation.name}}</span>
+                  <span class="ms-light-text">{{order.deliveryLocation.name}}</span>
                 </div>
               </div>
               <div fxLayout="row">
@@ -31,17 +31,17 @@
                 </div>
                 <div fxFlex="50" *ngIf="order.state !== 'Delivered'" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                   <span style="margin-right: 0.25em;">Order ETA:</span>
-                  <span class="light-text">{{order.deliveryEta}}</span>
+                  <span class="ms-light-text">{{order.deliveryEta}}</span>
                 </div>
                 <div fxFlex="50" *ngIf="order.state === 'Delivered'" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                   <span style="margin-right: 0.25em;">Ordered on:</span>
-                  <span class="light-text">{{order.orderDate}}</span>
+                  <span class="ms-light-text">{{order.orderDate}}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <button *ngIf="batch.state !== 'Delivering' && batch.ready" mat-raised-button color="accent" (click)="sendBatch(batch)">Send with <i>{{batch.assignedRobot.name}}</i></button>
+        <button *ngIf="batch.state !== 'Delivering' && batch.ready" mat-raised-button class="ms-square-button" color="accent" (click)="sendBatch(batch)">Send with <i>{{batch.assignedRobot.name}}</i></button>
       </div>
     </div>
     <p *ngIf="batches.length === 0"><i>No batches available.</i></p>

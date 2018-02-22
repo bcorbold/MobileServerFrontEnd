@@ -15,7 +15,7 @@
             <div fxFlex="50">
               <span *ngIf="order.state !== 'Delivered'">Delivering to:</span>
               <span *ngIf="order.state === 'Delivered'">Delivered to:</span>
-              <span class="light-text">{{order.deliveryLocation.name}}</span>
+              <span class="ms-light-text">{{order.deliveryLocation.name}}</span>
             </div>
 
           </div>
@@ -28,11 +28,11 @@
             <div fxFlex="50" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
               <span *ngIf="order.state !== 'Delivered'">Order ETA:</span>
               <!-- todo: this needs to be formatted -->
-              <span *ngIf="order.state !== 'Delivered'" class="light-text">{{order.deliveryEta}}</span>
+              <span *ngIf="order.state !== 'Delivered'" class="ms-light-text">{{order.deliveryEta}}</span>
 
               <span *ngIf="order.state === 'Delivered'">Ordered on:</span>
               <!-- todo: this needs to be formatted -->
-              <span *ngIf="order.state === 'Delivered'" class="light-text">{{order.deliveredDate}}</span>
+              <span *ngIf="order.state === 'Delivered'" class="ms-light-text">{{order.deliveredDate}}</span>
             </div>
           </div>
         </div>

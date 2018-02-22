@@ -6,7 +6,7 @@
       <div class="state-indicator" matTooltip="{{!status.isConnected ? 'Offline' : status.robotError ? 'Error' : 'Online'}}"
            matTooltipPosition="after" [ngClass]="{'online': status.isConnected && !status.robotError, 'offline': !status.isConnected, 'error': status.robotError}"></div>
       <p fxFlex="20" class="ms-robot-name">{{status.robotInfo.name}}</p>
-      <p class="light-text" fxFlexAlign="center">{{status.robotError ? 'error' : !status.isConnected ? 'offline' : 'online'}}</p>
+      <p class="ms-light-text" fxFlexAlign="center">{{status.robotError ? 'error' : !status.isConnected ? 'offline' : 'online'}}</p>
     </div>
   </div>
 </div>
