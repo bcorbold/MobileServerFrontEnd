@@ -1,54 +1,14 @@
-.ms-desktop-batches {
-  padding: 1em 2em;
-}
-
-.ms-mobile-batches {}
-
 .ms-incoming-batches-container {
 
   .ms-header {
     margin-bottom: 0.5em;
   }
 
-  .ms-desktop-batch-container {
+  .ms-batch-container {
     margin-bottom: 0.5em;
-
-    .order-container {
-      .state-indicator {
-        width: 1em !important;
-      }
-
-      .order-row {
-        margin: 0.5em;
-
-        /deep/
-        mat-chip {
-          padding: 0.2em 0.5em !important;
-          font-weight: 300 !important;
-          margin: 0.2em;
-        }
-      }
-    }
 
     .pointer-row {
       cursor: pointer;
-    }
-
-    .delivering-to {
-      font-size: 0.9em;
-      padding: 1em;
-    }
-
-    button {
-      line-height: 1.5em;
-    }
-  }
-
-  .ms-mobile-batch-container {
-    margin-bottom: 0.5em;
-
-    .state-indicator {
-      width: 0.5em !important;
     }
 
     /deep/
@@ -59,4 +19,25 @@
     }
   }
 
+}
+
+.ms-desktop-batches {
+  padding: 1em 2em;
+
+  .ms-batch-container {
+
+    .state-indicator {
+      width: 1em !important;
+    }
+  }
+}
+
+.ms-mobile-batches {
+
+  .ms-batch-container {
+
+    .state-indicator {
+      width: 0.5em !important;
+    }
+  }
 }

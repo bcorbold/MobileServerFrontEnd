@@ -10,6 +10,8 @@
 
 @mixin app-theme($theme) {
 
+  $primary: map-get($theme, primary);
+
   @include ms-account-info-theme($theme);
   @include ms-home-theme($theme);
   @include ms-incoming-batches-theme($theme);
@@ -18,12 +20,12 @@
   @include ms-order-history-theme($theme);
   @include ms-system-details-theme($theme);
 
-  input {
+  * {
     color: white;
   }
 
-  .ms-header {
-    color: white;
+  mat-chip {
+    background-color: mat-color($primary, 800) !important;
   }
 
 }

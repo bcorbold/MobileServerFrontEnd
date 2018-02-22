@@ -6,8 +6,6 @@
   $warn: map-get($theme, warn);
 
   .ms-system-details {
-    color: white;
-    //background-color: mat-color($primary, 800);
 
     .status-container {
       background-color: mat-color($primary, 900);

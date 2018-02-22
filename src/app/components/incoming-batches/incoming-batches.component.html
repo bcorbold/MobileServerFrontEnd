@@ -1,50 +1,16 @@
-<div fxFlex class="ms-incoming-batches-container" fxLayout="column" ngClass.gt-sm="ms-desktop-batches" ngClass.lt-md="ms-mobile-batches">
-  <h1 class="ms-header" fxShow fxHide.lt-md>Incoming Batches</h1>
+<div fxFlex class="ms-incoming-batches-container" ngClass.gt-sm="ms-desktop-batches" ngClass.lt-md="ms-mobile-batches" fxLayout="column">
+  <h1 fxShow fxHide.lt-md class="ms-header">Incoming Batches</h1>
 
   <div fxFlex style="overflow: auto">
-    <div *ngFor="let batch of batches" fxLayout="column">
-      <div class="ms-batch-container ms-desktop-batch-container" fxShow fxHide.lt-md fxLayout="row" fxLayoutAlign="start space-between">
-        <div fxFlex fxLayout="column">
-          <div *ngFor="let order of batch.orders">
-            <div class="order-container" fxLayoutAlign="start stretch" fxLayoutGap="1em" (click)="updateOrderStatus(order, batch)"
-                 [ngClass]="{ 'pointer-row': batch.state !== 'Delivering',
-                              'order-sent': batch.state === 'Delivering',
-                              'order-ready': order.ready && batch.state !== 'Delivering',
-                              'order-not-ready': !order.ready  && batch.state !== 'Delivering' }">
-              <!-- todo: state indicator doesn't fill the height when only one row-->
-              <div class="state-indicator" matTooltip="{{batch.state}}" matTooltipPosition="after"></div>
-              <div class="order-row" fxLayout="row" fxLayoutAlign="start center">
-                <div fxLayout="column">
-                  <p style="margin-right: 0.5em;">{{order.orderInfo.orderOption.name}}</p>
-                  <mat-chip-list style="margin-right: 0.5em;">
-                    <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
-                      <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
-                    </div>
-                  </mat-chip-list>
-                </div>
-
-                <p style="margin-right: 0.25em;">Delivering too:</p>
-                <p class="light-text">{{order.deliveryLocation.name}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button *ngIf="batch.state !== 'Delivering'" mat-button color="accent" [disabled]="!batch.ready" (click)="sendBatch(batch)">Send with<br><i>{{batch.assignedRobot.name}}</i></button>
-
-        <div class="delivering-to" *ngIf="batch.state === 'delivering'" fxLayout="column" fxLayoutAlign="center center">
-          <p><i>{{batch.assignedRobot.name}}</i></p>
-          <p>is enroute</p>
-        </div>
-      </div>
-
-      <div class="ms-batch-container ms-mobile-batch-container" fxHide fxShow.lt-md fxLayout="column" fxLayoutAlign="start stretch">
+    <div *ngFor="let batch of batches">
+      <div class="ms-batch-container" fxLayout="column" fxLayoutAlign="start stretch">
         <div *ngFor="let order of batch.orders">
           <div fxLayout="row" fxLayoutAlign="start stretch" (click)="updateOrderStatus(order, batch)"
                [ngClass]="{ 'pointer-row': batch.state !== 'Delivering',
                               'order-sent': batch.state === 'Delivering',
                               'order-ready': order.ready && batch.state !== 'Delivering',
                               'order-not-ready': !order.ready  && batch.state !== 'Delivering' }">
+
             <!-- todo: have a think about how to replace the tooltip for accessibility for mobile users -->
             <div class="state-indicator" matTooltip="{{batch.state}}" matTooltipPosition="after"></div>
             <div fxFlex fxLayout="column" fxLayoutAlign="start stretch" style="margin: 0.5em;">
@@ -56,12 +22,21 @@
                 </div>
               </div>
               <div fxLayout="row">
-                <mat-chip-list fxFlex="50" style="margin-right: 0.5em;">
-                  <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
-                    <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
-                  </div>
-                </mat-chip-list>
-                <div fxFlex="50"></div>
+                <div fxFlex="50" style="margin-right: 0.5em;">
+                  <mat-chip-list *ngIf="order.orderInfo?.selectedAddOns && order.orderInfo.selectedAddOns.length !== 0">
+                    <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
+                      <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
+                    </div>
+                  </mat-chip-list>
+                </div>
+                <div fxFlex="50" *ngIf="order.state !== 'Delivered'" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  <span style="margin-right: 0.25em;">Order ETA:</span>
+                  <span class="light-text">{{order.deliveryEta}}</span>
+                </div>
+                <div fxFlex="50" *ngIf="order.state === 'Delivered'" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  <span style="margin-right: 0.25em;">Ordered on:</span>
+                  <span class="light-text">{{order.orderDate}}</span>
+                </div>
               </div>
             </div>
           </div>

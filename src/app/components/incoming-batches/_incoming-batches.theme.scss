@@ -5,10 +5,9 @@
   $primary: map-get($theme, primary);
 
   .ms-incoming-batches-container {
-    color: white;
 
     .ms-batch-container {
-      background-color: mat-color($primary, 700);
+      background-color: mat-color($primary, 600);
     }
 
     .order-not-ready {
@@ -18,21 +17,19 @@
     }
 
     .order-ready {
-      background-color: map-get($primary, 600);
+      background-color: map-get($primary, 700);
+
       .state-indicator {
         background-color: mat-color($mat-green, 600);
       }
     }
 
     .order-sent {
-      background-color: map-get($primary, 600);
+      background-color: map-get($primary, 700);
+
       .state-indicator {
         background-color: mat-color($mat-green, 600);
       }
-    }
-
-    .delivering-to {
-      background-color: map-get($primary, 900);
     }
   }
 }

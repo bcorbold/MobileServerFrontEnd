@@ -6,10 +6,8 @@
   $warn: map-get($theme, warn);
 
   .ms-order-history-wrapper {
-    //background-color: mat-color($primary, 700);
 
     .ms-order-history-container {
-      color: white;
 
       .waiting {
         background-color: mat-color($mat-amber, 300);
