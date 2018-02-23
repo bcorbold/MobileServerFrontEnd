@@ -3,5 +3,9 @@
 @mixin ms-new-order-theme($theme) {
   $primary: map-get($theme, primary);
 
-  .ms-place-order-wrapper {}
+  .ms-place-order-wrapper {
+    mat-chip {
+      background-color: mat-color($primary, 700) !important;
+    }
+  }
 }

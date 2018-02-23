@@ -4,6 +4,10 @@
 
 .ms-mobile-order {
   padding: 0.5em;
+
+  .drink-description {
+    margin-bottom: 2em;
+  }
 }
 
 .ms-place-order-wrapper {
@@ -22,14 +26,14 @@
 
   // todo: this isn't applying to the styles
   /deep/
-  mat-chip-list {
+  mat-chip {
     padding: 0.2em 0.5em !important;
     font-weight: 300 !important;
     margin: 0.2em;
-    overflow: auto;
 
     .remove-chip {
       cursor: pointer;
     }
   }
 }
+

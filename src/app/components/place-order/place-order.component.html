@@ -69,23 +69,21 @@
     </mat-form-field>
     <p class="drink-description">{{selectedBeverage?.description}}</p>
 
-    <div fxLayout="row" *ngIf="selectedBeverage?.addOns">
-      <div fxLayout="column" style="width: 100%;">
-        <mat-form-field fxFlex color="accent">
-          <mat-select placeholder="Add-On" [(value)]="potentialAddOn">
-            <div *ngFor="let addOn of selectedBeverage.addOns">
-              <mat-option [value]="addOn">{{addOn.name}}</mat-option>
-            </div>
-          </mat-select>
-        </mat-form-field>
-
-        <div *ngIf="potentialAddOn" style="width: 100%;">
-          <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="accent" style="width: 100%;">
-            <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" [(ngModel)]="potentialAddOnValue" min="1">
-          </mat-input-container>
+    <mat-form-field color="accent" *ngIf="selectedBeverage?.addOns">
+      <mat-select placeholder="Add-On" [(value)]="potentialAddOn">
+        <div *ngFor="let addOn of selectedBeverage.addOns">
+          <mat-option [value]="addOn">{{addOn.name}}</mat-option>
         </div>
-      </div>
-      <button mat-raised-button color="accent" (click)="addAddOnToSelectedList()">Add</button>
+      </mat-select>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="0.5em" *ngIf="potentialAddOn">
+      <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="accent" style="width: 100%;">
+        <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" [(ngModel)]="potentialAddOnValue" min="1">
+      </mat-input-container>
+      <button mat-button color="accent" (click)="addAddOnToSelectedList()">
+        <mat-icon color="accent">add</mat-icon>
+      </button>
     </div>
 
     <mat-chip-list>
@@ -98,7 +96,7 @@
     </mat-chip-list>
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="1em">
+  <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="0.5em">
     <button fxFlex mat-raised-button color="accent" (click)="placeOrder()">Submit</button>
     <button fxFlex mat-raised-button color="warn" (click)="resetOrder()">Reset</button>
   </div>

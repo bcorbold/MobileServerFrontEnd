@@ -18,7 +18,7 @@
   @include ms-login-theme($theme);
   @include ms-new-order-theme($theme);
   @include ms-order-history-theme($theme, $indeterminate, $progress, $successful);
-  @include ms-system-details-theme($theme);
+  @include ms-system-details-theme($theme, $indeterminate, $progress, $successful);
 
   * {
     color: white;

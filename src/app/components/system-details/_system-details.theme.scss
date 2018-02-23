@@ -1,6 +1,6 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-system-details-theme($theme) {
+@mixin ms-system-details-theme($theme, $indeterminate, $progress, $successful) {
 
   $primary: map-get($theme, primary);
   $warn: map-get($theme, warn);
@@ -9,12 +9,13 @@
 
     .status-container {
       background-color: mat-color($primary, 900);
+
       .online {
-        background-color: mat-color($mat-green, 600);
+        background-color: mat-color($successful);
       }
 
       .offline {
-        background-color: mat-color($mat-amber, 300);
+        background-color: mat-color($indeterminate);
       }
 
       .error {
