@@ -1,16 +1,8 @@
 .ms-desktop-history {
   padding: 1em 2em;
-
-  .state-color-bar {
-    width: 1em;
-  }
 }
 
 .ms-mobile-history {
-
-  .state-color-bar {
-    width: 0.5em;
-  }
 }
 
 .ms-order-history-wrapper {
@@ -26,6 +18,10 @@
 
     .order-row {
       margin-bottom: 0.5em;
+
+      .state-color-bar {
+        padding: 0 0.5em;
+      }
 
       .row-info {
         margin: 0.5em 1em;

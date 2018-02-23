@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center stretch" fxFill class="ms-home-wrapper">
 
   <!-- desktop layout -->
-  <div *msMediaIf="'gt-sm'" fxFlex>
+  <div *msMediaIf="'gt-sm'" fxFlex class="ms-desktop-home">
     <ms-order-history fxFlex *ngIf="!isAdminView" (reorder)="populatePlaceOrder($event)"></ms-order-history>
     <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
     <div fxFlex fxLayout="column">

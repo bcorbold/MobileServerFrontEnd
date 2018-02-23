@@ -4,6 +4,12 @@
 
   $primary: map-get($theme, primary);
 
+  .ms-desktop-home {
+    ms-incoming-batches, ms-order-history {
+      background-color: mat-color($primary, 900);
+    }
+  }
+
   .ms-mobile-header {
     background-color: mat-color($primary, 900);
   }

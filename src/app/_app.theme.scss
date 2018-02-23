@@ -8,16 +8,16 @@
 @import 'components/place-order/place-order.theme';
 @import 'components/system-details/system-details.theme';
 
-@mixin app-theme($theme) {
+@mixin app-theme($theme, $indeterminate, $progress, $successful) {
 
   $primary: map-get($theme, primary);
 
   @include ms-account-info-theme($theme);
   @include ms-home-theme($theme);
-  @include ms-incoming-batches-theme($theme);
+  @include ms-incoming-batches-theme($theme, $indeterminate, $progress, $successful);
   @include ms-login-theme($theme);
   @include ms-new-order-theme($theme);
-  @include ms-order-history-theme($theme);
+  @include ms-order-history-theme($theme, $indeterminate, $progress, $successful);
   @include ms-system-details-theme($theme);
 
   * {

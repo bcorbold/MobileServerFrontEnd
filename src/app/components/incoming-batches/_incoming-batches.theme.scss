@@ -1,6 +1,6 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-incoming-batches-theme($theme) {
+@mixin ms-incoming-batches-theme($theme, $indeterminate, $progress, $successful) {
 
   $primary: map-get($theme, primary);
 
@@ -12,23 +12,23 @@
 
     .order-not-ready {
       .state-indicator {
-        background-color: mat-color($mat-amber, 300);
+        background-color: mat-color($indeterminate);
       }
     }
 
     .order-ready {
-      background-color: map-get($primary, 700);
+      background-color: mat-color($primary, 700);
 
       .state-indicator {
-        background-color: mat-color($mat-green, 600);
+        background-color: mat-color($progress);
       }
     }
 
     .order-sent {
-      background-color: map-get($primary, 700);
+      background-color: mat-color($primary, 700);
 
       .state-indicator {
-        background-color: mat-color($mat-green, 600);
+        background-color: mat-color($successful);
       }
     }
   }
