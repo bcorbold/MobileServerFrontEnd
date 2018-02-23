@@ -15,7 +15,7 @@
                 delivered: order.state === 'Delivered',
                 delayed: order.state === 'Delayed'
              }">
-          <mat-icon (click)="reorder.emit(order)">add_shopping_cart</mat-icon>
+          <mat-icon style="cursor: pointer;" (click)="reorder.emit(order)">add_shopping_cart</mat-icon>
         </div>
         <div fxFlex class="row-info" fxLayout="column" fxLayoutAlign="start stretch">
           <div fxFlex="50">
