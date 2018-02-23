@@ -1,8 +1,8 @@
-<div class="ms-place-order-wrapper" fxLayout="column" ngClass.gt-sm="ms-desktop-order" ngClass.lt-md="ms-mobile-order">
-  <h1 class="ms-header" fxShow fxHide.lt-md>Place Order</h1>
+<div class="ms-place-order-wrapper" fxLayout="column" ngClass.gt-md="ms-desktop-order" ngClass.lt-lg="ms-mobile-order">
+  <h1 class="ms-header" fxShow fxHide.lt-lg>Place Order</h1>
 
   <!-- desktop layout -->
-  <div *msMediaIf="'gt-sm'" fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+  <div *msMediaIf="'gt-md'" fxFlex fxLayout="column" fxLayoutAlign="start stretch">
     <div fxLayout="row" fxLayoutAlign="start stretch">
       <mat-form-field fxLayout="column" color="accent">
         <input matInput placeholder="Delivery location" aria-label="Delivery location" [matAutocomplete]="autoLocation" [formControl]="locationControl">
@@ -53,7 +53,7 @@
   </div>
 
   <!-- mobile layout -->
-  <div *msMediaIf="'lt-md'" fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+  <div *msMediaIf="'lt-lg'" fxFlex fxLayout="column" fxLayoutAlign="start stretch">
     <mat-form-field fxLayout="column" color="accent">
       <input matInput placeholder="Delivery location" aria-label="Delivery location" [matAutocomplete]="autoLocation" [formControl]="locationControl">
       <mat-autocomplete #autoLocation="matAutocomplete">

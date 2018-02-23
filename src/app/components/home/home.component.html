@@ -1,7 +1,7 @@
-<div fxLayout="row" fxLayoutAlign="center stretch" fxFill class="ms-home-wrapper">
+<div fxLayout="row" fxLayoutAlign="center stretch" fxFill class="ms-home-wrapper"ngClass.md="ms-red" >
 
   <!-- desktop layout -->
-  <div *msMediaIf="'gt-sm'" fxFlex class="ms-desktop-home">
+  <div *msMediaIf="'gt-md'" fxFlex class="ms-desktop-home">
     <ms-order-history fxFlex *ngIf="!isAdminView" (reorder)="populatePlaceOrder($event)"></ms-order-history>
     <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
     <div fxFlex fxLayout="column">
@@ -18,7 +18,7 @@
 
   <!-- todo: have to sort out difference for sm layout (landscape) and xs layout (portrait) -->
   <!-- mobile layout -->
-  <div *msMediaIf="'lt-md'" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+  <div *msMediaIf="'lt-lg'" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
     <div fxLayout="row" fxLayoutAlign="start center" class="ms-mobile-header">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
@@ -53,7 +53,6 @@
     <ms-account-info [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)" *ngIf="componentInView === 'Account Info'" fxFlex></ms-account-info>
     <ms-incoming-batches fxFlex *ngIf="adminEnabled && componentInView === 'Incoming Batches'"></ms-incoming-batches>
     <ms-system-details *ngIf="adminEnabled && componentInView === 'System Details'" fxFlex></ms-system-details>
-
   </div>
 
 </div>

@@ -1,7 +1,7 @@
-<div fxFlex fxLayout="column" class="ms-account-info-wrapper" ngClass.gt-sm="ms-desktop-account" ngClass.lt-md="ms-mobile-account" fxLayoutAlign="center stretch">
-  <mat-slide-toggle *ngIf="user.adminEnabled" fxShow fxHide.lt-md fxFlexAlign="end" [(ngModel)]="isAdminView">Bartender view</mat-slide-toggle>
+<div fxFlex fxLayout="column" class="ms-account-info-wrapper" ngClass.gt-md="ms-desktop-account" ngClass.lt-lg="ms-mobile-account" fxLayoutAlign="center stretch">
+  <mat-slide-toggle *ngIf="user.adminEnabled" fxShow fxHide.lt-lg fxFlexAlign="end" [(ngModel)]="isAdminView">Bartender view</mat-slide-toggle>
 
-  <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.lt-md>
+  <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.lt-lg>
     <div class="picture-placeholder"></div>
 
     <div fxFlex fxLayout="column" class="ms-account-info-container">
@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div fxFlex fxHide fxShow.lt-md fxLayout="column" fxLayoutAlign="start center" style="padding: 0 0.5em; overflow: auto;">
+  <div fxFlex fxHide fxShow.lt-lg fxLayout="column" fxLayoutAlign="start center" style="padding: 0 0.5em; overflow: auto;">
     <div class="picture-placeholder"></div>
     <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
     <p class="ms-light-text">{{user.username}}</p>
