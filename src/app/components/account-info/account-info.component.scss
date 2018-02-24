@@ -1,3 +1,20 @@
+.ms-account-info-wrapper {
+
+  .ms-profile-picture {
+    $picture-size: 12em;
+    width: $picture-size;
+    height: $picture-size;
+    min-height: $picture-size;
+    -webkit-border-radius: $picture-size/2;
+    -moz-border-radius: $picture-size/2;
+    border-radius: $picture-size/2;
+  }
+
+  .ms-account-info-container {
+    margin-left: 2em;
+  }
+}
+
 .ms-desktop-account {
   padding: 1em 2em;
 }
@@ -28,22 +45,5 @@
 
   mat-form-field {
     width: 100%;
-  }
-}
-
-.ms-account-info-wrapper {
-
-  .ms-profile-picture {
-    $picture-size: 12em;
-    width: $picture-size;
-    height: $picture-size;
-    min-height: $picture-size;
-    -webkit-border-radius: $picture-size/2;
-    -moz-border-radius: $picture-size/2;
-    border-radius: $picture-size/2;
-  }
-
-  .ms-account-info-container {
-    margin-left: 2em;
   }
 }

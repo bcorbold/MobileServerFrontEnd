@@ -15,10 +15,10 @@ export class AccountInfoComponent implements OnInit {
 
   private _isAdminView: boolean;
   private defaultUserInfo: UserInfo;
-  environmentDetails: EnvironmentDetails;
 
   @Output() userUpdate: EventEmitter<UserInfo> = new EventEmitter<UserInfo>();
   @Output() isAdminViewChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   @Input() set isAdminView(isAdminView: boolean) {
     this._isAdminView = isAdminView;
     this.isAdminViewChange.emit(this._isAdminView);
@@ -27,6 +27,7 @@ export class AccountInfoComponent implements OnInit {
     return this._isAdminView;
   }
 
+  environmentDetails: EnvironmentDetails;
   user: UserInfo;
 
   constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {

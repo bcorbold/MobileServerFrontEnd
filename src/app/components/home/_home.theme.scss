@@ -4,10 +4,6 @@
 
   $primary: map-get($theme, primary);
 
-  .ms-red {
-    background-color: #000;
-  }
-
   .ms-desktop-home {
     ms-incoming-batches, ms-order-history {
       background-color: mat-color($primary, 900);

@@ -23,17 +23,5 @@
     font-style: italic;
     font-size: 0.8em;
   }
-
-  // todo: this isn't applying to the styles
-  /deep/
-  mat-chip {
-    padding: 0.2em 0.5em !important;
-    font-weight: 300 !important;
-    margin: 0.2em;
-
-    .remove-chip {
-      cursor: pointer;
-    }
-  }
 }
 
