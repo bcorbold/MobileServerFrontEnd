@@ -1,4 +1,4 @@
-<div fxFill class="ms-order-history-wrapper" ngClass.gt-md="ms-desktop-history" ngClass.lt-lg="ms-mobile-history" fxLayout="column">
+<div fxFlex class="ms-order-history-wrapper" ngClass.gt-md="ms-desktop-history" fxLayout="column">
   <h1 class="ms-header" fxShow fxHide.lt-lg>Order History</h1>
 
   <!-- todo: add filters at the top to help search through history -->
@@ -17,34 +17,33 @@
              }">
           <mat-icon style="cursor: pointer;" (click)="reorder.emit(order)">add_shopping_cart</mat-icon>
         </div>
-        <div fxLayout="column" fxLayoutAlign="start stretch" style="padding: 0.5em 0;">
-          <div fxLayout="row">
-            <p fxFlex="50" style="margin-right: 0.5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{order.orderInfo.orderOption.name}}</p>
-            <div fxFlex="50" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-              <span style="margin-right: 0.25em;">Delivering too:</span>
-              <span class="ms-light-text">{{order.deliveryLocation.name}}</span>
+        <div fxFlex fxLayout="column" style="overflow: auto; margin: 0.5em 0;">
+          <div fxLayout="row" fxLayoutGap="0.5em">
+            <p style="width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              {{order.orderInfo.orderOption.name}}
+            </p>
+            <div style="width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              <span>Location: </span>
+              <span class="ms-light-text"> {{order.deliveryLocation.name}}</span>
             </div>
           </div>
-          <div fxLayout="row">
-            <div fxFlex="50" style="margin-right: 0.5em;">
+          <div fxLayout="row" fxLayoutGap="0.5em">
+            <div style="width: 50%;">
               <mat-chip-list *ngIf="order.orderInfo?.selectedAddOns && order.orderInfo.selectedAddOns.length !== 0">
                 <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
                   <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
                 </div>
               </mat-chip-list>
             </div>
-            <div fxFlex="50" *ngIf="order.state !== 'Delivered'" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-              <span style="margin-right: 0.25em;">Order ETA:</span>
-              <span class="ms-light-text">{{order.deliveryEta}}</span>
-            </div>
-            <div fxFlex="50" *ngIf="order.state === 'Delivered'" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-              <span style="margin-right: 0.25em;">Ordered on:</span>
-              <span class="ms-light-text">{{order.orderDate}}</span>
+            <div style="width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              <span>Order ETA:</span>
+              <span class="ms-light-text"> {{order.deliveryEta}}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <i *ngIf="orderHistory.length === 0">No past orders to be displayed... Try ordering something!</i>
   </div>
 </div>

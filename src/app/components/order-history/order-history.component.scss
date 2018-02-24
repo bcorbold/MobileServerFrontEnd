@@ -2,10 +2,8 @@
   padding: 1em 2em;
 }
 
-.ms-mobile-history {
-}
-
 .ms-order-history-wrapper {
+  max-width: 100vw;
 
   // todo: these should be moved to global styles for consistency
   .ms-header {
@@ -14,18 +12,13 @@
 
   .ms-order-history-container {
     overflow: auto;
-    max-height: 100%;
 
     .order-row {
       margin-bottom: 0.5em;
 
       .state-color-bar {
-        padding: 0 0.5em;
+        padding: 0.5em;
         margin-right: 0.5em;
-      }
-
-      .row-info {
-        margin: 0.5em 1em;
       }
     }
   }
