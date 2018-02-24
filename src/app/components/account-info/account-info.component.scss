@@ -4,7 +4,7 @@
 
 .ms-mobile-account {
 
-  .picture-placeholder {
+  .ms-profile-picture {
     margin-top: 2em;
   }
 
@@ -33,13 +33,11 @@
 
 .ms-account-info-wrapper {
 
-  .picture-placeholder {
+  .ms-profile-picture {
     $picture-size: 12em;
     width: $picture-size;
     height: $picture-size;
     min-height: $picture-size;
-    background-image: url(../../../assets/account-pic.jpg); // todo: look into serving from the backend
-    background-size: cover;
     -webkit-border-radius: $picture-size/2;
     -moz-border-radius: $picture-size/2;
     border-radius: $picture-size/2;

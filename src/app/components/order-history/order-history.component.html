@@ -5,8 +5,8 @@
 
   <div fxFlex class="ms-order-history-container" fxLayout="column">
     <div *ngFor="let order of orderHistory;">
-      <div class="order-row" fxLayout="row" fxLayoutAlign="start stretch">
 
+      <div class="order-row" fxLayout="row" fxLayoutAlign="start stretch">
         <div class="state-color-bar" matTooltip="{{order.state}}" matTooltipPosition="after"
              fxLayoutAlign="center center"
              [ngClass]="{
@@ -17,31 +17,29 @@
              }">
           <mat-icon style="cursor: pointer;" (click)="reorder.emit(order)">add_shopping_cart</mat-icon>
         </div>
-        <div fxFlex class="row-info" fxLayout="column" fxLayoutAlign="start stretch">
-          <div fxFlex="50">
-            <p fxFlex="50">{{order.orderInfo.orderOption.name}}</p>
-
-            <div fxFlex="50">
-              <span *ngIf="order.state !== 'Delivered'">Delivering to:</span>
-              <span *ngIf="order.state === 'Delivered'">Delivered to:</span>
+        <div fxLayout="column" fxLayoutAlign="start stretch" style="padding: 0.5em 0;">
+          <div fxLayout="row">
+            <p fxFlex="50" style="margin-right: 0.5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{order.orderInfo.orderOption.name}}</p>
+            <div fxFlex="50" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              <span style="margin-right: 0.25em;">Delivering too:</span>
               <span class="ms-light-text">{{order.deliveryLocation.name}}</span>
             </div>
-
           </div>
-          <div fxFlex="50">
-            <mat-chip-list fxFlex="50">
-              <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
-                <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
-              </div>
-            </mat-chip-list>
-            <div fxFlex="50" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-              <span *ngIf="order.state !== 'Delivered'">Order ETA:</span>
-              <!-- todo: this needs to be formatted -->
-              <span *ngIf="order.state !== 'Delivered'" class="ms-light-text">{{order.deliveryEta}}</span>
-
-              <span *ngIf="order.state === 'Delivered'">Ordered on:</span>
-              <!-- todo: this needs to be formatted -->
-              <span *ngIf="order.state === 'Delivered'" class="ms-light-text">{{order.deliveredDate}}</span>
+          <div fxLayout="row">
+            <div fxFlex="50" style="margin-right: 0.5em;">
+              <mat-chip-list *ngIf="order.orderInfo?.selectedAddOns && order.orderInfo.selectedAddOns.length !== 0">
+                <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
+                  <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
+                </div>
+              </mat-chip-list>
+            </div>
+            <div fxFlex="50" *ngIf="order.state !== 'Delivered'" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              <span style="margin-right: 0.25em;">Order ETA:</span>
+              <span class="ms-light-text">{{order.deliveryEta}}</span>
+            </div>
+            <div fxFlex="50" *ngIf="order.state === 'Delivered'" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              <span style="margin-right: 0.25em;">Ordered on:</span>
+              <span class="ms-light-text">{{order.orderDate}}</span>
             </div>
           </div>
         </div>

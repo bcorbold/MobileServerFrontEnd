@@ -2,7 +2,7 @@
   <mat-slide-toggle *ngIf="user.adminEnabled" fxShow fxHide.lt-lg fxFlexAlign="end" [(ngModel)]="isAdminView">Bartender view</mat-slide-toggle>
 
   <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.lt-lg>
-    <div class="picture-placeholder"></div>
+    <img class="ms-profile-picture" src="{{user.pictureUrl}}">
 
     <div fxFlex fxLayout="column" class="ms-account-info-container">
       <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
@@ -41,7 +41,8 @@
   </div>
 
   <div fxFlex fxHide fxShow.lt-lg fxLayout="column" fxLayoutAlign="start center" style="padding: 0 0.5em; overflow: auto;">
-    <div class="picture-placeholder"></div>
+    <img class="ms-profile-picture" src="{{user.pictureUrl}}">
+
     <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
     <p class="ms-light-text">{{user.username}}</p>
     <mat-form-field color="accent">

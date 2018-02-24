@@ -104,7 +104,9 @@ export class CacheService implements OnDestroy {
 
       if (isCacheChanged) {
         this.orderHistoryCache = _.reverse(_.sortBy(this.orderHistoryCache, 'orderDate'));
-        this.orderHistorySubject.next(this.orderHistoryCache);
+        if (isDefined(this.orderHistorySubject)) {
+          this.orderHistorySubject.next(this.orderHistoryCache);
+        }
       }
     });
   }
