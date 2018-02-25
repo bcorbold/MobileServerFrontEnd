@@ -37,3 +37,9 @@ h1, h2, h3, p {
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
 }
+
+.ms-ellipsis-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

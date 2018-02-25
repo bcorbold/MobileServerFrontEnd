@@ -5,7 +5,6 @@
 
   <div fxFlex class="ms-order-history-container" fxLayout="column">
     <div *ngFor="let order of orderHistory;">
-
       <div class="order-row" fxLayout="row" fxLayoutAlign="start stretch">
         <div class="state-color-bar" matTooltip="{{order.state}}" matTooltipPosition="after"
              fxLayoutAlign="center center"
@@ -19,10 +18,10 @@
         </div>
         <div fxFlex fxLayout="column" style="overflow: auto; margin: 0.5em 0;">
           <div fxLayout="row" fxLayoutGap="0.5em">
-            <p style="width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            <p class="ms-ellipsis-text" style="width: 50%;">
               {{order.orderInfo.orderOption.name}}
             </p>
-            <div style="width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            <div class="ms-ellipsis-text" style="width: 50%;">
               <span>Location: </span>
               <span class="ms-light-text"> {{order.deliveryLocation.name}}</span>
             </div>
@@ -35,7 +34,7 @@
                 </div>
               </mat-chip-list>
             </div>
-            <div style="width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            <div class="ms-ellipsis-text" style="width: 50%;">
               <span>Order ETA:</span>
               <span class="ms-light-text"> {{order.deliveryEta}}</span>
             </div>

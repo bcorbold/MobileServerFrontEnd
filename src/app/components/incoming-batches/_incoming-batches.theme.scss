@@ -6,30 +6,24 @@
 
   .ms-incoming-batches-container {
 
-    .ms-batch-container {
+    .ms-batch-row {
       background-color: mat-color($primary, 700);
-    }
 
-    .order-not-ready {
-      .state-indicator {
+      .ms-order-sent {
+        background-color: mat-color($successful);
+      }
+
+      .ms-order-ready {
+        background-color: mat-color($progress);
+      }
+
+      .ms-order-not-ready {
         background-color: mat-color($indeterminate);
       }
     }
 
-    .order-ready {
+    .ms-ready-row {
       background-color: mat-color($primary, 600);
-
-      .state-indicator {
-        background-color: mat-color($progress);
-      }
-    }
-
-    .order-sent {
-      background-color: mat-color($primary, 600);
-
-      .state-indicator {
-        background-color: mat-color($successful);
-      }
     }
   }
 }
