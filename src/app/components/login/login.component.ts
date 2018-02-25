@@ -16,11 +16,7 @@ export class LoginComponent {
   loginMessage: string;
   isLoading = false;
 
-  constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {
-    // todo: remove this
-    this.username = 'bcorbold';
-    this.password = '4tb6';
-  }
+  constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {}
 
   attemptLogin(): void {
     this.loginMessage = '';

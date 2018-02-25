@@ -1,6 +1,5 @@
-import { Subscription } from 'rxjs/Subscription';
-
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { isDefined } from '../../core/is-defined';
 import { Order } from '../../core/order';

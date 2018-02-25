@@ -8,6 +8,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+
 import { AccountInfoComponent } from './account-info.component';
 
 export { AccountInfoComponent } from './account-info.component';

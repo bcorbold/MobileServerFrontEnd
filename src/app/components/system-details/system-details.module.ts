@@ -7,6 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+
 import { SystemDetailsComponent } from './system-details.component';
 
 export { SystemDetailsComponent } from './system-details.component';

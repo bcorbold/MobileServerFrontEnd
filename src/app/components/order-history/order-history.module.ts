@@ -8,8 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { MessageModule, MessageService } from '../../services/message/message.module';
-import { DateTimeFormatterModule } from '../date-time-formatter/date-time-formatter.module';
+import { MessageService } from '../../services/message/message.module';
+
 import { OrderHistoryComponent } from './order-history.component';
 
 export { OrderHistoryComponent } from './order-history.component';
@@ -23,15 +23,13 @@ export { OrderHistoryComponent } from './order-history.component';
   ],
   imports: [
     CommonModule,
-    DateTimeFormatterModule,
     FlexLayoutModule,
     MatButtonModule,
     MatChipsModule,
     MatIconModule,
     MatInputModule,
     MatSlideToggleModule,
-    MatTooltipModule,
-    MessageModule
+    MatTooltipModule
   ],
   providers: [
     MessageService
