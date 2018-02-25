@@ -17,7 +17,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field color="accent">
-          <mat-select [(value)]="user.locale" placeholder="Locale">
+          <mat-select [(value)]="user.locale" placeholder="Locale" [disabled]="true">
             <div *ngFor="let locale of environmentDetails.locales">
               <mat-option [value]="locale">{{locale}}</mat-option>
             </div>
@@ -46,14 +46,15 @@
     <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
     <p class="ms-light-text">{{user.username}}</p>
     <mat-form-field color="accent">
-      <mat-select [(value)]="user.defaultDeliveryLocation.id" placeholder="Default delivery location">
+      <!-- todo: this doesn't populate the field on load since it's a different object -->
+      <mat-select [(value)]="user.defaultDeliveryLocation" placeholder="Default delivery location">
         <div *ngFor="let location of environmentDetails.deliveryLocations">
-          <mat-option [value]="location.id">{{location.name}}</mat-option>
+          <mat-option [value]="location">{{location.name}}</mat-option>
         </div>
       </mat-select>
     </mat-form-field>
     <mat-form-field color="accent">
-      <mat-select [(value)]="user.locale" placeholder="Locale">
+      <mat-select [(value)]="user.locale" placeholder="Locale" [disabled]="true">
         <div *ngFor="let locale of environmentDetails.locales">
           <mat-option [value]="locale">{{locale}}</mat-option>
         </div>
