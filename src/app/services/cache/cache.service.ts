@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Batch } from '../../core/batch';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
+import { OrderStates } from '../../core/lists/order-states';
 import { Order } from '../../core/order';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
@@ -21,7 +22,6 @@ export class CacheService implements OnDestroy {
   private static BATCH_POLLING_RATE = 250;
   private static ORDER_POLLING_RATE = 250;
   private static SYSTEM_DETAILS_POLLING_RATE = 1000;
-  private static DELIVERED = 'Delivered'; // todo: move to a defined list
 
   private environmentDetails: EnvironmentDetails;
 
@@ -54,7 +54,7 @@ export class CacheService implements OnDestroy {
     );
     this.placedOrderSubscription = this.messageService.orderPlacedUpdate.subscribe(
       (order: Order) => {
-        if (order.state !== CacheService.DELIVERED) {
+        if (order.state !== OrderStates.delivered) {
           this.ordersToMonitor.push(order);
           if (!isDefined(this.orderUpdatesSubscription)) {
             this.orderUpdatesTimer = Observable.interval(CacheService.ORDER_POLLING_RATE);
@@ -87,7 +87,7 @@ export class CacheService implements OnDestroy {
           if (order.state !== cachedOrder.state || order.deliveryEta !== cachedOrder.deliveryEta) {
             this.orderHistoryCache[i] = order;
             isCacheChanged = true;
-            if (order.state === CacheService.DELIVERED) {
+            if (order.state === OrderStates.delivered) {
               const j = _.findIndex(this.ordersToMonitor, (monitoredOrder: Order) => {
                 return monitoredOrder.id === order.id;
               });
@@ -163,7 +163,7 @@ export class CacheService implements OnDestroy {
         this.orderHistoryCache = _.reverse(_.sortBy(orderHistory, 'orderDate'));
 
         this.orderHistoryCache.forEach((order: Order) => {
-          if (order.state !== CacheService.DELIVERED) {
+          if (order.state !== OrderStates.delivered) {
             this.ordersToMonitor.push(order);
           }
         });

@@ -5,12 +5,12 @@
     <div *ngFor="let batch of batches" fxLayout="column" fxLayoutAlign="start stretch" class="ms-batch-row">
       <div *ngFor="let order of batch.orders">
         <div fxLayout="row" fxLayoutAlign="start stretch" (click)="updateOrderStatus(order, batch)"
-             [ngClass]="{'ms-pointer-row': batch.state !== 'Delivering', 'ms-ready-row': batch.state !== 'Delivering' && order.ready}">
+             [ngClass]="{'ms-pointer-row': batch.state !== BatchStates.delivering, 'ms-ready-row': batch.state !== BatchStates.delivering && order.ready}">
 
           <div class="ms-state-indicator"
-               [ngClass]="{   'ms-order-sent': batch.state === 'Delivering',
-                              'ms-order-ready': order.ready && batch.state !== 'Delivering',
-                              'ms-order-not-ready': !order.ready  && batch.state !== 'Delivering' }"
+               [ngClass]="{ 'ms-order-sent': batch.state === BatchStates.delivering,
+                            'ms-order-ready': order.ready && batch.state !== BatchStates.delivering,
+                            'ms-order-not-ready': !order.ready  && batch.state !== BatchStates.delivering }"
                matTooltip="{{batch.state}}" matTooltipPosition="after"></div>
           <div fxFlex fxLayout="column" style="overflow: auto; margin: 0.5em 0;">
             <div fxLayout="row" fxLayoutGap="0.5em">
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <button *ngIf="batch.state !== 'Delivering' && batch.ready" mat-raised-button class="ms-square-button" color="accent"(click)="sendBatch(batch)">
+      <button *ngIf="batch.state !== BatchStates.delivering && batch.ready" mat-raised-button class="ms-square-button" color="accent"(click)="sendBatch(batch)">
         Send with <i>{{batch.assignedRobot.name}}</i>
       </button>
     </div>

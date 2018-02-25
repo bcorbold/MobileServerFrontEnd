@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Batch } from '../../core/batch';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
+import { BatchStates } from '../../core/lists/batch-states';
 import { Order } from '../../core/order';
 import { RobotInfo } from '../../core/robot-info';
 import { CacheService } from '../../services/cache/cache.service';
@@ -17,6 +18,8 @@ import { MessageService } from '../../services/message/message.service';
   templateUrl: './incoming-batches.component.html'
 })
 export class IncomingBatchesComponent implements OnDestroy {
+
+  protected BatchStates = BatchStates;
 
   batches: Batch[] = [];
   incomingBatchSubscription: Subscription;

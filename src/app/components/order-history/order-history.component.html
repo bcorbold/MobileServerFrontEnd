@@ -9,10 +9,10 @@
         <div class="state-color-bar" matTooltip="{{order.state}}" matTooltipPosition="after"
              fxLayoutAlign="center center"
              [ngClass]="{
-                waiting: order.state === 'Waiting' || order.state === 'Queued',
-                delivering: order.state === 'Delivering',
-                delivered: order.state === 'Delivered',
-                delayed: order.state === 'Delayed'
+                waiting: order.state === OrderStates.waiting || order.state === OrderStates.queued,
+                delivering: order.state === OrderStates.delivering,
+                delivered: order.state === OrderStates.delivered,
+                delayed: order.state === OrderStates.delayed
              }">
           <mat-icon style="cursor: pointer;" (click)="reorder.emit(order)">add_shopping_cart</mat-icon>
         </div>
