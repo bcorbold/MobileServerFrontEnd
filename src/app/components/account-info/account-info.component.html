@@ -10,9 +10,9 @@
 
       <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="1em" style="margin-top: 2em;">
         <mat-form-field color="accent">
-          <mat-select [(value)]="user.defaultDeliveryLocation.id" placeholder="Default delivery location">
+          <mat-select [(value)]="user.defaultDeliveryLocation" placeholder="Default delivery location">
             <div *ngFor="let location of environmentDetails.deliveryLocations">
-              <mat-option [value]="location.id">{{location.name}}</mat-option>
+              <mat-option [value]="location">{{location.name}}</mat-option>
             </div>
           </mat-select>
         </mat-form-field>
