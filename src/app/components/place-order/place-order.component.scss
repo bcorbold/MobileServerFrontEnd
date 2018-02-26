@@ -1,0 +1,27 @@
+.ms-desktop-order {
+  padding: 1em 2em;
+}
+
+.ms-mobile-order {
+  padding: 0.5em;
+
+  .drink-description {
+    margin-bottom: 2em;
+  }
+}
+
+.ms-place-order-wrapper {
+  width: 100%;
+  height: 100%;
+
+  .ms-header {
+    margin-bottom: 0.5em;
+  }
+
+  .drink-description {
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.8em;
+  }
+}
+

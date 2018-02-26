@@ -1,0 +1,37 @@
+@import '~@angular/material/_theming.scss';
+
+@mixin ms-order-history-theme($theme, $indeterminate, $progress, $successful) {
+
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+
+  .ms-order-history-container {
+
+    .state-color-bar {
+      mat-icon {
+        color: mat-color($primary, 800);
+      }
+    }
+
+    .order-row {
+      background-color: mat-color($primary, 700);
+    }
+
+    .waiting {
+      background-color: mat-color($indeterminate);
+    }
+
+    .delivering {
+      background-color: mat-color($progress);
+    }
+
+    .delivered {
+      background-color: mat-color($successful);
+    }
+
+    .delayed {
+      background-color: mat-color($warn);
+    }
+  }
+
+}

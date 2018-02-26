@@ -1,0 +1,29 @@
+@import '~@angular/material/_theming.scss';
+
+@mixin ms-home-theme($theme) {
+
+  $primary: map-get($theme, primary);
+
+  .ms-desktop-home {
+    ms-incoming-batches, ms-order-history {
+      background-color: mat-color($primary, 900);
+    }
+  }
+
+  .ms-mobile-header {
+    background-color: mat-color($primary, 900);
+  }
+
+  mat-menu {
+    background-color: mat-color($primary, 900);
+  }
+
+  .ms-home-wrapper {
+
+    .ms-divider {
+      div {
+        background-color: mat-color($primary, 900);
+      }
+    }
+  }
+}

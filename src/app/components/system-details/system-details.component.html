@@ -1,0 +1,12 @@
+<div class="ms-system-details" ngClass.gt-md="ms-desktop-details" ngClass.lt-lg="ms-mobile-details">
+  <h1 class="ms-header" fxShow fxHide.lt-lg>System Details</h1>
+
+  <div *ngFor="let status of systemDetails?.robots" class="ms-robot-details">
+    <div class="status-container" fxLayout="row" fxLayoutAlign="start stretch">
+      <div class="ms-state-indicator" matTooltip="{{!status.isConnected ? 'Offline' : status.robotError ? 'Error' : 'Online'}}"
+           matTooltipPosition="after" [ngClass]="{'online': status.isConnected && !status.robotError, 'offline': !status.isConnected, 'error': status.robotError}"></div>
+      <p fxFlex="20" class="ms-robot-name">{{status.robotInfo.name}}</p>
+      <p fxHide fxShow.lt-lg class="ms-light-text" fxFlexAlign="center">{{status.robotError ? 'error' : !status.isConnected ? 'offline' : 'online'}}</p>
+    </div>
+  </div>
+</div>

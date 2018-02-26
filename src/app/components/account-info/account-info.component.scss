@@ -1,0 +1,49 @@
+.ms-account-info-wrapper {
+
+  .ms-profile-picture {
+    $picture-size: 12em;
+    width: $picture-size;
+    height: $picture-size;
+    min-height: $picture-size;
+    -webkit-border-radius: $picture-size/2;
+    -moz-border-radius: $picture-size/2;
+    border-radius: $picture-size/2;
+  }
+
+  .ms-account-info-container {
+    margin-left: 2em;
+  }
+}
+
+.ms-desktop-account {
+  padding: 1em 2em;
+}
+
+.ms-mobile-account {
+
+  .ms-profile-picture {
+    margin-top: 2em;
+  }
+
+  .ms-header {
+    letter-spacing: 0.04em;
+  }
+
+  .ms-light-text {
+    margin-bottom: 0.5em;
+  }
+
+  .ms-button-wrapper {
+    width: 100%;
+    min-height: 2.5em;
+    margin-bottom: 0.5em;
+
+    button {
+      min-height: 2.5em;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}

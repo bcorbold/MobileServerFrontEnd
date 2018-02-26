@@ -1,0 +1,48 @@
+<div fxFlex class="ms-order-history-wrapper" ngClass.gt-md="ms-desktop-history" fxLayout="column">
+  <h1 class="ms-header" fxShow fxHide.lt-lg>Order History</h1>
+
+  <!-- todo: add filters at the top to help search through history -->
+
+  <div fxFlex class="ms-order-history-container" fxLayout="column">
+    <div *ngFor="let order of orderHistory;">
+      <div class="order-row" fxLayout="row" fxLayoutAlign="start stretch">
+        <div class="state-color-bar" matTooltip="{{order.state}}" matTooltipPosition="after"
+             fxLayoutAlign="center center"
+             [ngClass]="{
+                waiting: order.state === OrderStates.waiting || order.state === OrderStates.queued,
+                delivering: order.state === OrderStates.delivering,
+                delivered: order.state === OrderStates.delivered,
+                delayed: order.state === OrderStates.delayed
+             }">
+          <mat-icon style="cursor: pointer;" (click)="reorder.emit(order)">add_shopping_cart</mat-icon>
+        </div>
+        <div fxFlex fxLayout="column" style="overflow: auto; margin: 0.5em 0;">
+          <div fxLayout="row" fxLayoutGap="0.5em">
+            <p class="ms-ellipsis-text" style="width: 50%;">
+              {{order.orderInfo.orderOption.name}}
+            </p>
+            <div class="ms-ellipsis-text" style="width: 50%;">
+              <span>Location: </span>
+              <span class="ms-light-text"> {{order.deliveryLocation.name}}</span>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutGap="0.5em">
+            <div style="width: 50%;">
+              <mat-chip-list *ngIf="order.orderInfo?.selectedAddOns && order.orderInfo.selectedAddOns.length !== 0">
+                <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
+                  <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
+                </div>
+              </mat-chip-list>
+            </div>
+            <div class="ms-ellipsis-text" style="width: 50%;">
+              <span>Order ETA:</span>
+              <span class="ms-light-text"> {{order.deliveryEta}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <i *ngIf="orderHistory.length === 0">No past orders to be displayed... Try ordering something!</i>
+  </div>
+</div>

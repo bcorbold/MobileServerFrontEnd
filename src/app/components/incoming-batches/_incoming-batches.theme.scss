@@ -1,0 +1,30 @@
+@import '~@angular/material/_theming.scss';
+
+@mixin ms-incoming-batches-theme($theme, $indeterminate, $progress, $successful) {
+
+  $primary: map-get($theme, primary);
+
+  .ms-incoming-batches-container {
+
+    .ms-batch-row {
+      background-color: mat-color($primary, 700);
+
+      .ms-order-sent {
+        background-color: mat-color($successful);
+      }
+
+      .ms-order-ready {
+        background-color: mat-color($progress);
+      }
+
+      .ms-order-not-ready {
+        background-color: mat-color($indeterminate);
+      }
+    }
+
+    .ms-ready-row {
+      background-color: mat-color($primary, 600);
+    }
+  }
+}
+

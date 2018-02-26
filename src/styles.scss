@@ -27,3 +27,19 @@ body {
 h1, h2, h3, p {
   margin: 0;
 }
+
+.ms-light-text {
+  font-weight: 300;
+}
+
+.ms-square-button {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+
+.ms-ellipsis-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
