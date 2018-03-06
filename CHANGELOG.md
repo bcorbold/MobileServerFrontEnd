@@ -1,4 +1,4 @@
-# [1.0.0](https://github.com/bcorbold/MobileServerFrontEnd/) (TBD)
+# [1.0.0](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.0.0) - Released (06-03-2018)
 - (fix): `MessageService` now will only emit changes for batchUpdates and orderHistory if there is a change to the respective caches 
 - (feat): `PlaceOrderComponent` now uses auto-complete forms for delivery locations and beverage type
 - (fix): `PlaceOrderComponent` form now resets, and populates past order information correctly
@@ -7,10 +7,11 @@
 - (feat): Updated `getSystemDetails` API so that new information can easily be added
 - (feat): Added mobile layout
 - (build): Backend url is now stored in the `environment` files
+- (build): Prod build now puts output in `docs` folder
 
-# [0.3.1](https://github.com/bcorbold/MobileServerFrontEnd/tree/0.3.1) (28-01-2018)
+# [0.3.1](https://github.com/bcorbold/MobileServerFrontEnd/tree/0.3.1) - Released (28-01-2018)
 - (fix): Increased polling rate for order history and batch updates
 
-# [0.3.0](https://github.com/bcorbold/MobileServerFrontEnd/tree/0.3.0) (28-01-2018)
+# [0.3.0](https://github.com/bcorbold/MobileServerFrontEnd/tree/0.3.0) - Released (28-01-2018)
 - (chore): Removed mock data from UI project. Connected backend API calls so that data is now returned from the backend
 - (style): Restyle application for a more "flat" layout
