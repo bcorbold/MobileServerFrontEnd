@@ -1,8 +1,8 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'ms-map-editor',
@@ -10,31 +10,35 @@ import { MessageService } from '../../services/message/message.service';
   styleUrls: ['./map-editor.component.scss']
 })
 export class MapEditorComponent {
+  verticeX = 0;
+  verticeY = 0;
+
+  lineX1 = 0;
+  lineY1 = 0;
+  lineX2 = 0;
+  lineY2 = 0;
 
   maxX = 50;
   maxY = 50;
 
-  constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {
+  innerHeight = 50;
+  innerWidth = 50;
+
+  constructor(public change: ChangeDetectorRef, private router: Router, private messageService: MessageService, public dialog: MatDialog) {
     messageService.getVerticesAndEdges().then(response => {
       this.vertices = [];
       response.vertices.forEach(vertice => {
         this.vertices.push({
-          x: vertice.x * 100,
-          y: vertice.y * 100
+          x: vertice.x,
+          y: vertice.y
         });
       });
 
       this.edges = [];
       response.edges.forEach(edge => {
-        console.log(edge);
-        console.log(response.vertices);
-
         let startVertice;
         let endVertice;
         response.vertices.forEach(vertice => {
-          console.log(vertice.name);
-          console.log(edge.fromVertex);
-          console.log(edge.toVertex);
           if (vertice.name === edge.fromVertex) {
             startVertice = vertice;
           }
@@ -42,20 +46,25 @@ export class MapEditorComponent {
             endVertice = vertice;
           }
         });
-        console.log(startVertice);
-        console.log(endVertice);
+
         this.edges.push({
-          startX: startVertice.x * 100,
-          startY: startVertice.y * 100,
-          endX: endVertice.x * 100,
-          endY: endVertice.y * 100
+          startX: startVertice.x,
+          startY: startVertice.y,
+          endX: endVertice.x,
+          endY: endVertice.y
         });
       });
-      console.log(this.edges);
 
       this.getMaxX();
       this.getMaxY();
+
+      // document.querySelector('svg').addEventListener('click', event => {
+      //   console.log(event);
+      // });
     });
+
+    this.innerHeight = (window.innerHeight);
+    this.innerWidth = (window.innerWidth);
   }
 
   vertices = [];
@@ -68,7 +77,7 @@ export class MapEditorComponent {
         max = num.x;
       }
     });
-    this.maxX = max + 20;
+    this.maxX = max;
   }
 
   getMaxY() {
@@ -78,7 +87,121 @@ export class MapEditorComponent {
         max = num.y;
       }
     });
-    this.maxY = max + 20;
+    this.maxY = max;
+  }
+
+  getMultiplier(): number {
+    const height = (this.innerHeight / this.maxY) - 10;
+    const width = (this.innerWidth / this.maxX) - 10;
+
+    if (height < width) {
+      return height;
+    } else {
+      return width;
+    }
+  }
+
+  clickDot(x: number, y: number): void {
+    console.log('Got this1' + x);
+    console.log('Got this2' + y);
+  }
+
+  onClick(event) {
+    if (event.srcElement.localName === 'line') {
+      this.openDialogLine(
+        event.srcElement.getAttribute('actualX1'),
+        event.srcElement.getAttribute('actualY1'),
+        event.srcElement.getAttribute('actualX2'),
+        event.srcElement.getAttribute('actualY2')
+      );
+    }
+    if (event.srcElement.localName === 'circle') {
+      this.openDialogCircle(
+        event.srcElement.getAttribute('actualX'),
+        event.srcElement.getAttribute('actualY')
+      );
+    }
+  }
+
+  openDialogLine(actualX1: number, actualY1: number, actualX2: number, actualY2: number): void {
+    const dialogRef = this.dialog.open(PopupDialogComponent, {
+      width: '250px',
+      data: {
+        text: 'Line from (' + actualX1 + ', ' + actualY1 + ') to (' + actualX2 + ', ' + actualY2 + ')'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(toDelete => {
+      if (toDelete) {
+        const newEdges = [];
+        this.edges.forEach(edge => {
+          if (edge.startX.toString() !== actualX1 || edge.startY.toString() !== actualY1 || edge.endX.toString() !== actualX2 || edge.endY.toString() !== actualY2) {
+            newEdges.push(edge);
+          }
+        });
+        this.edges = newEdges;
+      }
+    });
+  }
+
+  openDialogCircle(actualX: number, actualY: number): void {
+    const dialogRef = this.dialog.open(PopupDialogComponent, {
+      width: '250px',
+      data: {
+        text: 'Vertice at (' + actualX + ', ' + actualY + ')'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(toDelete => {
+      if (toDelete) {
+        const newVertices = [];
+        this.vertices.forEach(vertice => {
+          if (vertice.x.toString() !== actualX || vertice.y.toString() !== actualY) {
+            newVertices.push(vertice);
+          }
+        });
+        this.vertices = newVertices;
+      }
+    });
+  }
+
+  addVertice() {
+    this.vertices.push({x: this.verticeX, y: this.verticeY});
+  }
+
+  addLine() {
+    this.edges.push({
+      startX: this.lineX1,
+      startY: this.lineY1,
+      endX: this.lineX2,
+      endY: this.lineY2
+    });
+    this.change.detectChanges();
+  }
+
+}
+
+@Component({
+  selector: 'ms-popup-dialog-component',
+  template: `
+    <h1 mat-dialog-title>Would u like to delete the following</h1>
+    <div mat-dialog-content>
+      <p>{{data.text}}</p>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button [matDialogClose]="true">Yes</button>
+      <button mat-button [matDialogClose]="false" cdkFocusInitial>No</button>
+    </div>
+  `
+})
+export class PopupDialogComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<PopupDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

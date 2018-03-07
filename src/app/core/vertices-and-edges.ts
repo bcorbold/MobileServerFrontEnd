@@ -1,6 +1,3 @@
-import { Coordinate } from './coordinate';
-import { DeliveryLocation } from './delivery-location';
-
 export class VerticesAndEdges {
   vertices: {
     x: number,
