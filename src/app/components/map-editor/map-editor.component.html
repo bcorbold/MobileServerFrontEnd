@@ -1,11 +1,11 @@
 <div fxLayout="row" fxLayoutAlign="center center">
   <div fxLayout="column" fxLayoutAlign="center center">
     <svg [attr.height]="maxY * getMultiplier() + 30" [attr.width]="maxX * getMultiplier() + 30" style="padding: 15px" (click)="onClick($event)">
-      <circle *ngFor="let vertice of vertices"
-              [attr.cx]="vertice.x * getMultiplier()"
-              [attr.cy]="vertice.y * getMultiplier()"
-              [attr.actualX]="vertice.x"
-              [attr.actualY]="vertice.y"
+      <circle *ngFor="let vertex of vertices"
+              [attr.cx]="vertex.x * getMultiplier()"
+              [attr.cy]="vertex.y * getMultiplier()"
+              [attr.actualX]="vertex.x"
+              [attr.actualY]="vertex.y"
               r="10" stroke="black" stroke-width="1" fill="red">
       </circle>
       <line *ngFor="let edge of edges"
@@ -24,12 +24,12 @@
   <div fxLayout="column" fxLayoutAlign="center center">
     <div fxLayout="row" fxLayoutAlign="center center">
       <mat-input-container color="accent" style="width:50px">
-        <input matInput placeholder="X" type="number" [(ngModel)]="verticeX">
+        <input matInput placeholder="X" type="number" [(ngModel)]="vertexX">
       </mat-input-container>
       <mat-input-container color="accent" style="width:50px">
-        <input matInput placeholder="Y" type="number" [(ngModel)]="verticeY">
+        <input matInput placeholder="Y" type="number" [(ngModel)]="vertexY">
       </mat-input-container>
-      <button mat-raised-button color="accent" (click)="addVertice()">Add Node</button>
+      <button mat-raised-button color="accent" (click)="addVertex()">Add Vertex</button>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="center center">

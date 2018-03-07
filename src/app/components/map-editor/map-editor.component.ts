@@ -10,8 +10,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./map-editor.component.scss']
 })
 export class MapEditorComponent {
-  verticeX = 0;
-  verticeY = 0;
+  vertexX = 0;
+  vertexY = 0;
 
   lineX1 = 0;
   lineY1 = 0;
@@ -27,31 +27,31 @@ export class MapEditorComponent {
   constructor(public change: ChangeDetectorRef, private router: Router, private messageService: MessageService, public dialog: MatDialog) {
     messageService.getVerticesAndEdges().then(response => {
       this.vertices = [];
-      response.vertices.forEach(vertice => {
+      response.vertices.forEach(vertex => {
         this.vertices.push({
-          x: vertice.x,
-          y: vertice.y
+          x: vertex.x,
+          y: vertex.y
         });
       });
 
       this.edges = [];
       response.edges.forEach(edge => {
-        let startVertice;
-        let endVertice;
-        response.vertices.forEach(vertice => {
-          if (vertice.name === edge.fromVertex) {
-            startVertice = vertice;
+        let startvertex;
+        let endvertex;
+        response.vertices.forEach(vertex => {
+          if (vertex.name === edge.fromVertex) {
+            startvertex = vertex;
           }
-          if (vertice.name === edge.toVertex) {
-            endVertice = vertice;
+          if (vertex.name === edge.toVertex) {
+            endvertex = vertex;
           }
         });
 
         this.edges.push({
-          startX: startVertice.x,
-          startY: startVertice.y,
-          endX: endVertice.x,
-          endY: endVertice.y
+          startX: startvertex.x,
+          startY: startvertex.y,
+          endX: endvertex.x,
+          endY: endvertex.y
         });
       });
 
@@ -148,16 +148,16 @@ export class MapEditorComponent {
     const dialogRef = this.dialog.open(PopupDialogComponent, {
       width: '250px',
       data: {
-        text: 'Vertice at (' + actualX + ', ' + actualY + ')'
+        text: 'vertex at (' + actualX + ', ' + actualY + ')'
       }
     });
 
     dialogRef.afterClosed().subscribe(toDelete => {
       if (toDelete) {
         const newVertices = [];
-        this.vertices.forEach(vertice => {
-          if (vertice.x.toString() !== actualX || vertice.y.toString() !== actualY) {
-            newVertices.push(vertice);
+        this.vertices.forEach(vertex => {
+          if (vertex.x.toString() !== actualX || vertex.y.toString() !== actualY) {
+            newVertices.push(vertex);
           }
         });
         this.vertices = newVertices;
@@ -165,8 +165,8 @@ export class MapEditorComponent {
     });
   }
 
-  addVertice() {
-    this.vertices.push({x: this.verticeX, y: this.verticeY});
+  addVertex() {
+    this.vertices.push({x: this.vertexX, y: this.vertexY});
   }
 
   addLine() {
