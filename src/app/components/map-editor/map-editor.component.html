@@ -1,0 +1,6 @@
+<div>
+  <svg [attr.height]="maxY" [attr.width]="maxX" style="padding: 10px">
+    <circle *ngFor="let vertice of vertices" [attr.cx]="vertice.x" [attr.cy]="vertice.y" r="5" stroke="black" stroke-width="1" fill="red" />
+    <line *ngFor="let edge of edges" [attr.x1]="edge.startX" [attr.y1]="edge.startY" [attr.x2]="edge.endX" [attr.y2]="edge.endY" style="stroke:rgb(255,0,0);stroke-width:2" />
+  </svg>
+</div>

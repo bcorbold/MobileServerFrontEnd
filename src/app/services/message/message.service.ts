@@ -12,6 +12,7 @@ import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
+import { VerticesAndEdges } from '../../core/vertices-and-edges';
 
 @Injectable()
 export class MessageService {
@@ -161,6 +162,20 @@ export class MessageService {
 
       this.http.post(environment.backendUrl + 'getSystemDetails', body).subscribe(
         (response: SystemDetails) => resolve(response),
+        error => reject(error)
+      );
+    });
+  }
+
+  getVerticesAndEdges(): Promise<VerticesAndEdges> {
+    return new Promise<VerticesAndEdges>((resolve, reject) => {
+      const body = {
+        username: '',
+        sessionKey: ''
+      };
+
+      this.http.post(environment.backendUrl + 'getVerticesAndEdges', body).subscribe(
+        (response: VerticesAndEdges) => resolve(response),
         error => reject(error)
       );
     });
