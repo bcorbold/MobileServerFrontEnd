@@ -181,4 +181,18 @@ export class MessageService {
     });
   }
 
+  setMap(edges: any, vertices: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      const body = {
+        username: '',
+        sessionKey: '',
+        edgeValues: edges,
+        verticeValues: vertices
+      };
+
+      // todo: can we just map this???
+      this.http.post(environment.backendUrl + 'setMap', body).subscribe(() => resolve(), error => reject(error));
+    });
+  }
+
 }

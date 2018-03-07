@@ -179,6 +179,12 @@ export class MapEditorComponent {
     this.change.detectChanges();
   }
 
+  setMap() {
+    console.log(this.edges);
+    console.log(this.vertices);
+    this.messageService.setMap(this.edges, this.vertices);
+  }
+
 }
 
 @Component({
