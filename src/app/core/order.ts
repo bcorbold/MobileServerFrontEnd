@@ -20,16 +20,6 @@ export class Order {
     order.deliveryEta = that.deliveryEta;
     order.orderDate = that.orderDate;
     order.deliveredDate = that.deliveredDate;
-
-    // if (isDefined(that.deliveryEta)) { // todo: this causes the null fields in "that" to not exist on the copied object
-    //   order.deliveryEta = new Date(that.deliveryEta);
-    // }
-    // if (isDefined(that.orderDate)) {
-    //   order.orderDate = new Date(that.orderDate);
-    // }
-    // if (isDefined(that.deliveredDate)) {
-    //   order.deliveredDate = new Date(that.deliveredDate);
-    // }
     order.orderInfo = OrderInfo.copy(that.orderInfo);
     order.deliveryLocation = DeliveryLocation.copy(that.deliveryLocation);
     if (isDefined(that.ready)) {

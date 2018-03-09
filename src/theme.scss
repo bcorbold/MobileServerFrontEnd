@@ -8,6 +8,11 @@ $primary: mat-palette($mat-grey);
 $accent: mat-palette($mat-green, 600);
 $warn: mat-palette($mat-red);
 
+// todo: these are the 3 colours used to states, figure out some better names
+$indeterminate: mat-palette($mat-amber, 300);
+$progress: mat-palette($mat-light-blue, 200);
+$successful: mat-palette($mat-green, 600);
+
 $ms-theme: mat-dark-theme($primary, $accent, $warn);
 
 html {
@@ -16,5 +21,5 @@ html {
 
 .ms-theme {
   @include angular-material-theme($ms-theme);
-  @include app-theme($ms-theme);
+  @include app-theme($ms-theme, $indeterminate, $progress, $successful);
 }

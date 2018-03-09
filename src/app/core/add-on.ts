@@ -1,4 +1,5 @@
 export class AddOn {
+  id: number;
   name: string;
   type: string;
 

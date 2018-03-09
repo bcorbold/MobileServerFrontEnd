@@ -1,0 +1,39 @@
+.ms-incoming-batches-container {
+
+  .ms-batch-row {
+    margin-bottom: 0.5em;
+
+    .ms-pointer-row {
+      cursor: pointer;
+    }
+
+    .ms-state-indicator {
+      margin-right: 0.5em;
+    }
+  }
+}
+
+.ms-desktop-batches {
+  padding: 1em 2em;
+
+  .ms-header {
+    margin-bottom: 0.5em;
+  }
+
+  .ms-batch-row {
+
+    .ms-state-indicator {
+      min-width: 1em;
+    }
+  }
+}
+
+.ms-mobile-batches {
+
+  .ms-batch-row {
+
+    .ms-state-indicator {
+      min-width: 0.5em;
+    }
+  }
+}

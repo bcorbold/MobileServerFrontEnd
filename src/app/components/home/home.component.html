@@ -1,0 +1,57 @@
+<div fxLayout="row" fxLayoutAlign="center stretch" fxFill class="ms-home-wrapper">
+
+  <!-- desktop layout -->
+  <div *msMediaIf="'gt-md'" fxFlex class="ms-desktop-home">
+    <ms-order-history fxFlex *ngIf="!isAdminView" (reorder)="populatePlaceOrder($event)"></ms-order-history>
+    <ms-incoming-batches fxFlex *ngIf="isAdminView"></ms-incoming-batches>
+    <div fxFlex fxLayout="column">
+      <ms-account-info fxFlex [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)"></ms-account-info>
+
+      <div class="ms-divider">
+        <div fxFlex></div>
+      </div>
+
+      <ms-place-order fxFlex *ngIf="!isAdminView" [pastOrder]="pastOrder"></ms-place-order>
+      <ms-system-details fxFlex *ngIf="isAdminView"></ms-system-details>
+    </div>
+  </div>
+
+  <!-- mobile layout -->
+  <div *msMediaIf="'lt-lg'" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
+    <div fxLayout="row" fxLayoutAlign="start center" class="ms-mobile-header">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <p style="font-size: 2em;">{{componentInView}}</p>
+    </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="componentInView = 'Place Order'">
+        <mat-icon>add_shopping_cart</mat-icon>
+        <span>Place Order</span>
+      </button>
+      <button mat-menu-item (click)="componentInView = 'Order History'">
+        <mat-icon>history</mat-icon>
+        <span>Order History</span>
+      </button>
+      <button mat-menu-item (click)="componentInView = 'Account Info'">
+        <mat-icon>account_circle</mat-icon>
+        <span>Account</span>
+      </button>
+      <button *ngIf="isAdminView" mat-menu-item (click)="componentInView = 'Incoming Batches'">
+        <mat-icon>receipt</mat-icon>
+        <span>Batches</span>
+      </button>
+      <button *ngIf="isAdminView" mat-menu-item (click)="componentInView = 'System Details'">
+        <mat-icon>settings</mat-icon>
+        <span>System</span>
+      </button>
+    </mat-menu>
+
+    <ms-place-order *ngIf="componentInView === 'Place Order'" [pastOrder]="pastOrder" fxFlex></ms-place-order>
+    <ms-order-history *ngIf="componentInView === 'Order History'" (reorder)="populatePlaceOrder($event)" fxFlex></ms-order-history>
+    <ms-account-info [(isAdminView)]="isAdminView" (userUpdate)="handleUserInfoChange($event)" *ngIf="componentInView === 'Account Info'" fxFlex></ms-account-info>
+    <ms-incoming-batches fxFlex *ngIf="adminEnabled && componentInView === 'Incoming Batches'"></ms-incoming-batches>
+    <ms-system-details *ngIf="adminEnabled && componentInView === 'System Details'" fxFlex></ms-system-details>
+  </div>
+
+</div>

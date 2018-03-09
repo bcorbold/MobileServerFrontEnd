@@ -1,9 +1,0 @@
-@import '~@angular/material/_theming.scss';
-
-@mixin ms-new-order-theme($theme) {
-  $primary: map-get($theme, primary);
-
-  .ms-place-order-wrapper {
-    color: white;
-  }
-}

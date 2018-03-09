@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 
+import { isDefined } from './is-defined';
 import { OrderOption } from './order-option';
 
 export class OrderInfo {
@@ -13,9 +14,11 @@ export class OrderInfo {
   constructor(orderOption: OrderOption, selectedAddOns: {key: string, value: boolean | number | string}[]) {
     this.orderOption = OrderOption.copy(orderOption);
     this.selectedAddOns = [];
-    selectedAddOns.forEach(addOn => {
-      this.selectedAddOns.push(_.defaultsDeep({}, addOn));
-    });
+    if (isDefined(selectedAddOns)) {
+      selectedAddOns.forEach(addOn => {
+        this.selectedAddOns.push(_.defaultsDeep({}, addOn));
+      });
+    }
   }
 
 }

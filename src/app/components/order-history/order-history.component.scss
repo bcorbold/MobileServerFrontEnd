@@ -1,0 +1,25 @@
+.ms-desktop-history {
+  padding: 1em 2em;
+}
+
+.ms-order-history-wrapper {
+  max-width: 100vw;
+
+  // todo: these should be moved to global styles for consistency
+  .ms-header {
+    margin-bottom: 0.5em;
+  }
+
+  .ms-order-history-container {
+    overflow: auto;
+
+    .order-row {
+      margin-bottom: 0.5em;
+
+      .state-color-bar {
+        padding: 0.5em;
+        margin-right: 0.5em;
+      }
+    }
+  }
+}

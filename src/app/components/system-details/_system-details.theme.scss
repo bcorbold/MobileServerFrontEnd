@@ -1,0 +1,27 @@
+@import '~@angular/material/_theming.scss';
+
+@mixin ms-system-details-theme($theme, $indeterminate, $progress, $successful) {
+
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+
+  .ms-system-details {
+
+    .status-container {
+      background-color: mat-color($primary, 700);
+
+      .online {
+        background-color: mat-color($successful);
+      }
+
+      .offline {
+        background-color: mat-color($indeterminate);
+      }
+
+      .error {
+        background-color: mat-color($warn);
+      }
+    }
+  }
+
+}
