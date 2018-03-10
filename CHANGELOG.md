@@ -1,3 +1,6 @@
+# [1.0.1](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.0.1) - Released (10-03-2018)
+- (fix): `index.html` href fixed for Github Pages deployment
+
 # [1.0.0](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.0.0) - Released (06-03-2018)
 - (fix): `MessageService` now will only emit changes for batchUpdates and orderHistory if there is a change to the respective caches 
 - (feat): `PlaceOrderComponent` now uses auto-complete forms for delivery locations and beverage type
