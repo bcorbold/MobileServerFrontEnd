@@ -57,10 +57,6 @@ export class MapEditorComponent {
 
       this.getMaxX();
       this.getMaxY();
-
-      // document.querySelector('svg').addEventListener('click', event => {
-      //   console.log(event);
-      // });
     });
 
     this.innerHeight = (window.innerHeight);
@@ -176,7 +172,7 @@ export class MapEditorComponent {
       endX: this.lineX2,
       endY: this.lineY2
     });
-    this.change.detectChanges();
+    // this.change.detectChanges();
   }
 
   setMap() {
