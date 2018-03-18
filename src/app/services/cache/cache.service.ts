@@ -110,7 +110,14 @@ export class CacheService implements OnDestroy {
     if (isDefined(this.environmentDetails)) {
       return new Promise<EnvironmentDetails>(resolve => resolve(this.environmentDetails));
     } else {
-      return this.messageService.getEnvironmentDetails();
+      return new Promise<EnvironmentDetails>((resolve, reject) => {
+        this.messageService.getEnvironmentDetails()
+          .then(environmentDetails => {
+            this.environmentDetails = environmentDetails;
+            resolve(this.environmentDetails);
+          })
+          .catch(error => reject(error));
+      });
     }
   }
 
