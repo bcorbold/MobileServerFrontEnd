@@ -31,14 +31,10 @@ export class CacheService implements OnDestroy {
   private batchUpdatesSubject: Subject<Batch[]>;
   private batchUpdatesCache: Batch[] = [];
 
-  private orderUpdatesTimer: Observable<number>;
-  private orderUpdatesSubscription: Subscription;
   private orderHistorySubject: Subject<Order[]>;
   private orderHistoryCache: Order[] = [];
   private ordersToMonitor: Order[] = [];
 
-  private systemDetailsTimer: Observable<number>;
-  private systemDetailsSubscription: Subscription;
   private systemDetailsSubject: Subject<SystemDetails>;
   private systemDetailsCache: SystemDetails;
 
@@ -56,12 +52,8 @@ export class CacheService implements OnDestroy {
       (order: Order) => {
         if (order.state !== OrderStates.delivered) {
           this.ordersToMonitor.push(order);
-
           if (isDefined(this.orderHistorySubject)) {
-            if (!isDefined(this.orderUpdatesSubscription)) {
-              this.orderUpdatesTimer = Observable.interval(CacheService.ORDER_POLLING_RATE);
-              this.orderUpdatesSubscription = this.orderUpdatesTimer.subscribe(() => this.handleGetOrderUpdates());
-            }
+            this.fetchOrderUpdatesRecursive();
           }
         }
       },
@@ -70,7 +62,19 @@ export class CacheService implements OnDestroy {
     );
   }
 
-  private handleGetOrderUpdates(): void {
+  private fetchSystemDetailsRecursive() {
+    this.messageService.getSystemDetails().then((systemDetails: SystemDetails) => {
+      this.systemDetailsCache = systemDetails;
+      if (isDefined(this.systemDetailsSubject)) {
+        this.systemDetailsSubject.next(this.systemDetailsCache);
+        setTimeout(() => {
+          this.fetchSystemDetailsRecursive();
+        }, CacheService.SYSTEM_DETAILS_POLLING_RATE);
+      }
+    });
+  }
+
+  private fetchOrderUpdatesRecursive() {
     // this is when the timer has triggered, need to fetch orders from the monitored Orders
     // then merge that with the cache (updating where needed)
     // emit the new cache to the subject
@@ -78,9 +82,7 @@ export class CacheService implements OnDestroy {
     this.messageService.getOrderUpdates(this.ordersToMonitor).then((orders: Order[]) => {
       let isCacheChanged = false;
       orders.forEach((order: Order) => {
-        const i = _.findIndex(this.orderHistoryCache, (cachedOrder: Order) => {
-          return cachedOrder.id === order.id;
-        });
+        const i = _.findIndex(this.orderHistoryCache, (cachedOrder: Order) => cachedOrder.id === order.id);
 
         if (i === -1) {
           this.orderHistoryCache.push(order);
@@ -102,9 +104,13 @@ export class CacheService implements OnDestroy {
 
       if (isCacheChanged) {
         this.orderHistoryCache = _.reverse(_.sortBy(this.orderHistoryCache, 'orderDate'));
-        if (isDefined(this.orderHistorySubject)) {
-          this.orderHistorySubject.next(this.orderHistoryCache);
-        }
+      }
+
+      if (isDefined(this.orderHistorySubject) && this.ordersToMonitor.length !== 0) {
+        this.orderHistorySubject.next(this.orderHistoryCache);
+        setTimeout(() => {
+          this.fetchOrderUpdatesRecursive();
+        }, CacheService.ORDER_POLLING_RATE);
       }
     });
   }
@@ -181,13 +187,8 @@ export class CacheService implements OnDestroy {
         });
         this.ordersToMonitor = _.uniqBy(this.ordersToMonitor, 'id');
 
-        if (this.ordersToMonitor.length !== 0 && !isDefined(this.orderUpdatesSubscription)) {
-          this.orderUpdatesSubscription = Observable.interval(CacheService.ORDER_POLLING_RATE)
-            .subscribe(() => this.handleGetOrderUpdates());
-        }
-
-        if (isDefined(this.orderUpdatesSubscription)) {
-          this.orderHistorySubject.next(this.orderHistoryCache);
+        if (this.ordersToMonitor.length !== 0) {
+          this.fetchOrderUpdatesRecursive();
         }
       });
 
@@ -199,26 +200,14 @@ export class CacheService implements OnDestroy {
   }
 
   getSystemDetails(): Subject<SystemDetails> {
-    if (!isDefined(this.systemDetailsSubscription)) {
+    if (!isDefined(this.systemDetailsSubject)) {
       this.systemDetailsSubject = new Subject<SystemDetails>();
-      this.messageService.getSystemDetails().then((systemDetails: SystemDetails) => this.systemDetailsCache = systemDetails);
-
-      this.systemDetailsTimer = Observable.interval(CacheService.SYSTEM_DETAILS_POLLING_RATE);
-      this.systemDetailsSubscription = this.systemDetailsTimer.subscribe(() => {
-        this.messageService.getSystemDetails().then((systemDetails: SystemDetails) => {
-          // todo: check to see if any updates have occurred, only emit if there is a change
-          this.systemDetailsCache = systemDetails;
-          if (isDefined(this.systemDetailsSubscription)) {
-            this.systemDetailsSubject.next(this.systemDetailsCache);
-          }
-        });
-      });
+      this.fetchSystemDetailsRecursive();
       return this.systemDetailsSubject;
     } else {
       setTimeout(() => this.systemDetailsSubject.next(this.systemDetailsCache));
       return this.systemDetailsSubject;
     }
-
   }
 
   unsubscribeFromBatchUpdates(): void {
@@ -236,13 +225,6 @@ export class CacheService implements OnDestroy {
   }
 
   unsubscribeFromOrderHistoryUpdates(): void {
-    if (isDefined(this.orderUpdatesSubscription)) {
-      this.orderUpdatesSubscription.unsubscribe();
-      this.orderUpdatesSubscription = undefined;
-    }
-    if (isDefined(this.orderUpdatesTimer)) {
-      this.orderUpdatesTimer = undefined;
-    }
     if (isDefined(this.orderHistorySubject)) {
       this.orderHistorySubject.complete();
       this.orderHistorySubject = undefined;
@@ -250,13 +232,6 @@ export class CacheService implements OnDestroy {
   }
 
   unsubscribeFromSystemDetailsUpdates(): void {
-    if (isDefined(this.systemDetailsSubscription)) {
-      this.systemDetailsSubscription.unsubscribe();
-      this.systemDetailsSubscription = undefined;
-    }
-    if (isDefined(this.systemDetailsTimer)) {
-      this.systemDetailsTimer = undefined;
-    }
     if (isDefined(this.systemDetailsSubject)) {
       this.systemDetailsSubject.complete();
       this.systemDetailsSubject = undefined;
