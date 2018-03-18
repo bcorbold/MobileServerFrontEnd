@@ -49,20 +49,23 @@ export class CacheService implements OnDestroy {
   constructor(private messageService: MessageService) {
     this.userSubscription = this.messageService.userUpdates.subscribe(
       (user: UserInfo) => this.user = user,
-      error => console.error(error), // todo: needs to be handled
+      error => console.error(error),
       () => this.userSubscription.unsubscribe()
     );
     this.placedOrderSubscription = this.messageService.orderPlacedUpdate.subscribe(
       (order: Order) => {
         if (order.state !== OrderStates.delivered) {
           this.ordersToMonitor.push(order);
-          if (!isDefined(this.orderUpdatesSubscription)) {
-            this.orderUpdatesTimer = Observable.interval(CacheService.ORDER_POLLING_RATE);
-            this.orderUpdatesSubscription = this.orderUpdatesTimer.subscribe(() => this.handleGetOrderUpdates());
+
+          if (isDefined(this.orderHistorySubject)) {
+            if (!isDefined(this.orderUpdatesSubscription)) {
+              this.orderUpdatesTimer = Observable.interval(CacheService.ORDER_POLLING_RATE);
+              this.orderUpdatesSubscription = this.orderUpdatesTimer.subscribe(() => this.handleGetOrderUpdates());
+            }
           }
         }
       },
-      error => console.log(error), // todo: needs to be handled
+      error => console.log(error),
       () => this.placedOrderSubscription.unsubscribe()
     );
   }
@@ -149,7 +152,9 @@ export class CacheService implements OnDestroy {
 
           if (isCacheChanged) {
             this.batchUpdatesCache = batches;
-            this.batchUpdatesSubject.next(this.batchUpdatesCache);
+            if (isDefined(this.batchUpdatesSubscription)) {
+              this.batchUpdatesSubject.next(this.batchUpdatesCache);
+            }
           }
         });
       });
@@ -181,7 +186,9 @@ export class CacheService implements OnDestroy {
             .subscribe(() => this.handleGetOrderUpdates());
         }
 
-        this.orderHistorySubject.next(this.orderHistoryCache);
+        if (isDefined(this.orderUpdatesSubscription)) {
+          this.orderHistorySubject.next(this.orderHistoryCache);
+        }
       });
 
       return this.orderHistorySubject;
@@ -201,7 +208,9 @@ export class CacheService implements OnDestroy {
         this.messageService.getSystemDetails().then((systemDetails: SystemDetails) => {
           // todo: check to see if any updates have occurred, only emit if there is a change
           this.systemDetailsCache = systemDetails;
-          this.systemDetailsSubject.next(this.systemDetailsCache);
+          if (isDefined(this.systemDetailsSubscription)) {
+            this.systemDetailsSubject.next(this.systemDetailsCache);
+          }
         });
       });
       return this.systemDetailsSubject;
@@ -212,7 +221,6 @@ export class CacheService implements OnDestroy {
 
   }
 
-  // todo: should have a think about if there will be 2 components that need these and how that will be handled
   unsubscribeFromBatchUpdates(): void {
     if (isDefined(this.batchUpdatesSubscription)) {
       this.batchUpdatesSubscription.unsubscribe();
