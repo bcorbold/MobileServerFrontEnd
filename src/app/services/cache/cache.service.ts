@@ -26,8 +26,6 @@ export class CacheService implements OnDestroy {
   private environmentDetails: EnvironmentDetails;
 
   // todo: running into issues with the cache when batches at empty, and then order is placed
-  private batchUpdatesTimer: Observable<number>;
-  private batchUpdatesSubscription: Subscription;
   private batchUpdatesSubject: Subject<Batch[]>;
   private batchUpdatesCache: Batch[] = [];
 
@@ -62,7 +60,7 @@ export class CacheService implements OnDestroy {
     );
   }
 
-  private fetchSystemDetailsRecursive() {
+  private fetchSystemDetailsRecursive(): void {
     this.messageService.getSystemDetails().then((systemDetails: SystemDetails) => {
       this.systemDetailsCache = systemDetails;
       if (isDefined(this.systemDetailsSubject)) {
@@ -74,7 +72,7 @@ export class CacheService implements OnDestroy {
     });
   }
 
-  private fetchOrderUpdatesRecursive() {
+  private fetchOrderUpdatesRecursive(): void {
     // this is when the timer has triggered, need to fetch orders from the monitored Orders
     // then merge that with the cache (updating where needed)
     // emit the new cache to the subject
@@ -115,6 +113,36 @@ export class CacheService implements OnDestroy {
     });
   }
 
+  private fetchIncomingBatchesRecursive(): void {
+    this.messageService.getIncomingBatches().then((batches: Batch[]) => {
+      let isCacheChanged = false;
+      if (batches.length !== this.batchUpdatesCache.length) {
+        isCacheChanged = true;
+      } else {
+        batches.forEach((batch: Batch) => {
+          const i = _.findIndex(this.batchUpdatesCache, (cachedBatch: Batch) => {
+            return cachedBatch.id === batch.id;
+          });
+          if (this.batchUpdatesCache[i].state !== batch.state || this.batchUpdatesCache[i].batchEta !== batch.batchEta) {
+            isCacheChanged = true;
+            return;
+          }
+        });
+      }
+
+      if (isCacheChanged) {
+        this.batchUpdatesCache = batches;
+      }
+
+      if (isDefined(this.batchUpdatesSubject)) {
+        this.batchUpdatesSubject.next(this.batchUpdatesCache);
+        setTimeout(() => {
+          this.fetchIncomingBatchesRecursive();
+        }, CacheService.BATCH_POLLING_RATE);
+      }
+    });
+  }
+
   getEnvironmentDetails(): Promise<EnvironmentDetails> {
     if (isDefined(this.environmentDetails)) {
       return new Promise<EnvironmentDetails>(resolve => resolve(this.environmentDetails));
@@ -133,38 +161,7 @@ export class CacheService implements OnDestroy {
   getIncomingBatches(): Subject<Batch[]> {
     if (!isDefined(this.batchUpdatesSubject)) {
       this.batchUpdatesSubject = new Subject<Batch[]>();
-      this.messageService.getIncomingBatches().then((batches: Batch[]) => {
-        this.batchUpdatesCache = batches;
-        this.batchUpdatesSubject.next(this.batchUpdatesCache);
-      });
-
-      this.batchUpdatesTimer = Observable.interval(CacheService.BATCH_POLLING_RATE);
-      this.batchUpdatesSubscription = this.batchUpdatesTimer.subscribe(() => {
-        this.messageService.getIncomingBatches().then((batches: Batch[]) => {
-          let isCacheChanged = false;
-          if (batches.length !== this.batchUpdatesCache.length) {
-            isCacheChanged = true;
-          } else {
-            batches.forEach((batch: Batch) => {
-              const i = _.findIndex(this.batchUpdatesCache, (cachedBatch: Batch) => {
-                return cachedBatch.id === batch.id;
-              });
-              if (this.batchUpdatesCache[i].state !== batch.state || this.batchUpdatesCache[i].batchEta !== batch.batchEta) {
-                isCacheChanged = true;
-                return;
-              }
-            });
-          }
-
-          if (isCacheChanged) {
-            this.batchUpdatesCache = batches;
-            if (isDefined(this.batchUpdatesSubscription)) {
-              this.batchUpdatesSubject.next(this.batchUpdatesCache);
-            }
-          }
-        });
-      });
-
+      this.fetchIncomingBatchesRecursive();
       return this.batchUpdatesSubject;
     } else {
       setTimeout(() => this.batchUpdatesSubject.next(this.batchUpdatesCache));
@@ -211,13 +208,6 @@ export class CacheService implements OnDestroy {
   }
 
   unsubscribeFromBatchUpdates(): void {
-    if (isDefined(this.batchUpdatesSubscription)) {
-      this.batchUpdatesSubscription.unsubscribe();
-      this.batchUpdatesSubscription = undefined;
-    }
-    if (isDefined(this.batchUpdatesTimer)) {
-      this.batchUpdatesTimer = undefined;
-    }
     if (isDefined(this.batchUpdatesSubject)) {
       this.batchUpdatesSubject.complete();
       this.batchUpdatesSubject = undefined;
