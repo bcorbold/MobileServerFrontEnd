@@ -10,13 +10,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./map-editor.component.scss']
 })
 export class MapEditorComponent {
-  vertexX = 0;
-  vertexY = 0;
-
-  lineX1 = 0;
-  lineY1 = 0;
-  lineX2 = 0;
-  lineY2 = 0;
+  vertices = [];
+  edges = [];
 
   maxX = 50;
   maxY = 50;
@@ -30,7 +25,8 @@ export class MapEditorComponent {
       response.vertices.forEach(vertex => {
         this.vertices.push({
           x: vertex.x,
-          y: vertex.y
+          y: vertex.y,
+          color: 'red'
         });
       });
 
@@ -51,7 +47,10 @@ export class MapEditorComponent {
           startX: startvertex.x,
           startY: startvertex.y,
           endX: endvertex.x,
-          endY: endvertex.y
+          endY: endvertex.y,
+          toVertexName: edge.toVertex,
+          fromVertexName: edge.fromVertex,
+          color: 'red'
         });
       });
 
@@ -62,9 +61,6 @@ export class MapEditorComponent {
     this.innerHeight = (window.innerHeight);
     this.innerWidth = (window.innerWidth);
   }
-
-  vertices = [];
-  edges = [];
 
   getMaxX() {
     let max = 0;
@@ -97,113 +93,60 @@ export class MapEditorComponent {
     }
   }
 
-  clickDot(x: number, y: number): void {
-    console.log('Got this1' + x);
-    console.log('Got this2' + y);
-  }
-
   onClick(event) {
-    if (event.srcElement.localName === 'line') {
-      this.openDialogLine(
-        event.srcElement.getAttribute('actualX1'),
-        event.srcElement.getAttribute('actualY1'),
-        event.srcElement.getAttribute('actualX2'),
-        event.srcElement.getAttribute('actualY2')
-      );
-    }
     if (event.srcElement.localName === 'circle') {
-      this.openDialogCircle(
-        event.srcElement.getAttribute('actualX'),
-        event.srcElement.getAttribute('actualY')
-      );
+      const newVertices = [];
+      this.vertices.forEach(vertex => {
+        if (vertex.x.toString() === event.srcElement.getAttribute('actualX')
+          && vertex.y.toString() === event.srcElement.getAttribute('actualY')) {
+
+          vertex.color = 'green';
+          newVertices.push(vertex);
+        } else {
+          newVertices.push(vertex);
+        }
+      });
+      this.vertices = newVertices;
     }
   }
 
-  openDialogLine(actualX1: number, actualY1: number, actualX2: number, actualY2: number): void {
-    const dialogRef = this.dialog.open(PopupDialogComponent, {
-      width: '250px',
-      data: {
-        text: 'Line from (' + actualX1 + ', ' + actualY1 + ') to (' + actualX2 + ', ' + actualY2 + ')'
+  getDirections() {
+
+    // loop through the list of vertices and get all the verticies that are blue???
+    const newVertices = [];
+    this.vertices.forEach(vertex => {
+      if (vertex.color === 'green') {
+        newVertices.push({
+          x: vertex.x,
+          y: vertex.y
+        });
       }
     });
 
-    dialogRef.afterClosed().subscribe(toDelete => {
-      if (toDelete) {
-        const newEdges = [];
-        this.edges.forEach(edge => {
-          if (edge.startX.toString() !== actualX1 || edge.startY.toString() !== actualY1 || edge.endX.toString() !== actualX2 || edge.endY.toString() !== actualY2) {
-            newEdges.push(edge);
+    this.messageService.useAStar(newVertices).then((response) => {
+      const newEdges = [];
+      this.edges.forEach(edge => {
+        response.edges.forEach(pEdge => {
+          if ((pEdge.fromVertex === edge.fromVertexName && pEdge.toVertex === edge.toVertexName)
+            || (pEdge.toVertex === edge.fromVertexName && pEdge.fromVertex === edge.toVertexName)) {
+            edge.color = 'green';
           }
         });
-        this.edges = newEdges;
-      }
-    });
-  }
+        newEdges.push(edge);
+      });
+      this.edges = newEdges;
 
-  openDialogCircle(actualX: number, actualY: number): void {
-    const dialogRef = this.dialog.open(PopupDialogComponent, {
-      width: '250px',
-      data: {
-        text: 'vertex at (' + actualX + ', ' + actualY + ')'
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(toDelete => {
-      if (toDelete) {
-        const newVertices = [];
-        this.vertices.forEach(vertex => {
-          if (vertex.x.toString() !== actualX || vertex.y.toString() !== actualY) {
-            newVertices.push(vertex);
+      const newVertices = [];
+      this.vertices.forEach(vertex => {
+        response.vertices.forEach(pVertex => {
+          if (pVertex.x === vertex.x && pVertex.y === vertex.y) {
+            vertex.color = 'green';
           }
         });
-        this.vertices = newVertices;
-      }
+        newVertices.push(vertex);
+      });
+      this.vertices = newVertices;
     });
-  }
-
-  addVertex() {
-    this.vertices.push({x: this.vertexX, y: this.vertexY});
-  }
-
-  addLine() {
-    this.edges.push({
-      startX: this.lineX1,
-      startY: this.lineY1,
-      endX: this.lineX2,
-      endY: this.lineY2
-    });
-    // this.change.detectChanges();
-  }
-
-  setMap() {
-    console.log(this.edges);
-    console.log(this.vertices);
-    this.messageService.setMap(this.edges, this.vertices);
-  }
-
-}
-
-@Component({
-  selector: 'ms-popup-dialog-component',
-  template: `
-    <h1 mat-dialog-title>Would u like to delete the following</h1>
-    <div mat-dialog-content>
-      <p>{{data.text}}</p>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button [matDialogClose]="true">Yes</button>
-      <button mat-button [matDialogClose]="false" cdkFocusInitial>No</button>
-    </div>
-  `
-})
-export class PopupDialogComponent {
-
-  constructor(
-    public dialogRef: MatDialogRef<PopupDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 
 }

@@ -1,13 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center center">
   <div fxLayout="column" fxLayoutAlign="center center">
     <svg [attr.height]="maxY * getMultiplier() + 30" [attr.width]="maxX * getMultiplier() + 30" style="padding: 15px" (click)="onClick($event)">
-      <circle *ngFor="let vertex of vertices"
-              [attr.cx]="vertex.x * getMultiplier()"
-              [attr.cy]="vertex.y * getMultiplier()"
-              [attr.actualX]="vertex.x"
-              [attr.actualY]="vertex.y"
-              r="10" stroke="black" stroke-width="1" fill="red">
-      </circle>
       <line *ngFor="let edge of edges"
             [attr.x1]="edge.startX * getMultiplier()"
             [attr.y1]="edge.startY * getMultiplier()"
@@ -17,39 +10,20 @@
             [attr.actualY1]="edge.startY"
             [attr.actualX2]="edge.endX"
             [attr.actualY2]="edge.endY"
-            style="stroke:rgb(255,0,0);stroke-width:3">
+            [attr.stroke]="edge.color"
+            stroke-width="3">
       </line>
+      <circle *ngFor="let vertex of vertices"
+              [attr.cx]="vertex.x * getMultiplier()"
+              [attr.cy]="vertex.y * getMultiplier()"
+              [attr.actualX]="vertex.x"
+              [attr.actualY]="vertex.y"
+              [attr.fill]="vertex.color"
+              r="10" stroke="black" stroke-width="1">
+      </circle>
     </svg>
   </div>
   <div fxLayout="column" fxLayoutAlign="center center">
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <mat-input-container color="accent" style="width:50px">
-        <input matInput placeholder="X" type="number" [(ngModel)]="vertexX">
-      </mat-input-container>
-      <mat-input-container color="accent" style="width:50px">
-        <input matInput placeholder="Y" type="number" [(ngModel)]="vertexY">
-      </mat-input-container>
-      <button mat-raised-button color="accent" (click)="addVertex()">Add Vertex</button>
-    </div>
-
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <mat-input-container color="accent" style="width:50px">
-        <input matInput placeholder="StartX" type="number" [(ngModel)]="lineX1">
-      </mat-input-container>
-      <mat-input-container color="accent" style="width:50px">
-        <input matInput placeholder="StartY" type="number" [(ngModel)]="lineY1">
-      </mat-input-container>
-      <mat-input-container color="accent" style="width:50px">
-        <input matInput placeholder="EndX" type="number" [(ngModel)]="lineX2">
-      </mat-input-container>
-      <mat-input-container color="accent" style="width:50px">
-        <input matInput placeholder="EndY" type="number" [(ngModel)]="lineY2">
-      </mat-input-container>
-      <button mat-raised-button color="accent" (click)="addLine()">Add Line</button>
-    </div>
-
-    <div fxLayout="row" fxLayoutAlign="center center">
-      <button mat-raised-button color="accent" (click)="setMap()">Set Map</button>
-    </div>
+    <button mat-raised-button color="accent" (click)="getDirections()">Get Directions</button>
   </div>
 </div>

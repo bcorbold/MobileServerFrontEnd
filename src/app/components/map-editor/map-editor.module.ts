@@ -9,7 +9,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
 
-import { MapEditorComponent, PopupDialogComponent } from './map-editor.component';
+import { MapEditorComponent } from './map-editor.component';
 import { MatDialogModule } from '@angular/material';
 
 export { MapEditorComponent } from './map-editor.component';
@@ -24,14 +24,11 @@ export { MapEditorComponent } from './map-editor.component';
     MatProgressBarModule,
     MatDialogModule
   ],
-  entryComponents: [PopupDialogComponent],
   declarations: [
-    MapEditorComponent,
-    PopupDialogComponent
+    MapEditorComponent
   ],
   exports: [
-    MapEditorComponent,
-    PopupDialogComponent
+    MapEditorComponent
   ],
   providers: [
     CacheService,

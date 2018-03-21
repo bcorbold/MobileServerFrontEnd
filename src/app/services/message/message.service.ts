@@ -181,17 +181,19 @@ export class MessageService {
     });
   }
 
-  setMap(edges: any, vertices: any): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  useAStar(vertices: any): Promise<VerticesAndEdges> {
+    return new Promise<VerticesAndEdges>((resolve, reject) => {
       const body = {
         username: '',
         sessionKey: '',
-        edgeValues: edges,
-        verticeValues: vertices
+        vertexValues: vertices
       };
 
       // todo: can we just map this???
-      this.http.post(environment.backendUrl + 'setMap', body).subscribe(() => resolve(), error => reject(error));
+      this.http.post(environment.backendUrl + 'useAStar', body).subscribe(
+        (response: VerticesAndEdges) => resolve(response),
+        error => reject(error)
+      );
     });
   }
 
