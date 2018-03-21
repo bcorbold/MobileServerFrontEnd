@@ -1,8 +1,7 @@
-import {ChangeDetectorRef, Component, Inject} from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MessageService } from '../../services/message/message.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'ms-map-editor',
@@ -19,7 +18,7 @@ export class MapEditorComponent {
   innerHeight = 50;
   innerWidth = 50;
 
-  constructor(public change: ChangeDetectorRef, private router: Router, private messageService: MessageService, public dialog: MatDialog) {
+  constructor(private router: Router, private messageService: MessageService) {
     messageService.getVerticesAndEdges().then(response => {
       this.vertices = [];
       response.vertices.forEach(vertex => {
@@ -94,13 +93,21 @@ export class MapEditorComponent {
   }
 
   onClick(event) {
+
+    // cause we dont have direct access to the circle object
     if (event.srcElement.localName === 'circle') {
+
+      // gonna loop through vertices and find the one that i clicked on based on its X and Y
       const newVertices = [];
       this.vertices.forEach(vertex => {
         if (vertex.x.toString() === event.srcElement.getAttribute('actualX')
           && vertex.y.toString() === event.srcElement.getAttribute('actualY')) {
 
-          vertex.color = 'green';
+          if (vertex.color === 'red') {
+            vertex.color = 'green';
+          } else {
+            vertex.color = 'red';
+          }
           newVertices.push(vertex);
         } else {
           newVertices.push(vertex);
