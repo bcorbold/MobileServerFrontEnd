@@ -17,8 +17,7 @@ import { MessageService } from '../../services/message/message.service';
   styleUrls: ['incoming-batches.component.scss'],
   templateUrl: './incoming-batches.component.html'
 })
-export class IncomingBatchesComponent implements OnDestroy {
-
+export class IncomingBatchesComponent implements OnDestroy { // todo: getting an error when clicking on an order to signify that it's done
   protected BatchStates = BatchStates;
 
   batches: Batch[] = [];

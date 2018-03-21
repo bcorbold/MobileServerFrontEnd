@@ -1,3 +1,7 @@
+# [1.1.0](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.1.0) - Released TBD
+- (feat): `CacheService` now waits until a request has been completed before sending out another request
+- (style): Scroll bars are now styled to be consistent accross most platforms/browsers
+
 # [1.0.1](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.0.1) - Released (10-03-2018)
 - (fix): `index.html` href fixed for Github Pages deployment
 
