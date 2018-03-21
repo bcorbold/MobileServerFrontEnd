@@ -36,7 +36,7 @@
         </div>
       </div>
       <button *ngIf="batch.state !== BatchStates.delivering && batch.ready" mat-raised-button class="ms-square-button" color="accent"(click)="sendBatch(batch)">
-        Send with <i>{{batch.assignedRobot.name}}</i>
+        Send with <i>Timmy</i>
       </button>
     </div>
     <i *ngIf="batches.length === 0">No batches available.</i>

@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.module';
 
 import { OrderHistoryComponent } from './order-history.component';
@@ -32,6 +33,7 @@ export { OrderHistoryComponent } from './order-history.component';
     MatTooltipModule
   ],
   providers: [
+    CacheService,
     MessageService
   ]
 })
