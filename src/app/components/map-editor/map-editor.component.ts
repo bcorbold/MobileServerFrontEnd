@@ -22,6 +22,7 @@ export class MapEditorComponent {
     this.reset();
   }
 
+  // find the max x value that is in the list of vertices
   getMaxX() {
     let max = 0;
     this.vertices.forEach(num => {
@@ -32,6 +33,7 @@ export class MapEditorComponent {
     this.maxX = max;
   }
 
+  // find the max y value that is in the list of vertices
   getMaxY() {
     let max = 0;
     this.vertices.forEach(num => {
@@ -42,6 +44,11 @@ export class MapEditorComponent {
     this.maxY = max;
   }
 
+  /**
+   * We have a bunch of vertices. We need to scale the svg based on the largest vertex value
+   * A lot of this was playing with numbers until i found one that worked
+   * @returns {number}
+   */
   getMultiplier(): number {
     const height = (this.innerHeight / this.maxY) - 10;
     const width = (this.innerWidth / this.maxX) - 10;
@@ -80,7 +87,7 @@ export class MapEditorComponent {
 
   getDirections() {
 
-    // loop through the list of vertices and get all the verticies that are blue???
+    // loop through the list of vertices and get all the vertices that are green
     const newVertices = [];
     this.vertices.forEach(vertex => {
       if (vertex.color === 'green') {
@@ -91,6 +98,10 @@ export class MapEditorComponent {
       }
     });
 
+    /*
+     * Gonna loop through my edges and vertices lists
+     * If the edge or vertices that I am on is in my AStar return then change my color
+     */
     this.messageService.useAStar(newVertices).then((response) => {
       const newEdges = [];
       this.edges.forEach(edge => {
@@ -117,6 +128,9 @@ export class MapEditorComponent {
     });
   }
 
+  /**
+   * Put this into its own function so that it can be called by a button to reset everything
+   */
   reset() {
     this.messageService.getVerticesAndEdges().then(response => {
       this.vertices = [];
