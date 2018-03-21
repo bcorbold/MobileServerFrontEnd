@@ -19,46 +19,7 @@ export class MapEditorComponent {
   innerWidth = 50;
 
   constructor(private router: Router, private messageService: MessageService) {
-    messageService.getVerticesAndEdges().then(response => {
-      this.vertices = [];
-      response.vertices.forEach(vertex => {
-        this.vertices.push({
-          x: vertex.x,
-          y: vertex.y,
-          color: 'red'
-        });
-      });
-
-      this.edges = [];
-      response.edges.forEach(edge => {
-        let startvertex;
-        let endvertex;
-        response.vertices.forEach(vertex => {
-          if (vertex.name === edge.fromVertex) {
-            startvertex = vertex;
-          }
-          if (vertex.name === edge.toVertex) {
-            endvertex = vertex;
-          }
-        });
-
-        this.edges.push({
-          startX: startvertex.x,
-          startY: startvertex.y,
-          endX: endvertex.x,
-          endY: endvertex.y,
-          toVertexName: edge.toVertex,
-          fromVertexName: edge.fromVertex,
-          color: 'red'
-        });
-      });
-
-      this.getMaxX();
-      this.getMaxY();
-    });
-
-    this.innerHeight = (window.innerHeight);
-    this.innerWidth = (window.innerWidth);
+    this.reset();
   }
 
   getMaxX() {
@@ -156,4 +117,46 @@ export class MapEditorComponent {
     });
   }
 
+  reset() {
+    this.messageService.getVerticesAndEdges().then(response => {
+      this.vertices = [];
+      response.vertices.forEach(vertex => {
+        this.vertices.push({
+          x: vertex.x,
+          y: vertex.y,
+          color: 'red'
+        });
+      });
+
+      this.edges = [];
+      response.edges.forEach(edge => {
+        let startvertex;
+        let endvertex;
+        response.vertices.forEach(vertex => {
+          if (vertex.name === edge.fromVertex) {
+            startvertex = vertex;
+          }
+          if (vertex.name === edge.toVertex) {
+            endvertex = vertex;
+          }
+        });
+
+        this.edges.push({
+          startX: startvertex.x,
+          startY: startvertex.y,
+          endX: endvertex.x,
+          endY: endvertex.y,
+          toVertexName: edge.toVertex,
+          fromVertexName: edge.fromVertex,
+          color: 'red'
+        });
+      });
+
+      this.getMaxX();
+      this.getMaxY();
+    });
+
+    this.innerHeight = (window.innerHeight);
+    this.innerWidth = (window.innerWidth);
+  }
 }
