@@ -71,11 +71,8 @@ export class MapEditorComponent {
         if (vertex.x.toString() === event.srcElement.getAttribute('actualX')
           && vertex.y.toString() === event.srcElement.getAttribute('actualY')) {
 
-          if (vertex.color === 'red') {
-            vertex.color = 'green';
-          } else {
-            vertex.color = 'red';
-          }
+          vertex.selected = !vertex.selected;
+
           newVertices.push(vertex);
         } else {
           newVertices.push(vertex);
@@ -90,7 +87,7 @@ export class MapEditorComponent {
     // loop through the list of vertices and get all the vertices that are green
     const newVertices = [];
     this.vertices.forEach(vertex => {
-      if (vertex.color === 'green') {
+      if (vertex.selected) {
         newVertices.push({
           x: vertex.x,
           y: vertex.y
@@ -108,7 +105,7 @@ export class MapEditorComponent {
         response.edges.forEach(pEdge => {
           if ((pEdge.fromVertex === edge.fromVertexName && pEdge.toVertex === edge.toVertexName)
             || (pEdge.toVertex === edge.fromVertexName && pEdge.fromVertex === edge.toVertexName)) {
-            edge.color = 'green';
+            edge.selected = true;
           }
         });
         newEdges.push(edge);
@@ -119,7 +116,7 @@ export class MapEditorComponent {
       this.vertices.forEach(vertex => {
         response.vertices.forEach(pVertex => {
           if (pVertex.x === vertex.x && pVertex.y === vertex.y) {
-            vertex.color = 'green';
+            vertex.selected = true;
           }
         });
         newVertices.push(vertex);
@@ -138,7 +135,7 @@ export class MapEditorComponent {
         this.vertices.push({
           x: vertex.x,
           y: vertex.y,
-          color: 'red'
+          selected: false
         });
       });
 
@@ -162,7 +159,7 @@ export class MapEditorComponent {
           endY: endvertex.y,
           toVertexName: edge.toVertex,
           fromVertexName: edge.fromVertex,
-          color: 'red'
+          selected: false
         });
       });
 

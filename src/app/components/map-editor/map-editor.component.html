@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center center">
   <div fxLayout="column" fxLayoutAlign="center center">
-    <svg [attr.height]="maxY * getMultiplier() + 30" [attr.width]="maxX * getMultiplier() + 30" style="padding: 15px" (click)="onClick($event)">
+    <svg [attr.height]="maxY * getMultiplier() + 40" [attr.width]="maxX * getMultiplier() + 40" (click)="onClick($event)">
       <line *ngFor="let edge of edges"
             [attr.x1]="edge.startX * getMultiplier()"
             [attr.y1]="edge.startY * getMultiplier()"
@@ -10,7 +10,7 @@
             [attr.actualY1]="edge.startY"
             [attr.actualX2]="edge.endX"
             [attr.actualY2]="edge.endY"
-            [attr.stroke]="edge.color"
+            [attr.stroke]="edge.selected ? '#00b300':'#b3cccc'"
             stroke-width="3">
       </line>
       <circle *ngFor="let vertex of vertices"
@@ -18,7 +18,7 @@
               [attr.cy]="vertex.y * getMultiplier()"
               [attr.actualX]="vertex.x"
               [attr.actualY]="vertex.y"
-              [attr.fill]="vertex.color"
+              [attr.fill]="vertex.selected ? '#00b300':'#b3cccc'"
               r="10" stroke="black" stroke-width="1">
       </circle>
     </svg>
