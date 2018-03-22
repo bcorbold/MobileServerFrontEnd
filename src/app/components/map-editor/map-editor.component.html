@@ -10,7 +10,7 @@
             [attr.actualY1]="edge.startY"
             [attr.actualX2]="edge.endX"
             [attr.actualY2]="edge.endY"
-            [attr.stroke]="edge.selected ? '#00b300':'#b3cccc'"
+            [attr.stroke]="edge.selected ? '#43A047':'#E0F2F1'"
             stroke-width="3">
       </line>
       <circle *ngFor="let vertex of vertices"
@@ -18,8 +18,8 @@
               [attr.cy]="vertex.y * getMultiplier()"
               [attr.actualX]="vertex.x"
               [attr.actualY]="vertex.y"
-              [attr.fill]="vertex.selected ? '#00b300':'#b3cccc'"
-              r="10" stroke="black" stroke-width="1">
+              [attr.fill]="vertex.selected ? '#43A047':'#E0F2F1'"
+              r="10">
       </circle>
     </svg>
   </div>
