@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   { path: 'user', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'map', component: MapEditorComponent },
-  { path: '',   redirectTo: 'map', pathMatch: 'full' }
+  { path: '',   redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
