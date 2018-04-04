@@ -123,7 +123,7 @@ export class CacheService implements OnDestroy {
           const i = _.findIndex(this.batchUpdatesCache, (cachedBatch: Batch) => {
             return cachedBatch.id === batch.id;
           });
-          if (this.batchUpdatesCache[i].state !== batch.state || this.batchUpdatesCache[i].batchEta !== batch.batchEta) {
+          if (this.batchUpdatesCache[i].state !== batch.state) {
             isCacheChanged = true;
             return;
           }
