@@ -10,6 +10,7 @@ export class Order {
   deliveredDate: string;
   orderInfo: OrderInfo;
   deliveryLocation: DeliveryLocation;
+  username: string;
   ready?: boolean;
 
   static copy(that: Order): Order {
@@ -22,6 +23,7 @@ export class Order {
     order.deliveredDate = that.deliveredDate;
     order.orderInfo = OrderInfo.copy(that.orderInfo);
     order.deliveryLocation = DeliveryLocation.copy(that.deliveryLocation);
+    order.username = that.username;
     if (isDefined(that.ready)) {
       order.ready = that.ready;
     }
