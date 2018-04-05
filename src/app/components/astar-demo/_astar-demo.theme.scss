@@ -1,0 +1,10 @@
+@import '~@angular/material/_theming.scss';
+
+@mixin ms-astar-demo-theme($theme) {
+
+  $warn: map-get($theme, warn);
+
+  .ms-astar-demo-message {
+    color: mat-color($warn);
+  }
+}
