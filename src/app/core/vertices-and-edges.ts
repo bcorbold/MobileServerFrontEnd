@@ -1,13 +1,13 @@
 export class VerticesAndEdges {
   vertices: {
     x: number,
-    y: number,
-    name: string
+    y: number
   }[];
   edges: {
-    toVertex: string,
-    fromVertex: string,
-    cost: number
+    fromX: number,
+    fromY: number,
+    toX: number,
+    toY: number
   }[];
 
   constructor(that: VerticesAndEdges) {

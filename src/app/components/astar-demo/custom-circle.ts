@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 
 export class CustomCircle {
   private radius = 25;
-  private fillColor = 'red';
+  private fillColor = '#E0F2F1';
   private selected = false;
 
   constructor(private x: number,
@@ -22,7 +22,7 @@ export class CustomCircle {
   public draw() {
     this.ctx.save();
     this.ctx.beginPath();
-    this.ctx.strokeStyle = 'green';
+    this.ctx.strokeStyle = '#E0F2F1';
     this.ctx.lineWidth = 2;
     this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     this.ctx.fillStyle = this.fillColor;
@@ -42,9 +42,9 @@ export class CustomCircle {
 
   public select() {
     if (this.selected) {
-      this.fillColor = 'red';
+      this.fillColor = '#E0F2F1';
     } else {
-      this.fillColor = 'blue';
+      this.fillColor = '#43A047';
     }
     this.draw();
     this.selected = !this.selected;

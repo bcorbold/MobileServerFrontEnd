@@ -19,7 +19,7 @@ export class MapEditorComponent {
   innerWidth = 50;
 
   constructor(private router: Router, private messageService: MessageService) {
-    this.reset();
+    // this.reset();
   }
 
   // find the max x value that is in the list of vertices
@@ -99,75 +99,75 @@ export class MapEditorComponent {
      * Gonna loop through my edges and vertices lists
      * If the edge or vertices that I am on is in my AStar return then change my color
      */
-    this.messageService.useAStar(newVertices).then((response) => {
-      const newEdges = [];
-      this.edges.forEach(edge => {
-        response.edges.forEach(pEdge => {
-          if ((pEdge.fromVertex === edge.fromVertexName && pEdge.toVertex === edge.toVertexName)
-            || (pEdge.toVertex === edge.fromVertexName && pEdge.fromVertex === edge.toVertexName)) {
-            edge.selected = true;
-          }
-        });
-        newEdges.push(edge);
-      });
-      this.edges = newEdges;
-
-      const newVertices = [];
-      this.vertices.forEach(vertex => {
-        response.vertices.forEach(pVertex => {
-          if (pVertex.x === vertex.x && pVertex.y === vertex.y) {
-            vertex.selected = true;
-          }
-        });
-        newVertices.push(vertex);
-      });
-      this.vertices = newVertices;
-    });
+    // this.messageService.useAStar(newVertices).then((response) => {
+    //   const newEdges = [];
+    //   this.edges.forEach(edge => {
+    //     response.edges.forEach(pEdge => {
+    //       if ((pEdge.fromVertex === edge.fromVertexName && pEdge.toVertex === edge.toVertexName)
+    //         || (pEdge.toVertex === edge.fromVertexName && pEdge.fromVertex === edge.toVertexName)) {
+    //         edge.selected = true;
+    //       }
+    //     });
+    //     newEdges.push(edge);
+    //   });
+    //   this.edges = newEdges;
+    //
+    //   const newVertices = [];
+    //   this.vertices.forEach(vertex => {
+    //     response.vertices.forEach(pVertex => {
+    //       if (pVertex.x === vertex.x && pVertex.y === vertex.y) {
+    //         vertex.selected = true;
+    //       }
+    //     });
+    //     newVertices.push(vertex);
+    //   });
+    //   this.vertices = newVertices;
+    // });
   }
 
   /**
    * Put this into its own function so that it can be called by a button to reset everything
-   */
-  reset() {
-    this.messageService.getVerticesAndEdges().then(response => {
-      this.vertices = [];
-      response.vertices.forEach(vertex => {
-        this.vertices.push({
-          x: vertex.x,
-          y: vertex.y,
-          selected: false
-        });
-      });
-
-      this.edges = [];
-      response.edges.forEach(edge => {
-        let startvertex;
-        let endvertex;
-        response.vertices.forEach(vertex => {
-          if (vertex.name === edge.fromVertex) {
-            startvertex = vertex;
-          }
-          if (vertex.name === edge.toVertex) {
-            endvertex = vertex;
-          }
-        });
-
-        this.edges.push({
-          startX: startvertex.x,
-          startY: startvertex.y,
-          endX: endvertex.x,
-          endY: endvertex.y,
-          toVertexName: edge.toVertex,
-          fromVertexName: edge.fromVertex,
-          selected: false
-        });
-      });
-
-      this.getMaxX();
-      this.getMaxY();
-    });
-
-    this.innerHeight = (window.innerHeight);
-    this.innerWidth = (window.innerWidth);
-  }
+  //  */
+  // reset() {
+  //   this.messageService.getVerticesAndEdges().then(response => {
+  //     this.vertices = [];
+  //     response.vertices.forEach(vertex => {
+  //       this.vertices.push({
+  //         x: vertex.x,
+  //         y: vertex.y,
+  //         selected: false
+  //       });
+  //     });
+  //
+  //     this.edges = [];
+  //     response.edges.forEach(edge => {
+  //       let startvertex;
+  //       let endvertex;
+  //       response.vertices.forEach(vertex => {
+  //         if (vertex.name === edge.fromVertex) {
+  //           startvertex = vertex;
+  //         }
+  //         if (vertex.name === edge.toVertex) {
+  //           endvertex = vertex;
+  //         }
+  //       });
+  //
+  //       this.edges.push({
+  //         startX: startvertex.x,
+  //         startY: startvertex.y,
+  //         endX: endvertex.x,
+  //         endY: endvertex.y,
+  //         toVertexName: edge.toVertex,
+  //         fromVertexName: edge.fromVertex,
+  //         selected: false
+  //       });
+  //     });
+  //
+  //     this.getMaxX();
+  //     this.getMaxY();
+  //   });
+  //
+  //   this.innerHeight = (window.innerHeight);
+  //   this.innerWidth = (window.innerWidth);
+  // }
 }
