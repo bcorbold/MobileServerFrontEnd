@@ -11,8 +11,10 @@ import { MessageService } from '../../services/message/message.service';
 
 import { MatDialogModule } from '@angular/material';
 import { AStarDemoComponent } from './astar-demo.component';
+import { CustomCircle } from './custom-circle';
 
 export { AStarDemoComponent } from './astar-demo.component';
+export { CustomCircle } from './custom-circle';
 
 @NgModule({
   imports: [
