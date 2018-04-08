@@ -19,7 +19,12 @@ export class AStarDemoComponent implements AfterViewInit {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
   clickObservable = new Subject<{x: number, y: number}>();
-  aStar = new Subject<{x: number, y: number}>();
+  aStarResults = new Subject<{
+    fromX: number,
+    fromY: number,
+    toX: number,
+    toY: number
+  }[]>();
 
   constructor(private messageService: MessageService) {
     this.innerHeight = (window.innerHeight) - 50;
@@ -50,7 +55,8 @@ export class AStarDemoComponent implements AfterViewInit {
           vertex.x,
           vertex.y,
           this.ctx,
-          this.clickObservable
+          this.clickObservable,
+          this.aStarResults
         );
 
         this.circles.push(circle);
@@ -66,7 +72,8 @@ export class AStarDemoComponent implements AfterViewInit {
           edge.fromY,
           edge.toX,
           edge.toY,
-          this.ctx
+          this.ctx,
+          this.aStarResults
         );
 
         this.lines.push(line);
@@ -78,8 +85,7 @@ export class AStarDemoComponent implements AfterViewInit {
     const vertices = [];
     this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
     this.messageService.useAStar(vertices).then((response) => {
-      console.log(response);
-
+      this.aStarResults.next(response.edges);
     });
   }
 

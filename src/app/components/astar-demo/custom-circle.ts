@@ -3,21 +3,44 @@ import { Subject } from 'rxjs/Subject';
 export class CustomCircle {
   private radius = 25;
   private fillColor = '#E0F2F1';
-  private selected = false;
+  private _isSelected = false;
+  private isPartOfPath = false;
 
   constructor(private x: number,
               private y: number,
               private actualX: number,
               private actualY: number,
               private ctx: CanvasRenderingContext2D,
-              clickObservable: Subject<{x: number, y: number}>) {
+              clickObservable: Subject<{x: number, y: number}>,
+              aStarResults: Subject<{fromX: number, fromY: number, toX: number, toY: number}[]>) {
 
     this.draw();
 
     clickObservable.subscribe((vals: {x: number, y: number}) => {
-      if (this.checkIfClicked(vals.x, vals.y)) {
-        this.select();
+      if (this.checkIfMe(vals.x, vals.y)) {
+        if (this._isSelected) {
+          this.fillColor = '#E0F2F1';
+        } else {
+          this.fillColor = '#43A047';
+        }
+        this.draw();
+        this._isSelected = !this._isSelected;
       }
+    });
+
+    aStarResults.subscribe((path: {fromX: number, fromY: number, toX: number, toY: number}[]) => {
+      path.forEach(edge => {
+        if (this.checkIfActualMe(edge.fromX, edge.fromY)) {
+          this.isPartOfPath = true;
+        } else if (this.checkIfActualMe(edge.toX, edge.toY)) {
+          this.isPartOfPath = true;
+        }
+
+        if (this.isPartOfPath) {
+          this.fillColor = '#43A047';
+          this.draw();
+        }
+      });
     });
   }
 
@@ -33,7 +56,7 @@ export class CustomCircle {
     this.ctx.restore();
   }
 
-  private checkIfClicked(x: number, y: number): boolean {
+  private checkIfMe(x: number, y: number): boolean {
     return (
       x > (this.x - this.radius) &&
       x < (this.x + this.radius) &&
@@ -42,18 +65,12 @@ export class CustomCircle {
     );
   }
 
-  private  select() {
-    if (this.selected) {
-      this.fillColor = '#E0F2F1';
-    } else {
-      this.fillColor = '#43A047';
-    }
-    this.draw();
-    this.selected = !this.selected;
+  private checkIfActualMe(x: number, y: number): boolean {
+    return (x === this.actualX && y === this.actualY);
   }
 
   public isSelected(): boolean {
-    return this.selected;
+    return this._isSelected;
   }
 
   public getActualXY(): {x: number, y: number} {
