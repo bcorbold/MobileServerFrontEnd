@@ -1,3 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center center">
   <canvas id="cnvs" [height]="innerHeight" [width]="innerWidth" (click)="onClick($event)"></canvas>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <button mat-raised-button color="accent" style="font-size: 2em; " (click)="useAStar()">Get Directions</button>
+    <!--<button mat-raised-button color="accent" (click)="reset()">Reset</button>-->
+  </div>
 </div>

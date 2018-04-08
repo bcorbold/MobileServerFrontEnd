@@ -2,7 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { CustomCircle } from './custom-circle';
 import { MessageService } from '../../services/message/message.service';
-import {CustomLine} from './custom-line';
+import { CustomLine } from './custom-line';
 
 @Component({
   selector: 'ms-astar-demo',
@@ -13,18 +13,22 @@ export class AStarDemoComponent implements AfterViewInit {
   innerHeight = 100;
   innerWidth = 100;
 
+  circles = [];
+  lines = [];
+
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
   clickObservable = new Subject<{x: number, y: number}>();
-  edges = [];
-  vertices = [];
+  aStar = new Subject<{x: number, y: number}>();
 
   constructor(private messageService: MessageService) {
     this.innerHeight = (window.innerHeight) - 50;
-    this.innerWidth = (window.innerWidth) - 50;
+    this.innerWidth = (window.innerWidth) - 350;
   }
 
   ngAfterViewInit() {
+
+    // get the objects we will use for the canvas
     this.canvas = <HTMLCanvasElement>document.getElementById('cnvs');
     this.ctx = this.canvas.getContext('2d');
 
@@ -34,34 +38,48 @@ export class AStarDemoComponent implements AfterViewInit {
     this.ctx.stroke();
 
     this.messageService.getVerticesAndEdges().then(response => {
-      this.edges = response.edges;
-      this.vertices = response.vertices;
 
-      const maxXY: {x: number, y: number} = this.getMaxXY();
+      const maxXY: {x: number, y: number} = this.getMaxXY(response.vertices);
 
-      this.vertices.forEach(vertex => {
+      response.vertices.forEach(vertex => {
 
         // the +50 and -100 are to offset points from the edges of the canvas
         const circle = new CustomCircle(
           vertex.x * ((this.innerWidth - 100) / maxXY.x) + 50,
           vertex.y * ((this.innerHeight - 100) / maxXY.y) + 50,
+          vertex.x,
+          vertex.y,
           this.ctx,
           this.clickObservable
         );
+
+        this.circles.push(circle);
       });
 
-      this.edges.forEach(edge => {
+      response.edges.forEach(edge => {
         const line = new CustomLine(
           edge.fromX * ((this.innerWidth - 100) / maxXY.x) + 50,
           edge.fromY * ((this.innerHeight - 100) / maxXY.y) + 50,
           edge.toX * ((this.innerWidth - 100) / maxXY.x) + 50,
           edge.toY * ((this.innerHeight - 100) / maxXY.y) + 50,
+          edge.fromX,
+          edge.fromY,
+          edge.toX,
+          edge.toY,
           this.ctx
         );
-      });
 
-      console.log(response.vertices);
-      console.log(response.edges);
+        this.lines.push(line);
+      });
+    });
+  }
+
+  useAStar() {
+    const vertices = [];
+    this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
+    this.messageService.useAStar(vertices).then((response) => {
+      console.log(response);
+
     });
   }
 
@@ -69,10 +87,10 @@ export class AStarDemoComponent implements AfterViewInit {
     this.clickObservable.next({x: event.offsetX, y: event.offsetY});
   }
 
-  getMaxXY(): {x: number, y: number} {
+  getMaxXY(vertices): {x: number, y: number} {
     let maxX = 0;
     let maxY = 0;
-    this.vertices.forEach(vertex => {
+    vertices.forEach(vertex => {
       if (vertex.x > maxX) {
         maxX = vertex.x;
       }

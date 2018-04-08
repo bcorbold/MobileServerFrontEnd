@@ -7,19 +7,21 @@ export class CustomCircle {
 
   constructor(private x: number,
               private y: number,
+              private actualX: number,
+              private actualY: number,
               private ctx: CanvasRenderingContext2D,
               clickObservable: Subject<{x: number, y: number}>) {
 
     this.draw();
 
     clickObservable.subscribe((vals: {x: number, y: number}) => {
-      if (this.isClicked(vals.x, vals.y)) {
+      if (this.checkIfClicked(vals.x, vals.y)) {
         this.select();
       }
     });
   }
 
-  public draw() {
+  private draw() {
     this.ctx.save();
     this.ctx.beginPath();
     this.ctx.strokeStyle = '#E0F2F1';
@@ -31,7 +33,7 @@ export class CustomCircle {
     this.ctx.restore();
   }
 
-  public isClicked(x: number, y: number): boolean {
+  private checkIfClicked(x: number, y: number): boolean {
     return (
       x > (this.x - this.radius) &&
       x < (this.x + this.radius) &&
@@ -40,7 +42,7 @@ export class CustomCircle {
     );
   }
 
-  public select() {
+  private  select() {
     if (this.selected) {
       this.fillColor = '#E0F2F1';
     } else {
@@ -48,5 +50,16 @@ export class CustomCircle {
     }
     this.draw();
     this.selected = !this.selected;
+  }
+
+  public isSelected(): boolean {
+    return this.selected;
+  }
+
+  public getActualXY(): {x: number, y: number} {
+    return {
+      x: this.actualX,
+      y: this.actualY
+    };
   }
 }

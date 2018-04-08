@@ -4,6 +4,10 @@ export class CustomLine {
               private fromY: number,
               private toX: number,
               private toY: number,
+              private actualFromX: number,
+              private actualFromY: number,
+              private actualToX: number,
+              private actualToY: number,
               private ctx: CanvasRenderingContext2D) {
 
     this.draw();
