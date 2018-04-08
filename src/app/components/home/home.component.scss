@@ -12,3 +12,30 @@ ms-place-order, ms-order-history, ms-account-info, ms-incoming-batches, ms-syste
 .ms-mobile-header {
   padding: 0.5em 0;
 }
+
+.ms-menu-container {
+  padding: 16px 8px;
+  width: calc(100vw - 112px);
+
+  p {
+    margin-left: 8px;
+    font-size: 2em;
+  }
+
+  img {
+    width: 48px;
+  }
+
+  .ms-divider {
+    width: 100%;
+    height: 1px;
+    margin: 16px 0;
+  }
+
+  .ms-menu-button {
+    padding: 8px 16px;
+    mat-icon {
+      margin-right: 48px;
+    }
+  }
+}
