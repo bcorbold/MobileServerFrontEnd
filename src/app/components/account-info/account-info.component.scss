@@ -21,6 +21,12 @@
 
 .ms-mobile-account {
 
+  #msAccountInfoMobile {
+    height: 100%;
+    padding: 0 16px 16px 16px;
+    overflow: auto;
+  }
+
   .ms-profile-picture {
     margin-top: 2em;
   }
@@ -35,12 +41,6 @@
 
   .ms-button-wrapper {
     width: 100%;
-    min-height: 2.5em;
-    margin-bottom: 0.5em;
-
-    button {
-      min-height: 2.5em;
-    }
   }
 
   mat-form-field {
