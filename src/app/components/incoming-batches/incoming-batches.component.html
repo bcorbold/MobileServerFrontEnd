@@ -39,6 +39,8 @@
         Send with <i>Timmy</i>
       </button>
     </div>
-    <i *ngIf="batches.length === 0">No batches available.</i>
+    <div fxFlex *ngIf="batches.length === 0" fxLayoutAlign="center center" id="msNoBatches">
+      <i>There aren't any batches to deliver right now!</i>
+    </div>
   </div>
 </div>

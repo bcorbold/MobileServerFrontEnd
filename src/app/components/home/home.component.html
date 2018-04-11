@@ -21,9 +21,7 @@
     <mat-drawer-container style="height: 100%;">
       <mat-drawer mode="over" style="height: 100%;" [opened]="isSideNaveOpen" (closedStart)="isSideNaveOpen = false">
         <div fxLayout="column" class="ms-menu-container">
-          <div fxLayout="row" fxLayoutAlign="start center">
-            <p>MobileServer</p>
-          </div>
+          <p id="msMenuTitle">MobileServer</p>
 
           <div class="ms-divider"></div>
 
@@ -55,7 +53,7 @@
           <button mat-icon-button (click)="isSideNaveOpen = true">
             <mat-icon>menu</mat-icon>
           </button>
-          <p style="font-size: 2em;">{{componentInView}}</p>
+          <p>{{componentInView}}</p>
         </div>
         <ms-place-order *ngIf="componentInView === 'Place Order'" [pastOrder]="pastOrder" fxFlex></ms-place-order>
         <ms-order-history *ngIf="componentInView === 'Order History'" (reorder)="populatePlaceOrder($event)" fxFlex></ms-order-history>

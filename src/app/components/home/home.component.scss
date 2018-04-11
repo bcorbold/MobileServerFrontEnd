@@ -10,12 +10,22 @@ ms-place-order, ms-order-history, ms-account-info, ms-incoming-batches, ms-syste
 }
 
 .ms-mobile-header {
-  padding: 0.5em 0;
+  padding: 8px 16px;
+
+  p {
+    font-size: 2em;
+    margin-left: 8px;
+  }
 }
 
 .ms-menu-container {
   padding: 8px;
   width: calc(100vw - 112px);
+
+  #msMenuTitle {
+    padding: 0 16px;
+    margin: 0;
+  }
 
   p {
     margin-left: 8px;
@@ -23,9 +33,9 @@ ms-place-order, ms-order-history, ms-account-info, ms-incoming-batches, ms-syste
   }
 
   .ms-divider {
-    width: 100%;
+    width: calc(100% - 16px);
     height: 1px;
-    margin: 8px 0;
+    margin: 8px;
   }
 
   .ms-menu-button {
