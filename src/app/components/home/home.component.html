@@ -19,33 +19,31 @@
   <!-- mobile layout -->
   <div *msMediaIf="'lt-lg'" fxFlex fxLayout="column" fxLayoutAlign="center stretch">
     <mat-drawer-container style="height: 100%;">
-      <mat-drawer #drawer mode="over" style="height: 100%;">
+      <mat-drawer mode="over" style="height: 100%;" [opened]="isSideNaveOpen" (closedStart)="isSideNaveOpen = false">
         <div fxLayout="column" class="ms-menu-container">
-
           <div fxLayout="row" fxLayoutAlign="start center">
-            <img src="../../../assets/mobile-server-logo_white.svg">
             <p>MobileServer</p>
           </div>
 
           <div class="ms-divider"></div>
 
-          <div (click)="componentInView = 'Place Order'" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
+          <div (click)="switchView('Place Order')" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
             <mat-icon>add_shopping_cart</mat-icon>
             <span>Place Order</span>
           </div>
-          <div (click)="componentInView = 'Order History'" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
+          <div (click)="switchView('Order History')" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
             <mat-icon>history</mat-icon>
             <span>Order History</span>
           </div>
-          <div (click)="componentInView = 'Account Info'" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
+          <div (click)="switchView('Account Info')" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
             <mat-icon>account_circle</mat-icon>
             <span>Account</span>
           </div>
-          <div *ngIf="isAdminView" (click)="componentInView = 'Incoming Batches'" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
+          <div *ngIf="isAdminView" (click)="switchView('Incoming Batches')" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
             <mat-icon>receipt</mat-icon>
             <span>Batches</span>
           </div>
-          <div *ngIf="isAdminView" (click)="componentInView = 'System Details'" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
+          <div *ngIf="isAdminView" (click)="switchView('System Details')" class="ms-menu-button" fxLayout="row" fxLayoutAlign="start center">
             <mat-icon>settings</mat-icon>
             <span>System</span>
           </div>
@@ -54,7 +52,7 @@
 
       <div fxLayout="column" style="height: 100%;">
         <div fxLayout="row" fxLayoutAlign="start center" class="ms-mobile-header">
-          <button mat-icon-button (click)="drawer.toggle()">
+          <button mat-icon-button (click)="isSideNaveOpen = true">
             <mat-icon>menu</mat-icon>
           </button>
           <p style="font-size: 2em;">{{componentInView}}</p>

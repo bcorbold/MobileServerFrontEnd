@@ -17,6 +17,7 @@ export class HomeComponent {
   adminEnabled: boolean;
   pastOrder: Order;
   componentInView: string;
+  isSideNaveOpen = false;
 
   get isAdminView(): boolean {
     return this._isAdminView;
@@ -38,6 +39,11 @@ export class HomeComponent {
   populatePlaceOrder(pastOrder: Order): void {
     this.pastOrder = Order.copy(pastOrder);
     this.componentInView = 'Place Order';
+  }
+
+  switchView(componentInView: string): void {
+    this.componentInView = componentInView;
+    this.isSideNaveOpen = false;
   }
 
 }
