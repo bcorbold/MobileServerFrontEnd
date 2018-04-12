@@ -187,6 +187,9 @@ export class CacheService implements OnDestroy {
         if (this.ordersToMonitor.length !== 0) {
           this.fetchOrderUpdatesRecursive();
         }
+
+        // todo: should only do this if there have been updates to the cache so we don't have to redraw
+        this.orderHistorySubject.next(this.orderHistoryCache);
       });
 
       return this.orderHistorySubject;
