@@ -1,3 +1,6 @@
+$mobile-width-breakpoint: 450px;
+$tablet-width-breakpoint: 900px;
+
 ms-place-order, ms-order-history, ms-account-info, ms-incoming-batches, ms-system-details {
   display: block;
   overflow: auto;
@@ -19,7 +22,7 @@ ms-place-order, ms-order-history, ms-account-info, ms-incoming-batches, ms-syste
 }
 
 .ms-menu-container {
-  width: calc(100vw - 112px); // todo: should have breakpoints that can handle this
+  width: 400px;
   height: 100%;
   padding: 8px 16px 16px 16px;
 
@@ -44,5 +47,19 @@ ms-place-order, ms-order-history, ms-account-info, ms-incoming-batches, ms-syste
   p {
     margin-left: 8px;
     font-size: 2em;
+  }
+}
+
+// mobile side nav
+@media screen and (max-width: $mobile-width-breakpoint) {
+  .ms-menu-container {
+    width: calc(100vw - 112px);
+  }
+}
+
+// tablet side nav
+@media screen and (max-width: $tablet-width-breakpoint) and (min-width: $mobile-width-breakpoint + 1px) {
+  .ms-menu-container {
+    width: 400px;
   }
 }
