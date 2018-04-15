@@ -3,9 +3,9 @@
     <canvas id="linesCnvs" class="lines" [height]="innerHeight" [width]="innerWidth" (click)="onClick($event)"></canvas>
     <canvas id="circlesCnvs" [height]="innerHeight" [width]="innerWidth" (click)="onClick($event)"></canvas>
   </div>
-  <div fxLayout="column" fxLayoutAlign="center center" class="putItThere">
-    <button mat-raised-button color="accent" style="font-size: 2em; " (click)="getPath()">Get Path</button>
-    <button mat-raised-button color="accent" style="font-size: 2em; " (click)="getPathWithHistory()">Get Animated Path</button>
-    <button mat-raised-button color="accent" style="font-size: 2em; " (click)="reset()">Reset</button>
+  <div fxLayout="column" fxLayoutAlign="center center" class="button-column">
+    <button mat-raised-button color="accent" (click)="getPath()">Get Path</button>
+    <button mat-raised-button color="accent" (click)="getPathWithHistory()">Get Animated Path</button>
+    <button mat-raised-button color="accent" (click)="reset()">Reset</button>
   </div>
 </div>

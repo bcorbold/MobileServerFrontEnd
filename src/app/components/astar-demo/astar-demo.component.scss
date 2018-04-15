@@ -9,15 +9,16 @@ button {
   margin-left: 50px;
   padding: 5px;
   font-size: 2em;
-  min-width: 250px;
+  min-width: 300px;
+  min-height: 75px;
 }
 
-div.putItThere {
+div.button-column {
   position: absolute;
   top: 0;
   right: 0;
   padding-right: 10px;
-  padding-top: 400px;
+  padding-top: 350px;
 }
 
 svg {
@@ -28,8 +29,8 @@ svg {
 
 canvas {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 10px;
+  top: 10px;
 }
 
 canvas.lines {
