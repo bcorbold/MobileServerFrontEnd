@@ -36,9 +36,7 @@ export class CustomCircle {
           this.fillColor = '#43A047';
         }
       });
-      setTimeout(() => {
-        this.draw();
-      });
+      this.draw();
     });
   }
 

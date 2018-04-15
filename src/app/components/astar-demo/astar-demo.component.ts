@@ -18,8 +18,12 @@ export class AStarDemoComponent implements AfterViewInit {
   circles = [];
   lines = [];
 
-  canvas: HTMLCanvasElement;
-  ctx: CanvasRenderingContext2D;
+  linesCanvas: HTMLCanvasElement;
+  linesCtx: CanvasRenderingContext2D;
+
+  circlesCanvas: HTMLCanvasElement;
+  circlesCtx: CanvasRenderingContext2D;
+
   clickObservable = new Subject<{x: number, y: number}>();
   aStarResults = new Subject<{
     fromX: number,
@@ -36,13 +40,16 @@ export class AStarDemoComponent implements AfterViewInit {
   ngAfterViewInit() {
 
     // get the objects we will use for the canvas
-    this.canvas = <HTMLCanvasElement>document.getElementById('cnvs');
-    this.ctx = this.canvas.getContext('2d');
+    this.linesCanvas = <HTMLCanvasElement>document.getElementById('linesCnvs');
+    this.linesCtx = this.linesCanvas.getContext('2d');
 
-    this.ctx.strokeStyle = '#E0F2F1';
-    this.ctx.rect(0, 0, this.innerWidth, this.innerHeight);
-    this.ctx.lineWidth = 2;
-    this.ctx.stroke();
+    this.circlesCanvas = <HTMLCanvasElement>document.getElementById('circlesCnvs');
+    this.circlesCtx = this.circlesCanvas.getContext('2d');
+
+    this.linesCtx.strokeStyle = '#E0F2F1';
+    this.linesCtx.rect(0, 0, this.innerWidth, this.innerHeight);
+    this.linesCtx.lineWidth = 2;
+    this.linesCtx.stroke();
 
     this.messageService.getVerticesAndEdges().then(response => {
 
@@ -56,7 +63,7 @@ export class AStarDemoComponent implements AfterViewInit {
           vertex.y * ((this.innerHeight - 100) / maxXY.y) + 50,
           vertex.x,
           vertex.y,
-          this.ctx,
+          this.circlesCtx,
           this.clickObservable,
           this.aStarResults
         );
@@ -74,7 +81,7 @@ export class AStarDemoComponent implements AfterViewInit {
           edge.fromY,
           edge.toX,
           edge.toY,
-          this.ctx,
+          this.linesCtx,
           this.aStarResults
         );
 

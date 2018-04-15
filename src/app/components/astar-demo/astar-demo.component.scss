@@ -12,8 +12,26 @@ button {
   min-width: 250px;
 }
 
+div.putItThere {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 10px;
+  padding-top: 400px;
+}
+
 svg {
   margin: 5px;
   padding: 15px;
   border: 1px #E0F2F1 solid;
+}
+
+canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+canvas.lines {
+  z-index: -1;
 }
