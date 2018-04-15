@@ -1,44 +1,40 @@
-<div fxFlex class="ms-incoming-batches-container" ngClass.gt-md="ms-desktop-batches" ngClass.lt-lg="ms-mobile-batches" fxLayout="column">
+<div fxFlex class="ms-incoming-batches-container" ngClass.gt-md="ms-desktop-batches" fxLayout="column">
   <h1 fxShow fxHide.lt-lg class="ms-header">Incoming Batches</h1>
 
-  <div fxFlex>
-    <div *ngFor="let batch of batches" fxLayout="column" fxLayoutAlign="start stretch" class="ms-batch-row">
-      <div *ngFor="let order of batch.orders">
-        <div fxLayout="row" fxLayoutAlign="start stretch" (click)="updateOrderStatus(order, batch)"
-             [ngClass]="{'ms-pointer-row': batch.state !== BatchStates.delivering, 'ms-ready-row': batch.state !== BatchStates.delivering && order.ready}">
+  <div fxFlex *ngIf="batches.length !== 0" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="8px">
+    <div *ngFor="let batch of batches" class="ms-batch-row">
 
-          <div class="ms-state-indicator"
+      <div *ngFor="let order of batch.orders">
+        <div (click)="updateOrderStatus(order, batch)" fxLayout="row" fxLayoutAlign="start stretch" [ngClass]="{'ms-pointer-row': batch.state !== BatchStates.delivering, 'ms-ready-row': batch.state !== BatchStates.delivering && order.ready}">
+          <div class="ms-batch-state-bar" matTooltip="{{batch.state}}" matTooltipPosition="after"
                [ngClass]="{ 'ms-order-sent': batch.state === BatchStates.delivering,
                             'ms-order-ready': order.ready && batch.state !== BatchStates.delivering,
-                            'ms-order-not-ready': !order.ready  && batch.state !== BatchStates.delivering }"
-               matTooltip="{{batch.state}}" matTooltipPosition="after"></div>
-          <div fxFlex fxLayout="column" style="overflow: auto; margin: 0.5em 0;">
-            <div fxLayout="row" fxLayoutGap="0.5em">
-              <p class="ms-ellipsis-text" style="width: 50%;">
-                {{order.orderInfo.orderOption.name}}
-              </p>
+                            'ms-order-not-ready': !order.ready  && batch.state !== BatchStates.delivering }"></div>
+          <div class="ms-order-info">
+            <div fxLayout="row" fxLayoutAlign="start start">
+              <p class="ms-ellipsis-text" style="width: 50%;">{{order.orderInfo.orderOption.name}}</p>
               <div class="ms-ellipsis-text" style="width: 50%;">
                 <span>Location: </span>
                 <span class="ms-light-text"> {{order.deliveryLocation.name}}</span>
               </div>
             </div>
-            <div fxLayout="row" fxLayoutGap="0.5em">
-              <div style="width: 50%;">
-                <mat-chip-list *ngIf="order.orderInfo?.selectedAddOns && order.orderInfo.selectedAddOns.length !== 0">
-                  <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
-                    <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
-                  </div>
-                </mat-chip-list>
+            <mat-chip-list *ngIf="order.orderInfo?.selectedAddOns && order.orderInfo.selectedAddOns.length !== 0">
+              <div *ngFor="let addOn of order.orderInfo.selectedAddOns">
+                <mat-chip>{{addOn.key}}{{addOn.value === 'true' ? '' : ', ' + addOn.value}}</mat-chip>
               </div>
-              <!-- todo: when there is an overflow in the below (if we want to have another row of info) causes layout issues in mobile -->
-            </div>
+            </mat-chip-list>
           </div>
         </div>
       </div>
-      <button *ngIf="batch.state !== BatchStates.delivering && batch.ready" mat-raised-button class="ms-square-button" color="accent"(click)="sendBatch(batch)">
+
+      <button *ngIf="batch.state !== BatchStates.delivering && batch.ready" mat-raised-button class="ms-square-button" color="accent" (click)="sendBatch(batch)">
         Send with <i>Timmy</i>
       </button>
     </div>
-    <i *ngIf="batches.length === 0">No batches available.</i>
   </div>
+
+  <div fxFlex *ngIf="batches.length === 0" fxLayoutAlign="center center" id="msNoBatches">
+    <i>There aren't any batches to deliver right now!</i>
+  </div>
+
 </div>

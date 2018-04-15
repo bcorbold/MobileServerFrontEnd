@@ -40,38 +40,40 @@
     </div>
   </div>
 
-  <div fxFlex fxHide fxShow.lt-lg fxLayout="column" fxLayoutAlign="start center" style="padding: 0 0.5em; overflow: auto;">
-    <img class="ms-profile-picture" src="{{user.pictureUrl}}">
+  <div fxFlex fxHide fxShow.lt-lg fxLayout="column" fxLayoutAlign="space-between stretch" id="msAccountInfoMobile">
 
-    <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
-    <p class="ms-light-text">{{user.username}}</p>
-    <mat-form-field color="accent">
-      <!-- todo: this doesn't populate the field on load since it's a different object -->
-      <mat-select [(value)]="user.defaultDeliveryLocation" placeholder="Default delivery location">
-        <div *ngFor="let location of environmentDetails.deliveryLocations">
-          <mat-option [value]="location">{{location.name}}</mat-option>
-        </div>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field color="accent">
-      <mat-select [(value)]="user.locale" placeholder="Locale" [disabled]="true">
-        <div *ngFor="let locale of environmentDetails.locales">
-          <mat-option [value]="locale">{{locale}}</mat-option>
-        </div>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field color="accent">
-      <mat-select [(value)]="user.defaultView" placeholder="Default view" [disabled]="!user.adminEnabled">
-        <div *ngFor="let view of environmentDetails.uiViews">
-          <mat-option [value]="view">{{view}}</mat-option>
-        </div>
-      </mat-select>
-    </mat-form-field>
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <img class="ms-profile-picture" src="{{user.pictureUrl}}">
+
+      <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
+      <p class="ms-light-text">{{user.username}}</p>
+      <mat-form-field color="accent">
+        <!-- todo: this doesn't populate the field on load since it's a different object -->
+        <mat-select [(value)]="user.defaultDeliveryLocation" placeholder="Default delivery location">
+          <div *ngFor="let location of environmentDetails.deliveryLocations">
+            <mat-option [value]="location">{{location.name}}</mat-option>
+          </div>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field color="accent">
+        <mat-select [(value)]="user.locale" placeholder="Locale" [disabled]="true">
+          <div *ngFor="let locale of environmentDetails.locales">
+            <mat-option [value]="locale">{{locale}}</mat-option>
+          </div>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field color="accent">
+        <mat-select [(value)]="user.defaultView" placeholder="Default view" [disabled]="!user.adminEnabled">
+          <div *ngFor="let view of environmentDetails.uiViews">
+            <mat-option [value]="view">{{view}}</mat-option>
+          </div>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div class="ms-button-wrapper" fxLayoutGap="0.5em" fxLayoutAlign="center space-between">
       <button fxFlex mat-raised-button (click)="updateAccountInfo()" color="accent">Submit</button>
       <button fxFlex mat-raised-button color="warn" (click)="resetAccountInfo()">Reset</button>
     </div>
   </div>
-
-  <button mat-raised-button color="warn" class="ms-square-button" (click)="logout()">Logout</button>
 </div>

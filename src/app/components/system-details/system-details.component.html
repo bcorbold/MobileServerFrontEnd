@@ -5,7 +5,7 @@
     <div class="status-container" fxLayout="row" fxLayoutAlign="start stretch">
       <div class="ms-state-indicator" matTooltip="{{!status.isConnected ? 'Offline' : status.robotError ? 'Error' : 'Online'}}"
            matTooltipPosition="after" [ngClass]="{'online': status.isConnected && !status.robotError, 'offline': !status.isConnected, 'error': status.robotError}"></div>
-      <p fxFlex="20" class="ms-robot-name">{{status.robotInfo.name}}</p>
+      <p class="ms-robot-name">{{status.robotInfo.name}}</p>
       <p fxHide fxShow.lt-lg class="ms-light-text" fxFlexAlign="center">{{status.robotError ? 'error' : !status.isConnected ? 'offline' : 'online'}}</p>
     </div>
   </div>

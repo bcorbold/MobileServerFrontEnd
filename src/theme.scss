@@ -21,6 +21,10 @@ $ms-theme: mat-dark-theme($primary, $accent, $warn);
 
 html {
   background-color: mat-color($primary, 800);
+
+  ::selection {
+    background-color: mat-color($accent, 500, 0.6);
+  }
 }
 
 .ms-theme {

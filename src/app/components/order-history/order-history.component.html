@@ -43,6 +43,10 @@
       </div>
     </div>
 
-    <i *ngIf="orderHistory.length === 0">No past orders to be displayed... Try ordering something!</i>
+
+    <div fxFlex *ngIf="orderHistory.length === 0" fxLayoutAlign="center center" id="msNoOrderHistory">
+      <i>What about afternoon tea? Well you have got to order it first!</i>
+    </div>
+
   </div>
 </div>

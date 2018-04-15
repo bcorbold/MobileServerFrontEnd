@@ -3,6 +3,7 @@
 @mixin ms-home-theme($theme) {
 
   $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
 
   .ms-desktop-home {
     ms-incoming-batches, ms-order-history {
@@ -23,6 +24,24 @@
     .ms-divider {
       div {
         background-color: mat-color($primary, 900);
+      }
+    }
+  }
+
+  .ms-menu-container {
+
+    .ms-divider {
+      background-color: mat-color($accent, 500);
+    }
+
+    .ms-selected-view {
+
+      mat-icon {
+        color: mat-color($accent, 500);
+      }
+
+      span {
+        color: mat-color($accent, 500);
       }
     }
   }
