@@ -198,8 +198,8 @@ export class MessageService {
     });
   }
 
-  getPathWithHistory(vertices: any): Promise<Path[]> {
-    return new Promise<Path[]>((resolve, reject) => {
+  getPathWithHistory(vertices: any): Promise<Path> {
+    return new Promise<Path>((resolve, reject) => {
       const body = {
         username: '',
         sessionKey: '',
@@ -208,7 +208,7 @@ export class MessageService {
 
       // todo: can we just map this???
       this.http.post(environment.backendUrl + 'getPathWithHistory', body).subscribe(
-        (response: Path[]) => resolve(response),
+        (response: Path) => resolve(response),
         error => reject(error)
       );
     });

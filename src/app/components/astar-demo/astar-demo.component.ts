@@ -3,6 +3,8 @@ import { Subject } from 'rxjs/Subject';
 import { CustomCircle } from './custom-circle';
 import { MessageService } from '../../services/message/message.service';
 import { CustomLine } from './custom-line';
+import {Path} from '../../core/path';
+import {VerticesAndEdges} from '../../core/vertices-and-edges';
 
 @Component({
   selector: 'ms-astar-demo',
@@ -93,9 +95,19 @@ export class AStarDemoComponent implements AfterViewInit {
     const vertices = [];
     this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
     this.messageService.getPathWithHistory(vertices).then((response) => {
-      console.log(response);
-      // this.aStarResults.next(response.edges);
+      console.log(Path.copy(response));
+      this.recursiveLoopThrough(response.path);
     });
+  }
+
+  recursiveLoopThrough(paths: VerticesAndEdges[]) {
+    const path: VerticesAndEdges = paths.shift();
+    this.aStarResults.next(path.edges);
+    if (paths.length > 0) {
+      setTimeout(() => {
+        this.recursiveLoopThrough(paths);
+      }, 1000);
+    }
   }
 
   onClick(event) {

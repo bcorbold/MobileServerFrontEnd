@@ -19,13 +19,15 @@ export class CustomLine {
 
 
     aStarResults.subscribe((path: {fromX: number, fromY: number, toX: number, toY: number}[]) => {
-      path.forEach(edge => {
+      this.strokeStyle = '#E0F2F1';
 
+      path.forEach(edge => {
         if (this.checkIfActualMe(edge.fromX, edge.fromY, edge.toX, edge.toY)) {
           this.strokeStyle = '#43A047';
-          this.draw();
         }
       });
+
+      this.draw();
     });
   }
 

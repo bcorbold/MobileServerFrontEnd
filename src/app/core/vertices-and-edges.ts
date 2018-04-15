@@ -1,3 +1,6 @@
+import {OrderOption} from './order-option';
+import {AddOn} from './add-on';
+
 export class VerticesAndEdges {
   vertices: {
     x: number,
@@ -10,9 +13,14 @@ export class VerticesAndEdges {
     toY: number
   }[];
 
-  constructor(that: VerticesAndEdges) {
-    this.vertices = that.vertices;
-    this.edges = that.edges;
+  constructor() {}
+
+
+  static copy(that: VerticesAndEdges): VerticesAndEdges {
+    const verticesAndEdges = new VerticesAndEdges();
+    verticesAndEdges.vertices = that.vertices;
+    verticesAndEdges.edges = that.edges;
+    return verticesAndEdges;
   }
 
 }

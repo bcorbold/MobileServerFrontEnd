@@ -4,7 +4,6 @@ export class CustomCircle {
   private radius = 25;
   private fillColor = '#E0F2F1';
   private _isSelected = false;
-  private isPartOfPath = false;
 
   constructor(private x: number,
               private y: number,
@@ -29,18 +28,15 @@ export class CustomCircle {
     });
 
     aStarResults.subscribe((path: {fromX: number, fromY: number, toX: number, toY: number}[]) => {
+      this.fillColor = '#E0F2F1';
       path.forEach(edge => {
         if (this.checkIfActualMe(edge.fromX, edge.fromY)) {
-          this.isPartOfPath = true;
-        } else if (this.checkIfActualMe(edge.toX, edge.toY)) {
-          this.isPartOfPath = true;
-        }
-
-        if (this.isPartOfPath) {
           this.fillColor = '#43A047';
-          this.draw();
+        } else if (this.checkIfActualMe(edge.toX, edge.toY)) {
+          this.fillColor = '#43A047';
         }
       });
+      this.draw();
     });
   }
 
