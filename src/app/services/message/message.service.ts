@@ -13,6 +13,7 @@ import { OrderOption } from '../../core/order-option';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
 import { VerticesAndEdges } from '../../core/vertices-and-edges';
+import {Path} from '../../core/path';
 
 @Injectable()
 export class MessageService {
@@ -181,8 +182,8 @@ export class MessageService {
     });
   }
 
-  getPath(vertices: any): Promise<VerticesAndEdges> {
-    return new Promise<VerticesAndEdges>((resolve, reject) => {
+  getPath(vertices: any): Promise<Path> {
+    return new Promise<Path>((resolve, reject) => {
       const body = {
         username: '',
         sessionKey: '',
@@ -191,14 +192,14 @@ export class MessageService {
 
       // todo: can we just map this???
       this.http.post(environment.backendUrl + 'getPath', body).subscribe(
-        (response: VerticesAndEdges) => resolve(response),
+        (response: Path) => resolve(response),
         error => reject(error)
       );
     });
   }
 
-  getPathWithHistory(vertices: any): Promise<VerticesAndEdges[]> {
-    return new Promise<VerticesAndEdges[]>((resolve, reject) => {
+  getPathWithHistory(vertices: any): Promise<Path[]> {
+    return new Promise<Path[]>((resolve, reject) => {
       const body = {
         username: '',
         sessionKey: '',
@@ -207,7 +208,7 @@ export class MessageService {
 
       // todo: can we just map this???
       this.http.post(environment.backendUrl + 'getPathWithHistory', body).subscribe(
-        (response: VerticesAndEdges[]) => resolve(response),
+        (response: Path[]) => resolve(response),
         error => reject(error)
       );
     });

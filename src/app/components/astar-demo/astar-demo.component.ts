@@ -81,11 +81,20 @@ export class AStarDemoComponent implements AfterViewInit {
     });
   }
 
-  useAStar() {
+  getPath() {
     const vertices = [];
     this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
     this.messageService.getPath(vertices).then((response) => {
-      this.aStarResults.next(response.edges);
+      this.aStarResults.next(response.path[0].edges);
+    });
+  }
+
+  getPathWithHistory() {
+    const vertices = [];
+    this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
+    this.messageService.getPathWithHistory(vertices).then((response) => {
+      console.log(response);
+      // this.aStarResults.next(response.edges);
     });
   }
 
