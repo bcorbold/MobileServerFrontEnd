@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { MediaIfModule } from '../../directives/media-if.module';
 import { AccountInfoModule } from '../account-info/account-info.module';
@@ -28,6 +29,7 @@ export { HomeComponent } from './home.component';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatSidenavModule,
     MediaIfModule,
     OrderHistoryModule,
     PlaceOrderModule,

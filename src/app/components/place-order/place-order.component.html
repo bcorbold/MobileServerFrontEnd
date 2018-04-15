@@ -35,7 +35,7 @@
         </mat-input-container>
       </div>
 
-      <button *ngIf="potentialAddOn" mat-raised-button color="accent" (click)="addAddOnToSelectedList()">
+      <button *ngIf="potentialAddOn" mat-mini-fab color="accent" (click)="addAddOnToSelectedList()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -51,7 +51,7 @@
   </div>
 
   <!-- mobile layout -->
-  <div *msMediaIf="'lt-lg'" style="overflow: auto; margin-bottom: 0.5em;">
+  <div *msMediaIf="'lt-lg'" id="msMobilePlaceOrderContainer">
     <mat-form-field fxLayout="column" color="accent">
       <input matInput placeholder="Delivery location" aria-label="Delivery location" [matAutocomplete]="autoLocation" [formControl]="locationControl">
       <mat-autocomplete #autoLocation="matAutocomplete">
@@ -79,7 +79,7 @@
       <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="accent" style="width: 100%;">
         <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" [(ngModel)]="potentialAddOnValue" min="1">
       </mat-input-container>
-      <button mat-raised-button color="accent" (click)="addAddOnToSelectedList()">
+      <button mat-mini-fab color="accent" (click)="addAddOnToSelectedList()">
         <mat-icon>add</mat-icon>
       </button>
     </div>

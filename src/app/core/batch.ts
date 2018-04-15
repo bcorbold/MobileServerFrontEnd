@@ -3,9 +3,8 @@ import { RobotInfo } from './robot-info';
 
 export class Batch {
   id: string;
-  orders: [Order];
-  batchEta: string;
-  assignedRobot: RobotInfo;
   state: string;
+  orders: Order[];
+  robotArrived: boolean;
   ready?: boolean;
 }

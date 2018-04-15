@@ -15,8 +15,16 @@ $successful: mat-palette($mat-green, 600);
 
 $ms-theme: mat-dark-theme($primary, $accent, $warn);
 
+::-webkit-scrollbar-thumb {
+  background-color: mat-color($accent);
+}
+
 html {
   background-color: mat-color($primary, 800);
+
+  ::selection {
+    background-color: mat-color($accent, 500, 0.6);
+  }
 }
 
 .ms-theme {
