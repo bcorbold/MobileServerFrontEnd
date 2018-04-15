@@ -75,4 +75,10 @@ export class CustomCircle {
       y: this.actualY
     };
   }
+
+  public reset() {
+    this.fillColor = '#E0F2F1';
+    this._isSelected = false;
+    this.draw();
+  }
 }

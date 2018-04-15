@@ -55,4 +55,9 @@ export class CustomLine {
       fromY === this.actualToY
     );
   }
+
+  reset() {
+    this.strokeStyle = '#E0F2F1';
+    this.draw();
+  }
 }

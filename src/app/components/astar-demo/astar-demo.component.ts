@@ -135,4 +135,13 @@ export class AStarDemoComponent implements AfterViewInit {
     });
     return {x: maxX, y: maxY};
   }
+
+  reset() {
+    this.circles.forEach(circle => {
+      circle.reset();
+    });
+    this.lines.forEach(line => {
+      line.reset();
+    });
+  }
 }
