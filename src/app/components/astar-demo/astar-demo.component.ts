@@ -3,8 +3,8 @@ import { Subject } from 'rxjs/Subject';
 import { CustomCircle } from './custom-circle';
 import { MessageService } from '../../services/message/message.service';
 import { CustomLine } from './custom-line';
-import {Path} from '../../core/path';
-import {VerticesAndEdges} from '../../core/vertices-and-edges';
+import { Path } from '../../core/path';
+import { VerticesAndEdges } from '../../core/vertices-and-edges';
 
 @Component({
   selector: 'ms-astar-demo',
@@ -106,7 +106,7 @@ export class AStarDemoComponent implements AfterViewInit {
     if (paths.length > 0) {
       setTimeout(() => {
         this.recursiveLoopThrough(paths);
-      }, 1000);
+      }, 500);
     }
   }
 

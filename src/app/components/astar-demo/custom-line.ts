@@ -36,7 +36,7 @@ export class CustomLine {
     this.ctx.beginPath();
     this.ctx.moveTo(this.fromX, this.fromY);
     this.ctx.strokeStyle = this.strokeStyle;
-    this.ctx.lineWidth = 2;
+    this.ctx.lineWidth = 5;
     this.ctx.lineTo(this.toX, this.toY);
     this.ctx.stroke();
     this.ctx.restore();
