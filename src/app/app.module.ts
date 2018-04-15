@@ -17,14 +17,12 @@ import { CacheModule } from './services/cache/cache.module';
 import { MessageModule } from './services/message/message.module';
 
 import { AppComponent } from './app.component';
-import { MapEditorComponent, MapEditorModule } from './components/map-editor/map-editor.module';
 import { AStarDemoComponent, AstarDemoModule } from './components/astar-demo/astar-demo.module';
 
 const appRoutes: Routes = [
   { path: 'admin', component: HomeComponent },
   { path: 'user', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'map', component: MapEditorComponent },
   { path: 'astar', component: AStarDemoComponent },
   { path: '',   redirectTo: 'astar', pathMatch: 'full' }
 ];
@@ -52,8 +50,7 @@ const appRoutes: Routes = [
     LoginModule,
     OrderHistoryModule,
     MessageModule,
-    PlaceOrderModule,
-    MapEditorModule
+    PlaceOrderModule
   ]
 })
 export class AppModule { }

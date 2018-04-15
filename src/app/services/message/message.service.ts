@@ -181,7 +181,7 @@ export class MessageService {
     });
   }
 
-  useAStar(vertices: any): Promise<VerticesAndEdges> {
+  getPath(vertices: any): Promise<VerticesAndEdges> {
     return new Promise<VerticesAndEdges>((resolve, reject) => {
       const body = {
         username: '',
@@ -190,8 +190,24 @@ export class MessageService {
       };
 
       // todo: can we just map this???
-      this.http.post(environment.backendUrl + 'useAStar', body).subscribe(
+      this.http.post(environment.backendUrl + 'getPath', body).subscribe(
         (response: VerticesAndEdges) => resolve(response),
+        error => reject(error)
+      );
+    });
+  }
+
+  getPathWithHistory(vertices: any): Promise<VerticesAndEdges[]> {
+    return new Promise<VerticesAndEdges[]>((resolve, reject) => {
+      const body = {
+        username: '',
+        sessionKey: '',
+        vertexValues: vertices
+      };
+
+      // todo: can we just map this???
+      this.http.post(environment.backendUrl + 'getPathWithHistory', body).subscribe(
+        (response: VerticesAndEdges[]) => resolve(response),
         error => reject(error)
       );
     });

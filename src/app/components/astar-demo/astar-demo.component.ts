@@ -84,7 +84,7 @@ export class AStarDemoComponent implements AfterViewInit {
   useAStar() {
     const vertices = [];
     this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
-    this.messageService.useAStar(vertices).then((response) => {
+    this.messageService.getPath(vertices).then((response) => {
       this.aStarResults.next(response.edges);
     });
   }
