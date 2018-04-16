@@ -2,9 +2,11 @@ import { Subject } from 'rxjs/Subject';
 
 export class CustomLine {
 
-  strokeStyle = '#E0F2F1';
+  strokeStyle = '';
 
-  constructor(private fromX: number,
+  constructor(private DEFAULT_COLOUR: string,
+              private SELECTED_COLOUR: string,
+              private fromX: number,
               private fromY: number,
               private toX: number,
               private toY: number,
@@ -15,15 +17,17 @@ export class CustomLine {
               private ctx: CanvasRenderingContext2D,
               aStarResults: Subject<{fromX: number, fromY: number, toX: number, toY: number}[]>) {
 
+    this.strokeStyle = DEFAULT_COLOUR;
+
     this.draw();
 
 
     aStarResults.subscribe((path: {fromX: number, fromY: number, toX: number, toY: number}[]) => {
-      this.strokeStyle = '#E0F2F1';
+      this.strokeStyle = this.DEFAULT_COLOUR;
 
       path.forEach(edge => {
         if (this.checkIfActualMe(edge.fromX, edge.fromY, edge.toX, edge.toY)) {
-          this.strokeStyle = '#43A047';
+          this.strokeStyle = this.SELECTED_COLOUR;
         }
       });
 
@@ -57,7 +61,7 @@ export class CustomLine {
   }
 
   reset() {
-    this.strokeStyle = '#E0F2F1';
+    this.strokeStyle = this.DEFAULT_COLOUR;
     this.draw();
   }
 }

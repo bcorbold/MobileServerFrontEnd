@@ -12,6 +12,9 @@ import { VerticesAndEdges } from '../../core/vertices-and-edges';
   styleUrls: ['./astar-demo.component.scss']
 })
 export class AStarDemoComponent implements AfterViewInit {
+  DEFAULT_COLOUR = '#E0F2F1';
+  SELECTED_COLOUR = '#43A047';
+
   innerHeight = 100;
   innerWidth = 100;
 
@@ -46,7 +49,7 @@ export class AStarDemoComponent implements AfterViewInit {
     this.circlesCanvas = <HTMLCanvasElement>document.getElementById('circlesCnvs');
     this.circlesCtx = this.circlesCanvas.getContext('2d');
 
-    this.linesCtx.strokeStyle = '#E0F2F1';
+    this.linesCtx.strokeStyle = this.DEFAULT_COLOUR;
     this.linesCtx.rect(0, 0, this.innerWidth, this.innerHeight);
     this.linesCtx.lineWidth = 2;
     this.linesCtx.stroke();
@@ -59,6 +62,8 @@ export class AStarDemoComponent implements AfterViewInit {
 
         // the +50 and -100 are to offset points from the edges of the canvas
         const circle = new CustomCircle(
+          this.DEFAULT_COLOUR,
+          this.SELECTED_COLOUR,
           vertex.x * ((this.innerWidth - 100) / maxXY.x) + 50,
           vertex.y * ((this.innerHeight - 100) / maxXY.y) + 50,
           vertex.x,
@@ -73,7 +78,9 @@ export class AStarDemoComponent implements AfterViewInit {
 
       response.edges.forEach(edge => {
         const line = new CustomLine(
-          edge.fromX * ((this.innerWidth - 100) / maxXY.x) + 50,
+          this.DEFAULT_COLOUR,
+          this.SELECTED_COLOUR,
+        edge.fromX * ((this.innerWidth - 100) / maxXY.x) + 50,
           edge.fromY * ((this.innerHeight - 100) / maxXY.y) + 50,
           edge.toX * ((this.innerWidth - 100) / maxXY.x) + 50,
           edge.toY * ((this.innerHeight - 100) / maxXY.y) + 50,
@@ -121,6 +128,15 @@ export class AStarDemoComponent implements AfterViewInit {
     this.clickObservable.next({x: event.offsetX, y: event.offsetY});
   }
 
+  reset() {
+    this.circles.forEach(circle => {
+      circle.reset();
+    });
+    this.lines.forEach(line => {
+      line.reset();
+    });
+  }
+
   getMaxXY(vertices): {x: number, y: number} {
     let maxX = 0;
     let maxY = 0;
@@ -136,12 +152,14 @@ export class AStarDemoComponent implements AfterViewInit {
     return {x: maxX, y: maxY};
   }
 
-  reset() {
-    this.circles.forEach(circle => {
-      circle.reset();
-    });
-    this.lines.forEach(line => {
-      line.reset();
-    });
+  /**
+   * Scale up the X or Y value so that we use up the entire screen
+   * @param {number} originalValue - This is the X or Y value
+   * @param {number} maxNewValue - The inner height or width. Dont want value to be bigger than screen. Will make scroll bars. So nahh
+   * @param {number} largestValue - Max X or Y value in list. A divisor used for scaling
+   * @returns {number} A scaled up value of X or Y
+   */
+  scale(originalValue: number, maxNewValue: number, largestValue: number): number {
+    return originalValue * ((maxNewValue - 100) / largestValue) + 50;
   }
 }
