@@ -4,6 +4,7 @@ import { Order } from '../../core/order';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-home',
@@ -17,6 +18,7 @@ export class HomeComponent {
   adminEnabled: boolean;
   pastOrder: Order;
   componentInView: string;
+  isSideNaveOpen = false;
 
   get isAdminView(): boolean {
     return this._isAdminView;
@@ -25,7 +27,7 @@ export class HomeComponent {
     this._isAdminView = isAdminView;
   }
 
-  constructor(private messageService: MessageService, private cache: CacheService) {
+  constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {
     this.isAdminView = this.cache.user.defaultView === 'bartender';
     this.adminEnabled = this.cache.user.adminEnabled;
     this.componentInView = this.isAdminView ? 'Incoming Batches' : 'Place Order';
@@ -38,6 +40,15 @@ export class HomeComponent {
   populatePlaceOrder(pastOrder: Order): void {
     this.pastOrder = Order.copy(pastOrder);
     this.componentInView = 'Place Order';
+  }
+
+  switchView(componentInView: string): void {
+    this.componentInView = componentInView;
+    this.isSideNaveOpen = false;
+  }
+
+  logout(): void {
+    this.messageService.logout().then(() => this.router.navigate(['/']));
   }
 
 }

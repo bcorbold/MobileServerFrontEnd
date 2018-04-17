@@ -3,7 +3,12 @@
 }
 
 .ms-mobile-order {
-  padding: 0.5em;
+  padding: 16px;
+
+  #msMobilePlaceOrderContainer {
+    overflow: auto;
+    margin-bottom: 8px;
+  }
 
   .drink-description {
     margin-bottom: 2em;
