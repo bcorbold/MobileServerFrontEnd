@@ -20,7 +20,7 @@ export class CustomCircle {
     this.draw();
 
     clickObservable.subscribe((vals: {x: number, y: number}) => {
-      if (this.checkIfMe(vals.x, vals.y)) {
+      if (this.isClicked(vals.x, vals.y)) {
         if (this._isSelected) {
           this.fillColor = this.DEFAULT_COLOUR;
         } else {
@@ -34,7 +34,7 @@ export class CustomCircle {
     aStarResults.subscribe((path: {fromX: number, fromY: number, toX: number, toY: number}[]) => {
       this.fillColor = this.DEFAULT_COLOUR;
       path.forEach(edge => {
-        if (this.checkIfActualMe(edge.fromX, edge.fromY) || this.checkIfActualMe(edge.toX, edge.toY)) {
+        if (this.isPartOfPath(edge.fromX, edge.fromY) || this.isPartOfPath(edge.toX, edge.toY)) {
           this.fillColor = this.SELECTED_COLOUR;
         }
       });
@@ -54,7 +54,14 @@ export class CustomCircle {
     this.ctx.restore();
   }
 
-  private checkIfMe(x: number, y: number): boolean {
+  /**
+   * This is used to see if the circle has been clicked.
+   * Technically this checks a square around the circle atm. Will have to do some more complicated math checks to get the circle only
+   * @param {number} x
+   * @param {number} y
+   * @returns {boolean}
+   */
+  private isClicked(x: number, y: number): boolean {
     return (
       x > (this.x - this.radius) &&
       x < (this.x + this.radius) &&
@@ -63,7 +70,13 @@ export class CustomCircle {
     );
   }
 
-  private checkIfActualMe(x: number, y: number): boolean {
+  /**
+   * This is used to see if the circle (vertex in this context) is part of the path
+   * @param {number} x
+   * @param {number} y
+   * @returns {boolean}
+   */
+  private isPartOfPath(x: number, y: number): boolean {
     return (x === this.actualX && y === this.actualY);
   }
 

@@ -26,7 +26,7 @@ export class CustomLine {
       this.strokeStyle = this.DEFAULT_COLOUR;
 
       path.forEach(edge => {
-        if (this.checkIfActualMe(edge.fromX, edge.fromY, edge.toX, edge.toY)) {
+        if (this.isPartOfPath(edge.fromX, edge.fromY, edge.toX, edge.toY)) {
           this.strokeStyle = this.SELECTED_COLOUR;
         }
       });
@@ -46,7 +46,15 @@ export class CustomLine {
     this.ctx.restore();
   }
 
-  private checkIfActualMe(fromX: number, fromY: number, toX: number, toY: number): boolean {
+  /**
+   * Check to see if the line is part of the path
+   * @param {number} fromX
+   * @param {number} fromY
+   * @param {number} toX
+   * @param {number} toY
+   * @returns {boolean}
+   */
+  private isPartOfPath(fromX: number, fromY: number, toX: number, toY: number): boolean {
     return (
       fromX === this.actualFromX &&
       fromY === this.actualFromY &&

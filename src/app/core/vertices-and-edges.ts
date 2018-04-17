@@ -1,5 +1,5 @@
-import {OrderOption} from './order-option';
-import {AddOn} from './add-on';
+import { AddOn } from './add-on';
+import { OrderOption } from './order-option';
 
 export class VerticesAndEdges {
   vertices: {

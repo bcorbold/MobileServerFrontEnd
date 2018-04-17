@@ -1,10 +1,10 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { CustomCircle } from './custom-circle';
-import { MessageService } from '../../services/message/message.service';
-import { CustomLine } from './custom-line';
 import { Path } from '../../core/path';
 import { VerticesAndEdges } from '../../core/vertices-and-edges';
+import { MessageService } from '../../services/message/message.service';
+import { CustomCircle } from './custom-circle';
+import { CustomLine } from './custom-line';
 
 @Component({
   selector: 'ms-astar-demo',
@@ -42,22 +42,26 @@ export class AStarDemoComponent implements AfterViewInit {
 
   ngAfterViewInit() {
 
-    // get the objects we will use for the canvas
+    // line canvas stuff
     this.linesCanvas = <HTMLCanvasElement>document.getElementById('linesCnvs');
     this.linesCtx = this.linesCanvas.getContext('2d');
 
+    // circle canvas stuff
     this.circlesCanvas = <HTMLCanvasElement>document.getElementById('circlesCnvs');
     this.circlesCtx = this.circlesCanvas.getContext('2d');
 
+    // add the border to the lines canvas
     this.linesCtx.strokeStyle = this.DEFAULT_COLOUR;
     this.linesCtx.rect(0, 0, this.innerWidth, this.innerHeight);
     this.linesCtx.lineWidth = 2;
     this.linesCtx.stroke();
 
+    // get the map
     this.messageService.getVerticesAndEdges().then(response => {
 
       const maxXY: {x: number, y: number} = this.getMaxXY(response.vertices);
 
+      // create circle objects
       response.vertices.forEach(vertex => {
 
         // the +50 and -100 are to offset points from the edges of the canvas
@@ -76,6 +80,7 @@ export class AStarDemoComponent implements AfterViewInit {
         this.circles.push(circle);
       });
 
+      // create line objects
       response.edges.forEach(edge => {
         const line = new CustomLine(
           this.DEFAULT_COLOUR,
@@ -97,6 +102,10 @@ export class AStarDemoComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Filter for the circles that have been selected and send them to the backend.
+   * Also see comment for onClick for {aStarResults} observable shit
+   */
   getPath() {
     const vertices = [];
     this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
@@ -105,15 +114,22 @@ export class AStarDemoComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Filter for the circles that have been selected and send them to the backend.
+   */
   getPathWithHistory() {
     const vertices = [];
     this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
     this.messageService.getPathWithHistory(vertices).then((response) => {
-      console.log(Path.copy(response));
       this.recursiveLoopThrough(response.path);
     });
   }
 
+  /**
+   * Go through all of the paths. Wait for a bit between each one.
+   * Also see comment for onClick for {aStarResults} observable shit
+   * @param {VerticesAndEdges[]} paths
+   */
   recursiveLoopThrough(paths: VerticesAndEdges[]) {
     const path: VerticesAndEdges = paths.shift();
     this.aStarResults.next(path.edges);
@@ -124,10 +140,19 @@ export class AStarDemoComponent implements AfterViewInit {
     }
   }
 
+  /**
+   * 2 ways this could have gone. I could have looped through all circles here and find which one is clicked, then set it as selected.
+   * I opted to just have all of them subscribe to this the click observable. Then they can all just handle there own shit.
+   * Not a major reason for doing it this way. Was just tired of looping through everything constantly.
+   * @param event
+   */
   onClick(event) {
     this.clickObservable.next({x: event.offsetX, y: event.offsetY});
   }
 
+  /**
+   * Code equivalent of "Have you tried restarting it?"
+   */
   reset() {
     this.circles.forEach(circle => {
       circle.reset();
@@ -137,6 +162,11 @@ export class AStarDemoComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Self explanatory
+   * @param vertices
+   * @returns {{x: number; y: number}}
+   */
   getMaxXY(vertices): {x: number, y: number} {
     let maxX = 0;
     let maxY = 0;

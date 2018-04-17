@@ -10,10 +10,10 @@ import { EnvironmentDetails } from '../../core/environment-details';
 import { Order } from '../../core/order';
 import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
+import { Path } from '../../core/path';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
 import { VerticesAndEdges } from '../../core/vertices-and-edges';
-import {Path} from '../../core/path';
 
 @Injectable()
 export class MessageService {
