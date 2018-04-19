@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 50px;
+  padding: 5px;
+  font-size: 2em;
+  min-width: 300px;
+  min-height: 75px;
+}
+
+div.button-column {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 10px;
+  padding-top: 350px;
+}
+
+canvas {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+canvas.lines {
+  z-index: -1;
+}

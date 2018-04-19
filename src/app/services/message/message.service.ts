@@ -10,6 +10,7 @@ import { EnvironmentDetails } from '../../core/environment-details';
 import { Order } from '../../core/order';
 import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
+import { Path } from '../../core/path';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
 import { VerticesAndEdges } from '../../core/vertices-and-edges';
@@ -181,8 +182,8 @@ export class MessageService {
     });
   }
 
-  useAStar(vertices: any): Promise<VerticesAndEdges> {
-    return new Promise<VerticesAndEdges>((resolve, reject) => {
+  getPath(vertices: any): Promise<Path> {
+    return new Promise<Path>((resolve, reject) => {
       const body = {
         username: '',
         sessionKey: '',
@@ -190,8 +191,24 @@ export class MessageService {
       };
 
       // todo: can we just map this???
-      this.http.post(environment.backendUrl + 'useAStar', body).subscribe(
-        (response: VerticesAndEdges) => resolve(response),
+      this.http.post(environment.backendUrl + 'getPath', body).subscribe(
+        (response: Path) => resolve(response),
+        error => reject(error)
+      );
+    });
+  }
+
+  getPathWithHistory(vertices: any): Promise<Path> {
+    return new Promise<Path>((resolve, reject) => {
+      const body = {
+        username: '',
+        sessionKey: '',
+        vertexValues: vertices
+      };
+
+      // todo: can we just map this???
+      this.http.post(environment.backendUrl + 'getPathWithHistory', body).subscribe(
+        (response: Path) => resolve(response),
         error => reject(error)
       );
     });

@@ -1,18 +1,26 @@
+import { AddOn } from './add-on';
+import { OrderOption } from './order-option';
+
 export class VerticesAndEdges {
   vertices: {
     x: number,
-    y: number,
-    name: string
+    y: number
   }[];
   edges: {
-    toVertex: string,
-    fromVertex: string,
-    cost: number
+    fromX: number,
+    fromY: number,
+    toX: number,
+    toY: number
   }[];
 
-  constructor(that: VerticesAndEdges) {
-    this.vertices = that.vertices;
-    this.edges = that.edges;
+  constructor() {}
+
+
+  static copy(that: VerticesAndEdges): VerticesAndEdges {
+    const verticesAndEdges = new VerticesAndEdges();
+    verticesAndEdges.vertices = that.vertices;
+    verticesAndEdges.edges = that.edges;
+    return verticesAndEdges;
   }
 
 }
