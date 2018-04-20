@@ -12,12 +12,12 @@ import { DeliveryLocation } from '../../core/delivery-location';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
 import { Order } from '../../core/order';
+import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
-import { OrderInfo } from '../../core/order-info';
 
 @Component({
   selector: 'ms-place-order',
@@ -148,10 +148,9 @@ export class PlaceOrderComponent {
 
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-
-
-      // this.messageService.placeOrder(orderInfo, this.selectedDeliveryLocation);
+      if (result) {
+        this.messageService.placeOrder(orderInfo, this.selectedDeliveryLocation);
+      }
     });
   }
 

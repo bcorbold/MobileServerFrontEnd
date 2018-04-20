@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 
 import { Component, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Batch } from '../../core/batch';
@@ -11,6 +12,7 @@ import { Order } from '../../core/order';
 import { RobotInfo } from '../../core/robot-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'ms-incoming-batches',
@@ -24,7 +26,7 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
   incomingBatchSubscription: Subscription;
   configuredRobots: RobotInfo[];
 
-  constructor(private messageService: MessageService, private cache: CacheService) {
+  constructor(private messageService: MessageService, private cache: CacheService, private dialog: MatDialog) {
     this.incomingBatchSubscription = this.cache.getIncomingBatches().subscribe(
       (batches: Batch[]) => {
         // this is needed so that bartender can keep track of finished drinks after an update
@@ -51,7 +53,13 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
   }
 
   sendBatch(batch: Batch) {
-    this.messageService.sendBatch(batch);
+    const modalData = {origin: ConfirmationModalComponent.INCOMING_BATCHES_COMPONENT};
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.messageService.sendBatch(batch);
+      }
+    });
   }
 
   ngOnDestroy(): void {
