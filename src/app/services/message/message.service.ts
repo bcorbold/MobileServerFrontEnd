@@ -137,13 +137,12 @@ export class MessageService {
   }
 
   // todo: consolidate input arguments down
-  placeOrder(selectedBeverage: OrderOption, selectedAddOns: {key: string, value: string | boolean | number}[],
-             deliveryLocation: DeliveryLocation): Promise<Order> {
+  placeOrder(orderInfo: OrderInfo, deliveryLocation: DeliveryLocation): Promise<Order> {
     return new Promise<Order>((resolve, reject) => {
       const body = {
         username: this.user.username,
         sessionKey: this.sessionKey,
-        orderInfo: new OrderInfo(selectedBeverage, selectedAddOns),
+        orderInfo: orderInfo,
         deliveryLocation: deliveryLocation
       };
       this.http.post(environment.backendUrl + 'placeOrder', body)

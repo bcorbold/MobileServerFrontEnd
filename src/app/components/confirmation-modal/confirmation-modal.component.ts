@@ -7,8 +7,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
   styleUrls: ['./confirmation-modal.component.scss']
 })
 export class ConfirmationModalComponent {
+  static PLACE_ORDER_COMPONENT = 'PlaceOrderComponent';
 
-  constructor(public dialogRef: MatDialogRef<ConfirmationModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(public dialogRef: MatDialogRef<ConfirmationModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    console.log(data);
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

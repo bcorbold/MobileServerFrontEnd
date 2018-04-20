@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Order } from '../../core/order';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-home',

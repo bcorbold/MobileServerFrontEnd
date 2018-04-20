@@ -16,6 +16,7 @@
     selected-row: mat-color($background-palette, 500),
     text: mat-color(map-get($background-palette, contrast), 50),
     title-text: mat-color($primary),
+    secondary-text: $black-12-opacity,
     indeterminate: mat-color($mat-amber, 300),
     in-progress: mat-color($mat-light-blue, 200),
     success: mat-color($mat-green, 600)
@@ -28,16 +29,16 @@
 
   background-color: map-get($ms-theme, background);
 
-  ::-webkit-scrollbar-thumb {
-    background-color: mat-color($primary);
-  }
-
   .mat-drawer-container, .mat-select-content, .mat-autocomplete-panel {
     background-color: map-get($ms-theme, background);
   }
 
   ::selection {
     background-color: mat-color($primary, 500, 0.6);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: mat-color($primary);
   }
 
   mat-chip {
@@ -57,6 +58,7 @@
     selected-row: mat-color($background-palette, 600),
     text: mat-color(map-get($background-palette, contrast), 800),
     title-text: mat-color(map-get($background-palette, contrast), 800),
+    secondary-text: $white-12-opacity,
     indeterminate: mat-color($mat-amber, 300),
     in-progress: mat-color($mat-light-blue, 200),
     success: mat-color($mat-green, 600)
@@ -69,10 +71,6 @@
 
   background-color: map-get($ms-theme, background);
 
-  ::-webkit-scrollbar-thumb {
-    background-color: mat-color($primary);
-  }
-
   .mat-drawer-container, .mat-select-content, .mat-autocomplete-panel {
     background-color: map-get($ms-theme, background);
   }
@@ -81,8 +79,8 @@
     background-color: mat-color($primary, 500, 0.6);
   }
 
-  .mat-input-element.mat-form-field-autofill-control {
-    color: map-get($ms-theme, text);
+  ::-webkit-scrollbar-thumb {
+    background-color: mat-color($primary);
   }
 
   mat-chip {

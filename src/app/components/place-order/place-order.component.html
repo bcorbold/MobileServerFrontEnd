@@ -95,7 +95,7 @@
   </div>
 
   <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="0.5em" style="min-height: 2.5em;">
-    <button fxFlex mat-raised-button color="primary" (click)="placeOrder()">Submit</button>
+    <button fxFlex mat-raised-button color="primary" (click)="placeOrder()" [disabled]="!selectedBeverage">Submit</button>
     <button fxFlex mat-raised-button color="warn" (click)="resetOrder()">Reset</button>
   </div>
 </div>

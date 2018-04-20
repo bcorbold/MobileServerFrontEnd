@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
@@ -15,8 +16,8 @@ import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
-import { MatDialog } from '@angular/material';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { OrderInfo } from '../../core/order-info';
 
 @Component({
   selector: 'ms-place-order',
@@ -137,13 +138,21 @@ export class PlaceOrderComponent {
   }
 
   placeOrder(): void {
-    const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: this.selectedBeverage});
+    const orderInfo = new OrderInfo(this.selectedBeverage, this.selectedAddOns);
+
+    const modalData = {
+      origin: ConfirmationModalComponent.PLACE_ORDER_COMPONENT,
+      orderInfo: orderInfo,
+      deliveryLocation: this.selectedDeliveryLocation
+    };
+
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-    });
 
-    // todo: should just pass in an OrderInfo object
-    this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation);
+
+      // this.messageService.placeOrder(orderInfo, this.selectedDeliveryLocation);
+    });
   }
 
   resetOrder(): void {
