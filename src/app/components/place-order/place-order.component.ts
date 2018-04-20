@@ -15,6 +15,8 @@ import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+import { MatDialog } from '@angular/material';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'ms-place-order',
@@ -54,7 +56,7 @@ export class PlaceOrderComponent {
   beverageControl: FormControl;
   filteredBeverages: Observable<OrderOption[]>;
 
-  constructor(private messageService: MessageService, private cache: CacheService) {
+  constructor(private messageService: MessageService, private cache: CacheService, private dialog: MatDialog) {
     // getting user/environment information to set up forms
     this.cache.getEnvironmentDetails()
       .then((envDetails: EnvironmentDetails) => this.environmentDetails = envDetails)
@@ -135,8 +137,11 @@ export class PlaceOrderComponent {
   }
 
   placeOrder(): void {
-    // todo: need to add validation to the form
-    // todo: Should give the user some sort of feedback on the responses
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: this.selectedBeverage});
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+
     // todo: should just pass in an OrderInfo object
     this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation);
   }

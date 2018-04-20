@@ -4,10 +4,6 @@
 
 @include mat-core();
 
-//html {
-//  background-color: mat-color($primary, 800);
-//}
-
 .ms-light-theme {
   $primary: mat-palette($mat-green, 600);
   $accent: mat-palette($mat-cyan, 600);
