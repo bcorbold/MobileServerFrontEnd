@@ -1,0 +1,9 @@
+@import '~@angular/material/_theming.scss';
+
+@mixin ms-confirmation-modal-theme($theme, $ms-theme) {
+
+  .ms-modal-info {
+    color: map-get($ms-theme, secondary-text);
+  }
+
+}

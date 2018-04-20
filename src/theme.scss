@@ -58,7 +58,7 @@
     selected-row: mat-color($background-palette, 600),
     text: mat-color(map-get($background-palette, contrast), 800),
     title-text: mat-color(map-get($background-palette, contrast), 800),
-    secondary-text: $white-12-opacity,
+    secondary-text: $light-disabled-text,
     indeterminate: mat-color($mat-amber, 300),
     in-progress: mat-color($mat-light-blue, 200),
     success: mat-color($mat-green, 600)

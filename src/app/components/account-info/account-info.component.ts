@@ -6,7 +6,7 @@ import { EnvironmentDetails } from '../../core/environment-details';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
-import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { ACCOUNT_INFO_COMPONENT, ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'ms-account-info',
@@ -43,7 +43,7 @@ export class AccountInfoComponent implements OnInit {
   }
 
   updateAccountInfo(): void {
-    const modalData = {origin: ConfirmationModalComponent.ACCOUNT_INFO_COMPONENT};
+    const modalData = {origin: ACCOUNT_INFO_COMPONENT};
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
