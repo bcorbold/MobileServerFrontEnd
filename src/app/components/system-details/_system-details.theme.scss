@@ -1,21 +1,20 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-system-details-theme($theme, $indeterminate, $progress, $successful) {
+@mixin ms-system-details-theme($theme, $ms-theme) {
 
-  $primary: map-get($theme, primary);
   $warn: map-get($theme, warn);
 
   .ms-system-details {
 
     .status-container {
-      background-color: mat-color($primary, 700);
+      background-color: map-get($ms-theme, unselected-row);
 
       .online {
-        background-color: mat-color($successful);
+        background-color: map-get($ms-theme, success);
       }
 
       .offline {
-        background-color: mat-color($indeterminate);
+        background-color: map-get($ms-theme, indeterminate);
       }
 
       .error {

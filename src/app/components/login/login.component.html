@@ -7,19 +7,19 @@
   </div>
 
   <div class="ms-login-container" fxLayout="column" fxLayoutAlign="center stretch">
-    <mat-input-container color="accent">
+    <mat-input-container color="primary">
       <input matInput placeholder="Username" type="text" [(ngModel)]="username" (keyup.enter)="attemptLogin()">
     </mat-input-container>
 
-    <mat-input-container color="accent">
+    <mat-input-container color="primary">
       <input matInput placeholder="Password" type="password" [(ngModel)]="password" (keyup.enter)="attemptLogin()">
     </mat-input-container>
 
-    <button mat-raised-button color="accent" (click)="attemptLogin()">Login</button>
+    <button mat-raised-button color="primary" (click)="attemptLogin()">Login</button>
   </div>
 
   <div class="ms-login-message-wrapper" fxLayout="column" fxLayoutAlign="start center">
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="accent"></mat-progress-bar>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
     <p class="ms-login-message">{{loginMessage}}</p>
   </div>
 

@@ -1,8 +1,12 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-login-theme($theme) {
+@mixin ms-login-theme($theme, $ms-theme) {
 
   $warn: map-get($theme, warn);
+
+  .ms-header {
+    color: map-get($ms-theme, title-text);
+  }
 
   .ms-login-message {
     color: mat-color($warn);

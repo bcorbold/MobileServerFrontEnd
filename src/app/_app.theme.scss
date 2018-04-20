@@ -1,31 +1,17 @@
 @import '~@angular/material/_theming.scss';
 
 @import 'components/home/home.theme';
-@import 'components/account-info/account-info.theme';
 @import 'components/incoming-batches/incoming-batches.theme';
 @import 'components/login/login.theme';
 @import 'components/order-history/order-history.theme';
-@import 'components/place-order/place-order.theme';
 @import 'components/system-details/system-details.theme';
 
-@mixin app-theme($theme, $indeterminate, $progress, $successful) {
+@mixin app-theme($theme, $ms-theme) {
 
-  $primary: map-get($theme, primary);
-
-  @include ms-account-info-theme($theme);
-  @include ms-home-theme($theme);
-  @include ms-incoming-batches-theme($theme, $indeterminate, $progress, $successful);
-  @include ms-login-theme($theme);
-  @include ms-new-order-theme($theme);
-  @include ms-order-history-theme($theme, $indeterminate, $progress, $successful);
-  @include ms-system-details-theme($theme, $indeterminate, $progress, $successful);
-
-  * {
-    color: white;
-  }
-
-  mat-chip {
-    background-color: mat-color($primary, 900) !important;
-  }
+  @include ms-home-theme($theme, $ms-theme);
+  @include ms-incoming-batches-theme($theme, $ms-theme);
+  @include ms-login-theme($theme, $ms-theme);
+  @include ms-order-history-theme($theme, $ms-theme);
+  @include ms-system-details-theme($theme, $ms-theme);
 
 }

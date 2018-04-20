@@ -4,30 +4,92 @@
 
 @include mat-core();
 
-$primary: mat-palette($mat-grey);
-$accent: mat-palette($mat-green, 600);
-$warn: mat-palette($mat-red);
+//html {
+//  background-color: mat-color($primary, 800);
+//}
 
-// todo: these are the 3 colours used to states, figure out some better names
-$indeterminate: mat-palette($mat-amber, 300);
-$progress: mat-palette($mat-light-blue, 200);
-$successful: mat-palette($mat-green, 600);
+.ms-light-theme {
+  $primary: mat-palette($mat-green, 600);
+  $accent: mat-palette($mat-cyan, 600);
+  $warn: mat-palette($mat-red);
+  $background-palette: mat-palette($mat-grey);
+  $ms-theme: (
+    background: white,
+    header-background: mat-color($background-palette, 300),
+    unselected-row: mat-color($background-palette, 400),
+    selected-row: mat-color($background-palette, 500),
+    text: mat-color(map-get($background-palette, contrast), 50),
+    title-text: mat-color($primary),
+    indeterminate: mat-color($mat-amber, 300),
+    in-progress: mat-color($mat-light-blue, 200),
+    success: mat-color($mat-green, 600)
+  );
 
-$ms-theme: mat-dark-theme($primary, $accent, $warn);
+  $mat-theme: mat-light-theme($primary, $accent, $warn);
 
-::-webkit-scrollbar-thumb {
-  background-color: mat-color($accent);
-}
+  @include angular-material-theme($mat-theme);
+  @include app-theme($mat-theme, $ms-theme);
 
-html {
-  background-color: mat-color($primary, 800);
+  background-color: map-get($ms-theme, background);
+
+  ::-webkit-scrollbar-thumb {
+    background-color: mat-color($primary);
+  }
+
+  .mat-drawer-container, .mat-select-content, .mat-autocomplete-panel {
+    background-color: map-get($ms-theme, background);
+  }
 
   ::selection {
-    background-color: mat-color($accent, 500, 0.6);
+    background-color: mat-color($primary, 500, 0.6);
+  }
+
+  mat-chip {
+    background-color: map-get($ms-theme, header-background) !important;
   }
 }
 
-.ms-theme {
-  @include angular-material-theme($ms-theme);
-  @include app-theme($ms-theme, $indeterminate, $progress, $successful);
+.ms-dark-theme {
+  $primary: mat-palette($mat-green, 600);
+  $accent: mat-palette($mat-cyan, 600);
+  $warn: mat-palette($mat-red);
+  $background-palette: mat-palette($mat-grey);
+  $ms-theme: (
+    background: mat-color($background-palette, 800),
+    header-background: mat-color($background-palette, 900),
+    unselected-row: mat-color($background-palette, 700),
+    selected-row: mat-color($background-palette, 600),
+    text: mat-color(map-get($background-palette, contrast), 800),
+    title-text: mat-color(map-get($background-palette, contrast), 800),
+    indeterminate: mat-color($mat-amber, 300),
+    in-progress: mat-color($mat-light-blue, 200),
+    success: mat-color($mat-green, 600)
+  );
+
+  $mat-theme: mat-dark-theme($primary, $accent, $warn);
+
+  @include angular-material-theme($mat-theme);
+  @include app-theme($mat-theme, $ms-theme);
+
+  background-color: map-get($ms-theme, background);
+
+  ::-webkit-scrollbar-thumb {
+    background-color: mat-color($primary);
+  }
+
+  .mat-drawer-container, .mat-select-content, .mat-autocomplete-panel {
+    background-color: map-get($ms-theme, background);
+  }
+
+  ::selection {
+    background-color: mat-color($primary, 500, 0.6);
+  }
+
+  .mat-input-element.mat-form-field-autofill-control {
+    color: map-get($ms-theme, text);
+  }
+
+  mat-chip {
+    background-color: map-get($ms-theme, header-background) !important;
+  }
 }

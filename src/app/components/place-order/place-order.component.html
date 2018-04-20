@@ -4,14 +4,14 @@
   <!-- desktop layout -->
   <div *msMediaIf="'gt-md'" fxFlex fxLayout="column" fxLayoutAlign="start stretch">
     <div fxLayout="row" fxLayoutAlign="start stretch">
-      <mat-form-field fxLayout="column" color="accent" style="margin-right: 1em;">
+      <mat-form-field fxLayout="column" color="primary" style="margin-right: 1em;">
         <input matInput placeholder="Delivery location" aria-label="Delivery location" [matAutocomplete]="autoLocation" [formControl]="locationControl">
         <mat-autocomplete #autoLocation="matAutocomplete">
           <mat-option *ngFor="let location of filteredLocations | async" [value]="location.name">{{location.name}}</mat-option>
         </mat-autocomplete>
       </mat-form-field>
       <div fxLayout="column">
-        <mat-form-field color="accent">
+        <mat-form-field color="primary">
           <input matInput placeholder="Beverage" aria-label="Beverage" [matAutocomplete]="autoBeverage" [formControl]="beverageControl">
           <mat-autocomplete #autoBeverage="matAutocomplete">
             <mat-option *ngFor="let drink of filteredBeverages | async" [value]="drink.name">{{drink.name}}</mat-option>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 1em;">
-      <mat-form-field *ngIf="selectedBeverage?.addOns" color="accent" style="margin-right: 1em;">
+      <mat-form-field *ngIf="selectedBeverage?.addOns" color="primary" style="margin-right: 1em;">
         <mat-select placeholder="Add-On" [(value)]="potentialAddOn">
           <div *ngFor="let addOn of selectedBeverage.addOns">
             <mat-option [value]="addOn">{{addOn.name}}</mat-option>
@@ -30,12 +30,12 @@
       </mat-form-field>
 
       <div *ngIf="potentialAddOn" style="margin-right: 1em;">
-        <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="accent">
+        <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="primary">
           <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" [(ngModel)]="potentialAddOnValue" min="1">
         </mat-input-container>
       </div>
 
-      <button *ngIf="potentialAddOn" mat-mini-fab color="accent" (click)="addAddOnToSelectedList()">
+      <button *ngIf="potentialAddOn" mat-mini-fab color="primary" (click)="addAddOnToSelectedList()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -52,14 +52,14 @@
 
   <!-- mobile layout -->
   <div *msMediaIf="'lt-lg'" id="msMobilePlaceOrderContainer">
-    <mat-form-field fxLayout="column" color="accent">
+    <mat-form-field fxLayout="column" color="primary">
       <input matInput placeholder="Delivery location" aria-label="Delivery location" [matAutocomplete]="autoLocation" [formControl]="locationControl">
       <mat-autocomplete #autoLocation="matAutocomplete">
         <mat-option *ngFor="let location of filteredLocations | async" [value]="location.name">{{location.name}}</mat-option>
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field color="accent" style="width: 100%;">
+    <mat-form-field color="primary" style="width: 100%;">
       <input matInput placeholder="Beverage" aria-label="Beverage" [matAutocomplete]="autoBeverage" [formControl]="beverageControl">
       <mat-autocomplete #autoBeverage="matAutocomplete">
         <mat-option *ngFor="let drink of filteredBeverages | async" [value]="drink.name">{{drink.name}}</mat-option>
@@ -67,7 +67,7 @@
     </mat-form-field>
     <p class="drink-description">{{selectedBeverage?.description}}</p>
 
-    <mat-form-field color="accent" *ngIf="selectedBeverage?.addOns" style="width: 100%;">
+    <mat-form-field color="primary" *ngIf="selectedBeverage?.addOns" style="width: 100%;">
       <mat-select placeholder="Add-On" [(value)]="potentialAddOn">
         <div *ngFor="let addOn of selectedBeverage.addOns">
           <mat-option [value]="addOn">{{addOn.name}}</mat-option>
@@ -76,10 +76,10 @@
     </mat-form-field>
 
     <div fxLayout="row" fxLayoutGap="0.5em" *ngIf="potentialAddOn">
-      <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="accent" style="width: 100%;">
+      <mat-input-container *ngIf="potentialAddOn.type !== 'boolean'" color="primary" style="width: 100%;">
         <input matInput id="addOnValueInput" placeholder="Amount" type="{{potentialAddOn.type}}" [(ngModel)]="potentialAddOnValue" min="1">
       </mat-input-container>
-      <button mat-mini-fab color="accent" (click)="addAddOnToSelectedList()">
+      <button mat-mini-fab color="primary" (click)="addAddOnToSelectedList()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -95,7 +95,7 @@
   </div>
 
   <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="0.5em" style="min-height: 2.5em;">
-    <button fxFlex mat-raised-button color="accent" (click)="placeOrder()">Submit</button>
+    <button fxFlex mat-raised-button color="primary" (click)="placeOrder()">Submit</button>
     <button fxFlex mat-raised-button color="warn" (click)="resetOrder()">Reset</button>
   </div>
 </div>

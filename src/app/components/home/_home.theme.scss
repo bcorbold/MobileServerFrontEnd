@@ -1,29 +1,28 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-home-theme($theme) {
+@mixin ms-home-theme($theme, $ms-theme) {
 
   $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
 
   .ms-desktop-home {
     ms-incoming-batches, ms-order-history {
-      background-color: mat-color($primary, 900);
+      background-color: map-get($ms-theme, header-background);
     }
   }
 
   .ms-mobile-header {
-    background-color: mat-color($primary, 900);
+    background-color: map-get($ms-theme, header-background);
   }
 
   mat-menu {
-    background-color: mat-color($primary, 900);
+    background-color: map-get($ms-theme, header-background);
   }
 
   .ms-home-wrapper {
 
     .ms-divider {
       div {
-        background-color: mat-color($primary, 900);
+        background-color: map-get($ms-theme, header-background);
       }
     }
   }
@@ -31,17 +30,17 @@
   .ms-menu-container {
 
     .ms-divider {
-      background-color: mat-color($accent, 500);
+      background-color: mat-color($primary);
     }
 
     .ms-selected-view {
 
       mat-icon {
-        color: mat-color($accent, 500);
+        color: mat-color($primary);
       }
 
       span {
-        color: mat-color($accent, 500);
+        color: mat-color($primary);
       }
     }
   }
