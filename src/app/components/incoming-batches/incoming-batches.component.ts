@@ -27,7 +27,7 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
   configuredRobots: RobotInfo[];
 
   constructor(private messageService: MessageService, private cache: CacheService, private dialog: MatDialog) {
-    this.incomingBatchSubscription = this.cache.getIncomingBatches().subscribe(
+    this.incomingBatchSubscription = this.cache.getIncomingBatches().subscribe( // todo: error handling?
       (batches: Batch[]) => {
         // this is needed so that bartender can keep track of finished drinks after an update
         this.batches.forEach(batch => {
@@ -37,8 +37,7 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
           }
         });
         this.batches = batches;
-      },
-      error => console.error(error) // todo: do something?
+      }
     );
     this.cache.getEnvironmentDetails().then((envDetails: EnvironmentDetails) => {
       this.configuredRobots = envDetails.configuredRobots;
