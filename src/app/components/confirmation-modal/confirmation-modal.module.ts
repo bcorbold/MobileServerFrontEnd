@@ -4,9 +4,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { ConfirmationModalComponent, INCOMING_BATCHES_COMPONENT, PLACE_ORDER_COMPONENT, ACCOUNT_INFO_COMPONENT } from './confirmation-modal.component';
+import { ConfirmationModalComponent } from './confirmation-modal.component';
 
-export { ConfirmationModalComponent, ACCOUNT_INFO_COMPONENT, INCOMING_BATCHES_COMPONENT, PLACE_ORDER_COMPONENT } from './confirmation-modal.component';
+export { ConfirmationModalComponent } from './confirmation-modal.component';
 
 @NgModule({
   imports: [

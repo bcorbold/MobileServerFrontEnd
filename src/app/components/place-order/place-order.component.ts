@@ -17,7 +17,8 @@ import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
-import { ConfirmationModalComponent, PLACE_ORDER_COMPONENT } from '../confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { PlaceOrderIdentifier } from '../view-identifiers';
 
 @Component({
   selector: 'ms-place-order',
@@ -141,7 +142,7 @@ export class PlaceOrderComponent {
     const orderInfo = new OrderInfo(this.selectedBeverage, this.selectedAddOns);
 
     const modalData = {
-      origin: PLACE_ORDER_COMPONENT,
+      origin: PlaceOrderIdentifier,
       orderInfo: orderInfo,
       deliveryLocation: this.selectedDeliveryLocation
     };

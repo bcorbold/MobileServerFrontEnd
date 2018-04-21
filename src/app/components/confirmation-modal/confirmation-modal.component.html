@@ -1,14 +1,14 @@
-<div *ngIf="data.origin === accountInfoOrigin">
+<div *ngIf="data.origin === accountInfoId">
   <p class="ms-modal-message">Are you sure you want to change these account settings?</p>
 </div>
 
-<div *ngIf="data.origin === incomingBatchesOrigin">
+<div *ngIf="data.origin === incomingBatchesId">
   <p class="ms-modal-message">Are you sure you want to send the following batch?</p>
 
   <ol class="ms-modal-info">
     <li *ngFor="let order of data.batch.orders">
       <p>{{order.orderInfo.orderOption.name}}</p>
-      <ul>
+      <ul *ngIf="order.orderInfo.selectedAddOns.length > 0">
         <li *ngFor="let addOn of order.orderInfo.selectedAddOns">
           <i>{{addOn.key}}{{addOn.value !== true && addOn.value !== false ? ', ' + addOn.value : ''}}</i>
         </li>
@@ -17,7 +17,7 @@
   </ol>
 </div>
 
-<div *ngIf="data.origin === placeOrderOrigin">
+<div *ngIf="data.origin === placeOrderId">
   <p class="ms-modal-message">Are you sure you want to place the following order?</p>
 
   <p class="ms-modal-info">Delivery Location: <i>{{data.deliveryLocation.name}}</i></p>

@@ -12,7 +12,8 @@ import { Order } from '../../core/order';
 import { RobotInfo } from '../../core/robot-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
-import { ConfirmationModalComponent, INCOMING_BATCHES_COMPONENT } from '../confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { IncomingBatchesIdentifier } from '../view-identifiers';
 
 @Component({
   selector: 'ms-incoming-batches',
@@ -53,7 +54,7 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
 
   sendBatch(batch: Batch) {
     const modalData = {
-      origin: INCOMING_BATCHES_COMPONENT,
+      origin: IncomingBatchesIdentifier,
       batch: batch
     };
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
