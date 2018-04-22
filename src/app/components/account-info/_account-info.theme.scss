@@ -1,0 +1,17 @@
+@import '~@angular/material/_theming.scss';
+
+@mixin ms-account-info-theme($theme, $ms-theme) {
+
+  // todo: not sure why the desktop theme isn't picking up these style
+  .ms-desktop-account {
+    .mat-slide-toggle-content {
+      color: map-get($ms-theme, text);
+    }
+
+    .ms-account-info-container {
+      .ms-light-text {
+        color: map-get($ms-theme, text);
+      }
+    }
+  }
+}

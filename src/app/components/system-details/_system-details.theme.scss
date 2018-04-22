@@ -23,4 +23,11 @@
     }
   }
 
+  // todo: not sure why the desktop theme isn't picking up these style
+  .ms-desktop-details {
+    .ms-robot-name {
+      color: map-get($ms-theme, text);
+    }
+  }
+
 }

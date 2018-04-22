@@ -11,4 +11,8 @@
   .ms-login-message {
     color: mat-color($warn);
   }
+
+  input.mat-input-element {
+    color: map-get($ms-theme, text);
+  }
 }

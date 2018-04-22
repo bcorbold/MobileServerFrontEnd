@@ -33,4 +33,16 @@
     }
   }
 
+  .ms-desktop-history {
+    i, p {
+      color: map-get($ms-theme, text);
+    }
+
+    .ms-ellipsis-text {
+      span {
+        color: map-get($ms-theme, text);
+      }
+    }
+  }
+
 }

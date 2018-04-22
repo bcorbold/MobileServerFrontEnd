@@ -24,5 +24,12 @@
       background-color: map-get($ms-theme, selected-row);
     }
   }
+
+
+  .ms-desktop-batches {
+    p, i, span {
+      color: map-get($ms-theme, text);
+    }
+  }
 }
 
