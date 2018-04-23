@@ -103,7 +103,7 @@ export class AStarDemoComponent implements AfterViewInit {
     this.circles
       .filter((circle: CanvasCircle) => circle.isSelected())
       .forEach((circle: CanvasCircle) => vertices.push(circle.getVertex()));
-    this.messageService.getPath(vertices).then((path: LocationMap) => this.aStarResults.next(path.edges));
+    this.messageService.getPath(vertices).then((edges: Edge[]) => this.aStarResults.next(edges));
   }
 
   /**

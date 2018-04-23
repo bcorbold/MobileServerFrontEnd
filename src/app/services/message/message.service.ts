@@ -13,6 +13,7 @@ import { OrderInfo } from '../../core/order-info';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
 import { Vertex } from '../../core/vertex';
+import { Edge } from '../../core/edge';
 
 @Injectable()
 export class MessageService {
@@ -127,18 +128,38 @@ export class MessageService {
 
   getMap(): Promise<LocationMap> {
     return this.http.get(environment.backendUrl + 'getMap')
-      .toPromise().then((response: LocationMap) => response);
+      .toPromise().then((response: any) => {
+        const map = new LocationMap();
+
+        response.vertices.forEach((vertex: any) => {
+          map.vertices.push(new Vertex(vertex));
+        });
+
+        response.edges.forEach((edge: any) => {
+          map.edges.push(new Edge(edge));
+        });
+
+        return map;
+      });
   }
 
   // todo: merge this with the history method and add a historyEnabled flag
-  getPath(vertices: Vertex[]): Promise<LocationMap> {
+  getPath(vertices: Edge[]): Promise<Edge[]> {
     const body = {
       username: '',
       sessionKey: '',
       vertexValues: vertices
     };
     return this.http.post(environment.backendUrl + 'getPath', body)
-      .toPromise().then(((response: {path: LocationMap}) => response.path));
+      .toPromise().then(((response: any[]) => {
+        const convertedEdges: Edge[] = [];
+
+        response.forEach(edge => {
+          convertedEdges.push(new Edge(edge));
+        });
+
+        return convertedEdges;
+      }));
   }
 
   getPathWithHistory(vertices: Vertex[]): Promise<LocationMap[]> {
