@@ -1,7 +1,7 @@
 import { Edge } from './edge';
 import { Vertex } from './vertex';
 
-export class Path {
+export class LocationMap {
   vertices: Vertex[];
   edges: Edge[];
 }

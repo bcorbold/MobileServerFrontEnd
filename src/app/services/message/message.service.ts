@@ -9,7 +9,7 @@ import { DeliveryLocation } from '../../core/delivery-location';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { Order } from '../../core/order';
 import { OrderInfo } from '../../core/order-info';
-import { Path } from '../../core/path';
+import { LocationMap } from '../../core/location-map';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
 import { Vertex } from '../../core/vertex';
@@ -125,30 +125,30 @@ export class MessageService {
       .toPromise().then((response: SystemDetails) => response);
   }
 
-  getMap(): Promise<Path> {
+  getMap(): Promise<LocationMap> {
     return this.http.get(environment.backendUrl + 'getMap')
-      .toPromise().then((response: Path) => response);
+      .toPromise().then((response: LocationMap) => response);
   }
 
   // todo: merge this with the history method and add a historyEnabled flag
-  getPath(vertices: Vertex[]): Promise<Path> {
+  getPath(vertices: Vertex[]): Promise<LocationMap> {
     const body = {
       username: '',
       sessionKey: '',
       vertexValues: vertices
     };
     return this.http.post(environment.backendUrl + 'getPath', body)
-      .toPromise().then(((response: {path: Path}) => response.path));
+      .toPromise().then(((response: {path: LocationMap}) => response.path));
   }
 
-  getPathWithHistory(vertices: Vertex[]): Promise<Path[]> {
+  getPathWithHistory(vertices: Vertex[]): Promise<LocationMap[]> {
     const body = {
       username: '',
       sessionKey: '',
       vertexValues: vertices
     };
     return this.http.post(environment.backendUrl + 'getPathWithHistory', body).toPromise()
-      .then((response: {path: Path[]}) => response.path);
+      .then((response: {path: LocationMap[]}) => response.path);
   }
 
 }

@@ -2,7 +2,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 import { Edge } from '../../core/edge';
-import { Path } from '../../core/path';
+import { LocationMap } from '../../core/location-map';
 import { MessageService } from '../../services/message/message.service';
 import { CanvasCircle } from './canvas-circle';
 import { CanvasLine } from './canvas-line';
@@ -53,7 +53,7 @@ export class AStarDemoComponent implements AfterViewInit {
     this.linesCtx.stroke();
 
     // get the map
-    this.messageService.getMap().then((map: Path) => {
+    this.messageService.getMap().then((map: LocationMap) => {
 
       const maxXY: {x: number, y: number} = this.getMaxXY(map.vertices);
 
@@ -103,7 +103,7 @@ export class AStarDemoComponent implements AfterViewInit {
     this.circles
       .filter((circle: CanvasCircle) => circle.isSelected())
       .forEach((circle: CanvasCircle) => vertices.push(circle.getVertex()));
-    this.messageService.getPath(vertices).then((path: Path) => this.aStarResults.next(path.edges));
+    this.messageService.getPath(vertices).then((path: LocationMap) => this.aStarResults.next(path.edges));
   }
 
   /**
@@ -114,16 +114,16 @@ export class AStarDemoComponent implements AfterViewInit {
     this.circles
       .filter((circle: CanvasCircle) => circle.isSelected())
       .forEach((circle: CanvasCircle) => vertices.push(circle.getVertex()));
-    this.messageService.getPathWithHistory(vertices).then((path: Path[]) => this.recursiveLoopThrough(path));
+    this.messageService.getPathWithHistory(vertices).then((path: LocationMap[]) => this.recursiveLoopThrough(path));
   }
 
   /**
    * Go through all of the paths. Wait for a bit between each one.
    * Also see comment for onClick for {aStarResults} observable shit
-   * @param {Path[]} paths
+   * @param {LocationMap[]} paths
    */
-  private recursiveLoopThrough(paths: Path[]) {
-    const path: Path = paths.shift();
+  private recursiveLoopThrough(paths: LocationMap[]) {
+    const path: LocationMap = paths.shift();
     this.aStarResults.next(path.edges);
     if (paths.length > 0) {
       setTimeout(() => {
