@@ -9,11 +9,11 @@ import { CanvasCircle } from './canvas-circle';
 import { CanvasLine } from './canvas-line';
 
 @Component({
-  selector: 'ms-astar-demo',
-  templateUrl: './astar-demo.component.html',
-  styleUrls: ['./astar-demo.component.scss']
+  selector: 'ms-path-finding-demo',
+  templateUrl: './path-finding-demo.component.html',
+  styleUrls: ['./path-finding-demo.component.scss']
 })
-export class AStarDemoComponent implements AfterViewInit {
+export class PathFindingDemoComponent implements AfterViewInit {
   DEFAULT_COLOUR = '#E0F2F1';
   SELECTED_COLOUR = '#43A047';
 
@@ -104,17 +104,6 @@ export class AStarDemoComponent implements AfterViewInit {
       .filter((circle: CanvasCircle) => circle.isSelected())
       .forEach((circle: CanvasCircle) => vertices.push(circle.getVertex()));
     this.messageService.getPath(vertices).then((edges: Edge[]) => this.aStarResults.next(edges));
-  }
-
-  /**
-   * Filter for the circles that have been selected and send them to the backend.
-   */
-  getPathWithHistory() {
-    const vertices: Vertex[] = [];
-    this.circles
-      .filter((circle: CanvasCircle) => circle.isSelected())
-      .forEach((circle: CanvasCircle) => vertices.push(circle.getVertex()));
-    this.messageService.getPathWithHistory(vertices).then((path: LocationMap[]) => this.recursiveLoopThrough(path));
   }
 
   /**

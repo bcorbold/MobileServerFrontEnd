@@ -1,5 +1,5 @@
 # [1.1.0](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.2.0) - Released (TBD)
-- (feat): `AstarDemoComponent` now can animate solving a path
+- (feat): `PathFindingDemoComponent` updated for pre-calculated paths
 - (feat): Added `ConfirmationModalComponent` for added user validation
 - (style): App now has dark and light theme ready for use
 

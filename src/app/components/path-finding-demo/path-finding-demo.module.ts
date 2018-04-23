@@ -5,9 +5,9 @@ import { MatButtonModule } from '@angular/material';
 
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
-import { AStarDemoComponent } from './astar-demo.component';
+import { PathFindingDemoComponent } from './path-finding-demo.component';
 
-export { AStarDemoComponent } from './astar-demo.component';
+export { PathFindingDemoComponent } from './path-finding-demo.component';
 
 @NgModule({
   imports: [
@@ -16,14 +16,14 @@ export { AStarDemoComponent } from './astar-demo.component';
     MatButtonModule
   ],
   declarations: [
-    AStarDemoComponent
+    PathFindingDemoComponent
   ],
   exports: [
-    AStarDemoComponent
+    PathFindingDemoComponent
   ],
   providers: [
     CacheService,
     MessageService
   ]
 })
-export class AstarDemoModule { }
+export class PathFindingDemoModule { }

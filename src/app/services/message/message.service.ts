@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 
 import { Batch } from '../../core/batch';
 import { DeliveryLocation } from '../../core/delivery-location';
+import { Edge } from '../../core/edge';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { LocationMap } from '../../core/location-map';
 import { Order } from '../../core/order';
@@ -13,7 +14,6 @@ import { OrderInfo } from '../../core/order-info';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
 import { Vertex } from '../../core/vertex';
-import { Edge } from '../../core/edge';
 
 @Injectable()
 export class MessageService {
@@ -143,7 +143,6 @@ export class MessageService {
       });
   }
 
-  // todo: merge this with the history method and add a historyEnabled flag
   getPath(vertices: Edge[]): Promise<Edge[]> {
     const body = {
       username: '',
@@ -160,16 +159,6 @@ export class MessageService {
 
         return convertedEdges;
       }));
-  }
-
-  getPathWithHistory(vertices: Vertex[]): Promise<LocationMap[]> {
-    const body = {
-      username: '',
-      sessionKey: '',
-      vertexValues: vertices
-    };
-    return this.http.post(environment.backendUrl + 'getPathWithHistory', body).toPromise()
-      .then((response: {path: LocationMap[]}) => response.path);
   }
 
 }
