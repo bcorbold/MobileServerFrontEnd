@@ -12,7 +12,7 @@ import { OrderInfo } from '../../core/order-info';
 import { Path } from '../../core/path';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
-import { VerticesAndEdges } from '../../core/vertices-and-edges';
+import { Vertex } from '../../core/vertex';
 
 @Injectable()
 export class MessageService {
@@ -46,6 +46,7 @@ export class MessageService {
 
   logout(): Promise<void> {
     // todo: make sure all subscriptions are finished
+    // todo: change flag in the service, subs check that flag before next request, once they all give the "OK" resolve to this promise
     const body = {username: this.user.username, sessionKey: this.sessionKey};
     return this.http.post(environment.backendUrl + 'logout', body).toPromise()
       .then(() => {
@@ -124,30 +125,30 @@ export class MessageService {
       .toPromise().then((response: SystemDetails) => response);
   }
 
-  getVerticesAndEdges(): Promise<VerticesAndEdges> {
-    const body = { username: '', sessionKey: '' }; // todo: is this needed?
-    return this.http.post(environment.backendUrl + 'getVerticesAndEdges', body)
-      .toPromise().then((response: VerticesAndEdges) => response);
+  getMap(): Promise<Path> {
+    return this.http.get(environment.backendUrl + 'getMap')
+      .toPromise().then((response: Path) => response);
   }
 
-  getPath(vertices: any): Promise<Path> {
+  // todo: merge this with the history method and add a historyEnabled flag
+  getPath(vertices: Vertex[]): Promise<Path> {
     const body = {
       username: '',
       sessionKey: '',
       vertexValues: vertices
     };
     return this.http.post(environment.backendUrl + 'getPath', body)
-      .toPromise().then((response: Path) => response);
+      .toPromise().then(((response: {path: Path}) => response.path));
   }
 
-  getPathWithHistory(vertices: any): Promise<Path> {
+  getPathWithHistory(vertices: Vertex[]): Promise<Path[]> {
     const body = {
       username: '',
       sessionKey: '',
       vertexValues: vertices
     };
     return this.http.post(environment.backendUrl + 'getPathWithHistory', body).toPromise()
-      .then((response: Path) => response);
+      .then((response: {path: Path[]}) => response.path);
   }
 
 }

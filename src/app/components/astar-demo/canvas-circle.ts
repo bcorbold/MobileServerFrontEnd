@@ -1,6 +1,9 @@
 import { Subject } from 'rxjs/Subject';
 
-export class CustomCircle {
+import { Edge } from '../../core/edge';
+import { Vertex } from '../../core/vertex';
+
+export class CanvasCircle {
   private radius = 25;
   private fillColor = '';
   private _isSelected = false;
@@ -9,18 +12,17 @@ export class CustomCircle {
               private SELECTED_COLOUR: string,
               private x: number,
               private y: number,
-              private actualX: number,
-              private actualY: number,
+              private vertex: Vertex,
               private ctx: CanvasRenderingContext2D,
               clickObservable: Subject<{x: number, y: number}>,
-              aStarResults: Subject<{fromX: number, fromY: number, toX: number, toY: number}[]>) {
+              aStarResults: Subject<Edge[]>) {
 
     this.fillColor = this.DEFAULT_COLOUR;
 
     this.draw();
 
-    clickObservable.subscribe((vals: {x: number, y: number}) => {
-      if (this.isClicked(vals.x, vals.y)) {
+    clickObservable.subscribe((clickedCoord: {x: number, y: number}) => {
+      if (this.isClicked(clickedCoord.x, clickedCoord.y)) {
         if (this._isSelected) {
           this.fillColor = this.DEFAULT_COLOUR;
         } else {
@@ -31,9 +33,9 @@ export class CustomCircle {
       }
     });
 
-    aStarResults.subscribe((path: {fromX: number, fromY: number, toX: number, toY: number}[]) => {
+    aStarResults.subscribe((edges: Edge[]) => {
       this.fillColor = this.DEFAULT_COLOUR;
-      path.forEach(edge => {
+      edges.forEach((edge: Edge) => {
         if (this.isPartOfPath(edge.fromX, edge.fromY) || this.isPartOfPath(edge.toX, edge.toY)) {
           this.fillColor = this.SELECTED_COLOUR;
         }
@@ -77,18 +79,15 @@ export class CustomCircle {
    * @returns {boolean}
    */
   private isPartOfPath(x: number, y: number): boolean {
-    return (x === this.actualX && y === this.actualY);
+    return x === this.vertex.x && y === this.vertex.y;
   }
 
   public isSelected(): boolean {
     return this._isSelected;
   }
 
-  public getActualXY(): {x: number, y: number} {
-    return {
-      x: this.actualX,
-      y: this.actualY
-    };
+  public getVertex(): Vertex {
+    return this.vertex;
   }
 
   public reset() {

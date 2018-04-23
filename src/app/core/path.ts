@@ -1,16 +1,7 @@
-import { VerticesAndEdges } from './vertices-and-edges';
+import { Edge } from './edge';
+import { Vertex } from './vertex';
 
 export class Path {
-  path: VerticesAndEdges[];
-
-  constructor() {}
-
-  static copy(that: Path): Path {
-    const newPath = new Path();
-    newPath.path = [];
-    that.path.forEach(verticesAndEdges => {
-      newPath.path.push(VerticesAndEdges.copy(verticesAndEdges));
-    });
-    return newPath;
-  }
+  vertices: Vertex[];
+  edges: Edge[];
 }
