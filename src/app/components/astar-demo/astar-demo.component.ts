@@ -3,10 +3,10 @@ import { Subject } from 'rxjs/Subject';
 
 import { Edge } from '../../core/edge';
 import { LocationMap } from '../../core/location-map';
+import { Vertex } from '../../core/vertex';
 import { MessageService } from '../../services/message/message.service';
 import { CanvasCircle } from './canvas-circle';
 import { CanvasLine } from './canvas-line';
-import { Vertex } from '../../core/vertex';
 
 @Component({
   selector: 'ms-astar-demo',
@@ -64,8 +64,8 @@ export class AStarDemoComponent implements AfterViewInit {
         const circle = new CanvasCircle(
           this.DEFAULT_COLOUR,
           this.SELECTED_COLOUR,
-          this.scale(vertex.x, this.innerWidth, maxXY.x),
-          this.scale(vertex.y, this.innerHeight, maxXY.y),
+          this.scale(vertex.xposition, this.innerWidth, maxXY.x),
+          this.scale(vertex.yposition, this.innerHeight, maxXY.y),
           vertex,
           this.circlesCtx,
           this.clickObservable,
@@ -80,10 +80,10 @@ export class AStarDemoComponent implements AfterViewInit {
         const line = new CanvasLine(
           this.DEFAULT_COLOUR,
           this.SELECTED_COLOUR,
-          this.scale(edge.fromX, this.innerWidth, maxXY.x),
-          this.scale(edge.fromY, this.innerHeight, maxXY.y),
-          this.scale(edge.toX, this.innerWidth, maxXY.x),
-          this.scale(edge.toY, this.innerHeight, maxXY.y),
+          this.scale(edge.source.xposition, this.innerWidth, maxXY.x),
+          this.scale(edge.source.yposition, this.innerHeight, maxXY.y),
+          this.scale(edge.destination.xposition, this.innerWidth, maxXY.x),
+          this.scale(edge.destination.yposition, this.innerHeight, maxXY.y),
           edge,
           this.linesCtx,
           this.aStarResults
@@ -155,16 +155,16 @@ export class AStarDemoComponent implements AfterViewInit {
    * @param vertices
    * @returns {{x: number; y: number}}
    */
-  getMaxXY(vertices): {x: number, y: number} {
+  getMaxXY(vertices: Vertex[]): {x: number, y: number} {
     let maxX = 0;
     let maxY = 0;
-    vertices.forEach(vertex => {
-      if (vertex.x > maxX) {
-        maxX = vertex.x;
+    vertices.forEach((vertex: Vertex) => {
+      if (vertex.xposition > maxX) {
+        maxX = vertex.xposition;
       }
 
-      if (vertex.y > maxY) {
-        maxY = vertex.y;
+      if (vertex.yposition > maxY) {
+        maxY = vertex.yposition;
       }
     });
     return {x: maxX, y: maxY};

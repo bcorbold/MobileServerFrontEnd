@@ -1,12 +1,12 @@
+import { Vertex } from './vertex';
+
 export class Edge {
-  fromX: number;
-  fromY: number;
-  toX: number;
-  toY: number;
+  source: Vertex;
+  destination: Vertex;
   id: string;
 
   isSameEdge(that: Edge): boolean {
-    return (this.fromX === that.fromX && this.fromY === that.fromY && this.toX === that.toX && this.toY === that.toY) ||
-      (this.fromX === that.toX && this.fromY === that.toY && this.toX === that.fromX && this.toY === that.fromY);
+    return (this.source.equals(that.source) && this.destination.equals(that.destination)) ||
+      (this.source.equals(that.destination) && this.destination.equals(that.source));
   }
 }

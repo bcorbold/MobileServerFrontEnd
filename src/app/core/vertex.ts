@@ -1,5 +1,10 @@
 export class Vertex {
-  x: number;
-  y: number;
+  xposition: number; // todo: look into why the BE changes xPosition to xposition
+  yposition: number;
   id: string;
+
+  equals(that: Vertex): boolean {
+    return this.id === that.id;
+  }
+
 }

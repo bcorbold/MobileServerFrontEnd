@@ -36,7 +36,7 @@ export class CanvasCircle {
     aStarResults.subscribe((edges: Edge[]) => {
       this.fillColor = this.DEFAULT_COLOUR;
       edges.forEach((edge: Edge) => {
-        if (this.isPartOfPath(edge.fromX, edge.fromY) || this.isPartOfPath(edge.toX, edge.toY)) {
+        if (this.isPartOfPath(edge.source) || this.isPartOfPath(edge.destination)) {
           this.fillColor = this.SELECTED_COLOUR;
         }
       });
@@ -74,12 +74,11 @@ export class CanvasCircle {
 
   /**
    * This is used to see if the circle (vertex in this context) is part of the path
-   * @param {number} x
-   * @param {number} y
+   * @param {Vertex} testVertex
    * @returns {boolean}
    */
-  private isPartOfPath(x: number, y: number): boolean {
-    return x === this.vertex.x && y === this.vertex.y;
+  private isPartOfPath(testVertex: Vertex): boolean {
+    return testVertex.xposition === this.vertex.xposition && testVertex.yposition === this.vertex.yposition;
   }
 
   public isSelected(): boolean {
