@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <button *ngIf="batch.state !== BatchStates.delivering && batch.ready" mat-raised-button class="ms-square-button" color="accent" (click)="sendBatch(batch)">
+      <button *ngIf="batch.state !== BatchStates.delivering && batch.ready" mat-raised-button class="ms-square-button" color="primary" (click)="sendBatch(batch)">
         Send with <i>Timmy</i>
       </button>
     </div>

@@ -1,8 +1,6 @@
 <div fxFlex class="ms-order-history-wrapper" ngClass.gt-md="ms-desktop-history" fxLayout="column">
   <h1 class="ms-header" fxShow fxHide.lt-lg>Order History</h1>
 
-  <!-- todo: add filters at the top to help search through history -->
-
   <div fxFlex class="ms-order-history-container" fxLayout="column">
     <div *ngFor="let order of orderHistory;">
       <div class="order-row" fxLayout="row" fxLayoutAlign="start stretch">

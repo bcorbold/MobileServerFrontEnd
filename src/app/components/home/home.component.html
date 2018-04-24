@@ -26,26 +26,28 @@
 
             <div class="ms-divider"></div>
 
-            <div (click)="switchView('Place Order')" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === 'Place Order'}" fxLayout="row" fxLayoutAlign="start center">
+            <div (click)="switchView(placeOrderId)" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === placeOrderId}" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon>add_shopping_cart</mat-icon>
               <span>Place Order</span>
             </div>
-            <div (click)="switchView('Order History')" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === 'Order History'}" fxLayout="row" fxLayoutAlign="start center">
+            <div (click)="switchView(orderHistoryId)" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === orderHistoryId}" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon>history</mat-icon>
               <span>Order History</span>
             </div>
-            <div (click)="switchView('Account Info')" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === 'Account Info'}" fxLayout="row" fxLayoutAlign="start center">
+            <div (click)="switchView(accountInfoId)" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === accountInfoId}" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon>account_circle</mat-icon>
               <span>Account</span>
             </div>
-            <div *ngIf="isAdminView" (click)="switchView('Incoming Batches')" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === 'Incoming Batches'}" fxLayout="row" fxLayoutAlign="start center">
+            <div *ngIf="isAdminView" (click)="switchView(incomingBatchesId)" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === incomingBatchesId}" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon>receipt</mat-icon>
               <span>Batches</span>
             </div>
-            <div *ngIf="isAdminView" (click)="switchView('System Details')" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === 'System Details'}" fxLayout="row" fxLayoutAlign="start center">
+            <div *ngIf="isAdminView" (click)="switchView(systemDetailsId)" class="ms-menu-button" [ngClass]="{'ms-selected-view': componentInView === systemDetailsId}" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon>settings</mat-icon>
               <span>System</span>
             </div>
+
+            <div class="ms-divider"></div>
           </div>
 
           <button mat-raised-button color="warn" (click)="logout()">Logout</button>

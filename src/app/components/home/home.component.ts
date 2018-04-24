@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Order } from '../../core/order';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
-import { Router } from '@angular/router';
+import {
+  AccountInfoIdentifier,
+  IncomingBatchesIdentifier,
+  OrderHistoryIdentifier,
+  PlaceOrderIdentifier,
+  SystemDetailsIdentifier
+} from '../view-identifiers';
 
 @Component({
   selector: 'ms-home',
@@ -20,6 +27,13 @@ export class HomeComponent {
   componentInView: string;
   isSideNaveOpen = false;
 
+  // todo: need these so that the template can compare them, look for a better way of doing this
+  accountInfoId = AccountInfoIdentifier;
+  incomingBatchesId = IncomingBatchesIdentifier;
+  orderHistoryId = OrderHistoryIdentifier;
+  placeOrderId = PlaceOrderIdentifier;
+  systemDetailsId = SystemDetailsIdentifier;
+
   get isAdminView(): boolean {
     return this._isAdminView;
   }
@@ -30,7 +44,7 @@ export class HomeComponent {
   constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {
     this.isAdminView = this.cache.user.defaultView === 'bartender';
     this.adminEnabled = this.cache.user.adminEnabled;
-    this.componentInView = this.isAdminView ? 'Incoming Batches' : 'Place Order';
+    this.componentInView = this.isAdminView ? IncomingBatchesIdentifier : PlaceOrderIdentifier;
   }
 
   handleUserInfoChange(updatedUserInfo: UserInfo): void {

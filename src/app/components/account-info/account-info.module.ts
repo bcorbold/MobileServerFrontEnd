@@ -8,6 +8,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalModule } from '../confirmation-modal/confirmation-modal.module';
 
 import { AccountInfoComponent } from './account-info.component';
 
@@ -15,6 +17,7 @@ export { AccountInfoComponent } from './account-info.component';
 
 @NgModule({
   imports: [
+    ConfirmationModalModule,
     CommonModule,
     FlexLayoutModule,
     FormsModule,
@@ -24,6 +27,9 @@ export { AccountInfoComponent } from './account-info.component';
   ],
   declarations: [
     AccountInfoComponent
+  ],
+  entryComponents: [
+    ConfirmationModalComponent
   ],
   exports: [
     AccountInfoComponent

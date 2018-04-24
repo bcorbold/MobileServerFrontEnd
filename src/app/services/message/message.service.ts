@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 import { environment } from '../../../environments/environment';
@@ -9,7 +9,6 @@ import { DeliveryLocation } from '../../core/delivery-location';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { Order } from '../../core/order';
 import { OrderInfo } from '../../core/order-info';
-import { OrderOption } from '../../core/order-option';
 import { Path } from '../../core/path';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
@@ -19,7 +18,7 @@ import { VerticesAndEdges } from '../../core/vertices-and-edges';
 export class MessageService {
 
   private sessionKey: string;
-  private user: UserInfo; // todo: would be nice to get rid of this, don't think it's possible
+  private user: UserInfo;
 
   userUpdates: Subject<UserInfo> = new Subject<UserInfo>();
   orderPlacedUpdate: Subject<Order> = new Subject<Order>();
@@ -27,191 +26,128 @@ export class MessageService {
   constructor(private http: HttpClient) {}
 
   getEnvironmentDetails(): Promise<EnvironmentDetails> {
-    return new Promise<any>((resolve, reject) => {
-      const body = {
-        username: this.user.username,
-        sessionKey: this.sessionKey
-      };
-
-      this.http.post(environment.backendUrl + 'getEnvironmentDetails', body)
-        .subscribe((response: EnvironmentDetails) => resolve(response), error => reject(error));
-    });
+    const body = {
+      username: this.user.username,
+      sessionKey: this.sessionKey
+    };
+    return this.http.post(environment.backendUrl + 'getEnvironmentDetails', body)
+      .toPromise().then((response: EnvironmentDetails) => response);
   }
 
   login(username: string, password: string): Promise<UserInfo> {
-    return new Promise((resolve, reject) => {
-      this.http.post(environment.backendUrl + 'login', {username: username, password: password})
-        .subscribe(
-          (response: {sessionKey: string, userInfo: UserInfo}) => {
-            this.sessionKey = response.sessionKey;
-            this.user = response.userInfo;
-            this.userUpdates.next(this.user);
-            resolve();
-          },
-          error => reject('Invalid username or password') // todo: can do a better job of handling this
-        );
-    });
+    return this.http.post(environment.backendUrl + 'login', {username: username, password: password}).toPromise()
+      .then((response: {sessionKey: string, userInfo: UserInfo}) => {
+        this.sessionKey = response.sessionKey;
+        this.user = response.userInfo;
+        this.userUpdates.next(this.user);
+        return this.user;
+      });
   }
 
   logout(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      const body = {username: this.user.username, sessionKey: this.sessionKey};
-      this.http.post(environment.backendUrl + 'logout', body)
-        .subscribe(
-          () => {
-            this.sessionKey = undefined;
-            this.user = undefined;
-            this.userUpdates.next(undefined);
-            resolve();
-          },
-          error => reject(error)
-        );
-    });
+    // todo: make sure all subscriptions are finished
+    const body = {username: this.user.username, sessionKey: this.sessionKey};
+    return this.http.post(environment.backendUrl + 'logout', body).toPromise()
+      .then(() => {
+        this.sessionKey = undefined;
+        this.user = undefined;
+        this.userUpdates.next(undefined);
+      });
   }
 
   updateAccountInfo(user: UserInfo): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      const body = {
-        username: user.username,
-        sessionKey: this.sessionKey,
-        userInfo: user
-      };
-      this.http.post(environment.backendUrl + 'updateAccountInfo', body)
-        .subscribe(
-          () => {
-            this.user = user;
-            this.userUpdates.next(this.user);
-            resolve();
-          },
-          error => reject(error));
-    });
+    const body = {
+      username: user.username,
+      sessionKey: this.sessionKey,
+      userInfo: user
+    };
+    return this.http.post(environment.backendUrl + 'updateAccountInfo', body).toPromise()
+      .then(() => {
+        this.user = user;
+        this.userUpdates.next(this.user);
+      });
   }
 
   sendBatch(batch: Batch): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      const body = {
-        username: this.user.username,
-        sessionKey: this.sessionKey,
-        batchId: batch.id
-      };
-
-      // todo: can we just map this???
-      this.http.post(environment.backendUrl + 'sendBatch', body).subscribe(() => resolve(), error => reject(error));
-    });
+    const body = {
+      username: this.user.username,
+      sessionKey: this.sessionKey,
+      batchId: batch.id
+    };
+    return this.http.post(environment.backendUrl + 'sendBatch', body).toPromise().then(() => null);
   }
 
   getIncomingBatches(): Promise<Batch[]> {
-    return new Promise<Batch[]>((resolve, reject) => {
-      const body = {username: this.user.username, sessionKey: this.sessionKey};
-      this.http.post(environment.backendUrl + 'getIncomingBatches', body)
-        .subscribe(
-          (response: {batches: Batch[]}) => resolve(response.batches),
-          error => reject(error)
-        );
-    });
+    const body = {username: this.user.username, sessionKey: this.sessionKey};
+    return this.http.post(environment.backendUrl + 'getIncomingBatches', body)
+      .toPromise().then((response: {batches: Batch[]}) => {
+        return response.batches;
+      });
   }
 
   getOrderHistory(): Promise<Order[]> {
-    return new Promise<Order[]>((resolve, reject) => {
-      const body = {username: this.user.username, sessionKey: this.sessionKey};
-      this.http.post(environment.backendUrl + 'getOrderHistory', body).subscribe(
-        (response: {orderHistory: Order[]}) => resolve(response.orderHistory),
-        error => reject(error)
-      );
-    });
+    const body = {username: this.user.username, sessionKey: this.sessionKey};
+    return this.http.post(environment.backendUrl + 'getOrderHistory', body)
+      .toPromise().then((response: {orderHistory: Order[]}) => response.orderHistory);
   }
 
   getOrderUpdates(ordersToMonitor: Order[]): Promise<Order[]> {
-    return new Promise<Order[]>((resolve, reject) => {
-      const body = {
-        username: this.user.username,
-        sessionKey: this.sessionKey,
-        orders: ordersToMonitor
-      };
-      this.http.post(environment.backendUrl + 'getOrderUpdates', body)
-        .subscribe(
-          (response: {orders: Order[]}) => resolve(response.orders),
-          error => reject(error)
-        );
-    });
+    const body = {
+      username: this.user.username,
+      sessionKey: this.sessionKey,
+      orders: ordersToMonitor
+    };
+    return this.http.post(environment.backendUrl + 'getOrderUpdates', body)
+      .toPromise().then((response: {orders: Order[]}) => response.orders);
   }
 
-  // todo: consolidate input arguments down
-  placeOrder(selectedBeverage: OrderOption, selectedAddOns: {key: string, value: string | boolean | number}[],
-             deliveryLocation: DeliveryLocation): Promise<Order> {
-    return new Promise<Order>((resolve, reject) => {
-      const body = {
-        username: this.user.username,
-        sessionKey: this.sessionKey,
-        orderInfo: new OrderInfo(selectedBeverage, selectedAddOns),
-        deliveryLocation: deliveryLocation
-      };
-      this.http.post(environment.backendUrl + 'placeOrder', body)
-        .subscribe((response: {order: Order}) => {
-          this.orderPlacedUpdate.next(response.order);
-          resolve(response.order);
-        }, error => reject(error));
-    });
+  placeOrder(orderInfo: OrderInfo, deliveryLocation: DeliveryLocation): Promise<Order> {
+    const body = {
+      username: this.user.username,
+      sessionKey: this.sessionKey,
+      orderInfo: orderInfo,
+      deliveryLocation: deliveryLocation
+    };
+    return this.http.post(environment.backendUrl + 'placeOrder', body)
+      .toPromise().then((response: {order: Order}) => {
+        this.orderPlacedUpdate.next(response.order);
+        return response.order;
+      });
   }
 
   getSystemDetails(): Promise<SystemDetails> {
-    return new Promise<SystemDetails>((resolve, reject) => {
-      const body = {
-        username: this.user.username,
-        sessionKey: this.sessionKey
-      };
-
-      this.http.post(environment.backendUrl + 'getSystemDetails', body).subscribe(
-        (response: SystemDetails) => resolve(response),
-        error => reject(error)
-      );
-    });
+    const body = {
+      username: this.user.username,
+      sessionKey: this.sessionKey
+    };
+    return this.http.post(environment.backendUrl + 'getSystemDetails', body)
+      .toPromise().then((response: SystemDetails) => response);
   }
 
   getVerticesAndEdges(): Promise<VerticesAndEdges> {
-    return new Promise<VerticesAndEdges>((resolve, reject) => {
-      const body = {
-        username: '',
-        sessionKey: ''
-      };
-
-      this.http.post(environment.backendUrl + 'getVerticesAndEdges', body).subscribe(
-        (response: VerticesAndEdges) => resolve(response),
-        error => reject(error)
-      );
-    });
+    const body = { username: '', sessionKey: '' }; // todo: is this needed?
+    return this.http.post(environment.backendUrl + 'getVerticesAndEdges', body)
+      .toPromise().then((response: VerticesAndEdges) => response);
   }
 
   getPath(vertices: any): Promise<Path> {
-    return new Promise<Path>((resolve, reject) => {
-      const body = {
-        username: '',
-        sessionKey: '',
-        vertexValues: vertices
-      };
-
-      // todo: can we just map this???
-      this.http.post(environment.backendUrl + 'getPath', body).subscribe(
-        (response: Path) => resolve(response),
-        error => reject(error)
-      );
-    });
+    const body = {
+      username: '',
+      sessionKey: '',
+      vertexValues: vertices
+    };
+    return this.http.post(environment.backendUrl + 'getPath', body)
+      .toPromise().then((response: Path) => response);
   }
 
   getPathWithHistory(vertices: any): Promise<Path> {
-    return new Promise<Path>((resolve, reject) => {
-      const body = {
-        username: '',
-        sessionKey: '',
-        vertexValues: vertices
-      };
-
-      // todo: can we just map this???
-      this.http.post(environment.backendUrl + 'getPathWithHistory', body).subscribe(
-        (response: Path) => resolve(response),
-        error => reject(error)
-      );
-    });
+    const body = {
+      username: '',
+      sessionKey: '',
+      vertexValues: vertices
+    };
+    return this.http.post(environment.backendUrl + 'getPathWithHistory', body).toPromise()
+      .then((response: Path) => response);
   }
 
 }

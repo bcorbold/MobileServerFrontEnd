@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 
 import { Component, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Batch } from '../../core/batch';
@@ -11,6 +12,8 @@ import { Order } from '../../core/order';
 import { RobotInfo } from '../../core/robot-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { IncomingBatchesIdentifier } from '../view-identifiers';
 
 @Component({
   selector: 'ms-incoming-batches',
@@ -24,8 +27,8 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
   incomingBatchSubscription: Subscription;
   configuredRobots: RobotInfo[];
 
-  constructor(private messageService: MessageService, private cache: CacheService) {
-    this.incomingBatchSubscription = this.cache.getIncomingBatches().subscribe(
+  constructor(private messageService: MessageService, private cache: CacheService, private dialog: MatDialog) {
+    this.incomingBatchSubscription = this.cache.getIncomingBatches().subscribe( // todo: error handling?
       (batches: Batch[]) => {
         // this is needed so that bartender can keep track of finished drinks after an update
         this.batches.forEach(batch => {
@@ -35,8 +38,7 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
           }
         });
         this.batches = batches;
-      },
-      error => console.error(error) // todo: do something?
+      }
     );
     this.cache.getEnvironmentDetails().then((envDetails: EnvironmentDetails) => {
       this.configuredRobots = envDetails.configuredRobots;
@@ -51,7 +53,16 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
   }
 
   sendBatch(batch: Batch) {
-    this.messageService.sendBatch(batch);
+    const modalData = {
+      origin: IncomingBatchesIdentifier,
+      batch: batch
+    };
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.messageService.sendBatch(batch);
+      }
+    });
   }
 
   ngOnDestroy(): void {
