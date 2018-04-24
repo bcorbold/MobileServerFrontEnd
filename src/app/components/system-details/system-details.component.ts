@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
-import { MatSnackBar } from '@angular/material';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
 import { RobotInfo } from '../../core/robot-info';

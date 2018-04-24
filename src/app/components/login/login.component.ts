@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { MatSnackBar } from '@angular/material';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
 

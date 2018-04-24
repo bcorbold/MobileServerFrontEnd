@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { Subject } from 'rxjs/Subject';
 
-import { MatSnackBar } from '@angular/material';
 import { Edge } from '../../core/edge';
 import { LocationMap } from '../../core/location-map';
 import { Vertex } from '../../core/vertex';
