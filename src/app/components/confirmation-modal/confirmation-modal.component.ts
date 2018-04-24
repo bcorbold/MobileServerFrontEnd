@@ -14,9 +14,7 @@ export class ConfirmationModalComponent {
   public incomingBatchesId = IncomingBatchesIdentifier;
   public placeOrderId = PlaceOrderIdentifier;
 
-  constructor(public dialogRef: MatDialogRef<ConfirmationModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(data);
-  }
+  constructor(public dialogRef: MatDialogRef<ConfirmationModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onNoClick(): void {
     this.dialogRef.close(false);
