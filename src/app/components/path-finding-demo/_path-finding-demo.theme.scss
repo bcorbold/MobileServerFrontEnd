@@ -1,6 +1,6 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-astar-demo-theme($theme) {
+@mixin ms-path-finding-demo-theme($theme, $ms-theme) {
 
   $warn: map-get($theme, warn);
 

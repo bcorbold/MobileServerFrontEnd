@@ -1,6 +1,9 @@
 import { Subject } from 'rxjs/Subject';
 
-export class CustomCircle {
+import { Edge } from '../../core/edge';
+import { Vertex } from '../../core/vertex';
+
+export class CanvasCircle {
   private radius = 25;
   private fillColor = '';
   private _isSelected = false;
@@ -9,18 +12,17 @@ export class CustomCircle {
               private SELECTED_COLOUR: string,
               private x: number,
               private y: number,
-              private actualX: number,
-              private actualY: number,
+              private vertex: Vertex,
               private ctx: CanvasRenderingContext2D,
               clickObservable: Subject<{x: number, y: number}>,
-              aStarResults: Subject<{fromX: number, fromY: number, toX: number, toY: number}[]>) {
+              aStarResults: Subject<Edge[]>) {
 
     this.fillColor = this.DEFAULT_COLOUR;
 
     this.draw();
 
-    clickObservable.subscribe((vals: {x: number, y: number}) => {
-      if (this.isClicked(vals.x, vals.y)) {
+    clickObservable.subscribe((clickedCoord: {x: number, y: number}) => {
+      if (this.isClicked(clickedCoord.x, clickedCoord.y)) {
         if (this._isSelected) {
           this.fillColor = this.DEFAULT_COLOUR;
         } else {
@@ -31,10 +33,10 @@ export class CustomCircle {
       }
     });
 
-    aStarResults.subscribe((path: {fromX: number, fromY: number, toX: number, toY: number}[]) => {
+    aStarResults.subscribe((edges: Edge[]) => {
       this.fillColor = this.DEFAULT_COLOUR;
-      path.forEach(edge => {
-        if (this.isPartOfPath(edge.fromX, edge.fromY) || this.isPartOfPath(edge.toX, edge.toY)) {
+      edges.forEach((edge: Edge) => {
+        if (this.isPartOfPath(edge.source) || this.isPartOfPath(edge.destination)) {
           this.fillColor = this.SELECTED_COLOUR;
         }
       });
@@ -72,23 +74,19 @@ export class CustomCircle {
 
   /**
    * This is used to see if the circle (vertex in this context) is part of the path
-   * @param {number} x
-   * @param {number} y
+   * @param {Vertex} testVertex
    * @returns {boolean}
    */
-  private isPartOfPath(x: number, y: number): boolean {
-    return (x === this.actualX && y === this.actualY);
+  private isPartOfPath(testVertex: Vertex): boolean {
+    return testVertex.xposition === this.vertex.xposition && testVertex.yposition === this.vertex.yposition;
   }
 
   public isSelected(): boolean {
     return this._isSelected;
   }
 
-  public getActualXY(): {x: number, y: number} {
-    return {
-      x: this.actualX,
-      y: this.actualY
-    };
+  public getVertex(): Vertex {
+    return this.vertex;
   }
 
   public reset() {

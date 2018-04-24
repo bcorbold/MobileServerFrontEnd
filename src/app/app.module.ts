@@ -17,13 +17,13 @@ import { CacheModule } from './services/cache/cache.module';
 import { MessageModule } from './services/message/message.module';
 
 import { AppComponent } from './app.component';
-import { AStarDemoComponent, AstarDemoModule } from './components/astar-demo/astar-demo.module';
+import { PathFindingDemoComponent, PathFindingDemoModule } from './components/path-finding-demo/path-finding-demo.module';
 
 const appRoutes: Routes = [
   { path: 'admin', component: HomeComponent },
   { path: 'user', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'astar', component: AStarDemoComponent },
+  { path: 'path-finding', component: PathFindingDemoComponent },
   { path: '',   redirectTo: 'login', pathMatch: 'full' }
 ];
 
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
       }
     ),
     AccountInfoModule,
-    AstarDemoModule,
+    PathFindingDemoModule,
     BrowserAnimationsModule,
     BrowserModule,
     CacheModule,

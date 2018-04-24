@@ -1,25 +1,27 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Path } from '../../core/path';
-import { VerticesAndEdges } from '../../core/vertices-and-edges';
+
+import { Edge } from '../../core/edge';
+import { LocationMap } from '../../core/location-map';
+import { Vertex } from '../../core/vertex';
 import { MessageService } from '../../services/message/message.service';
-import { CustomCircle } from './custom-circle';
-import { CustomLine } from './custom-line';
+import { CanvasCircle } from './canvas-circle';
+import { CanvasLine } from './canvas-line';
 
 @Component({
-  selector: 'ms-astar-demo',
-  templateUrl: './astar-demo.component.html',
-  styleUrls: ['./astar-demo.component.scss']
+  selector: 'ms-path-finding-demo',
+  templateUrl: './path-finding-demo.component.html',
+  styleUrls: ['./path-finding-demo.component.scss']
 })
-export class AStarDemoComponent implements AfterViewInit {
+export class PathFindingDemoComponent implements AfterViewInit {
   DEFAULT_COLOUR = '#E0F2F1';
   SELECTED_COLOUR = '#43A047';
 
   innerHeight = 100;
   innerWidth = 100;
 
-  circles = [];
-  lines = [];
+  circles: CanvasCircle[] = [];
+  lines: CanvasLine[] = [];
 
   linesCanvas: HTMLCanvasElement;
   linesCtx: CanvasRenderingContext2D;
@@ -28,20 +30,14 @@ export class AStarDemoComponent implements AfterViewInit {
   circlesCtx: CanvasRenderingContext2D;
 
   clickObservable = new Subject<{x: number, y: number}>();
-  aStarResults = new Subject<{
-    fromX: number,
-    fromY: number,
-    toX: number,
-    toY: number
-  }[]>();
+  aStarResults = new Subject<Edge[]>();
 
   constructor(private messageService: MessageService) {
-    this.innerHeight = (window.innerHeight) - 50;
-    this.innerWidth = (window.innerWidth) - 350;
+    this.innerHeight = window.innerHeight - 50;
+    this.innerWidth = window.innerWidth - 350;
   }
 
   ngAfterViewInit() {
-
     // line canvas stuff
     this.linesCanvas = <HTMLCanvasElement>document.getElementById('linesCnvs');
     this.linesCtx = this.linesCanvas.getContext('2d');
@@ -57,21 +53,20 @@ export class AStarDemoComponent implements AfterViewInit {
     this.linesCtx.stroke();
 
     // get the map
-    this.messageService.getVerticesAndEdges().then(response => {
+    this.messageService.getMap().then((map: LocationMap) => {
 
-      const maxXY: {x: number, y: number} = this.getMaxXY(response.vertices);
+      const maxXY: {x: number, y: number} = this.getMaxXY(map.vertices);
 
       // create circle objects
-      response.vertices.forEach(vertex => {
+      map.vertices.forEach(vertex => {
 
         // the +50 and -100 are to offset points from the edges of the canvas
-        const circle = new CustomCircle(
+        const circle = new CanvasCircle(
           this.DEFAULT_COLOUR,
           this.SELECTED_COLOUR,
-          this.scale(vertex.x, this.innerWidth, maxXY.x),
-          this.scale(vertex.y, this.innerHeight, maxXY.y),
-          vertex.x,
-          vertex.y,
+          this.scale(vertex.xposition, this.innerWidth, maxXY.x),
+          this.scale(vertex.yposition, this.innerHeight, maxXY.y),
+          vertex,
           this.circlesCtx,
           this.clickObservable,
           this.aStarResults
@@ -81,18 +76,15 @@ export class AStarDemoComponent implements AfterViewInit {
       });
 
       // create line objects
-      response.edges.forEach(edge => {
-        const line = new CustomLine(
+      map.edges.forEach(edge => {
+        const line = new CanvasLine(
           this.DEFAULT_COLOUR,
           this.SELECTED_COLOUR,
-          this.scale(edge.fromX, this.innerWidth, maxXY.x),
-          this.scale(edge.fromY, this.innerHeight, maxXY.y),
-          this.scale(edge.toX, this.innerWidth, maxXY.x),
-          this.scale(edge.toY, this.innerHeight, maxXY.y),
-          edge.fromX,
-          edge.fromY,
-          edge.toX,
-          edge.toY,
+          this.scale(edge.source.xposition, this.innerWidth, maxXY.x),
+          this.scale(edge.source.yposition, this.innerHeight, maxXY.y),
+          this.scale(edge.destination.xposition, this.innerWidth, maxXY.x),
+          this.scale(edge.destination.yposition, this.innerHeight, maxXY.y),
+          edge,
           this.linesCtx,
           this.aStarResults
         );
@@ -108,30 +100,19 @@ export class AStarDemoComponent implements AfterViewInit {
    */
   getPath() {
     const vertices = [];
-    this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
-    this.messageService.getPath(vertices).then((response) => {
-      this.aStarResults.next(response.path[0].edges);
-    });
-  }
-
-  /**
-   * Filter for the circles that have been selected and send them to the backend.
-   */
-  getPathWithHistory() {
-    const vertices = [];
-    this.circles.filter(circle => circle.isSelected()).forEach(circle => vertices.push(circle.getActualXY()));
-    this.messageService.getPathWithHistory(vertices).then((response) => {
-      this.recursiveLoopThrough(response.path);
-    });
+    this.circles
+      .filter((circle: CanvasCircle) => circle.isSelected())
+      .forEach((circle: CanvasCircle) => vertices.push(circle.getVertex()));
+    this.messageService.getPath(vertices).then((edges: Edge[]) => this.aStarResults.next(edges));
   }
 
   /**
    * Go through all of the paths. Wait for a bit between each one.
    * Also see comment for onClick for {aStarResults} observable shit
-   * @param {VerticesAndEdges[]} paths
+   * @param {LocationMap[]} paths
    */
-  recursiveLoopThrough(paths: VerticesAndEdges[]) {
-    const path: VerticesAndEdges = paths.shift();
+  private recursiveLoopThrough(paths: LocationMap[]) {
+    const path: LocationMap = paths.shift();
     this.aStarResults.next(path.edges);
     if (paths.length > 0) {
       setTimeout(() => {
@@ -154,12 +135,8 @@ export class AStarDemoComponent implements AfterViewInit {
    * Code equivalent of "Have you tried restarting it?"
    */
   reset() {
-    this.circles.forEach(circle => {
-      circle.reset();
-    });
-    this.lines.forEach(line => {
-      line.reset();
-    });
+    this.circles.forEach((circle: CanvasCircle) => circle.reset());
+    this.lines.forEach((line: CanvasLine) => line.reset());
   }
 
   /**
@@ -167,16 +144,16 @@ export class AStarDemoComponent implements AfterViewInit {
    * @param vertices
    * @returns {{x: number; y: number}}
    */
-  getMaxXY(vertices): {x: number, y: number} {
+  getMaxXY(vertices: Vertex[]): {x: number, y: number} {
     let maxX = 0;
     let maxY = 0;
-    vertices.forEach(vertex => {
-      if (vertex.x > maxX) {
-        maxX = vertex.x;
+    vertices.forEach((vertex: Vertex) => {
+      if (vertex.xposition > maxX) {
+        maxX = vertex.xposition;
       }
 
-      if (vertex.y > maxY) {
-        maxY = vertex.y;
+      if (vertex.yposition > maxY) {
+        maxY = vertex.yposition;
       }
     });
     return {x: maxX, y: maxY};

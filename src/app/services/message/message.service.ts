@@ -6,13 +6,14 @@ import { environment } from '../../../environments/environment';
 
 import { Batch } from '../../core/batch';
 import { DeliveryLocation } from '../../core/delivery-location';
+import { Edge } from '../../core/edge';
 import { EnvironmentDetails } from '../../core/environment-details';
+import { LocationMap } from '../../core/location-map';
 import { Order } from '../../core/order';
 import { OrderInfo } from '../../core/order-info';
-import { Path } from '../../core/path';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
-import { VerticesAndEdges } from '../../core/vertices-and-edges';
+import { Vertex } from '../../core/vertex';
 
 @Injectable()
 export class MessageService {
@@ -46,6 +47,7 @@ export class MessageService {
 
   logout(): Promise<void> {
     // todo: make sure all subscriptions are finished
+    // todo: change flag in the service, subs check that flag before next request, once they all give the "OK" resolve to this promise
     const body = {username: this.user.username, sessionKey: this.sessionKey};
     return this.http.post(environment.backendUrl + 'logout', body).toPromise()
       .then(() => {
@@ -124,30 +126,39 @@ export class MessageService {
       .toPromise().then((response: SystemDetails) => response);
   }
 
-  getVerticesAndEdges(): Promise<VerticesAndEdges> {
-    const body = { username: '', sessionKey: '' }; // todo: is this needed?
-    return this.http.post(environment.backendUrl + 'getVerticesAndEdges', body)
-      .toPromise().then((response: VerticesAndEdges) => response);
+  getMap(): Promise<LocationMap> {
+    return this.http.get(environment.backendUrl + 'getMap')
+      .toPromise().then((response: any) => {
+        const map = new LocationMap();
+
+        response.vertices.forEach((vertex: any) => {
+          map.vertices.push(new Vertex(vertex));
+        });
+
+        response.edges.forEach((edge: any) => {
+          map.edges.push(new Edge(edge));
+        });
+
+        return map;
+      });
   }
 
-  getPath(vertices: any): Promise<Path> {
+  getPath(vertices: Edge[]): Promise<Edge[]> {
     const body = {
       username: '',
       sessionKey: '',
       vertexValues: vertices
     };
     return this.http.post(environment.backendUrl + 'getPath', body)
-      .toPromise().then((response: Path) => response);
-  }
+      .toPromise().then(((response: any[]) => {
+        const convertedEdges: Edge[] = [];
 
-  getPathWithHistory(vertices: any): Promise<Path> {
-    const body = {
-      username: '',
-      sessionKey: '',
-      vertexValues: vertices
-    };
-    return this.http.post(environment.backendUrl + 'getPathWithHistory', body).toPromise()
-      .then((response: Path) => response);
+        response.forEach(edge => {
+          convertedEdges.push(new Edge(edge));
+        });
+
+        return convertedEdges;
+      }));
   }
 
 }
