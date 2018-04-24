@@ -5,7 +5,6 @@ import { isDefined } from '../../core/is-defined';
 import { OrderStates } from '../../core/lists/order-states';
 import { Order } from '../../core/order';
 import { CacheService } from '../../services/cache/cache.service';
-import { MessageService } from '../../services/message/message.service';
 
 @Component({
   selector: 'ms-order-history',
@@ -20,7 +19,7 @@ export class OrderHistoryComponent implements OnDestroy {
   @Output() reorder: EventEmitter<Order> = new EventEmitter<Order>();
   orderHistory: Order[] = [];
 
-  constructor(private messageService: MessageService, private cache: CacheService) {
+  constructor(private cache: CacheService) {
     this.orderHistorySubscription = this.cache.getOrderHistory().subscribe((orderHistory: Order[]) => this.orderHistory = orderHistory);
   }
 

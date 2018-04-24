@@ -5,9 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { CacheService } from '../../services/cache/cache.service';
-import { MessageService } from '../../services/message/message.service';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { ConfirmationModalModule } from '../confirmation-modal/confirmation-modal.module';
 
@@ -23,7 +23,8 @@ export { AccountInfoComponent } from './account-info.component';
     FormsModule,
     MatButtonModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSnackBarModule
   ],
   declarations: [
     AccountInfoComponent
@@ -35,8 +36,7 @@ export { AccountInfoComponent } from './account-info.component';
     AccountInfoComponent
   ],
   providers: [
-    CacheService,
-    MessageService
+    CacheService
   ]
 })
 export class AccountInfoModule { }

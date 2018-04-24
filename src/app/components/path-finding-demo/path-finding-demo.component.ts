@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
+import { MatSnackBar } from '@angular/material';
 import { Edge } from '../../core/edge';
 import { LocationMap } from '../../core/location-map';
 import { Vertex } from '../../core/vertex';
@@ -32,7 +33,7 @@ export class PathFindingDemoComponent implements AfterViewInit {
   clickObservable = new Subject<{x: number, y: number}>();
   aStarResults = new Subject<Edge[]>();
 
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService, private snackBar: MatSnackBar) {
     this.innerHeight = window.innerHeight - 50;
     this.innerWidth = window.innerWidth - 350;
   }
@@ -53,45 +54,48 @@ export class PathFindingDemoComponent implements AfterViewInit {
     this.linesCtx.stroke();
 
     // get the map
-    this.messageService.getMap().then((map: LocationMap) => {
+    this.messageService.getMap()
+      .then((map: LocationMap) => {
+        const maxXY: {x: number, y: number} = this.getMaxXY(map.vertices);
 
-      const maxXY: {x: number, y: number} = this.getMaxXY(map.vertices);
+        // create circle objects
+        map.vertices.forEach(vertex => {
+          // the +50 and -100 are to offset points from the edges of the canvas
+          const circle = new CanvasCircle(
+            this.DEFAULT_COLOUR,
+            this.SELECTED_COLOUR,
+            this.scale(vertex.xposition, this.innerWidth, maxXY.x),
+            this.scale(vertex.yposition, this.innerHeight, maxXY.y),
+            vertex,
+            this.circlesCtx,
+            this.clickObservable,
+            this.aStarResults
+          );
+          this.circles.push(circle);
+        });
 
-      // create circle objects
-      map.vertices.forEach(vertex => {
-
-        // the +50 and -100 are to offset points from the edges of the canvas
-        const circle = new CanvasCircle(
-          this.DEFAULT_COLOUR,
-          this.SELECTED_COLOUR,
-          this.scale(vertex.xposition, this.innerWidth, maxXY.x),
-          this.scale(vertex.yposition, this.innerHeight, maxXY.y),
-          vertex,
-          this.circlesCtx,
-          this.clickObservable,
-          this.aStarResults
-        );
-
-        this.circles.push(circle);
+        // create line objects
+        map.edges.forEach(edge => {
+          const line = new CanvasLine(
+            this.DEFAULT_COLOUR,
+            this.SELECTED_COLOUR,
+            this.scale(edge.source.xposition, this.innerWidth, maxXY.x),
+            this.scale(edge.source.yposition, this.innerHeight, maxXY.y),
+            this.scale(edge.destination.xposition, this.innerWidth, maxXY.x),
+            this.scale(edge.destination.yposition, this.innerHeight, maxXY.y),
+            edge,
+            this.linesCtx,
+            this.aStarResults
+          );
+          this.lines.push(line);
+        });
+      })
+      .catch(err => {
+        this.snackBar.open('Encountered an error while fetching the map.', 'Dismiss', {
+          duration: 30000,
+          panelClass: 'mat-snack-bar-error'
+        });
       });
-
-      // create line objects
-      map.edges.forEach(edge => {
-        const line = new CanvasLine(
-          this.DEFAULT_COLOUR,
-          this.SELECTED_COLOUR,
-          this.scale(edge.source.xposition, this.innerWidth, maxXY.x),
-          this.scale(edge.source.yposition, this.innerHeight, maxXY.y),
-          this.scale(edge.destination.xposition, this.innerWidth, maxXY.x),
-          this.scale(edge.destination.yposition, this.innerHeight, maxXY.y),
-          edge,
-          this.linesCtx,
-          this.aStarResults
-        );
-
-        this.lines.push(line);
-      });
-    });
   }
 
   /**
@@ -103,22 +107,14 @@ export class PathFindingDemoComponent implements AfterViewInit {
     this.circles
       .filter((circle: CanvasCircle) => circle.isSelected())
       .forEach((circle: CanvasCircle) => vertices.push(circle.getVertex()));
-    this.messageService.getPath(vertices).then((edges: Edge[]) => this.aStarResults.next(edges));
-  }
-
-  /**
-   * Go through all of the paths. Wait for a bit between each one.
-   * Also see comment for onClick for {aStarResults} observable shit
-   * @param {LocationMap[]} paths
-   */
-  private recursiveLoopThrough(paths: LocationMap[]) {
-    const path: LocationMap = paths.shift();
-    this.aStarResults.next(path.edges);
-    if (paths.length > 0) {
-      setTimeout(() => {
-        this.recursiveLoopThrough(paths);
-      }, 500);
-    }
+    this.messageService.getPath(vertices)
+      .then((edges: Edge[]) => this.aStarResults.next(edges))
+      .catch(err => {
+        this.snackBar.open('Encountered an error while trying to get the path.', 'Dismiss', {
+          duration: 30000,
+          panelClass: 'mat-snack-bar-error'
+        });
+      });
   }
 
   /**

@@ -1,5 +1,5 @@
 <div fxFlex fxLayout="column" class="ms-account-info-wrapper" ngClass.gt-md="ms-desktop-account" ngClass.lt-lg="ms-mobile-account" fxLayoutAlign="center stretch">
-  <mat-slide-toggle *ngIf="user.adminEnabled" fxShow fxHide.lt-lg fxFlexAlign="end" [(ngModel)]="isAdminView">Bartender view</mat-slide-toggle>
+  <mat-slide-toggle *ngIf="user.adminEnabled" fxShow fxHide.lt-lg fxFlexAlign="end" color="primary" [(ngModel)]="isAdminView">Bartender view</mat-slide-toggle>
 
   <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.lt-lg>
     <img class="ms-profile-picture" src="{{user.pictureUrl}}">

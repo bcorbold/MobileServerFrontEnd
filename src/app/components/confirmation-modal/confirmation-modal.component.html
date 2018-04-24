@@ -8,7 +8,7 @@
   <ol class="ms-modal-info">
     <li *ngFor="let order of data.batch.orders">
       <p>{{order.orderInfo.orderOption.name}}</p>
-      <ul *ngIf="order.orderInfo.selectedAddOns.length > 0">
+      <ul *ngIf="order.orderInfo.selectedAddOns && order.orderInfo.selectedAddOns.length > 0">
         <li *ngFor="let addOn of order.orderInfo.selectedAddOns">
           <i>{{addOn.key}}{{addOn.value !== true && addOn.value !== false ? ', ' + addOn.value : ''}}</i>
         </li>

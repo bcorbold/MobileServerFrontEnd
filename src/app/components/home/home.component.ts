@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { MatSnackBar } from '@angular/material';
 import { Order } from '../../core/order';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
@@ -41,14 +42,21 @@ export class HomeComponent {
     this._isAdminView = isAdminView;
   }
 
-  constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {
+  constructor(private messageService: MessageService, private cache: CacheService,
+              private router: Router, private snackBar: MatSnackBar) {
     this.isAdminView = this.cache.user.defaultView === 'bartender';
     this.adminEnabled = this.cache.user.adminEnabled;
     this.componentInView = this.isAdminView ? IncomingBatchesIdentifier : PlaceOrderIdentifier;
   }
 
   handleUserInfoChange(updatedUserInfo: UserInfo): void {
-    this.messageService.updateAccountInfo(updatedUserInfo);
+    this.messageService.updateAccountInfo(updatedUserInfo)
+      .catch(err => {
+        this.snackBar.open('Encountered an error while trying to update account information.', 'Dismiss', {
+          duration: 30000,
+          panelClass: 'mat-snack-bar-error'
+        });
+      });
   }
 
   populatePlaceOrder(pastOrder: Order): void {

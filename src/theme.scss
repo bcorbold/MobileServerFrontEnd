@@ -11,6 +11,7 @@
   $background-palette: mat-palette($mat-grey);
   $ms-theme: (
     background: white,
+    background-palette: $background-palette,
     header-background: mat-color($background-palette, 300),
     unselected-row: mat-color($background-palette, 400),
     selected-row: mat-color($background-palette, 500),
@@ -53,6 +54,7 @@
   $background-palette: mat-palette($mat-grey);
   $ms-theme: (
     background: mat-color($background-palette, 800),
+    background-palette: $background-palette,
     header-background: mat-color($background-palette, 900),
     unselected-row: mat-color($background-palette, 700),
     selected-row: mat-color($background-palette, 600),

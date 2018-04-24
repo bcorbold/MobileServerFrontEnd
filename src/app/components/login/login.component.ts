@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { MatSnackBar } from '@angular/material';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
 
@@ -16,7 +17,8 @@ export class LoginComponent {
   loginMessage: string;
   isLoading = false;
 
-  constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {}
+  constructor(private messageService: MessageService, private cache: CacheService,
+              private router: Router, private snackBar: MatSnackBar) {}
 
   attemptLogin(): void {
     this.loginMessage = '';
@@ -41,7 +43,13 @@ export class LoginComponent {
       })
       .catch((error) => {
         this.isLoading = false;
-        this.loginMessage = error;
+        this.loginMessage = 'Incorrect username or password. Try again.';
+        if (error) {
+          this.snackBar.open('Encountered an error while trying to login.', 'Dismiss', {
+            duration: 30000,
+            panelClass: 'mat-snack-bar-error'
+          });
+        }
       });
   }
 }

@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { CacheService } from '../../services/cache/cache.service';
@@ -36,6 +37,7 @@ export { IncomingBatchesComponent } from './incoming-batches.component';
     MatChipsModule,
     MatIconModule,
     MatInputModule,
+    MatSnackBarModule,
     MatTooltipModule
   ],
   providers: [

@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
+import { MatSnackBar } from '@angular/material';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
 import { RobotInfo } from '../../core/robot-info';
@@ -20,10 +21,17 @@ export class SystemDetailsComponent implements OnDestroy {
   systemDetails: SystemDetails;
   configuredRobots: RobotInfo[];
 
-  constructor(private messageService: MessageService, private cache: CacheService) {
-    this.cache.getEnvironmentDetails().then((environmentDetails: EnvironmentDetails) => {
-      this.configuredRobots = environmentDetails.configuredRobots;
-    });
+  constructor(private messageService: MessageService, private cache: CacheService, private snackBar: MatSnackBar) {
+    this.cache.getEnvironmentDetails()
+      .then((environmentDetails: EnvironmentDetails) => {
+        this.configuredRobots = environmentDetails.configuredRobots;
+      })
+      .catch(err => {
+        this.snackBar.open('Encountered an error while trying to fetch configuration information.', 'Dismiss', {
+          duration: 30000,
+          panelClass: 'mat-snack-bar-error'
+        });
+      });
 
     this.systemDetailsSubscription = this.cache.getSystemDetails().subscribe(
       (systemDetails: SystemDetails) => this.systemDetails = systemDetails

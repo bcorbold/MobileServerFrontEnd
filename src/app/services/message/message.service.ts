@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { environment } from '../../../environments/environment';
 
+import { reject } from 'q';
 import { Batch } from '../../core/batch';
 import { DeliveryLocation } from '../../core/delivery-location';
 import { Edge } from '../../core/edge';
@@ -14,7 +15,6 @@ import { OrderInfo } from '../../core/order-info';
 import { SystemDetails } from '../../core/system-details';
 import { UserInfo } from '../../core/user-info';
 import { Vertex } from '../../core/vertex';
-import { reject } from 'q';
 
 @Injectable()
 export class MessageService {
@@ -58,7 +58,7 @@ export class MessageService {
           retryCount++;
           return this.login(username, password, retryCount + 1);
         }
-        return Promise.reject(err);
+        return Promise.reject(err.status === MessageService.retryErrorCode);
       });
   }
 
