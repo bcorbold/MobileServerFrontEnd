@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { CacheService } from '../../services/cache/cache.service';
@@ -18,6 +19,7 @@ export { SystemDetailsComponent } from './system-details.component';
     FlexLayoutModule,
     FormsModule,
     MatChipsModule,
+    MatSnackBarModule,
     MatTooltipModule
   ],
   declarations: [

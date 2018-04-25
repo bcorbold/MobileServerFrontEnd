@@ -1,3 +1,14 @@
 @import '~@angular/material/_theming.scss';
 
-@mixin ms-new-order-theme($theme) {}
+@mixin ms-place-order-theme($theme, $ms-theme) {
+  .ms-desktop-order {
+
+    input.mat-input-element {
+      color: map-get($ms-theme, text) !important;
+    }
+
+    p {
+      color: map-get($ms-theme, text) !important;
+    }
+  }
+}

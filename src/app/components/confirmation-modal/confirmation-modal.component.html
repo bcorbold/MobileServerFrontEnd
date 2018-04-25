@@ -1,0 +1,35 @@
+<div *ngIf="data.origin === accountInfoId">
+  <p class="ms-modal-message">Are you sure you want to change these account settings?</p>
+</div>
+
+<div *ngIf="data.origin === incomingBatchesId">
+  <p class="ms-modal-message">Are you sure you want to send the following batch?</p>
+
+  <ol class="ms-modal-info">
+    <li *ngFor="let order of data.batch.orders">
+      <p>{{order.orderInfo.orderOption.name}}</p>
+      <ul *ngIf="order.orderInfo.selectedAddOns && order.orderInfo.selectedAddOns.length > 0">
+        <li *ngFor="let addOn of order.orderInfo.selectedAddOns">
+          <i>{{addOn.key}}{{addOn.value !== true && addOn.value !== false ? ', ' + addOn.value : ''}}</i>
+        </li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<div *ngIf="data.origin === placeOrderId">
+  <p class="ms-modal-message">Are you sure you want to place the following order?</p>
+
+  <p class="ms-modal-info">Delivery Location: <i>{{data.deliveryLocation.name}}</i></p>
+  <p class="ms-modal-info">Beverage: <i>{{data.orderInfo.orderOption.name}}</i></p>
+  <ul class="ms-modal-info" *ngIf="data.orderInfo.selectedAddOns.length > 0">
+    <li *ngFor="let addOn of data.orderInfo.selectedAddOns">
+      <i>{{addOn.key}}{{addOn.value !== true && addOn.value !== false ? ', ' + addOn.value : ''}}</i>
+    </li>
+  </ul>
+</div>
+
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end end">
+  <button mat-button color="primary" [mat-dialog-close]="true">Yes</button>
+  <button mat-button color="warn" [mat-dialog-close]="false">No</button>
+</mat-dialog-actions>

@@ -1,6 +1,8 @@
 /deep/
 mat-chip {
-  padding: 0.2em 0.5em !important;
+  min-width: 36px;
+  justify-content: center;
+  padding: 2px 8px !important;
   font-weight: 300 !important;
-  margin: 0.2em;
+  margin: 2px;
 }

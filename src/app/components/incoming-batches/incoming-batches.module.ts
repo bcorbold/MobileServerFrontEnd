@@ -6,10 +6,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.module';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalModule } from '../confirmation-modal/confirmation-modal.module';
 
 import { IncomingBatchesComponent } from './incoming-batches.component';
 
@@ -19,10 +22,14 @@ export { IncomingBatchesComponent } from './incoming-batches.component';
   declarations: [
     IncomingBatchesComponent
   ],
+  entryComponents: [
+    ConfirmationModalComponent
+  ],
   exports: [
     IncomingBatchesComponent
   ],
   imports: [
+    ConfirmationModalModule,
     CommonModule,
     FlexLayoutModule,
     FormsModule,
@@ -30,6 +37,7 @@ export { IncomingBatchesComponent } from './incoming-batches.component';
     MatChipsModule,
     MatIconModule,
     MatInputModule,
+    MatSnackBarModule,
     MatTooltipModule
   ],
   providers: [

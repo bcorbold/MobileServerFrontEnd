@@ -1,38 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+import { PathFindingDemoComponent } from './path-finding-demo.component';
 
-import { MapEditorComponent } from './map-editor.component';
-import { MatDialogModule } from '@angular/material';
-
-export { MapEditorComponent } from './map-editor.component';
+export { PathFindingDemoComponent } from './path-finding-demo.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FlexLayoutModule,
-    FormsModule,
     MatButtonModule,
-    MatInputModule,
-    MatProgressBarModule,
-    MatDialogModule
+    MatSnackBarModule
   ],
   declarations: [
-    MapEditorComponent
+    PathFindingDemoComponent
   ],
   exports: [
-    MapEditorComponent
+    PathFindingDemoComponent
   ],
   providers: [
     CacheService,
     MessageService
   ]
 })
-export class MapEditorModule { }
+export class PathFindingDemoModule { }

@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
@@ -11,10 +12,13 @@ import { DeliveryLocation } from '../../core/delivery-location';
 import { EnvironmentDetails } from '../../core/environment-details';
 import { isDefined } from '../../core/is-defined';
 import { Order } from '../../core/order';
+import { OrderInfo } from '../../core/order-info';
 import { OrderOption } from '../../core/order-option';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { PlaceOrderIdentifier } from '../view-identifiers';
 
 @Component({
   selector: 'ms-place-order',
@@ -54,7 +58,8 @@ export class PlaceOrderComponent {
   beverageControl: FormControl;
   filteredBeverages: Observable<OrderOption[]>;
 
-  constructor(private messageService: MessageService, private cache: CacheService) {
+  constructor(private messageService: MessageService, private cache: CacheService,
+              private dialog: MatDialog, private snackBar: MatSnackBar) {
     // getting user/environment information to set up forms
     this.cache.getEnvironmentDetails()
       .then((envDetails: EnvironmentDetails) => this.environmentDetails = envDetails)
@@ -135,10 +140,26 @@ export class PlaceOrderComponent {
   }
 
   placeOrder(): void {
-    // todo: need to add validation to the form
-    // todo: Should give the user some sort of feedback on the responses
-    // todo: should just pass in an OrderInfo object
-    this.messageService.placeOrder(this.selectedBeverage, this.selectedAddOns, this.selectedDeliveryLocation);
+    const orderInfo = new OrderInfo(this.selectedBeverage, this.selectedAddOns);
+
+    const modalData = {
+      origin: PlaceOrderIdentifier,
+      orderInfo: orderInfo,
+      deliveryLocation: this.selectedDeliveryLocation
+    };
+
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.messageService.placeOrder(orderInfo, this.selectedDeliveryLocation)
+          .catch(err => {
+            this.snackBar.open('Encountered an error while trying to place order.', 'Dismiss', {
+              duration: 30000,
+              panelClass: 'mat-snack-bar-error'
+            });
+          });
+      }
+    });
   }
 
   resetOrder(): void {

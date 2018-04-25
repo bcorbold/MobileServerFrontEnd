@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { EnvironmentDetails } from '../../core/environment-details';
 import { UserInfo } from '../../core/user-info';
 import { CacheService } from '../../services/cache/cache.service';
-import { MessageService } from '../../services/message/message.service';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { AccountInfoIdentifier } from '../view-identifiers';
 
 @Component({
   selector: 'ms-account-info',
@@ -30,9 +32,16 @@ export class AccountInfoComponent implements OnInit {
   environmentDetails: EnvironmentDetails;
   user: UserInfo;
 
-  constructor(private router: Router, private messageService: MessageService, private cache: CacheService) {
+  constructor(private router: Router, private cache: CacheService, private dialog: MatDialog, private snackBar: MatSnackBar) {
     this.environmentDetails = new EnvironmentDetails();
-    this.cache.getEnvironmentDetails().then((envDetails) => this.environmentDetails = envDetails);
+    this.cache.getEnvironmentDetails()
+      .then((envDetails) => this.environmentDetails = envDetails)
+      .catch(err => {
+        this.snackBar.open('Encountered an error while trying to fetch configuration information.', 'Dismiss', {
+          duration: 30000,
+          panelClass: 'mat-snack-bar-error'
+        });
+      });
     this.user = this.cache.user;
   }
 
@@ -41,12 +50,14 @@ export class AccountInfoComponent implements OnInit {
   }
 
   updateAccountInfo(): void {
-    this.userUpdate.emit(this.user);
-    this.defaultUserInfo = new UserInfo(this.user);
-  }
-
-  logout(): void {
-    this.messageService.logout().then(() => this.router.navigate(['/']));
+    const modalData = {origin: AccountInfoIdentifier};
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userUpdate.emit(this.user);
+        this.defaultUserInfo = new UserInfo(this.user);
+      }
+    });
   }
 
   resetAccountInfo(): void {
