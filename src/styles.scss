@@ -51,3 +51,13 @@ h1, h2, h3, p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.mat-snack-bar-error {
+  padding: 32px;
+  font-style: italic;
+
+  .mat-simple-snackbar-action {
+    font-weight: 600;
+    font-style: normal;
+  }
+}

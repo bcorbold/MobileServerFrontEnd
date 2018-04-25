@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import { Component, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Batch } from '../../core/batch';
@@ -27,7 +27,8 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
   incomingBatchSubscription: Subscription;
   configuredRobots: RobotInfo[];
 
-  constructor(private messageService: MessageService, private cache: CacheService, private dialog: MatDialog) {
+  constructor(private messageService: MessageService, private cache: CacheService,
+              private dialog: MatDialog, private snackBar: MatSnackBar) {
     this.incomingBatchSubscription = this.cache.getIncomingBatches().subscribe( // todo: error handling?
       (batches: Batch[]) => {
         // this is needed so that bartender can keep track of finished drinks after an update
@@ -38,11 +39,13 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
           }
         });
         this.batches = batches;
+      },
+      (error) => {
+        console.log(error);
       }
     );
-    this.cache.getEnvironmentDetails().then((envDetails: EnvironmentDetails) => {
-      this.configuredRobots = envDetails.configuredRobots;
-    });
+    this.cache.getEnvironmentDetails()
+      .then((envDetails: EnvironmentDetails) => this.configuredRobots = envDetails.configuredRobots);
   }
 
   updateOrderStatus(order: Order, batch: Batch) {
@@ -60,7 +63,13 @@ export class IncomingBatchesComponent implements OnDestroy { // todo: getting an
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.messageService.sendBatch(batch);
+        this.messageService.sendBatch(batch)
+          .catch(err => {
+            this.snackBar.open('Encountered an error while trying to send the batch.', 'Dismiss', {
+              duration: 30000,
+              panelClass: 'mat-snack-bar-error'
+            });
+          });
       }
     });
   }

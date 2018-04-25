@@ -9,6 +9,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MediaIfModule } from '../../directives/media-if.module';
 import { CacheService } from '../../services/cache/cache.service';
@@ -33,6 +34,7 @@ export { PlaceOrderComponent } from './place-order.component';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    MatSnackBarModule,
     MediaIfModule,
     ReactiveFormsModule
   ],

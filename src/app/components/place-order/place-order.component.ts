@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
@@ -58,7 +58,8 @@ export class PlaceOrderComponent {
   beverageControl: FormControl;
   filteredBeverages: Observable<OrderOption[]>;
 
-  constructor(private messageService: MessageService, private cache: CacheService, private dialog: MatDialog) {
+  constructor(private messageService: MessageService, private cache: CacheService,
+              private dialog: MatDialog, private snackBar: MatSnackBar) {
     // getting user/environment information to set up forms
     this.cache.getEnvironmentDetails()
       .then((envDetails: EnvironmentDetails) => this.environmentDetails = envDetails)
@@ -150,7 +151,13 @@ export class PlaceOrderComponent {
     const dialogRef = this.dialog.open(ConfirmationModalComponent, {data: modalData});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.messageService.placeOrder(orderInfo, this.selectedDeliveryLocation);
+        this.messageService.placeOrder(orderInfo, this.selectedDeliveryLocation)
+          .catch(err => {
+            this.snackBar.open('Encountered an error while trying to place order.', 'Dismiss', {
+              duration: 30000,
+              panelClass: 'mat-snack-bar-error'
+            });
+          });
       }
     });
   }

@@ -22,4 +22,15 @@
   @include ms-place-order-theme($theme, $ms-theme);
   @include ms-system-details-theme($theme, $ms-theme);
 
+  $warn: map-get($theme, warn);
+  $background-palette: map-get($ms-theme, background-palette);
+
+  .mat-snack-bar-error {
+    background-color: mat-color($warn);
+
+    ::selection {
+      background-color: mat-color($background-palette, 500, 0.6);
+    }
+  }
+
 }

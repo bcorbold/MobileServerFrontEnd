@@ -1,6 +1,7 @@
 # [1.1.0](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.2.0) - Released (TBD)
 - (feat): `PathFindingDemoComponent` updated for pre-calculated paths
 - (feat): Added `ConfirmationModalComponent` for added user validation
+- (feat): `MessageService` now retries requests if failed the first time
 - (style): App now has dark and light theme ready for use
 
 # [1.1.0](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.1.0) - Released (15-04-2018)

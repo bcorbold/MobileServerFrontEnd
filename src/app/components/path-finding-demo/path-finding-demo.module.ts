@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { CacheService } from '../../services/cache/cache.service';
 import { MessageService } from '../../services/message/message.service';
@@ -13,7 +14,8 @@ export { PathFindingDemoComponent } from './path-finding-demo.component';
   imports: [
     CommonModule,
     FlexLayoutModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   declarations: [
     PathFindingDemoComponent

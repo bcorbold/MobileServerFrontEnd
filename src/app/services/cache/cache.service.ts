@@ -3,7 +3,6 @@ import 'rxjs/add/observable/interval';
 
 import { Injectable, OnDestroy } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -151,8 +150,7 @@ export class CacheService implements OnDestroy {
           .then(environmentDetails => {
             this.environmentDetails = environmentDetails;
             resolve(this.environmentDetails);
-          })
-          .catch(error => reject(error));
+          });
       });
     }
   }
