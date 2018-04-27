@@ -2,7 +2,7 @@
   <mat-slide-toggle *ngIf="user.adminEnabled" fxShow fxHide.lt-lg fxFlexAlign="end" color="primary" [(ngModel)]="isAdminView">Bartender view</mat-slide-toggle>
 
   <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxShow fxHide.lt-lg>
-    <img class="ms-profile-picture" src="{{user.pictureUrl}}">
+    <img class="ms-profile-picture" src="{{user.username == 'guest' ? '../../../assets/generalReposti.gif' : user.pictureUrl}}">
 
     <div fxFlex fxLayout="column" class="ms-account-info-container">
       <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
@@ -43,7 +43,7 @@
   <div fxFlex fxHide fxShow.lt-lg fxLayout="column" fxLayoutAlign="space-between stretch" id="msAccountInfoMobile">
 
     <div fxLayout="column" fxLayoutAlign="start center">
-      <img class="ms-profile-picture" src="{{user.pictureUrl}}">
+      <img class="ms-profile-picture" src="{{user.username == 'guest' ? '../../../assets/generalReposti.gif' : user.pictureUrl}}">
 
       <h1 class="ms-header">{{user.firstName}} {{user.lastName}}</h1>
       <p class="ms-light-text">{{user.username}}</p>

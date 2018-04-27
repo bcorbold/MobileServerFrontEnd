@@ -1,3 +1,6 @@
+# [1.2.](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.2.1) - Released (25-04-2018)
+- (feat): Added more memes for final demo
+
 # [1.2.0](https://github.com/bcorbold/MobileServerFrontEnd/tree/1.2.0) - Released (25-04-2018)
 - (feat): `PathFindingDemoComponent` updated for pre-calculated paths
 - (feat): Added `ConfirmationModalComponent` for added user validation
