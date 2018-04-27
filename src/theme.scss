@@ -5,7 +5,7 @@
 @include mat-core();
 
 .ms-light-theme {
-  $primary: mat-palette($mat-green, 600);
+  $primary: mat-palette($mat-green, 700);
   $accent: mat-palette($mat-cyan, 600);
   $warn: mat-palette($mat-red);
   $background-palette: mat-palette($mat-grey);
